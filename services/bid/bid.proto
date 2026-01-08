@@ -1,0 +1,243 @@
+syntax = "proto3";
+
+package services.bid.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/services/bid;bidv1";
+
+import "google/protobuf/timestamp.proto";
+
+service BidService {
+  // CreateBid creates a new bid from organization to request
+  rpc CreateBid(CreateBidRequest) returns (CreateBidResponse);
+  
+  // GetBid returns bid by ID
+  rpc GetBid(GetBidRequest) returns (GetBidResponse);
+  
+  // UpdateBid updates a bid
+  rpc UpdateBid(UpdateBidRequest) returns (UpdateBidResponse);
+  
+  // DeleteBid deletes a bid
+  rpc DeleteBid(DeleteBidRequest) returns (DeleteBidResponse);
+  
+  // ListBids lists bids with filters
+  rpc ListBids(ListBidsRequest) returns (ListBidsResponse);
+  
+  // GetBidsByRequest returns bids for a request
+  rpc GetBidsByRequest(GetBidsByRequestRequest) returns (GetBidsByRequestResponse);
+  
+  // GetBidsByOrganization returns bids for an organization
+  rpc GetBidsByOrganization(GetBidsByOrganizationRequest) returns (GetBidsByOrganizationResponse);
+  
+  // AcceptBid accepts a bid (user accepts organization's bid)
+  rpc AcceptBid(AcceptBidRequest) returns (AcceptBidResponse);
+  
+  // RejectBid rejects a bid (user rejects organization's bid)
+  rpc RejectBid(RejectBidRequest) returns (RejectBidResponse);
+  
+  // CancelBid cancels a bid (organization cancels their bid)
+  rpc CancelBid(CancelBidRequest) returns (CancelBidResponse);
+  
+  // FindMatchingOrganizations finds organizations that match request criteria (for matching service)
+  rpc FindMatchingOrganizations(FindMatchingOrganizationsRequest) returns (FindMatchingOrganizationsResponse);
+}
+
+enum BidType {
+  BID_TYPE_UNSPECIFIED = 0;
+  BID_TYPE_STO = 1;              // СТО
+  BID_TYPE_PARTS_SUPPLIER = 2;   // Поставщик запчастей
+}
+
+enum BidStatus {
+  BID_STATUS_UNSPECIFIED = 0;
+  BID_STATUS_PENDING = 1;
+  BID_STATUS_ACCEPTED = 2;
+  BID_STATUS_REJECTED = 3;
+  BID_STATUS_CANCELLED = 4;
+}
+
+message Bid {
+  int64 id = 1;
+  int64 request_id = 2;
+  BidType type = 3;
+  BidStatus status = 4;
+  int64 organization_id = 5;
+  
+  // For STO
+  optional int64 price = 6;
+  string currency = 7;
+  optional int32 duration = 8;  // Длительность ремонта в днях
+  
+  // For Parts Supplier
+  repeated BidPart parts = 9;
+  
+  string description = 10;
+  repeated string photos = 11;
+  
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+}
+
+message BidPart {
+  int64 id = 1;
+  int64 bid_id = 2;
+  string part_name = 3;
+  string part_number = 4;
+  int32 quantity = 5;
+  int64 price = 6;
+  string condition = 7;        // new, used, refurbished
+  string availability = 8;     // in_stock, on_order, unavailable
+}
+
+// CreateBid
+message CreateBidRequest {
+  int64 request_id = 1;
+  BidType type = 2;
+  int64 organization_id = 3;
+  
+  // For STO
+  optional int64 price = 4;
+  string currency = 5;
+  optional int32 duration = 6;
+  
+  // For Parts Supplier
+  repeated CreateBidPartRequest parts = 7;
+  
+  string description = 8;
+  repeated string photos = 9;
+}
+
+message CreateBidPartRequest {
+  string part_name = 1;
+  string part_number = 2;
+  int32 quantity = 3;
+  int64 price = 4;
+  string condition = 5;
+  string availability = 6;
+}
+
+message CreateBidResponse {
+  Bid bid = 1;
+}
+
+// GetBid
+message GetBidRequest {
+  int64 bid_id = 1;
+}
+
+message GetBidResponse {
+  Bid bid = 1;
+}
+
+// UpdateBid
+message UpdateBidRequest {
+  int64 bid_id = 1;
+  int64 organization_id = 2;
+  
+  optional int64 price = 3;
+  string currency = 4;
+  optional int32 duration = 5;
+  repeated CreateBidPartRequest parts = 6;
+  optional string description = 7;
+  repeated string photos = 8;
+}
+
+message UpdateBidResponse {
+  Bid bid = 1;
+}
+
+// DeleteBid
+message DeleteBidRequest {
+  int64 bid_id = 1;
+  int64 organization_id = 2;
+}
+
+message DeleteBidResponse {
+  bool success = 1;
+}
+
+// ListBids
+message ListBidsRequest {
+  BidType type = 1;
+  BidStatus status = 2;
+  int64 organization_id = 3;
+  int64 request_id = 4;
+  int32 page = 5;
+  int32 page_size = 6;
+}
+
+message ListBidsResponse {
+  repeated Bid bids = 1;
+  int32 total = 2;
+}
+
+// GetBidsByRequest
+message GetBidsByRequestRequest {
+  int64 request_id = 1;
+  BidStatus status = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message GetBidsByRequestResponse {
+  repeated Bid bids = 1;
+  int32 total = 2;
+}
+
+// GetBidsByOrganization
+message GetBidsByOrganizationRequest {
+  int64 organization_id = 1;
+  BidStatus status = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message GetBidsByOrganizationResponse {
+  repeated Bid bids = 1;
+  int32 total = 2;
+}
+
+// AcceptBid
+message AcceptBidRequest {
+  int64 bid_id = 1;
+  int64 user_id = 2;
+}
+
+message AcceptBidResponse {
+  Bid bid = 1;
+}
+
+// RejectBid
+message RejectBidRequest {
+  int64 bid_id = 1;
+  int64 user_id = 2;
+}
+
+message RejectBidResponse {
+  Bid bid = 1;
+}
+
+// CancelBid
+message CancelBidRequest {
+  int64 bid_id = 1;
+  int64 organization_id = 2;
+}
+
+message CancelBidResponse {
+  Bid bid = 1;
+}
+
+// FindMatchingOrganizations (for matching service)
+message FindMatchingOrganizationsRequest {
+  int64 request_id = 1;
+  int64 group_id = 2;
+  repeated int64 category_ids = 3;
+  int64 car_make_id = 4;
+  int64 car_model_id = 5;
+  int32 year = 6;
+  int64 city_id = 7;
+}
+
+message FindMatchingOrganizationsResponse {
+  repeated int64 organization_ids = 1;
+}
+
