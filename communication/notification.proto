@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package communication.notification.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/communication/notification/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service NotificationService {
+  rpc SendPush(SendPushRequest) returns (SendPushResponse);
+  rpc SendSMS(SendSMSRequest) returns (SendSMSResponse);
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+  rpc MarkAsRead(MarkAsReadRequest) returns (MarkAsReadResponse);
+  rpc GetUnreadCount(GetUnreadCountRequest) returns (GetUnreadCountResponse);
+  rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse);
+  rpc UnregisterDevice(UnregisterDeviceRequest) returns (UnregisterDeviceResponse);
+}
+
+enum NotificationType {
+  NOTIFICATION_TYPE_UNSPECIFIED = 0;
+  NOTIFICATION_TYPE_PUSH = 1;
+  NOTIFICATION_TYPE_SMS = 2;
+  NOTIFICATION_TYPE_EMAIL = 3;
+}
+
+enum NotificationCategory {
+  NOTIFICATION_CATEGORY_UNSPECIFIED = 0;
+  NOTIFICATION_CATEGORY_CHAT = 1;
+  NOTIFICATION_CATEGORY_ORDER = 2;
+  NOTIFICATION_CATEGORY_PROMO = 3;
+  NOTIFICATION_CATEGORY_SYSTEM = 4;
+  NOTIFICATION_CATEGORY_JOB = 5;
+}
+
+message Notification {
+  string id = 1;
+  int64 user_id = 2;
+  NotificationType type = 3;
+  NotificationCategory category = 4;
+  string title = 5;
+  string body = 6;
+  map<string, string> data = 7;
+  bool is_read = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message SendPushRequest {
+  int64 user_id = 1;
+  string title = 2;
+  string body = 3;
+  NotificationCategory category = 4;
+  map<string, string> data = 5;
+}
+
+message SendPushResponse {
+  bool success = 1;
+  int32 devices_sent = 2;
+}
+
+message SendSMSRequest {
+  string phone = 1;
+  string message = 2;
+}
+
+message SendSMSResponse {
+  bool success = 1;
+}
+
+message SendEmailRequest {
+  string email = 1;
+  string subject = 2;
+  string body = 3;
+  string template = 4;
+  map<string, string> template_data = 5;
+}
+
+message SendEmailResponse {
+  bool success = 1;
+}
+
+message GetNotificationsRequest {
+  int64 user_id = 1;
+  NotificationCategory category = 2;
+  bool unread_only = 3;
+  int32 page = 4;
+  int32 page_size = 5;
+}
+
+message GetNotificationsResponse {
+  repeated Notification notifications = 1;
+  int32 total = 2;
+}
+
+message MarkAsReadRequest {
+  int64 user_id = 1;
+  repeated string notification_ids = 2;
+  bool mark_all = 3;
+}
+
+message MarkAsReadResponse {
+  int32 marked_count = 1;
+}
+
+message GetUnreadCountRequest {
+  int64 user_id = 1;
+}
+
+message GetUnreadCountResponse {
+  int32 count = 1;
+}
+
+message RegisterDeviceRequest {
+  int64 user_id = 1;
+  string device_id = 2;
+  string fcm_token = 3;
+  string platform = 4;
+}
+
+message RegisterDeviceResponse {
+  bool success = 1;
+}
+
+message UnregisterDeviceRequest {
+  int64 user_id = 1;
+  string device_id = 2;
+}
+
+message UnregisterDeviceResponse {
+  bool success = 1;
+}
+

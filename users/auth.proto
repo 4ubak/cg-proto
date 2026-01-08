@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package users.auth.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/auth/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service AuthService {
+  rpc SendCode(SendCodeRequest) returns (SendCodeResponse);
+  rpc VerifyCode(VerifyCodeRequest) returns (VerifyCodeResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc LoginByInviteCode(LoginByInviteCodeRequest) returns (LoginByInviteCodeResponse);
+}
+
+message SendCodeRequest {
+  string phone = 1;
+}
+
+message SendCodeResponse {
+  bool success = 1;
+  int32 retry_after = 2;
+}
+
+message VerifyCodeRequest {
+  string phone = 1;
+  string code = 2;
+  string device_id = 3;
+}
+
+message VerifyCodeResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  int64 user_id = 3;
+  bool is_new_user = 4;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message LogoutRequest {
+  string session_id = 1;
+}
+
+message LogoutResponse {
+  bool success = 1;
+}
+
+message ValidateTokenRequest {
+  string access_token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  int64 user_id = 2;
+  string session_id = 3;
+}
+
+message LoginByInviteCodeRequest {
+  string invite_code = 1;
+  string phone = 2;
+  string device_id = 3;
+}
+
+message LoginByInviteCodeResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  int64 user_id = 3;
+  int64 organization_id = 4;
+  string role = 5;
+}
+

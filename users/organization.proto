@@ -1,0 +1,191 @@
+syntax = "proto3";
+
+package users.organization.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/organization/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service OrganizationService {
+  rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse);
+  rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse);
+  rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
+  
+  rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
+  rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
+  rpc UpdateMemberRole(UpdateMemberRoleRequest) returns (UpdateMemberRoleResponse);
+  rpc GetMembers(GetMembersRequest) returns (GetMembersResponse);
+  
+  rpc GenerateInviteCode(GenerateInviteCodeRequest) returns (GenerateInviteCodeResponse);
+  rpc ValidateInviteCode(ValidateInviteCodeRequest) returns (ValidateInviteCodeResponse);
+  
+  rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
+  rpc GetUserOrganizations(GetUserOrganizationsRequest) returns (GetUserOrganizationsResponse);
+}
+
+enum OrganizationType {
+  ORGANIZATION_TYPE_UNSPECIFIED = 0;
+  ORGANIZATION_TYPE_STO = 1;           // СТО
+  ORGANIZATION_TYPE_BODY_SHOP = 2;     // Кузовной цех
+  ORGANIZATION_TYPE_CAR_WASH = 3;      // Автомойка
+  ORGANIZATION_TYPE_PARTS_SUPPLIER = 4; // Поставщик запчастей
+  ORGANIZATION_TYPE_DEALER = 5;        // Дилер
+}
+
+enum MemberRole {
+  MEMBER_ROLE_UNSPECIFIED = 0;
+  MEMBER_ROLE_OWNER = 1;
+  MEMBER_ROLE_ADMIN = 2;
+  MEMBER_ROLE_MANAGER = 3;
+  MEMBER_ROLE_MASTER = 4;
+  MEMBER_ROLE_VIEWER = 5;
+}
+
+message Organization {
+  int64 id = 1;
+  string name = 2;
+  OrganizationType type = 3;
+  int64 owner_id = 4;
+  string description = 5;
+  string logo_url = 6;
+  string address = 7;
+  string phone = 8;
+  bool is_active = 9;
+  google.protobuf.Timestamp created_at = 10;
+}
+
+message Member {
+  int64 id = 1;
+  int64 organization_id = 2;
+  int64 user_id = 3;
+  MemberRole role = 4;
+  repeated string permissions = 5;
+  bool is_active = 6;
+  google.protobuf.Timestamp joined_at = 7;
+}
+
+message CreateOrganizationRequest {
+  string name = 1;
+  OrganizationType type = 2;
+  int64 owner_id = 3;
+  string description = 4;
+  string address = 5;
+  string phone = 6;
+}
+
+message CreateOrganizationResponse {
+  Organization organization = 1;
+}
+
+message GetOrganizationRequest {
+  int64 organization_id = 1;
+}
+
+message GetOrganizationResponse {
+  Organization organization = 1;
+}
+
+message UpdateOrganizationRequest {
+  int64 organization_id = 1;
+  optional string name = 2;
+  optional string description = 3;
+  optional string logo_url = 4;
+  optional string address = 5;
+  optional string phone = 6;
+}
+
+message UpdateOrganizationResponse {
+  Organization organization = 1;
+}
+
+message AddMemberRequest {
+  int64 organization_id = 1;
+  int64 user_id = 2;
+  MemberRole role = 3;
+  repeated string permissions = 4;
+}
+
+message AddMemberResponse {
+  Member member = 1;
+}
+
+message RemoveMemberRequest {
+  int64 organization_id = 1;
+  int64 user_id = 2;
+  bool create_resume = 3;
+}
+
+message RemoveMemberResponse {
+  bool success = 1;
+  int64 resume_id = 2;
+}
+
+message UpdateMemberRoleRequest {
+  int64 organization_id = 1;
+  int64 user_id = 2;
+  MemberRole role = 3;
+  repeated string permissions = 4;
+}
+
+message UpdateMemberRoleResponse {
+  Member member = 1;
+}
+
+message GetMembersRequest {
+  int64 organization_id = 1;
+  MemberRole role = 2;
+  bool active_only = 3;
+}
+
+message GetMembersResponse {
+  repeated Member members = 1;
+}
+
+message GenerateInviteCodeRequest {
+  int64 organization_id = 1;
+  MemberRole role = 2;
+  repeated string permissions = 3;
+  int32 expires_in_hours = 4;
+  int32 max_uses = 5;
+}
+
+message GenerateInviteCodeResponse {
+  string code = 1;
+  google.protobuf.Timestamp expires_at = 2;
+}
+
+message ValidateInviteCodeRequest {
+  string code = 1;
+}
+
+message ValidateInviteCodeResponse {
+  bool valid = 1;
+  int64 organization_id = 2;
+  MemberRole role = 3;
+  repeated string permissions = 4;
+}
+
+message CheckPermissionRequest {
+  int64 user_id = 1;
+  int64 organization_id = 2;
+  string permission = 3;
+}
+
+message CheckPermissionResponse {
+  bool allowed = 1;
+}
+
+message GetUserOrganizationsRequest {
+  int64 user_id = 1;
+}
+
+message GetUserOrganizationsResponse {
+  repeated OrganizationMembership memberships = 1;
+}
+
+message OrganizationMembership {
+  Organization organization = 1;
+  MemberRole role = 2;
+  repeated string permissions = 3;
+}
+

@@ -1,0 +1,219 @@
+syntax = "proto3";
+
+package jobs.job.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/jobs/job/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service JobService {
+  rpc CreateJob(CreateJobRequest) returns (CreateJobResponse);
+  rpc GetJob(GetJobRequest) returns (GetJobResponse);
+  rpc UpdateJob(UpdateJobRequest) returns (UpdateJobResponse);
+  rpc DeleteJob(DeleteJobRequest) returns (DeleteJobResponse);
+  rpc ListJobs(ListJobsRequest) returns (ListJobsResponse);
+  rpc SearchJobs(SearchJobsRequest) returns (SearchJobsResponse);
+  
+  rpc CreateResume(CreateResumeRequest) returns (CreateResumeResponse);
+  rpc GetResume(GetResumeRequest) returns (GetResumeResponse);
+  rpc UpdateResume(UpdateResumeRequest) returns (UpdateResumeResponse);
+  rpc SearchResumes(SearchResumesRequest) returns (SearchResumesResponse);
+  
+  rpc Apply(ApplyRequest) returns (ApplyResponse);
+  rpc GetApplications(GetApplicationsRequest) returns (GetApplicationsResponse);
+}
+
+enum JobStatus {
+  JOB_STATUS_UNSPECIFIED = 0;
+  JOB_STATUS_ACTIVE = 1;
+  JOB_STATUS_CLOSED = 2;
+  JOB_STATUS_ARCHIVED = 3;
+}
+
+enum EmploymentType {
+  EMPLOYMENT_TYPE_UNSPECIFIED = 0;
+  EMPLOYMENT_TYPE_FULL_TIME = 1;
+  EMPLOYMENT_TYPE_PART_TIME = 2;
+  EMPLOYMENT_TYPE_CONTRACT = 3;
+}
+
+message Job {
+  int64 id = 1;
+  int64 organization_id = 2;
+  string title = 3;
+  string description = 4;
+  string requirements = 5;
+  int64 salary_min = 6;
+  int64 salary_max = 7;
+  string city_id = 8;
+  EmploymentType employment_type = 9;
+  JobStatus status = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message Resume {
+  int64 id = 1;
+  int64 user_id = 2;
+  string title = 3;
+  string experience = 4;
+  string skills = 5;
+  int64 expected_salary = 6;
+  string city_id = 7;
+  bool is_active = 8;
+  bool auto_created = 9;
+  int64 from_organization_id = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message Application {
+  int64 id = 1;
+  int64 job_id = 2;
+  int64 resume_id = 3;
+  int64 user_id = 4;
+  string status = 5;
+  string cover_letter = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message CreateJobRequest {
+  int64 organization_id = 1;
+  string title = 2;
+  string description = 3;
+  string requirements = 4;
+  int64 salary_min = 5;
+  int64 salary_max = 6;
+  string city_id = 7;
+  EmploymentType employment_type = 8;
+}
+
+message CreateJobResponse {
+  Job job = 1;
+}
+
+message GetJobRequest {
+  int64 job_id = 1;
+}
+
+message GetJobResponse {
+  Job job = 1;
+}
+
+message UpdateJobRequest {
+  int64 job_id = 1;
+  optional string title = 2;
+  optional string description = 3;
+  optional int64 salary_min = 4;
+  optional int64 salary_max = 5;
+  optional JobStatus status = 6;
+}
+
+message UpdateJobResponse {
+  Job job = 1;
+}
+
+message DeleteJobRequest {
+  int64 job_id = 1;
+}
+
+message DeleteJobResponse {
+  bool success = 1;
+}
+
+message ListJobsRequest {
+  int64 organization_id = 1;
+  JobStatus status = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message ListJobsResponse {
+  repeated Job jobs = 1;
+  int32 total = 2;
+}
+
+message SearchJobsRequest {
+  string query = 1;
+  string city_id = 2;
+  int64 salary_min = 3;
+  EmploymentType employment_type = 4;
+  int32 page = 5;
+  int32 page_size = 6;
+}
+
+message SearchJobsResponse {
+  repeated Job jobs = 1;
+  int32 total = 2;
+}
+
+message CreateResumeRequest {
+  int64 user_id = 1;
+  string title = 2;
+  string experience = 3;
+  string skills = 4;
+  int64 expected_salary = 5;
+  string city_id = 6;
+  bool auto_created = 7;
+  int64 from_organization_id = 8;
+}
+
+message CreateResumeResponse {
+  Resume resume = 1;
+}
+
+message GetResumeRequest {
+  int64 resume_id = 1;
+}
+
+message GetResumeResponse {
+  Resume resume = 1;
+}
+
+message UpdateResumeRequest {
+  int64 resume_id = 1;
+  optional string title = 2;
+  optional string experience = 3;
+  optional string skills = 4;
+  optional int64 expected_salary = 5;
+  optional bool is_active = 6;
+}
+
+message UpdateResumeResponse {
+  Resume resume = 1;
+}
+
+message SearchResumesRequest {
+  string query = 1;
+  string city_id = 2;
+  int64 salary_max = 3;
+  int32 page = 4;
+  int32 page_size = 5;
+}
+
+message SearchResumesResponse {
+  repeated Resume resumes = 1;
+  int32 total = 2;
+}
+
+message ApplyRequest {
+  int64 job_id = 1;
+  int64 resume_id = 2;
+  int64 user_id = 3;
+  string cover_letter = 4;
+}
+
+message ApplyResponse {
+  Application application = 1;
+}
+
+message GetApplicationsRequest {
+  int64 job_id = 1;
+  int64 user_id = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message GetApplicationsResponse {
+  repeated Application applications = 1;
+  int32 total = 2;
+}
+

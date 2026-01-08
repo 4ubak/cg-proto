@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package platform.counter.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/platform/counter/v1";
+
+service CounterService {
+  rpc GetCounters(GetCountersRequest) returns (GetCountersResponse);
+  rpc IncrementCounter(IncrementCounterRequest) returns (IncrementCounterResponse);
+  rpc DecrementCounter(DecrementCounterRequest) returns (DecrementCounterResponse);
+  rpc SetCounter(SetCounterRequest) returns (SetCounterResponse);
+}
+
+message UserCounters {
+  int64 user_id = 1;
+  int32 unread_messages = 2;
+  int32 unread_notifications = 3;
+  int32 active_ads = 4;
+  int32 favorites = 5;
+  int32 pending_orders = 6;
+  int32 new_applications = 7;
+}
+
+message GetCountersRequest {
+  int64 user_id = 1;
+}
+
+message GetCountersResponse {
+  UserCounters counters = 1;
+}
+
+message IncrementCounterRequest {
+  int64 user_id = 1;
+  string counter_name = 2;
+  int32 delta = 3;
+}
+
+message IncrementCounterResponse {
+  int32 new_value = 1;
+}
+
+message DecrementCounterRequest {
+  int64 user_id = 1;
+  string counter_name = 2;
+  int32 delta = 3;
+}
+
+message DecrementCounterResponse {
+  int32 new_value = 1;
+}
+
+message SetCounterRequest {
+  int64 user_id = 1;
+  string counter_name = 2;
+  int32 value = 3;
+}
+
+message SetCounterResponse {
+  bool success = 1;
+}
+
