@@ -2,16 +2,27 @@ syntax = "proto3";
 
 package users.auth.v1;
 
-option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users";
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/auth;authv1";
 
 import "google/protobuf/timestamp.proto";
 
 service AuthService {
+  // SendCode sends verification code to phone number
   rpc SendCode(SendCodeRequest) returns (SendCodeResponse);
+  
+  // VerifyCode verifies the code and returns tokens
   rpc VerifyCode(VerifyCodeRequest) returns (VerifyCodeResponse);
+  
+  // RefreshToken refreshes access token using refresh token
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  
+  // Logout invalidates refresh token
   rpc Logout(LogoutRequest) returns (LogoutResponse);
+  
+  // ValidateToken validates access token (internal use)
   rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  
+  // GetSessions returns active sessions for user
   rpc GetSessions(GetSessionsRequest) returns (GetSessionsResponse);
 }
 
@@ -22,7 +33,7 @@ message SendCodeRequest {
 
 message SendCodeResponse {
   bool success = 1;
-  int32 retry_after = 2;
+  int32 retry_after = 2;  // seconds to wait before next request
   string message = 3;
 }
 
@@ -30,7 +41,7 @@ message VerifyCodeRequest {
   string phone = 1;
   string code = 2;
   string device_id = 3;
-  string invite_code = 4;
+  string invite_code = 4;  // optional: join organization on registration
 }
 
 message VerifyCodeResponse {

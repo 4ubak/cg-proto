@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+package users.user.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/user;userv1";
+
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  // GetProfile returns user profile by user_id from auth context
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+  
+  // UpdateProfile updates user profile
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+  
+  // GetUserByID returns user by ID (for internal service calls)
+  rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIDResponse);
+  
+  // GetUserByPhone returns user by phone (for auth service)
+  rpc GetUserByPhone(GetUserByPhoneRequest) returns (GetUserByPhoneResponse);
+  
+  // CreateUser creates new user (for auth service on first login)
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  
+  // GetUsersByIDs returns multiple users by IDs (for batch loading)
+  rpc GetUsersByIDs(GetUsersByIDsRequest) returns (GetUsersByIDsResponse);
+  
+  // GetSettings returns user notification settings
+  rpc GetSettings(GetSettingsRequest) returns (GetSettingsResponse);
+  
+  // UpdateSettings updates user notification settings
+  rpc UpdateSettings(UpdateSettingsRequest) returns (UpdateSettingsResponse);
+  
+  // RegisterDevice registers device for push notifications
+  rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse);
+  
+  // UnregisterDevice unregisters device
+  rpc UnregisterDevice(UnregisterDeviceRequest) returns (UnregisterDeviceResponse);
+  
+  // GetDevices returns user devices
+  rpc GetDevices(GetDevicesRequest) returns (GetDevicesResponse);
+  
+  // DeleteAccount deletes user account
+  rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse);
+}
+
+message User {
+  int64 id = 1;
+  string phone = 2;
+  string name = 3;
+  string avatar_url = 4;
+  string email = 5;
+  int64 city_id = 6;
+  bool is_verified = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}
+
+message UserCounters {
+  int64 ads_count = 1;
+  int64 reviews_count = 2;
+  int64 followers_count = 3;
+  int64 following_count = 4;
+}
+
+// Profile
+message GetProfileRequest {}
+
+message GetProfileResponse {
+  User user = 1;
+  UserCounters counters = 2;
+}
+
+message UpdateProfileRequest {
+  optional string name = 1;
+  optional string avatar_url = 2;
+  optional string email = 3;
+  optional int64 city_id = 4;
+}
+
+message UpdateProfileResponse {
+  User user = 1;
+}
+
+// User by ID (internal)
+message GetUserByIDRequest {
+  int64 user_id = 1;
+}
+
+message GetUserByIDResponse {
+  User user = 1;
+}
+
+message GetUsersByIDsRequest {
+  repeated int64 user_ids = 1;
+}
+
+message GetUsersByIDsResponse {
+  repeated User users = 1;
+}
+
+// User by Phone (for auth service)
+message GetUserByPhoneRequest {
+  string phone = 1;
+}
+
+message GetUserByPhoneResponse {
+  User user = 1;
+}
+
+// Create User (for auth service on first login)
+message CreateUserRequest {
+  string phone = 1;
+}
+
+message CreateUserResponse {
+  User user = 1;
+}
+
+// Settings
+message UserSettings {
+  bool push_enabled = 1;
+  bool sms_enabled = 2;
+  bool email_enabled = 3;
+  bool chat_notifications = 4;
+  bool order_notifications = 5;
+  bool promo_notifications = 6;
+}
+
+message GetSettingsRequest {}
+
+message GetSettingsResponse {
+  UserSettings settings = 1;
+}
+
+message UpdateSettingsRequest {
+  optional bool push_enabled = 1;
+  optional bool sms_enabled = 2;
+  optional bool email_enabled = 3;
+  optional bool chat_notifications = 4;
+  optional bool order_notifications = 5;
+  optional bool promo_notifications = 6;
+}
+
+message UpdateSettingsResponse {
+  UserSettings settings = 1;
+}
+
+// Devices
+message Device {
+  string id = 1;
+  string device_id = 2;
+  string platform = 3;  // ios, android
+  string fcm_token = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp last_used_at = 6;
+}
+
+message RegisterDeviceRequest {
+  string device_id = 1;
+  string fcm_token = 2;
+  string platform = 3;
+}
+
+message RegisterDeviceResponse {
+  bool success = 1;
+}
+
+message UnregisterDeviceRequest {
+  string device_id = 1;
+}
+
+message UnregisterDeviceResponse {
+  bool success = 1;
+}
+
+message GetDevicesRequest {}
+
+message GetDevicesResponse {
+  repeated Device devices = 1;
+}
+
+// Account
+message DeleteAccountRequest {
+  string reason = 1;
+}
+
+message DeleteAccountResponse {
+  bool success = 1;
+}

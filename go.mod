@@ -3,6 +3,7 @@ module gitlab.com/xakpro/cg-proto
 go 1.24.5
 
 require (
+	connectrpc.com/connect v1.19.1
 	google.golang.org/grpc v1.78.0
 	google.golang.org/protobuf v1.36.11
 )
