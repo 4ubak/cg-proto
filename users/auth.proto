@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package users.auth.v1;
 
-option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/auth/v1";
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users";
 
 import "google/protobuf/timestamp.proto";
 
@@ -12,29 +12,33 @@ service AuthService {
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
   rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
-  rpc LoginByInviteCode(LoginByInviteCodeRequest) returns (LoginByInviteCodeResponse);
+  rpc GetSessions(GetSessionsRequest) returns (GetSessionsResponse);
 }
 
 message SendCodeRequest {
   string phone = 1;
+  string device_id = 2;
 }
 
 message SendCodeResponse {
   bool success = 1;
   int32 retry_after = 2;
+  string message = 3;
 }
 
 message VerifyCodeRequest {
   string phone = 1;
   string code = 2;
   string device_id = 3;
+  string invite_code = 4;
 }
 
 message VerifyCodeResponse {
   string access_token = 1;
   string refresh_token = 2;
-  int64 user_id = 3;
-  bool is_new_user = 4;
+  google.protobuf.Timestamp expires_at = 3;
+  User user = 4;
+  bool is_new_user = 5;
 }
 
 message RefreshTokenRequest {
@@ -44,10 +48,11 @@ message RefreshTokenRequest {
 message RefreshTokenResponse {
   string access_token = 1;
   string refresh_token = 2;
+  google.protobuf.Timestamp expires_at = 3;
 }
 
 message LogoutRequest {
-  string session_id = 1;
+  string refresh_token = 1;
 }
 
 message LogoutResponse {
@@ -61,20 +66,31 @@ message ValidateTokenRequest {
 message ValidateTokenResponse {
   bool valid = 1;
   int64 user_id = 2;
-  string session_id = 3;
+  string phone = 3;
 }
 
-message LoginByInviteCodeRequest {
-  string invite_code = 1;
+message GetSessionsRequest {
+  int64 user_id = 1;
+}
+
+message GetSessionsResponse {
+  repeated Session sessions = 1;
+}
+
+message User {
+  int64 id = 1;
   string phone = 2;
-  string device_id = 3;
+  string name = 3;
+  string avatar = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
 
-message LoginByInviteCodeResponse {
-  string access_token = 1;
-  string refresh_token = 2;
-  int64 user_id = 3;
-  int64 organization_id = 4;
-  string role = 5;
+message Session {
+  string id = 1;
+  string device_id = 2;
+  string user_agent = 3;
+  string ip = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp last_used_at = 6;
 }
-

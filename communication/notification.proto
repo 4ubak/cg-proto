@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package communication.notification.v1;
 
-option go_package = "gitlab.com/xakpro/cg-proto/gen/go/communication/notification/v1";
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/communication";
 
 import "google/protobuf/timestamp.proto";
 
@@ -15,6 +15,7 @@ service NotificationService {
   rpc GetUnreadCount(GetUnreadCountRequest) returns (GetUnreadCountResponse);
   rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse);
   rpc UnregisterDevice(UnregisterDeviceRequest) returns (UnregisterDeviceResponse);
+  rpc GetSMSBalance(GetSMSBalanceRequest) returns (GetSMSBalanceResponse);
 }
 
 enum NotificationType {
@@ -128,5 +129,12 @@ message UnregisterDeviceRequest {
 
 message UnregisterDeviceResponse {
   bool success = 1;
+}
+
+message GetSMSBalanceRequest {}
+
+message GetSMSBalanceResponse {
+  bool available = 1;
+  double balance = 2;
 }
 
