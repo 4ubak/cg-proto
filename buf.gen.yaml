@@ -1,12 +1,18 @@
 version: v1
 plugins:
-  # Standard protobuf Go code
-  - plugin: go
+  # Standard protobuf Go code (типы)
+  - plugin: buf.build/protocolbuffers/go
     out: gen/go
     opt:
       - paths=source_relative
 
-  # Connect-go
+  # Standard gRPC сервисы (*_grpc.pb.go)
+  - plugin: buf.build/grpc/go
+    out: gen/go
+    opt:
+      - paths=source_relative
+
+  # Connect-go (HTTP/JSON + gRPC)
   - plugin: buf.build/connectrpc/go
     out: gen/go
     opt:

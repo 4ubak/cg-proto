@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	request "gitlab.com/xakpro/cg-proto/gen/go/services/request"
+	v1 "gitlab.com/xakpro/cg-proto/gen/go/services/request/v1"
 	http "net/http"
 	strings "strings"
 )
@@ -77,31 +77,31 @@ const (
 // RequestServiceClient is a client for the services.request.v1.RequestService service.
 type RequestServiceClient interface {
 	// CreateRequest creates a new repair or parts request
-	CreateRequest(context.Context, *connect.Request[request.CreateRequestRequest]) (*connect.Response[request.CreateRequestResponse], error)
+	CreateRequest(context.Context, *connect.Request[v1.CreateRequestRequest]) (*connect.Response[v1.CreateRequestResponse], error)
 	// GetRequest returns request by ID
-	GetRequest(context.Context, *connect.Request[request.GetRequestRequest]) (*connect.Response[request.GetRequestResponse], error)
+	GetRequest(context.Context, *connect.Request[v1.GetRequestRequest]) (*connect.Response[v1.GetRequestResponse], error)
 	// UpdateRequest updates a request
-	UpdateRequest(context.Context, *connect.Request[request.UpdateRequestRequest]) (*connect.Response[request.UpdateRequestResponse], error)
+	UpdateRequest(context.Context, *connect.Request[v1.UpdateRequestRequest]) (*connect.Response[v1.UpdateRequestResponse], error)
 	// DeleteRequest deletes a request
-	DeleteRequest(context.Context, *connect.Request[request.DeleteRequestRequest]) (*connect.Response[request.DeleteRequestResponse], error)
+	DeleteRequest(context.Context, *connect.Request[v1.DeleteRequestRequest]) (*connect.Response[v1.DeleteRequestResponse], error)
 	// ListRequests lists requests with filters
-	ListRequests(context.Context, *connect.Request[request.ListRequestsRequest]) (*connect.Response[request.ListRequestsResponse], error)
+	ListRequests(context.Context, *connect.Request[v1.ListRequestsRequest]) (*connect.Response[v1.ListRequestsResponse], error)
 	// SearchRequests searches requests using Elasticsearch
-	SearchRequests(context.Context, *connect.Request[request.SearchRequestsRequest]) (*connect.Response[request.SearchRequestsResponse], error)
+	SearchRequests(context.Context, *connect.Request[v1.SearchRequestsRequest]) (*connect.Response[v1.SearchRequestsResponse], error)
 	// ChangeStatus changes request status (moderation, published, deleted)
-	ChangeStatus(context.Context, *connect.Request[request.ChangeStatusRequest]) (*connect.Response[request.ChangeStatusResponse], error)
+	ChangeStatus(context.Context, *connect.Request[v1.ChangeStatusRequest]) (*connect.Response[v1.ChangeStatusResponse], error)
 	// GetUserRequests returns requests for a user
-	GetUserRequests(context.Context, *connect.Request[request.GetUserRequestsRequest]) (*connect.Response[request.GetUserRequestsResponse], error)
+	GetUserRequests(context.Context, *connect.Request[v1.GetUserRequestsRequest]) (*connect.Response[v1.GetUserRequestsResponse], error)
 	// IncrementViews increments view count for a request
-	IncrementViews(context.Context, *connect.Request[request.IncrementViewsRequest]) (*connect.Response[request.IncrementViewsResponse], error)
+	IncrementViews(context.Context, *connect.Request[v1.IncrementViewsRequest]) (*connect.Response[v1.IncrementViewsResponse], error)
 	// GetSuggestions returns search suggestions
-	GetSuggestions(context.Context, *connect.Request[request.GetSuggestionsRequest]) (*connect.Response[request.GetSuggestionsResponse], error)
+	GetSuggestions(context.Context, *connect.Request[v1.GetSuggestionsRequest]) (*connect.Response[v1.GetSuggestionsResponse], error)
 	// GetNewRequestsForOrganization returns list of new request IDs for organization
-	GetNewRequestsForOrganization(context.Context, *connect.Request[request.GetNewRequestsForOrganizationRequest]) (*connect.Response[request.GetNewRequestsForOrganizationResponse], error)
+	GetNewRequestsForOrganization(context.Context, *connect.Request[v1.GetNewRequestsForOrganizationRequest]) (*connect.Response[v1.GetNewRequestsForOrganizationResponse], error)
 	// MarkRequestAsViewed marks request as viewed for organization
-	MarkRequestAsViewed(context.Context, *connect.Request[request.MarkRequestAsViewedRequest]) (*connect.Response[request.MarkRequestAsViewedResponse], error)
+	MarkRequestAsViewed(context.Context, *connect.Request[v1.MarkRequestAsViewedRequest]) (*connect.Response[v1.MarkRequestAsViewedResponse], error)
 	// IsRequestNew checks if request is new for organization
-	IsRequestNew(context.Context, *connect.Request[request.IsRequestNewRequest]) (*connect.Response[request.IsRequestNewResponse], error)
+	IsRequestNew(context.Context, *connect.Request[v1.IsRequestNewRequest]) (*connect.Response[v1.IsRequestNewResponse], error)
 }
 
 // NewRequestServiceClient constructs a client for the services.request.v1.RequestService service.
@@ -113,81 +113,81 @@ type RequestServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewRequestServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) RequestServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	requestServiceMethods := request.File_services_request_request_proto.Services().ByName("RequestService").Methods()
+	requestServiceMethods := v1.File_services_request_request_proto.Services().ByName("RequestService").Methods()
 	return &requestServiceClient{
-		createRequest: connect.NewClient[request.CreateRequestRequest, request.CreateRequestResponse](
+		createRequest: connect.NewClient[v1.CreateRequestRequest, v1.CreateRequestResponse](
 			httpClient,
 			baseURL+RequestServiceCreateRequestProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("CreateRequest")),
 			connect.WithClientOptions(opts...),
 		),
-		getRequest: connect.NewClient[request.GetRequestRequest, request.GetRequestResponse](
+		getRequest: connect.NewClient[v1.GetRequestRequest, v1.GetRequestResponse](
 			httpClient,
 			baseURL+RequestServiceGetRequestProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("GetRequest")),
 			connect.WithClientOptions(opts...),
 		),
-		updateRequest: connect.NewClient[request.UpdateRequestRequest, request.UpdateRequestResponse](
+		updateRequest: connect.NewClient[v1.UpdateRequestRequest, v1.UpdateRequestResponse](
 			httpClient,
 			baseURL+RequestServiceUpdateRequestProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("UpdateRequest")),
 			connect.WithClientOptions(opts...),
 		),
-		deleteRequest: connect.NewClient[request.DeleteRequestRequest, request.DeleteRequestResponse](
+		deleteRequest: connect.NewClient[v1.DeleteRequestRequest, v1.DeleteRequestResponse](
 			httpClient,
 			baseURL+RequestServiceDeleteRequestProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("DeleteRequest")),
 			connect.WithClientOptions(opts...),
 		),
-		listRequests: connect.NewClient[request.ListRequestsRequest, request.ListRequestsResponse](
+		listRequests: connect.NewClient[v1.ListRequestsRequest, v1.ListRequestsResponse](
 			httpClient,
 			baseURL+RequestServiceListRequestsProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("ListRequests")),
 			connect.WithClientOptions(opts...),
 		),
-		searchRequests: connect.NewClient[request.SearchRequestsRequest, request.SearchRequestsResponse](
+		searchRequests: connect.NewClient[v1.SearchRequestsRequest, v1.SearchRequestsResponse](
 			httpClient,
 			baseURL+RequestServiceSearchRequestsProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("SearchRequests")),
 			connect.WithClientOptions(opts...),
 		),
-		changeStatus: connect.NewClient[request.ChangeStatusRequest, request.ChangeStatusResponse](
+		changeStatus: connect.NewClient[v1.ChangeStatusRequest, v1.ChangeStatusResponse](
 			httpClient,
 			baseURL+RequestServiceChangeStatusProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("ChangeStatus")),
 			connect.WithClientOptions(opts...),
 		),
-		getUserRequests: connect.NewClient[request.GetUserRequestsRequest, request.GetUserRequestsResponse](
+		getUserRequests: connect.NewClient[v1.GetUserRequestsRequest, v1.GetUserRequestsResponse](
 			httpClient,
 			baseURL+RequestServiceGetUserRequestsProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("GetUserRequests")),
 			connect.WithClientOptions(opts...),
 		),
-		incrementViews: connect.NewClient[request.IncrementViewsRequest, request.IncrementViewsResponse](
+		incrementViews: connect.NewClient[v1.IncrementViewsRequest, v1.IncrementViewsResponse](
 			httpClient,
 			baseURL+RequestServiceIncrementViewsProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("IncrementViews")),
 			connect.WithClientOptions(opts...),
 		),
-		getSuggestions: connect.NewClient[request.GetSuggestionsRequest, request.GetSuggestionsResponse](
+		getSuggestions: connect.NewClient[v1.GetSuggestionsRequest, v1.GetSuggestionsResponse](
 			httpClient,
 			baseURL+RequestServiceGetSuggestionsProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("GetSuggestions")),
 			connect.WithClientOptions(opts...),
 		),
-		getNewRequestsForOrganization: connect.NewClient[request.GetNewRequestsForOrganizationRequest, request.GetNewRequestsForOrganizationResponse](
+		getNewRequestsForOrganization: connect.NewClient[v1.GetNewRequestsForOrganizationRequest, v1.GetNewRequestsForOrganizationResponse](
 			httpClient,
 			baseURL+RequestServiceGetNewRequestsForOrganizationProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("GetNewRequestsForOrganization")),
 			connect.WithClientOptions(opts...),
 		),
-		markRequestAsViewed: connect.NewClient[request.MarkRequestAsViewedRequest, request.MarkRequestAsViewedResponse](
+		markRequestAsViewed: connect.NewClient[v1.MarkRequestAsViewedRequest, v1.MarkRequestAsViewedResponse](
 			httpClient,
 			baseURL+RequestServiceMarkRequestAsViewedProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("MarkRequestAsViewed")),
 			connect.WithClientOptions(opts...),
 		),
-		isRequestNew: connect.NewClient[request.IsRequestNewRequest, request.IsRequestNewResponse](
+		isRequestNew: connect.NewClient[v1.IsRequestNewRequest, v1.IsRequestNewResponse](
 			httpClient,
 			baseURL+RequestServiceIsRequestNewProcedure,
 			connect.WithSchema(requestServiceMethods.ByName("IsRequestNew")),
@@ -198,115 +198,115 @@ func NewRequestServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 
 // requestServiceClient implements RequestServiceClient.
 type requestServiceClient struct {
-	createRequest                 *connect.Client[request.CreateRequestRequest, request.CreateRequestResponse]
-	getRequest                    *connect.Client[request.GetRequestRequest, request.GetRequestResponse]
-	updateRequest                 *connect.Client[request.UpdateRequestRequest, request.UpdateRequestResponse]
-	deleteRequest                 *connect.Client[request.DeleteRequestRequest, request.DeleteRequestResponse]
-	listRequests                  *connect.Client[request.ListRequestsRequest, request.ListRequestsResponse]
-	searchRequests                *connect.Client[request.SearchRequestsRequest, request.SearchRequestsResponse]
-	changeStatus                  *connect.Client[request.ChangeStatusRequest, request.ChangeStatusResponse]
-	getUserRequests               *connect.Client[request.GetUserRequestsRequest, request.GetUserRequestsResponse]
-	incrementViews                *connect.Client[request.IncrementViewsRequest, request.IncrementViewsResponse]
-	getSuggestions                *connect.Client[request.GetSuggestionsRequest, request.GetSuggestionsResponse]
-	getNewRequestsForOrganization *connect.Client[request.GetNewRequestsForOrganizationRequest, request.GetNewRequestsForOrganizationResponse]
-	markRequestAsViewed           *connect.Client[request.MarkRequestAsViewedRequest, request.MarkRequestAsViewedResponse]
-	isRequestNew                  *connect.Client[request.IsRequestNewRequest, request.IsRequestNewResponse]
+	createRequest                 *connect.Client[v1.CreateRequestRequest, v1.CreateRequestResponse]
+	getRequest                    *connect.Client[v1.GetRequestRequest, v1.GetRequestResponse]
+	updateRequest                 *connect.Client[v1.UpdateRequestRequest, v1.UpdateRequestResponse]
+	deleteRequest                 *connect.Client[v1.DeleteRequestRequest, v1.DeleteRequestResponse]
+	listRequests                  *connect.Client[v1.ListRequestsRequest, v1.ListRequestsResponse]
+	searchRequests                *connect.Client[v1.SearchRequestsRequest, v1.SearchRequestsResponse]
+	changeStatus                  *connect.Client[v1.ChangeStatusRequest, v1.ChangeStatusResponse]
+	getUserRequests               *connect.Client[v1.GetUserRequestsRequest, v1.GetUserRequestsResponse]
+	incrementViews                *connect.Client[v1.IncrementViewsRequest, v1.IncrementViewsResponse]
+	getSuggestions                *connect.Client[v1.GetSuggestionsRequest, v1.GetSuggestionsResponse]
+	getNewRequestsForOrganization *connect.Client[v1.GetNewRequestsForOrganizationRequest, v1.GetNewRequestsForOrganizationResponse]
+	markRequestAsViewed           *connect.Client[v1.MarkRequestAsViewedRequest, v1.MarkRequestAsViewedResponse]
+	isRequestNew                  *connect.Client[v1.IsRequestNewRequest, v1.IsRequestNewResponse]
 }
 
 // CreateRequest calls services.request.v1.RequestService.CreateRequest.
-func (c *requestServiceClient) CreateRequest(ctx context.Context, req *connect.Request[request.CreateRequestRequest]) (*connect.Response[request.CreateRequestResponse], error) {
+func (c *requestServiceClient) CreateRequest(ctx context.Context, req *connect.Request[v1.CreateRequestRequest]) (*connect.Response[v1.CreateRequestResponse], error) {
 	return c.createRequest.CallUnary(ctx, req)
 }
 
 // GetRequest calls services.request.v1.RequestService.GetRequest.
-func (c *requestServiceClient) GetRequest(ctx context.Context, req *connect.Request[request.GetRequestRequest]) (*connect.Response[request.GetRequestResponse], error) {
+func (c *requestServiceClient) GetRequest(ctx context.Context, req *connect.Request[v1.GetRequestRequest]) (*connect.Response[v1.GetRequestResponse], error) {
 	return c.getRequest.CallUnary(ctx, req)
 }
 
 // UpdateRequest calls services.request.v1.RequestService.UpdateRequest.
-func (c *requestServiceClient) UpdateRequest(ctx context.Context, req *connect.Request[request.UpdateRequestRequest]) (*connect.Response[request.UpdateRequestResponse], error) {
+func (c *requestServiceClient) UpdateRequest(ctx context.Context, req *connect.Request[v1.UpdateRequestRequest]) (*connect.Response[v1.UpdateRequestResponse], error) {
 	return c.updateRequest.CallUnary(ctx, req)
 }
 
 // DeleteRequest calls services.request.v1.RequestService.DeleteRequest.
-func (c *requestServiceClient) DeleteRequest(ctx context.Context, req *connect.Request[request.DeleteRequestRequest]) (*connect.Response[request.DeleteRequestResponse], error) {
+func (c *requestServiceClient) DeleteRequest(ctx context.Context, req *connect.Request[v1.DeleteRequestRequest]) (*connect.Response[v1.DeleteRequestResponse], error) {
 	return c.deleteRequest.CallUnary(ctx, req)
 }
 
 // ListRequests calls services.request.v1.RequestService.ListRequests.
-func (c *requestServiceClient) ListRequests(ctx context.Context, req *connect.Request[request.ListRequestsRequest]) (*connect.Response[request.ListRequestsResponse], error) {
+func (c *requestServiceClient) ListRequests(ctx context.Context, req *connect.Request[v1.ListRequestsRequest]) (*connect.Response[v1.ListRequestsResponse], error) {
 	return c.listRequests.CallUnary(ctx, req)
 }
 
 // SearchRequests calls services.request.v1.RequestService.SearchRequests.
-func (c *requestServiceClient) SearchRequests(ctx context.Context, req *connect.Request[request.SearchRequestsRequest]) (*connect.Response[request.SearchRequestsResponse], error) {
+func (c *requestServiceClient) SearchRequests(ctx context.Context, req *connect.Request[v1.SearchRequestsRequest]) (*connect.Response[v1.SearchRequestsResponse], error) {
 	return c.searchRequests.CallUnary(ctx, req)
 }
 
 // ChangeStatus calls services.request.v1.RequestService.ChangeStatus.
-func (c *requestServiceClient) ChangeStatus(ctx context.Context, req *connect.Request[request.ChangeStatusRequest]) (*connect.Response[request.ChangeStatusResponse], error) {
+func (c *requestServiceClient) ChangeStatus(ctx context.Context, req *connect.Request[v1.ChangeStatusRequest]) (*connect.Response[v1.ChangeStatusResponse], error) {
 	return c.changeStatus.CallUnary(ctx, req)
 }
 
 // GetUserRequests calls services.request.v1.RequestService.GetUserRequests.
-func (c *requestServiceClient) GetUserRequests(ctx context.Context, req *connect.Request[request.GetUserRequestsRequest]) (*connect.Response[request.GetUserRequestsResponse], error) {
+func (c *requestServiceClient) GetUserRequests(ctx context.Context, req *connect.Request[v1.GetUserRequestsRequest]) (*connect.Response[v1.GetUserRequestsResponse], error) {
 	return c.getUserRequests.CallUnary(ctx, req)
 }
 
 // IncrementViews calls services.request.v1.RequestService.IncrementViews.
-func (c *requestServiceClient) IncrementViews(ctx context.Context, req *connect.Request[request.IncrementViewsRequest]) (*connect.Response[request.IncrementViewsResponse], error) {
+func (c *requestServiceClient) IncrementViews(ctx context.Context, req *connect.Request[v1.IncrementViewsRequest]) (*connect.Response[v1.IncrementViewsResponse], error) {
 	return c.incrementViews.CallUnary(ctx, req)
 }
 
 // GetSuggestions calls services.request.v1.RequestService.GetSuggestions.
-func (c *requestServiceClient) GetSuggestions(ctx context.Context, req *connect.Request[request.GetSuggestionsRequest]) (*connect.Response[request.GetSuggestionsResponse], error) {
+func (c *requestServiceClient) GetSuggestions(ctx context.Context, req *connect.Request[v1.GetSuggestionsRequest]) (*connect.Response[v1.GetSuggestionsResponse], error) {
 	return c.getSuggestions.CallUnary(ctx, req)
 }
 
 // GetNewRequestsForOrganization calls
 // services.request.v1.RequestService.GetNewRequestsForOrganization.
-func (c *requestServiceClient) GetNewRequestsForOrganization(ctx context.Context, req *connect.Request[request.GetNewRequestsForOrganizationRequest]) (*connect.Response[request.GetNewRequestsForOrganizationResponse], error) {
+func (c *requestServiceClient) GetNewRequestsForOrganization(ctx context.Context, req *connect.Request[v1.GetNewRequestsForOrganizationRequest]) (*connect.Response[v1.GetNewRequestsForOrganizationResponse], error) {
 	return c.getNewRequestsForOrganization.CallUnary(ctx, req)
 }
 
 // MarkRequestAsViewed calls services.request.v1.RequestService.MarkRequestAsViewed.
-func (c *requestServiceClient) MarkRequestAsViewed(ctx context.Context, req *connect.Request[request.MarkRequestAsViewedRequest]) (*connect.Response[request.MarkRequestAsViewedResponse], error) {
+func (c *requestServiceClient) MarkRequestAsViewed(ctx context.Context, req *connect.Request[v1.MarkRequestAsViewedRequest]) (*connect.Response[v1.MarkRequestAsViewedResponse], error) {
 	return c.markRequestAsViewed.CallUnary(ctx, req)
 }
 
 // IsRequestNew calls services.request.v1.RequestService.IsRequestNew.
-func (c *requestServiceClient) IsRequestNew(ctx context.Context, req *connect.Request[request.IsRequestNewRequest]) (*connect.Response[request.IsRequestNewResponse], error) {
+func (c *requestServiceClient) IsRequestNew(ctx context.Context, req *connect.Request[v1.IsRequestNewRequest]) (*connect.Response[v1.IsRequestNewResponse], error) {
 	return c.isRequestNew.CallUnary(ctx, req)
 }
 
 // RequestServiceHandler is an implementation of the services.request.v1.RequestService service.
 type RequestServiceHandler interface {
 	// CreateRequest creates a new repair or parts request
-	CreateRequest(context.Context, *connect.Request[request.CreateRequestRequest]) (*connect.Response[request.CreateRequestResponse], error)
+	CreateRequest(context.Context, *connect.Request[v1.CreateRequestRequest]) (*connect.Response[v1.CreateRequestResponse], error)
 	// GetRequest returns request by ID
-	GetRequest(context.Context, *connect.Request[request.GetRequestRequest]) (*connect.Response[request.GetRequestResponse], error)
+	GetRequest(context.Context, *connect.Request[v1.GetRequestRequest]) (*connect.Response[v1.GetRequestResponse], error)
 	// UpdateRequest updates a request
-	UpdateRequest(context.Context, *connect.Request[request.UpdateRequestRequest]) (*connect.Response[request.UpdateRequestResponse], error)
+	UpdateRequest(context.Context, *connect.Request[v1.UpdateRequestRequest]) (*connect.Response[v1.UpdateRequestResponse], error)
 	// DeleteRequest deletes a request
-	DeleteRequest(context.Context, *connect.Request[request.DeleteRequestRequest]) (*connect.Response[request.DeleteRequestResponse], error)
+	DeleteRequest(context.Context, *connect.Request[v1.DeleteRequestRequest]) (*connect.Response[v1.DeleteRequestResponse], error)
 	// ListRequests lists requests with filters
-	ListRequests(context.Context, *connect.Request[request.ListRequestsRequest]) (*connect.Response[request.ListRequestsResponse], error)
+	ListRequests(context.Context, *connect.Request[v1.ListRequestsRequest]) (*connect.Response[v1.ListRequestsResponse], error)
 	// SearchRequests searches requests using Elasticsearch
-	SearchRequests(context.Context, *connect.Request[request.SearchRequestsRequest]) (*connect.Response[request.SearchRequestsResponse], error)
+	SearchRequests(context.Context, *connect.Request[v1.SearchRequestsRequest]) (*connect.Response[v1.SearchRequestsResponse], error)
 	// ChangeStatus changes request status (moderation, published, deleted)
-	ChangeStatus(context.Context, *connect.Request[request.ChangeStatusRequest]) (*connect.Response[request.ChangeStatusResponse], error)
+	ChangeStatus(context.Context, *connect.Request[v1.ChangeStatusRequest]) (*connect.Response[v1.ChangeStatusResponse], error)
 	// GetUserRequests returns requests for a user
-	GetUserRequests(context.Context, *connect.Request[request.GetUserRequestsRequest]) (*connect.Response[request.GetUserRequestsResponse], error)
+	GetUserRequests(context.Context, *connect.Request[v1.GetUserRequestsRequest]) (*connect.Response[v1.GetUserRequestsResponse], error)
 	// IncrementViews increments view count for a request
-	IncrementViews(context.Context, *connect.Request[request.IncrementViewsRequest]) (*connect.Response[request.IncrementViewsResponse], error)
+	IncrementViews(context.Context, *connect.Request[v1.IncrementViewsRequest]) (*connect.Response[v1.IncrementViewsResponse], error)
 	// GetSuggestions returns search suggestions
-	GetSuggestions(context.Context, *connect.Request[request.GetSuggestionsRequest]) (*connect.Response[request.GetSuggestionsResponse], error)
+	GetSuggestions(context.Context, *connect.Request[v1.GetSuggestionsRequest]) (*connect.Response[v1.GetSuggestionsResponse], error)
 	// GetNewRequestsForOrganization returns list of new request IDs for organization
-	GetNewRequestsForOrganization(context.Context, *connect.Request[request.GetNewRequestsForOrganizationRequest]) (*connect.Response[request.GetNewRequestsForOrganizationResponse], error)
+	GetNewRequestsForOrganization(context.Context, *connect.Request[v1.GetNewRequestsForOrganizationRequest]) (*connect.Response[v1.GetNewRequestsForOrganizationResponse], error)
 	// MarkRequestAsViewed marks request as viewed for organization
-	MarkRequestAsViewed(context.Context, *connect.Request[request.MarkRequestAsViewedRequest]) (*connect.Response[request.MarkRequestAsViewedResponse], error)
+	MarkRequestAsViewed(context.Context, *connect.Request[v1.MarkRequestAsViewedRequest]) (*connect.Response[v1.MarkRequestAsViewedResponse], error)
 	// IsRequestNew checks if request is new for organization
-	IsRequestNew(context.Context, *connect.Request[request.IsRequestNewRequest]) (*connect.Response[request.IsRequestNewResponse], error)
+	IsRequestNew(context.Context, *connect.Request[v1.IsRequestNewRequest]) (*connect.Response[v1.IsRequestNewResponse], error)
 }
 
 // NewRequestServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -315,7 +315,7 @@ type RequestServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewRequestServiceHandler(svc RequestServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	requestServiceMethods := request.File_services_request_request_proto.Services().ByName("RequestService").Methods()
+	requestServiceMethods := v1.File_services_request_request_proto.Services().ByName("RequestService").Methods()
 	requestServiceCreateRequestHandler := connect.NewUnaryHandler(
 		RequestServiceCreateRequestProcedure,
 		svc.CreateRequest,
@@ -431,54 +431,54 @@ func NewRequestServiceHandler(svc RequestServiceHandler, opts ...connect.Handler
 // UnimplementedRequestServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedRequestServiceHandler struct{}
 
-func (UnimplementedRequestServiceHandler) CreateRequest(context.Context, *connect.Request[request.CreateRequestRequest]) (*connect.Response[request.CreateRequestResponse], error) {
+func (UnimplementedRequestServiceHandler) CreateRequest(context.Context, *connect.Request[v1.CreateRequestRequest]) (*connect.Response[v1.CreateRequestResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.CreateRequest is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) GetRequest(context.Context, *connect.Request[request.GetRequestRequest]) (*connect.Response[request.GetRequestResponse], error) {
+func (UnimplementedRequestServiceHandler) GetRequest(context.Context, *connect.Request[v1.GetRequestRequest]) (*connect.Response[v1.GetRequestResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.GetRequest is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) UpdateRequest(context.Context, *connect.Request[request.UpdateRequestRequest]) (*connect.Response[request.UpdateRequestResponse], error) {
+func (UnimplementedRequestServiceHandler) UpdateRequest(context.Context, *connect.Request[v1.UpdateRequestRequest]) (*connect.Response[v1.UpdateRequestResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.UpdateRequest is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) DeleteRequest(context.Context, *connect.Request[request.DeleteRequestRequest]) (*connect.Response[request.DeleteRequestResponse], error) {
+func (UnimplementedRequestServiceHandler) DeleteRequest(context.Context, *connect.Request[v1.DeleteRequestRequest]) (*connect.Response[v1.DeleteRequestResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.DeleteRequest is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) ListRequests(context.Context, *connect.Request[request.ListRequestsRequest]) (*connect.Response[request.ListRequestsResponse], error) {
+func (UnimplementedRequestServiceHandler) ListRequests(context.Context, *connect.Request[v1.ListRequestsRequest]) (*connect.Response[v1.ListRequestsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.ListRequests is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) SearchRequests(context.Context, *connect.Request[request.SearchRequestsRequest]) (*connect.Response[request.SearchRequestsResponse], error) {
+func (UnimplementedRequestServiceHandler) SearchRequests(context.Context, *connect.Request[v1.SearchRequestsRequest]) (*connect.Response[v1.SearchRequestsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.SearchRequests is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) ChangeStatus(context.Context, *connect.Request[request.ChangeStatusRequest]) (*connect.Response[request.ChangeStatusResponse], error) {
+func (UnimplementedRequestServiceHandler) ChangeStatus(context.Context, *connect.Request[v1.ChangeStatusRequest]) (*connect.Response[v1.ChangeStatusResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.ChangeStatus is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) GetUserRequests(context.Context, *connect.Request[request.GetUserRequestsRequest]) (*connect.Response[request.GetUserRequestsResponse], error) {
+func (UnimplementedRequestServiceHandler) GetUserRequests(context.Context, *connect.Request[v1.GetUserRequestsRequest]) (*connect.Response[v1.GetUserRequestsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.GetUserRequests is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) IncrementViews(context.Context, *connect.Request[request.IncrementViewsRequest]) (*connect.Response[request.IncrementViewsResponse], error) {
+func (UnimplementedRequestServiceHandler) IncrementViews(context.Context, *connect.Request[v1.IncrementViewsRequest]) (*connect.Response[v1.IncrementViewsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.IncrementViews is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) GetSuggestions(context.Context, *connect.Request[request.GetSuggestionsRequest]) (*connect.Response[request.GetSuggestionsResponse], error) {
+func (UnimplementedRequestServiceHandler) GetSuggestions(context.Context, *connect.Request[v1.GetSuggestionsRequest]) (*connect.Response[v1.GetSuggestionsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.GetSuggestions is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) GetNewRequestsForOrganization(context.Context, *connect.Request[request.GetNewRequestsForOrganizationRequest]) (*connect.Response[request.GetNewRequestsForOrganizationResponse], error) {
+func (UnimplementedRequestServiceHandler) GetNewRequestsForOrganization(context.Context, *connect.Request[v1.GetNewRequestsForOrganizationRequest]) (*connect.Response[v1.GetNewRequestsForOrganizationResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.GetNewRequestsForOrganization is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) MarkRequestAsViewed(context.Context, *connect.Request[request.MarkRequestAsViewedRequest]) (*connect.Response[request.MarkRequestAsViewedResponse], error) {
+func (UnimplementedRequestServiceHandler) MarkRequestAsViewed(context.Context, *connect.Request[v1.MarkRequestAsViewedRequest]) (*connect.Response[v1.MarkRequestAsViewedResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.MarkRequestAsViewed is not implemented"))
 }
 
-func (UnimplementedRequestServiceHandler) IsRequestNew(context.Context, *connect.Request[request.IsRequestNewRequest]) (*connect.Response[request.IsRequestNewResponse], error) {
+func (UnimplementedRequestServiceHandler) IsRequestNew(context.Context, *connect.Request[v1.IsRequestNewRequest]) (*connect.Response[v1.IsRequestNewResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.request.v1.RequestService.IsRequestNew is not implemented"))
 }

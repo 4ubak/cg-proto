@@ -27,12 +27,13 @@ cg-proto/
 │
 ├── gen/go/                   # Сгенерированный Go код
 │   ├── users/
-│   │   ├── auth.pb.go
-│   │   ├── authv1connect/    # Connect handlers & clients
+│   │   ├── auth.pb.go        # Protobuf типы
+│   │   ├── auth_grpc.pb.go   # Стандартный gRPC сервисы
+│   │   ├── authv1connect/     # Connect handlers & clients
 │   │   │   └── auth.connect.go
 │   │   └── ...
 ├── buf.yaml                  # Buf конфигурация
-├── buf.gen.yaml              # Генерация кода (Connect-go)
+├── buf.gen.yaml              # Генерация кода (Connect + gRPC)
 └── go.mod
 ```
 
@@ -42,12 +43,28 @@ cg-proto/
 go get gitlab.com/xakpro/cg-proto@latest
 ```
 
-## Connect-go
+## API протоколы: Connect-go и стандартный gRPC
 
-Мы используем **Connect-go** вместо стандартного gRPC — это даёт:
+В платформе используются **два подхода** в зависимости от требований сервиса:
+
+### 1. Connect-go (HTTP + gRPC) — для публичных API
+
+**Когда использовать:**
+- Сервисы, которым нужен доступ из фронтенда (HTTP/JSON)
+- Сервисы, которые должны поддерживать и HTTP/JSON, и gRPC одновременно
+- Примеры: `auth`, `user`, `organization`, `counter`, `nsi`
+
+**Connect-go** даёт:
 - **gRPC** для сервис-к-сервис коммуникации
 - **HTTP/JSON** для фронтенда (без прокси)
 - **gRPC-Web** для браузеров
+
+### 2. Стандартный gRPC — для внутренних сервисов
+
+**Когда использовать:**
+- Сервисы, которые используются только для сервис-к-сервис коммуникации
+- Сервисы, которым не нужен HTTP/JSON доступ
+- Примеры: `search`, `catalog`, `notification`, `chat`
 
 ### buf.gen.yaml
 
@@ -60,12 +77,23 @@ plugins:
     opt:
       - paths=source_relative
 
-  # Connect-go (replaces go-grpc)
+  # Connect-go (HTTP/JSON + gRPC)
   - plugin: buf.build/connectrpc/go
     out: gen/go
     opt:
       - paths=source_relative
+
+  # Standard gRPC (для внутренних сервисов)
+  - plugin: buf.build/protocolbuffers/go
+    out: gen/go
+    opt:
+      - paths=source_relative
 ```
+
+**Генерируемые файлы:**
+- `.pb.go` — protobuf типы (общие для обоих)
+- `*_grpc.pb.go` — стандартный gRPC сервисы (для стандартного gRPC)
+- `*connect/*.connect.go` — Connect handlers & clients (для Connect)
 
 ## Использование
 
@@ -158,6 +186,75 @@ grpcurl -plaintext localhost:8080 \
   -d '{"phone": "+77001234567", "device_id": "abc123"}'
 ```
 
+---
+
+## Стандартный gRPC (для внутренних сервисов)
+
+### Server (gRPC Server)
+
+```go
+import (
+    pb "gitlab.com/xakpro/cg-proto/gen/go/services/search"
+    sharedGRPC "gitlab.com/xakpro/cg-shared-libs/grpc"
+)
+
+// Implement the gRPC service interface
+type SearchHandler struct {
+    pb.UnimplementedSearchServiceServer
+    searchService SearchServiceI
+}
+
+func (h *SearchHandler) Search(
+    ctx context.Context,
+    req *pb.SearchRequest,
+) (*pb.SearchResponse, error) {
+    // Your logic here
+    return &pb.SearchResponse{
+        Results: []*pb.SearchResult{},
+    }, nil
+}
+
+// Register handler
+func main() {
+    grpcServer, err := sharedGRPC.NewServer(cfg.GRPC)
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    pb.RegisterSearchServiceServer(grpcServer.Server(), &SearchHandler{})
+    
+    if err := grpcServer.Start(); err != nil {
+        log.Fatal(err)
+    }
+}
+```
+
+### Client (gRPC Client)
+
+```go
+import (
+    pb "gitlab.com/xakpro/cg-proto/gen/go/services/search"
+    sharedGRPC "gitlab.com/xakpro/cg-shared-libs/grpc"
+)
+
+// Create client
+conn, err := sharedGRPC.NewClient(ctx, cfg)
+if err != nil {
+    log.Fatal(err)
+}
+defer conn.Close()
+
+client := pb.NewSearchServiceClient(conn.Conn())
+
+// Call method
+resp, err := client.Search(ctx, &pb.SearchRequest{
+    Query: "test",
+})
+if err != nil {
+    // Handle error (status.Code(err) returns error code)
+}
+```
+
 ## Генерация кода
 
 ```bash
@@ -232,7 +329,9 @@ message Ad { ... }
 message Message { ... }
 ```
 
-## Interceptors (Connect)
+## Interceptors
+
+### Connect Interceptors
 
 ```go
 import "connectrpc.com/connect"
@@ -261,7 +360,32 @@ path, handler := authv1connect.NewAuthServiceHandler(
 )
 ```
 
-## Error Handling (Connect)
+### Стандартный gRPC Interceptors
+
+```go
+import (
+    "google.golang.org/grpc"
+    sharedGRPC "gitlab.com/xakpro/cg-shared-libs/grpc"
+)
+
+// Используйте interceptors из cg-shared-libs/grpc
+grpcServer, err := sharedGRPC.NewServer(cfg.GRPC, 
+    grpc.ChainUnaryInterceptor(
+        customInterceptor1,
+        customInterceptor2,
+    ),
+)
+
+// Или используйте встроенные interceptors:
+// - recoveryInterceptor (автоматически)
+// - loggingInterceptor (автоматически)
+// - timeoutInterceptor (автоматически)
+// - AuthInterceptor (через sharedGRPC.AuthInterceptor)
+```
+
+## Error Handling
+
+### Connect Error Handling
 
 ```go
 import "connectrpc.com/connect"
@@ -280,6 +404,30 @@ if connect.CodeOf(err) == connect.CodeNotFound {
 // - connect.CodeUnauthenticated
 // - connect.CodePermissionDenied
 // - connect.CodeInternal
+```
+
+### Стандартный gRPC Error Handling
+
+```go
+import (
+    "google.golang.org/grpc/codes"
+    "google.golang.org/grpc/status"
+)
+
+// Return error
+return nil, status.Error(codes.NotFound, "user not found")
+
+// Check error code
+if status.Code(err) == codes.NotFound {
+    // Handle not found
+}
+
+// Common codes:
+// - codes.InvalidArgument
+// - codes.NotFound
+// - codes.Unauthenticated
+// - codes.PermissionDenied
+// - codes.Internal
 ```
 
 ## Версионирование
