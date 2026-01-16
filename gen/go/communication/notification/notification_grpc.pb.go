@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: communication/notification/notification.proto
 
-package notification
+package notificationv1
 
 import (
 	context "context"

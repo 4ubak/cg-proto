@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: platform/counter/counter.proto
 
-package v1
+package counterv1
 
 import (
 	context "context"

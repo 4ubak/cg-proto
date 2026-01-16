@@ -2,13 +2,13 @@
 //
 // Source: platform/counter/counter.proto
 
-package v1connect
+package counterv1connect
 
 import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "gitlab.com/xakpro/cg-proto/gen/go/platform/counter/v1"
+	counter "gitlab.com/xakpro/cg-proto/gen/go/platform/counter"
 	http "net/http"
 	strings "strings"
 )
@@ -49,10 +49,10 @@ const (
 
 // CounterServiceClient is a client for the platform.counter.v1.CounterService service.
 type CounterServiceClient interface {
-	GetCounters(context.Context, *connect.Request[v1.GetCountersRequest]) (*connect.Response[v1.GetCountersResponse], error)
-	IncrementCounter(context.Context, *connect.Request[v1.IncrementCounterRequest]) (*connect.Response[v1.IncrementCounterResponse], error)
-	DecrementCounter(context.Context, *connect.Request[v1.DecrementCounterRequest]) (*connect.Response[v1.DecrementCounterResponse], error)
-	SetCounter(context.Context, *connect.Request[v1.SetCounterRequest]) (*connect.Response[v1.SetCounterResponse], error)
+	GetCounters(context.Context, *connect.Request[counter.GetCountersRequest]) (*connect.Response[counter.GetCountersResponse], error)
+	IncrementCounter(context.Context, *connect.Request[counter.IncrementCounterRequest]) (*connect.Response[counter.IncrementCounterResponse], error)
+	DecrementCounter(context.Context, *connect.Request[counter.DecrementCounterRequest]) (*connect.Response[counter.DecrementCounterResponse], error)
+	SetCounter(context.Context, *connect.Request[counter.SetCounterRequest]) (*connect.Response[counter.SetCounterResponse], error)
 }
 
 // NewCounterServiceClient constructs a client for the platform.counter.v1.CounterService service.
@@ -64,27 +64,27 @@ type CounterServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewCounterServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) CounterServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	counterServiceMethods := v1.File_platform_counter_counter_proto.Services().ByName("CounterService").Methods()
+	counterServiceMethods := counter.File_platform_counter_counter_proto.Services().ByName("CounterService").Methods()
 	return &counterServiceClient{
-		getCounters: connect.NewClient[v1.GetCountersRequest, v1.GetCountersResponse](
+		getCounters: connect.NewClient[counter.GetCountersRequest, counter.GetCountersResponse](
 			httpClient,
 			baseURL+CounterServiceGetCountersProcedure,
 			connect.WithSchema(counterServiceMethods.ByName("GetCounters")),
 			connect.WithClientOptions(opts...),
 		),
-		incrementCounter: connect.NewClient[v1.IncrementCounterRequest, v1.IncrementCounterResponse](
+		incrementCounter: connect.NewClient[counter.IncrementCounterRequest, counter.IncrementCounterResponse](
 			httpClient,
 			baseURL+CounterServiceIncrementCounterProcedure,
 			connect.WithSchema(counterServiceMethods.ByName("IncrementCounter")),
 			connect.WithClientOptions(opts...),
 		),
-		decrementCounter: connect.NewClient[v1.DecrementCounterRequest, v1.DecrementCounterResponse](
+		decrementCounter: connect.NewClient[counter.DecrementCounterRequest, counter.DecrementCounterResponse](
 			httpClient,
 			baseURL+CounterServiceDecrementCounterProcedure,
 			connect.WithSchema(counterServiceMethods.ByName("DecrementCounter")),
 			connect.WithClientOptions(opts...),
 		),
-		setCounter: connect.NewClient[v1.SetCounterRequest, v1.SetCounterResponse](
+		setCounter: connect.NewClient[counter.SetCounterRequest, counter.SetCounterResponse](
 			httpClient,
 			baseURL+CounterServiceSetCounterProcedure,
 			connect.WithSchema(counterServiceMethods.ByName("SetCounter")),
@@ -95,38 +95,38 @@ func NewCounterServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 
 // counterServiceClient implements CounterServiceClient.
 type counterServiceClient struct {
-	getCounters      *connect.Client[v1.GetCountersRequest, v1.GetCountersResponse]
-	incrementCounter *connect.Client[v1.IncrementCounterRequest, v1.IncrementCounterResponse]
-	decrementCounter *connect.Client[v1.DecrementCounterRequest, v1.DecrementCounterResponse]
-	setCounter       *connect.Client[v1.SetCounterRequest, v1.SetCounterResponse]
+	getCounters      *connect.Client[counter.GetCountersRequest, counter.GetCountersResponse]
+	incrementCounter *connect.Client[counter.IncrementCounterRequest, counter.IncrementCounterResponse]
+	decrementCounter *connect.Client[counter.DecrementCounterRequest, counter.DecrementCounterResponse]
+	setCounter       *connect.Client[counter.SetCounterRequest, counter.SetCounterResponse]
 }
 
 // GetCounters calls platform.counter.v1.CounterService.GetCounters.
-func (c *counterServiceClient) GetCounters(ctx context.Context, req *connect.Request[v1.GetCountersRequest]) (*connect.Response[v1.GetCountersResponse], error) {
+func (c *counterServiceClient) GetCounters(ctx context.Context, req *connect.Request[counter.GetCountersRequest]) (*connect.Response[counter.GetCountersResponse], error) {
 	return c.getCounters.CallUnary(ctx, req)
 }
 
 // IncrementCounter calls platform.counter.v1.CounterService.IncrementCounter.
-func (c *counterServiceClient) IncrementCounter(ctx context.Context, req *connect.Request[v1.IncrementCounterRequest]) (*connect.Response[v1.IncrementCounterResponse], error) {
+func (c *counterServiceClient) IncrementCounter(ctx context.Context, req *connect.Request[counter.IncrementCounterRequest]) (*connect.Response[counter.IncrementCounterResponse], error) {
 	return c.incrementCounter.CallUnary(ctx, req)
 }
 
 // DecrementCounter calls platform.counter.v1.CounterService.DecrementCounter.
-func (c *counterServiceClient) DecrementCounter(ctx context.Context, req *connect.Request[v1.DecrementCounterRequest]) (*connect.Response[v1.DecrementCounterResponse], error) {
+func (c *counterServiceClient) DecrementCounter(ctx context.Context, req *connect.Request[counter.DecrementCounterRequest]) (*connect.Response[counter.DecrementCounterResponse], error) {
 	return c.decrementCounter.CallUnary(ctx, req)
 }
 
 // SetCounter calls platform.counter.v1.CounterService.SetCounter.
-func (c *counterServiceClient) SetCounter(ctx context.Context, req *connect.Request[v1.SetCounterRequest]) (*connect.Response[v1.SetCounterResponse], error) {
+func (c *counterServiceClient) SetCounter(ctx context.Context, req *connect.Request[counter.SetCounterRequest]) (*connect.Response[counter.SetCounterResponse], error) {
 	return c.setCounter.CallUnary(ctx, req)
 }
 
 // CounterServiceHandler is an implementation of the platform.counter.v1.CounterService service.
 type CounterServiceHandler interface {
-	GetCounters(context.Context, *connect.Request[v1.GetCountersRequest]) (*connect.Response[v1.GetCountersResponse], error)
-	IncrementCounter(context.Context, *connect.Request[v1.IncrementCounterRequest]) (*connect.Response[v1.IncrementCounterResponse], error)
-	DecrementCounter(context.Context, *connect.Request[v1.DecrementCounterRequest]) (*connect.Response[v1.DecrementCounterResponse], error)
-	SetCounter(context.Context, *connect.Request[v1.SetCounterRequest]) (*connect.Response[v1.SetCounterResponse], error)
+	GetCounters(context.Context, *connect.Request[counter.GetCountersRequest]) (*connect.Response[counter.GetCountersResponse], error)
+	IncrementCounter(context.Context, *connect.Request[counter.IncrementCounterRequest]) (*connect.Response[counter.IncrementCounterResponse], error)
+	DecrementCounter(context.Context, *connect.Request[counter.DecrementCounterRequest]) (*connect.Response[counter.DecrementCounterResponse], error)
+	SetCounter(context.Context, *connect.Request[counter.SetCounterRequest]) (*connect.Response[counter.SetCounterResponse], error)
 }
 
 // NewCounterServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -135,7 +135,7 @@ type CounterServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewCounterServiceHandler(svc CounterServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	counterServiceMethods := v1.File_platform_counter_counter_proto.Services().ByName("CounterService").Methods()
+	counterServiceMethods := counter.File_platform_counter_counter_proto.Services().ByName("CounterService").Methods()
 	counterServiceGetCountersHandler := connect.NewUnaryHandler(
 		CounterServiceGetCountersProcedure,
 		svc.GetCounters,
@@ -179,18 +179,18 @@ func NewCounterServiceHandler(svc CounterServiceHandler, opts ...connect.Handler
 // UnimplementedCounterServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedCounterServiceHandler struct{}
 
-func (UnimplementedCounterServiceHandler) GetCounters(context.Context, *connect.Request[v1.GetCountersRequest]) (*connect.Response[v1.GetCountersResponse], error) {
+func (UnimplementedCounterServiceHandler) GetCounters(context.Context, *connect.Request[counter.GetCountersRequest]) (*connect.Response[counter.GetCountersResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.counter.v1.CounterService.GetCounters is not implemented"))
 }
 
-func (UnimplementedCounterServiceHandler) IncrementCounter(context.Context, *connect.Request[v1.IncrementCounterRequest]) (*connect.Response[v1.IncrementCounterResponse], error) {
+func (UnimplementedCounterServiceHandler) IncrementCounter(context.Context, *connect.Request[counter.IncrementCounterRequest]) (*connect.Response[counter.IncrementCounterResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.counter.v1.CounterService.IncrementCounter is not implemented"))
 }
 
-func (UnimplementedCounterServiceHandler) DecrementCounter(context.Context, *connect.Request[v1.DecrementCounterRequest]) (*connect.Response[v1.DecrementCounterResponse], error) {
+func (UnimplementedCounterServiceHandler) DecrementCounter(context.Context, *connect.Request[counter.DecrementCounterRequest]) (*connect.Response[counter.DecrementCounterResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.counter.v1.CounterService.DecrementCounter is not implemented"))
 }
 
-func (UnimplementedCounterServiceHandler) SetCounter(context.Context, *connect.Request[v1.SetCounterRequest]) (*connect.Response[v1.SetCounterResponse], error) {
+func (UnimplementedCounterServiceHandler) SetCounter(context.Context, *connect.Request[counter.SetCounterRequest]) (*connect.Response[counter.SetCounterResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.counter.v1.CounterService.SetCounter is not implemented"))
 }

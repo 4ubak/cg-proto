@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: platform/counter/counter.proto
 
-package v1
+package counterv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -554,7 +554,7 @@ const file_platform_counter_counter_proto_rawDesc = "" +
 	"\x10IncrementCounter\x12,.platform.counter.v1.IncrementCounterRequest\x1a-.platform.counter.v1.IncrementCounterResponse\x12o\n" +
 	"\x10DecrementCounter\x12,.platform.counter.v1.DecrementCounterRequest\x1a-.platform.counter.v1.DecrementCounterResponse\x12]\n" +
 	"\n" +
-	"SetCounter\x12&.platform.counter.v1.SetCounterRequest\x1a'.platform.counter.v1.SetCounterResponseB7Z5gitlab.com/xakpro/cg-proto/gen/go/platform/counter/v1b\x06proto3"
+	"SetCounter\x12&.platform.counter.v1.SetCounterRequest\x1a'.platform.counter.v1.SetCounterResponseB>Z<gitlab.com/xakpro/cg-proto/gen/go/platform/counter;counterv1b\x06proto3"
 
 var (
 	file_platform_counter_counter_proto_rawDescOnce sync.Once

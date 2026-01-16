@@ -2,7 +2,7 @@
 //
 // Source: communication/notification/notification.proto
 
-package notificationconnect
+package notificationv1connect
 
 import (
 	connect "connectrpc.com/connect"

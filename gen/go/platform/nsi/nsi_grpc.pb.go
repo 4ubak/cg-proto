@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: platform/nsi/nsi.proto
 
-package v1
+package nsiv1
 
 import (
 	context "context"

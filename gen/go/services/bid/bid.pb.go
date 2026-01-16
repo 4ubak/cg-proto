@@ -1903,7 +1903,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\tAcceptBid\x12!.services.bid.v1.AcceptBidRequest\x1a\".services.bid.v1.AcceptBidResponse\x12R\n" +
 	"\tRejectBid\x12!.services.bid.v1.RejectBidRequest\x1a\".services.bid.v1.RejectBidResponse\x12R\n" +
 	"\tCancelBid\x12!.services.bid.v1.CancelBidRequest\x1a\".services.bid.v1.CancelBidResponse\x12\x82\x01\n" +
-	"\x19FindMatchingOrganizations\x121.services.bid.v1.FindMatchingOrganizationsRequest\x1a2.services.bid.v1.FindMatchingOrganizationsResponseB9Z7gitlab.com/xakpro/cg-proto/gen/go/services/bid/v1;bidv1b\x06proto3"
+	"\x19FindMatchingOrganizations\x121.services.bid.v1.FindMatchingOrganizationsRequest\x1a2.services.bid.v1.FindMatchingOrganizationsResponseB6Z4gitlab.com/xakpro/cg-proto/gen/go/services/bid;bidv1b\x06proto3"
 
 var (
 	file_services_bid_bid_proto_rawDescOnce sync.Once

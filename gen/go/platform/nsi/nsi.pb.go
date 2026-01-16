@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: platform/nsi/nsi.proto
 
-package v1
+package nsiv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -1930,7 +1930,7 @@ const file_platform_nsi_nsi_proto_rawDesc = "" +
 	"\x12GetServiceCategory\x12*.platform.nsi.v1.GetServiceCategoryRequest\x1a+.platform.nsi.v1.GetServiceCategoryResponse\x12\x85\x01\n" +
 	"\x1aValidateGroupAndCategories\x122.platform.nsi.v1.ValidateGroupAndCategoriesRequest\x1a3.platform.nsi.v1.ValidateGroupAndCategoriesResponse\x12^\n" +
 	"\rGetAppVersion\x12%.platform.nsi.v1.GetAppVersionRequest\x1a&.platform.nsi.v1.GetAppVersionResponse\x12R\n" +
-	"\tGetConfig\x12!.platform.nsi.v1.GetConfigRequest\x1a\".platform.nsi.v1.GetConfigResponseB3Z1gitlab.com/xakpro/cg-proto/gen/go/platform/nsi/v1b\x06proto3"
+	"\tGetConfig\x12!.platform.nsi.v1.GetConfigRequest\x1a\".platform.nsi.v1.GetConfigResponseB6Z4gitlab.com/xakpro/cg-proto/gen/go/platform/nsi;nsiv1b\x06proto3"
 
 var (
 	file_platform_nsi_nsi_proto_rawDescOnce sync.Once

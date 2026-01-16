@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "gitlab.com/xakpro/cg-proto/gen/go/services/bid/v1"
+	bid "gitlab.com/xakpro/cg-proto/gen/go/services/bid"
 	http "net/http"
 	strings "strings"
 )
@@ -63,27 +63,27 @@ const (
 // BidServiceClient is a client for the services.bid.v1.BidService service.
 type BidServiceClient interface {
 	// CreateBid creates a new bid from organization to request
-	CreateBid(context.Context, *connect.Request[v1.CreateBidRequest]) (*connect.Response[v1.CreateBidResponse], error)
+	CreateBid(context.Context, *connect.Request[bid.CreateBidRequest]) (*connect.Response[bid.CreateBidResponse], error)
 	// GetBid returns bid by ID
-	GetBid(context.Context, *connect.Request[v1.GetBidRequest]) (*connect.Response[v1.GetBidResponse], error)
+	GetBid(context.Context, *connect.Request[bid.GetBidRequest]) (*connect.Response[bid.GetBidResponse], error)
 	// UpdateBid updates a bid
-	UpdateBid(context.Context, *connect.Request[v1.UpdateBidRequest]) (*connect.Response[v1.UpdateBidResponse], error)
+	UpdateBid(context.Context, *connect.Request[bid.UpdateBidRequest]) (*connect.Response[bid.UpdateBidResponse], error)
 	// DeleteBid deletes a bid
-	DeleteBid(context.Context, *connect.Request[v1.DeleteBidRequest]) (*connect.Response[v1.DeleteBidResponse], error)
+	DeleteBid(context.Context, *connect.Request[bid.DeleteBidRequest]) (*connect.Response[bid.DeleteBidResponse], error)
 	// ListBids lists bids with filters
-	ListBids(context.Context, *connect.Request[v1.ListBidsRequest]) (*connect.Response[v1.ListBidsResponse], error)
+	ListBids(context.Context, *connect.Request[bid.ListBidsRequest]) (*connect.Response[bid.ListBidsResponse], error)
 	// GetBidsByRequest returns bids for a request
-	GetBidsByRequest(context.Context, *connect.Request[v1.GetBidsByRequestRequest]) (*connect.Response[v1.GetBidsByRequestResponse], error)
+	GetBidsByRequest(context.Context, *connect.Request[bid.GetBidsByRequestRequest]) (*connect.Response[bid.GetBidsByRequestResponse], error)
 	// GetBidsByOrganization returns bids for an organization
-	GetBidsByOrganization(context.Context, *connect.Request[v1.GetBidsByOrganizationRequest]) (*connect.Response[v1.GetBidsByOrganizationResponse], error)
+	GetBidsByOrganization(context.Context, *connect.Request[bid.GetBidsByOrganizationRequest]) (*connect.Response[bid.GetBidsByOrganizationResponse], error)
 	// AcceptBid accepts a bid (user accepts organization's bid)
-	AcceptBid(context.Context, *connect.Request[v1.AcceptBidRequest]) (*connect.Response[v1.AcceptBidResponse], error)
+	AcceptBid(context.Context, *connect.Request[bid.AcceptBidRequest]) (*connect.Response[bid.AcceptBidResponse], error)
 	// RejectBid rejects a bid (user rejects organization's bid)
-	RejectBid(context.Context, *connect.Request[v1.RejectBidRequest]) (*connect.Response[v1.RejectBidResponse], error)
+	RejectBid(context.Context, *connect.Request[bid.RejectBidRequest]) (*connect.Response[bid.RejectBidResponse], error)
 	// CancelBid cancels a bid (organization cancels their bid)
-	CancelBid(context.Context, *connect.Request[v1.CancelBidRequest]) (*connect.Response[v1.CancelBidResponse], error)
+	CancelBid(context.Context, *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error)
 	// FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-	FindMatchingOrganizations(context.Context, *connect.Request[v1.FindMatchingOrganizationsRequest]) (*connect.Response[v1.FindMatchingOrganizationsResponse], error)
+	FindMatchingOrganizations(context.Context, *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error)
 }
 
 // NewBidServiceClient constructs a client for the services.bid.v1.BidService service. By default,
@@ -95,69 +95,69 @@ type BidServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewBidServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) BidServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	bidServiceMethods := v1.File_services_bid_bid_proto.Services().ByName("BidService").Methods()
+	bidServiceMethods := bid.File_services_bid_bid_proto.Services().ByName("BidService").Methods()
 	return &bidServiceClient{
-		createBid: connect.NewClient[v1.CreateBidRequest, v1.CreateBidResponse](
+		createBid: connect.NewClient[bid.CreateBidRequest, bid.CreateBidResponse](
 			httpClient,
 			baseURL+BidServiceCreateBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("CreateBid")),
 			connect.WithClientOptions(opts...),
 		),
-		getBid: connect.NewClient[v1.GetBidRequest, v1.GetBidResponse](
+		getBid: connect.NewClient[bid.GetBidRequest, bid.GetBidResponse](
 			httpClient,
 			baseURL+BidServiceGetBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("GetBid")),
 			connect.WithClientOptions(opts...),
 		),
-		updateBid: connect.NewClient[v1.UpdateBidRequest, v1.UpdateBidResponse](
+		updateBid: connect.NewClient[bid.UpdateBidRequest, bid.UpdateBidResponse](
 			httpClient,
 			baseURL+BidServiceUpdateBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("UpdateBid")),
 			connect.WithClientOptions(opts...),
 		),
-		deleteBid: connect.NewClient[v1.DeleteBidRequest, v1.DeleteBidResponse](
+		deleteBid: connect.NewClient[bid.DeleteBidRequest, bid.DeleteBidResponse](
 			httpClient,
 			baseURL+BidServiceDeleteBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("DeleteBid")),
 			connect.WithClientOptions(opts...),
 		),
-		listBids: connect.NewClient[v1.ListBidsRequest, v1.ListBidsResponse](
+		listBids: connect.NewClient[bid.ListBidsRequest, bid.ListBidsResponse](
 			httpClient,
 			baseURL+BidServiceListBidsProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("ListBids")),
 			connect.WithClientOptions(opts...),
 		),
-		getBidsByRequest: connect.NewClient[v1.GetBidsByRequestRequest, v1.GetBidsByRequestResponse](
+		getBidsByRequest: connect.NewClient[bid.GetBidsByRequestRequest, bid.GetBidsByRequestResponse](
 			httpClient,
 			baseURL+BidServiceGetBidsByRequestProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("GetBidsByRequest")),
 			connect.WithClientOptions(opts...),
 		),
-		getBidsByOrganization: connect.NewClient[v1.GetBidsByOrganizationRequest, v1.GetBidsByOrganizationResponse](
+		getBidsByOrganization: connect.NewClient[bid.GetBidsByOrganizationRequest, bid.GetBidsByOrganizationResponse](
 			httpClient,
 			baseURL+BidServiceGetBidsByOrganizationProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("GetBidsByOrganization")),
 			connect.WithClientOptions(opts...),
 		),
-		acceptBid: connect.NewClient[v1.AcceptBidRequest, v1.AcceptBidResponse](
+		acceptBid: connect.NewClient[bid.AcceptBidRequest, bid.AcceptBidResponse](
 			httpClient,
 			baseURL+BidServiceAcceptBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("AcceptBid")),
 			connect.WithClientOptions(opts...),
 		),
-		rejectBid: connect.NewClient[v1.RejectBidRequest, v1.RejectBidResponse](
+		rejectBid: connect.NewClient[bid.RejectBidRequest, bid.RejectBidResponse](
 			httpClient,
 			baseURL+BidServiceRejectBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("RejectBid")),
 			connect.WithClientOptions(opts...),
 		),
-		cancelBid: connect.NewClient[v1.CancelBidRequest, v1.CancelBidResponse](
+		cancelBid: connect.NewClient[bid.CancelBidRequest, bid.CancelBidResponse](
 			httpClient,
 			baseURL+BidServiceCancelBidProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("CancelBid")),
 			connect.WithClientOptions(opts...),
 		),
-		findMatchingOrganizations: connect.NewClient[v1.FindMatchingOrganizationsRequest, v1.FindMatchingOrganizationsResponse](
+		findMatchingOrganizations: connect.NewClient[bid.FindMatchingOrganizationsRequest, bid.FindMatchingOrganizationsResponse](
 			httpClient,
 			baseURL+BidServiceFindMatchingOrganizationsProcedure,
 			connect.WithSchema(bidServiceMethods.ByName("FindMatchingOrganizations")),
@@ -168,98 +168,98 @@ func NewBidServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 
 // bidServiceClient implements BidServiceClient.
 type bidServiceClient struct {
-	createBid                 *connect.Client[v1.CreateBidRequest, v1.CreateBidResponse]
-	getBid                    *connect.Client[v1.GetBidRequest, v1.GetBidResponse]
-	updateBid                 *connect.Client[v1.UpdateBidRequest, v1.UpdateBidResponse]
-	deleteBid                 *connect.Client[v1.DeleteBidRequest, v1.DeleteBidResponse]
-	listBids                  *connect.Client[v1.ListBidsRequest, v1.ListBidsResponse]
-	getBidsByRequest          *connect.Client[v1.GetBidsByRequestRequest, v1.GetBidsByRequestResponse]
-	getBidsByOrganization     *connect.Client[v1.GetBidsByOrganizationRequest, v1.GetBidsByOrganizationResponse]
-	acceptBid                 *connect.Client[v1.AcceptBidRequest, v1.AcceptBidResponse]
-	rejectBid                 *connect.Client[v1.RejectBidRequest, v1.RejectBidResponse]
-	cancelBid                 *connect.Client[v1.CancelBidRequest, v1.CancelBidResponse]
-	findMatchingOrganizations *connect.Client[v1.FindMatchingOrganizationsRequest, v1.FindMatchingOrganizationsResponse]
+	createBid                 *connect.Client[bid.CreateBidRequest, bid.CreateBidResponse]
+	getBid                    *connect.Client[bid.GetBidRequest, bid.GetBidResponse]
+	updateBid                 *connect.Client[bid.UpdateBidRequest, bid.UpdateBidResponse]
+	deleteBid                 *connect.Client[bid.DeleteBidRequest, bid.DeleteBidResponse]
+	listBids                  *connect.Client[bid.ListBidsRequest, bid.ListBidsResponse]
+	getBidsByRequest          *connect.Client[bid.GetBidsByRequestRequest, bid.GetBidsByRequestResponse]
+	getBidsByOrganization     *connect.Client[bid.GetBidsByOrganizationRequest, bid.GetBidsByOrganizationResponse]
+	acceptBid                 *connect.Client[bid.AcceptBidRequest, bid.AcceptBidResponse]
+	rejectBid                 *connect.Client[bid.RejectBidRequest, bid.RejectBidResponse]
+	cancelBid                 *connect.Client[bid.CancelBidRequest, bid.CancelBidResponse]
+	findMatchingOrganizations *connect.Client[bid.FindMatchingOrganizationsRequest, bid.FindMatchingOrganizationsResponse]
 }
 
 // CreateBid calls services.bid.v1.BidService.CreateBid.
-func (c *bidServiceClient) CreateBid(ctx context.Context, req *connect.Request[v1.CreateBidRequest]) (*connect.Response[v1.CreateBidResponse], error) {
+func (c *bidServiceClient) CreateBid(ctx context.Context, req *connect.Request[bid.CreateBidRequest]) (*connect.Response[bid.CreateBidResponse], error) {
 	return c.createBid.CallUnary(ctx, req)
 }
 
 // GetBid calls services.bid.v1.BidService.GetBid.
-func (c *bidServiceClient) GetBid(ctx context.Context, req *connect.Request[v1.GetBidRequest]) (*connect.Response[v1.GetBidResponse], error) {
+func (c *bidServiceClient) GetBid(ctx context.Context, req *connect.Request[bid.GetBidRequest]) (*connect.Response[bid.GetBidResponse], error) {
 	return c.getBid.CallUnary(ctx, req)
 }
 
 // UpdateBid calls services.bid.v1.BidService.UpdateBid.
-func (c *bidServiceClient) UpdateBid(ctx context.Context, req *connect.Request[v1.UpdateBidRequest]) (*connect.Response[v1.UpdateBidResponse], error) {
+func (c *bidServiceClient) UpdateBid(ctx context.Context, req *connect.Request[bid.UpdateBidRequest]) (*connect.Response[bid.UpdateBidResponse], error) {
 	return c.updateBid.CallUnary(ctx, req)
 }
 
 // DeleteBid calls services.bid.v1.BidService.DeleteBid.
-func (c *bidServiceClient) DeleteBid(ctx context.Context, req *connect.Request[v1.DeleteBidRequest]) (*connect.Response[v1.DeleteBidResponse], error) {
+func (c *bidServiceClient) DeleteBid(ctx context.Context, req *connect.Request[bid.DeleteBidRequest]) (*connect.Response[bid.DeleteBidResponse], error) {
 	return c.deleteBid.CallUnary(ctx, req)
 }
 
 // ListBids calls services.bid.v1.BidService.ListBids.
-func (c *bidServiceClient) ListBids(ctx context.Context, req *connect.Request[v1.ListBidsRequest]) (*connect.Response[v1.ListBidsResponse], error) {
+func (c *bidServiceClient) ListBids(ctx context.Context, req *connect.Request[bid.ListBidsRequest]) (*connect.Response[bid.ListBidsResponse], error) {
 	return c.listBids.CallUnary(ctx, req)
 }
 
 // GetBidsByRequest calls services.bid.v1.BidService.GetBidsByRequest.
-func (c *bidServiceClient) GetBidsByRequest(ctx context.Context, req *connect.Request[v1.GetBidsByRequestRequest]) (*connect.Response[v1.GetBidsByRequestResponse], error) {
+func (c *bidServiceClient) GetBidsByRequest(ctx context.Context, req *connect.Request[bid.GetBidsByRequestRequest]) (*connect.Response[bid.GetBidsByRequestResponse], error) {
 	return c.getBidsByRequest.CallUnary(ctx, req)
 }
 
 // GetBidsByOrganization calls services.bid.v1.BidService.GetBidsByOrganization.
-func (c *bidServiceClient) GetBidsByOrganization(ctx context.Context, req *connect.Request[v1.GetBidsByOrganizationRequest]) (*connect.Response[v1.GetBidsByOrganizationResponse], error) {
+func (c *bidServiceClient) GetBidsByOrganization(ctx context.Context, req *connect.Request[bid.GetBidsByOrganizationRequest]) (*connect.Response[bid.GetBidsByOrganizationResponse], error) {
 	return c.getBidsByOrganization.CallUnary(ctx, req)
 }
 
 // AcceptBid calls services.bid.v1.BidService.AcceptBid.
-func (c *bidServiceClient) AcceptBid(ctx context.Context, req *connect.Request[v1.AcceptBidRequest]) (*connect.Response[v1.AcceptBidResponse], error) {
+func (c *bidServiceClient) AcceptBid(ctx context.Context, req *connect.Request[bid.AcceptBidRequest]) (*connect.Response[bid.AcceptBidResponse], error) {
 	return c.acceptBid.CallUnary(ctx, req)
 }
 
 // RejectBid calls services.bid.v1.BidService.RejectBid.
-func (c *bidServiceClient) RejectBid(ctx context.Context, req *connect.Request[v1.RejectBidRequest]) (*connect.Response[v1.RejectBidResponse], error) {
+func (c *bidServiceClient) RejectBid(ctx context.Context, req *connect.Request[bid.RejectBidRequest]) (*connect.Response[bid.RejectBidResponse], error) {
 	return c.rejectBid.CallUnary(ctx, req)
 }
 
 // CancelBid calls services.bid.v1.BidService.CancelBid.
-func (c *bidServiceClient) CancelBid(ctx context.Context, req *connect.Request[v1.CancelBidRequest]) (*connect.Response[v1.CancelBidResponse], error) {
+func (c *bidServiceClient) CancelBid(ctx context.Context, req *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error) {
 	return c.cancelBid.CallUnary(ctx, req)
 }
 
 // FindMatchingOrganizations calls services.bid.v1.BidService.FindMatchingOrganizations.
-func (c *bidServiceClient) FindMatchingOrganizations(ctx context.Context, req *connect.Request[v1.FindMatchingOrganizationsRequest]) (*connect.Response[v1.FindMatchingOrganizationsResponse], error) {
+func (c *bidServiceClient) FindMatchingOrganizations(ctx context.Context, req *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error) {
 	return c.findMatchingOrganizations.CallUnary(ctx, req)
 }
 
 // BidServiceHandler is an implementation of the services.bid.v1.BidService service.
 type BidServiceHandler interface {
 	// CreateBid creates a new bid from organization to request
-	CreateBid(context.Context, *connect.Request[v1.CreateBidRequest]) (*connect.Response[v1.CreateBidResponse], error)
+	CreateBid(context.Context, *connect.Request[bid.CreateBidRequest]) (*connect.Response[bid.CreateBidResponse], error)
 	// GetBid returns bid by ID
-	GetBid(context.Context, *connect.Request[v1.GetBidRequest]) (*connect.Response[v1.GetBidResponse], error)
+	GetBid(context.Context, *connect.Request[bid.GetBidRequest]) (*connect.Response[bid.GetBidResponse], error)
 	// UpdateBid updates a bid
-	UpdateBid(context.Context, *connect.Request[v1.UpdateBidRequest]) (*connect.Response[v1.UpdateBidResponse], error)
+	UpdateBid(context.Context, *connect.Request[bid.UpdateBidRequest]) (*connect.Response[bid.UpdateBidResponse], error)
 	// DeleteBid deletes a bid
-	DeleteBid(context.Context, *connect.Request[v1.DeleteBidRequest]) (*connect.Response[v1.DeleteBidResponse], error)
+	DeleteBid(context.Context, *connect.Request[bid.DeleteBidRequest]) (*connect.Response[bid.DeleteBidResponse], error)
 	// ListBids lists bids with filters
-	ListBids(context.Context, *connect.Request[v1.ListBidsRequest]) (*connect.Response[v1.ListBidsResponse], error)
+	ListBids(context.Context, *connect.Request[bid.ListBidsRequest]) (*connect.Response[bid.ListBidsResponse], error)
 	// GetBidsByRequest returns bids for a request
-	GetBidsByRequest(context.Context, *connect.Request[v1.GetBidsByRequestRequest]) (*connect.Response[v1.GetBidsByRequestResponse], error)
+	GetBidsByRequest(context.Context, *connect.Request[bid.GetBidsByRequestRequest]) (*connect.Response[bid.GetBidsByRequestResponse], error)
 	// GetBidsByOrganization returns bids for an organization
-	GetBidsByOrganization(context.Context, *connect.Request[v1.GetBidsByOrganizationRequest]) (*connect.Response[v1.GetBidsByOrganizationResponse], error)
+	GetBidsByOrganization(context.Context, *connect.Request[bid.GetBidsByOrganizationRequest]) (*connect.Response[bid.GetBidsByOrganizationResponse], error)
 	// AcceptBid accepts a bid (user accepts organization's bid)
-	AcceptBid(context.Context, *connect.Request[v1.AcceptBidRequest]) (*connect.Response[v1.AcceptBidResponse], error)
+	AcceptBid(context.Context, *connect.Request[bid.AcceptBidRequest]) (*connect.Response[bid.AcceptBidResponse], error)
 	// RejectBid rejects a bid (user rejects organization's bid)
-	RejectBid(context.Context, *connect.Request[v1.RejectBidRequest]) (*connect.Response[v1.RejectBidResponse], error)
+	RejectBid(context.Context, *connect.Request[bid.RejectBidRequest]) (*connect.Response[bid.RejectBidResponse], error)
 	// CancelBid cancels a bid (organization cancels their bid)
-	CancelBid(context.Context, *connect.Request[v1.CancelBidRequest]) (*connect.Response[v1.CancelBidResponse], error)
+	CancelBid(context.Context, *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error)
 	// FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-	FindMatchingOrganizations(context.Context, *connect.Request[v1.FindMatchingOrganizationsRequest]) (*connect.Response[v1.FindMatchingOrganizationsResponse], error)
+	FindMatchingOrganizations(context.Context, *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error)
 }
 
 // NewBidServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -268,7 +268,7 @@ type BidServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewBidServiceHandler(svc BidServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	bidServiceMethods := v1.File_services_bid_bid_proto.Services().ByName("BidService").Methods()
+	bidServiceMethods := bid.File_services_bid_bid_proto.Services().ByName("BidService").Methods()
 	bidServiceCreateBidHandler := connect.NewUnaryHandler(
 		BidServiceCreateBidProcedure,
 		svc.CreateBid,
@@ -368,46 +368,46 @@ func NewBidServiceHandler(svc BidServiceHandler, opts ...connect.HandlerOption) 
 // UnimplementedBidServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedBidServiceHandler struct{}
 
-func (UnimplementedBidServiceHandler) CreateBid(context.Context, *connect.Request[v1.CreateBidRequest]) (*connect.Response[v1.CreateBidResponse], error) {
+func (UnimplementedBidServiceHandler) CreateBid(context.Context, *connect.Request[bid.CreateBidRequest]) (*connect.Response[bid.CreateBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.CreateBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) GetBid(context.Context, *connect.Request[v1.GetBidRequest]) (*connect.Response[v1.GetBidResponse], error) {
+func (UnimplementedBidServiceHandler) GetBid(context.Context, *connect.Request[bid.GetBidRequest]) (*connect.Response[bid.GetBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.GetBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) UpdateBid(context.Context, *connect.Request[v1.UpdateBidRequest]) (*connect.Response[v1.UpdateBidResponse], error) {
+func (UnimplementedBidServiceHandler) UpdateBid(context.Context, *connect.Request[bid.UpdateBidRequest]) (*connect.Response[bid.UpdateBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.UpdateBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) DeleteBid(context.Context, *connect.Request[v1.DeleteBidRequest]) (*connect.Response[v1.DeleteBidResponse], error) {
+func (UnimplementedBidServiceHandler) DeleteBid(context.Context, *connect.Request[bid.DeleteBidRequest]) (*connect.Response[bid.DeleteBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.DeleteBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) ListBids(context.Context, *connect.Request[v1.ListBidsRequest]) (*connect.Response[v1.ListBidsResponse], error) {
+func (UnimplementedBidServiceHandler) ListBids(context.Context, *connect.Request[bid.ListBidsRequest]) (*connect.Response[bid.ListBidsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.ListBids is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) GetBidsByRequest(context.Context, *connect.Request[v1.GetBidsByRequestRequest]) (*connect.Response[v1.GetBidsByRequestResponse], error) {
+func (UnimplementedBidServiceHandler) GetBidsByRequest(context.Context, *connect.Request[bid.GetBidsByRequestRequest]) (*connect.Response[bid.GetBidsByRequestResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.GetBidsByRequest is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) GetBidsByOrganization(context.Context, *connect.Request[v1.GetBidsByOrganizationRequest]) (*connect.Response[v1.GetBidsByOrganizationResponse], error) {
+func (UnimplementedBidServiceHandler) GetBidsByOrganization(context.Context, *connect.Request[bid.GetBidsByOrganizationRequest]) (*connect.Response[bid.GetBidsByOrganizationResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.GetBidsByOrganization is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) AcceptBid(context.Context, *connect.Request[v1.AcceptBidRequest]) (*connect.Response[v1.AcceptBidResponse], error) {
+func (UnimplementedBidServiceHandler) AcceptBid(context.Context, *connect.Request[bid.AcceptBidRequest]) (*connect.Response[bid.AcceptBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.AcceptBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) RejectBid(context.Context, *connect.Request[v1.RejectBidRequest]) (*connect.Response[v1.RejectBidResponse], error) {
+func (UnimplementedBidServiceHandler) RejectBid(context.Context, *connect.Request[bid.RejectBidRequest]) (*connect.Response[bid.RejectBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.RejectBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) CancelBid(context.Context, *connect.Request[v1.CancelBidRequest]) (*connect.Response[v1.CancelBidResponse], error) {
+func (UnimplementedBidServiceHandler) CancelBid(context.Context, *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.CancelBid is not implemented"))
 }
 
-func (UnimplementedBidServiceHandler) FindMatchingOrganizations(context.Context, *connect.Request[v1.FindMatchingOrganizationsRequest]) (*connect.Response[v1.FindMatchingOrganizationsResponse], error) {
+func (UnimplementedBidServiceHandler) FindMatchingOrganizations(context.Context, *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.FindMatchingOrganizations is not implemented"))
 }

@@ -2,7 +2,7 @@
 //
 // Source: communication/chat/chat.proto
 
-package chatconnect
+package chatv1connect
 
 import (
 	connect "connectrpc.com/connect"

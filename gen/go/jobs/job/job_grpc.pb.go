@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: jobs/job/job.proto
 
-package v1
+package jobv1
 
 import (
 	context "context"

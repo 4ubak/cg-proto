@@ -2,13 +2,13 @@
 //
 // Source: jobs/job/job.proto
 
-package v1connect
+package jobv1connect
 
 import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "gitlab.com/xakpro/cg-proto/gen/go/jobs/job/v1"
+	job "gitlab.com/xakpro/cg-proto/gen/go/jobs/job"
 	http "net/http"
 	strings "strings"
 )
@@ -63,18 +63,18 @@ const (
 
 // JobServiceClient is a client for the jobs.job.v1.JobService service.
 type JobServiceClient interface {
-	CreateJob(context.Context, *connect.Request[v1.CreateJobRequest]) (*connect.Response[v1.CreateJobResponse], error)
-	GetJob(context.Context, *connect.Request[v1.GetJobRequest]) (*connect.Response[v1.GetJobResponse], error)
-	UpdateJob(context.Context, *connect.Request[v1.UpdateJobRequest]) (*connect.Response[v1.UpdateJobResponse], error)
-	DeleteJob(context.Context, *connect.Request[v1.DeleteJobRequest]) (*connect.Response[v1.DeleteJobResponse], error)
-	ListJobs(context.Context, *connect.Request[v1.ListJobsRequest]) (*connect.Response[v1.ListJobsResponse], error)
-	SearchJobs(context.Context, *connect.Request[v1.SearchJobsRequest]) (*connect.Response[v1.SearchJobsResponse], error)
-	CreateResume(context.Context, *connect.Request[v1.CreateResumeRequest]) (*connect.Response[v1.CreateResumeResponse], error)
-	GetResume(context.Context, *connect.Request[v1.GetResumeRequest]) (*connect.Response[v1.GetResumeResponse], error)
-	UpdateResume(context.Context, *connect.Request[v1.UpdateResumeRequest]) (*connect.Response[v1.UpdateResumeResponse], error)
-	SearchResumes(context.Context, *connect.Request[v1.SearchResumesRequest]) (*connect.Response[v1.SearchResumesResponse], error)
-	Apply(context.Context, *connect.Request[v1.ApplyRequest]) (*connect.Response[v1.ApplyResponse], error)
-	GetApplications(context.Context, *connect.Request[v1.GetApplicationsRequest]) (*connect.Response[v1.GetApplicationsResponse], error)
+	CreateJob(context.Context, *connect.Request[job.CreateJobRequest]) (*connect.Response[job.CreateJobResponse], error)
+	GetJob(context.Context, *connect.Request[job.GetJobRequest]) (*connect.Response[job.GetJobResponse], error)
+	UpdateJob(context.Context, *connect.Request[job.UpdateJobRequest]) (*connect.Response[job.UpdateJobResponse], error)
+	DeleteJob(context.Context, *connect.Request[job.DeleteJobRequest]) (*connect.Response[job.DeleteJobResponse], error)
+	ListJobs(context.Context, *connect.Request[job.ListJobsRequest]) (*connect.Response[job.ListJobsResponse], error)
+	SearchJobs(context.Context, *connect.Request[job.SearchJobsRequest]) (*connect.Response[job.SearchJobsResponse], error)
+	CreateResume(context.Context, *connect.Request[job.CreateResumeRequest]) (*connect.Response[job.CreateResumeResponse], error)
+	GetResume(context.Context, *connect.Request[job.GetResumeRequest]) (*connect.Response[job.GetResumeResponse], error)
+	UpdateResume(context.Context, *connect.Request[job.UpdateResumeRequest]) (*connect.Response[job.UpdateResumeResponse], error)
+	SearchResumes(context.Context, *connect.Request[job.SearchResumesRequest]) (*connect.Response[job.SearchResumesResponse], error)
+	Apply(context.Context, *connect.Request[job.ApplyRequest]) (*connect.Response[job.ApplyResponse], error)
+	GetApplications(context.Context, *connect.Request[job.GetApplicationsRequest]) (*connect.Response[job.GetApplicationsResponse], error)
 }
 
 // NewJobServiceClient constructs a client for the jobs.job.v1.JobService service. By default, it
@@ -86,75 +86,75 @@ type JobServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewJobServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) JobServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	jobServiceMethods := v1.File_jobs_job_job_proto.Services().ByName("JobService").Methods()
+	jobServiceMethods := job.File_jobs_job_job_proto.Services().ByName("JobService").Methods()
 	return &jobServiceClient{
-		createJob: connect.NewClient[v1.CreateJobRequest, v1.CreateJobResponse](
+		createJob: connect.NewClient[job.CreateJobRequest, job.CreateJobResponse](
 			httpClient,
 			baseURL+JobServiceCreateJobProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("CreateJob")),
 			connect.WithClientOptions(opts...),
 		),
-		getJob: connect.NewClient[v1.GetJobRequest, v1.GetJobResponse](
+		getJob: connect.NewClient[job.GetJobRequest, job.GetJobResponse](
 			httpClient,
 			baseURL+JobServiceGetJobProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("GetJob")),
 			connect.WithClientOptions(opts...),
 		),
-		updateJob: connect.NewClient[v1.UpdateJobRequest, v1.UpdateJobResponse](
+		updateJob: connect.NewClient[job.UpdateJobRequest, job.UpdateJobResponse](
 			httpClient,
 			baseURL+JobServiceUpdateJobProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("UpdateJob")),
 			connect.WithClientOptions(opts...),
 		),
-		deleteJob: connect.NewClient[v1.DeleteJobRequest, v1.DeleteJobResponse](
+		deleteJob: connect.NewClient[job.DeleteJobRequest, job.DeleteJobResponse](
 			httpClient,
 			baseURL+JobServiceDeleteJobProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("DeleteJob")),
 			connect.WithClientOptions(opts...),
 		),
-		listJobs: connect.NewClient[v1.ListJobsRequest, v1.ListJobsResponse](
+		listJobs: connect.NewClient[job.ListJobsRequest, job.ListJobsResponse](
 			httpClient,
 			baseURL+JobServiceListJobsProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("ListJobs")),
 			connect.WithClientOptions(opts...),
 		),
-		searchJobs: connect.NewClient[v1.SearchJobsRequest, v1.SearchJobsResponse](
+		searchJobs: connect.NewClient[job.SearchJobsRequest, job.SearchJobsResponse](
 			httpClient,
 			baseURL+JobServiceSearchJobsProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("SearchJobs")),
 			connect.WithClientOptions(opts...),
 		),
-		createResume: connect.NewClient[v1.CreateResumeRequest, v1.CreateResumeResponse](
+		createResume: connect.NewClient[job.CreateResumeRequest, job.CreateResumeResponse](
 			httpClient,
 			baseURL+JobServiceCreateResumeProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("CreateResume")),
 			connect.WithClientOptions(opts...),
 		),
-		getResume: connect.NewClient[v1.GetResumeRequest, v1.GetResumeResponse](
+		getResume: connect.NewClient[job.GetResumeRequest, job.GetResumeResponse](
 			httpClient,
 			baseURL+JobServiceGetResumeProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("GetResume")),
 			connect.WithClientOptions(opts...),
 		),
-		updateResume: connect.NewClient[v1.UpdateResumeRequest, v1.UpdateResumeResponse](
+		updateResume: connect.NewClient[job.UpdateResumeRequest, job.UpdateResumeResponse](
 			httpClient,
 			baseURL+JobServiceUpdateResumeProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("UpdateResume")),
 			connect.WithClientOptions(opts...),
 		),
-		searchResumes: connect.NewClient[v1.SearchResumesRequest, v1.SearchResumesResponse](
+		searchResumes: connect.NewClient[job.SearchResumesRequest, job.SearchResumesResponse](
 			httpClient,
 			baseURL+JobServiceSearchResumesProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("SearchResumes")),
 			connect.WithClientOptions(opts...),
 		),
-		apply: connect.NewClient[v1.ApplyRequest, v1.ApplyResponse](
+		apply: connect.NewClient[job.ApplyRequest, job.ApplyResponse](
 			httpClient,
 			baseURL+JobServiceApplyProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("Apply")),
 			connect.WithClientOptions(opts...),
 		),
-		getApplications: connect.NewClient[v1.GetApplicationsRequest, v1.GetApplicationsResponse](
+		getApplications: connect.NewClient[job.GetApplicationsRequest, job.GetApplicationsResponse](
 			httpClient,
 			baseURL+JobServiceGetApplicationsProcedure,
 			connect.WithSchema(jobServiceMethods.ByName("GetApplications")),
@@ -165,94 +165,94 @@ func NewJobServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 
 // jobServiceClient implements JobServiceClient.
 type jobServiceClient struct {
-	createJob       *connect.Client[v1.CreateJobRequest, v1.CreateJobResponse]
-	getJob          *connect.Client[v1.GetJobRequest, v1.GetJobResponse]
-	updateJob       *connect.Client[v1.UpdateJobRequest, v1.UpdateJobResponse]
-	deleteJob       *connect.Client[v1.DeleteJobRequest, v1.DeleteJobResponse]
-	listJobs        *connect.Client[v1.ListJobsRequest, v1.ListJobsResponse]
-	searchJobs      *connect.Client[v1.SearchJobsRequest, v1.SearchJobsResponse]
-	createResume    *connect.Client[v1.CreateResumeRequest, v1.CreateResumeResponse]
-	getResume       *connect.Client[v1.GetResumeRequest, v1.GetResumeResponse]
-	updateResume    *connect.Client[v1.UpdateResumeRequest, v1.UpdateResumeResponse]
-	searchResumes   *connect.Client[v1.SearchResumesRequest, v1.SearchResumesResponse]
-	apply           *connect.Client[v1.ApplyRequest, v1.ApplyResponse]
-	getApplications *connect.Client[v1.GetApplicationsRequest, v1.GetApplicationsResponse]
+	createJob       *connect.Client[job.CreateJobRequest, job.CreateJobResponse]
+	getJob          *connect.Client[job.GetJobRequest, job.GetJobResponse]
+	updateJob       *connect.Client[job.UpdateJobRequest, job.UpdateJobResponse]
+	deleteJob       *connect.Client[job.DeleteJobRequest, job.DeleteJobResponse]
+	listJobs        *connect.Client[job.ListJobsRequest, job.ListJobsResponse]
+	searchJobs      *connect.Client[job.SearchJobsRequest, job.SearchJobsResponse]
+	createResume    *connect.Client[job.CreateResumeRequest, job.CreateResumeResponse]
+	getResume       *connect.Client[job.GetResumeRequest, job.GetResumeResponse]
+	updateResume    *connect.Client[job.UpdateResumeRequest, job.UpdateResumeResponse]
+	searchResumes   *connect.Client[job.SearchResumesRequest, job.SearchResumesResponse]
+	apply           *connect.Client[job.ApplyRequest, job.ApplyResponse]
+	getApplications *connect.Client[job.GetApplicationsRequest, job.GetApplicationsResponse]
 }
 
 // CreateJob calls jobs.job.v1.JobService.CreateJob.
-func (c *jobServiceClient) CreateJob(ctx context.Context, req *connect.Request[v1.CreateJobRequest]) (*connect.Response[v1.CreateJobResponse], error) {
+func (c *jobServiceClient) CreateJob(ctx context.Context, req *connect.Request[job.CreateJobRequest]) (*connect.Response[job.CreateJobResponse], error) {
 	return c.createJob.CallUnary(ctx, req)
 }
 
 // GetJob calls jobs.job.v1.JobService.GetJob.
-func (c *jobServiceClient) GetJob(ctx context.Context, req *connect.Request[v1.GetJobRequest]) (*connect.Response[v1.GetJobResponse], error) {
+func (c *jobServiceClient) GetJob(ctx context.Context, req *connect.Request[job.GetJobRequest]) (*connect.Response[job.GetJobResponse], error) {
 	return c.getJob.CallUnary(ctx, req)
 }
 
 // UpdateJob calls jobs.job.v1.JobService.UpdateJob.
-func (c *jobServiceClient) UpdateJob(ctx context.Context, req *connect.Request[v1.UpdateJobRequest]) (*connect.Response[v1.UpdateJobResponse], error) {
+func (c *jobServiceClient) UpdateJob(ctx context.Context, req *connect.Request[job.UpdateJobRequest]) (*connect.Response[job.UpdateJobResponse], error) {
 	return c.updateJob.CallUnary(ctx, req)
 }
 
 // DeleteJob calls jobs.job.v1.JobService.DeleteJob.
-func (c *jobServiceClient) DeleteJob(ctx context.Context, req *connect.Request[v1.DeleteJobRequest]) (*connect.Response[v1.DeleteJobResponse], error) {
+func (c *jobServiceClient) DeleteJob(ctx context.Context, req *connect.Request[job.DeleteJobRequest]) (*connect.Response[job.DeleteJobResponse], error) {
 	return c.deleteJob.CallUnary(ctx, req)
 }
 
 // ListJobs calls jobs.job.v1.JobService.ListJobs.
-func (c *jobServiceClient) ListJobs(ctx context.Context, req *connect.Request[v1.ListJobsRequest]) (*connect.Response[v1.ListJobsResponse], error) {
+func (c *jobServiceClient) ListJobs(ctx context.Context, req *connect.Request[job.ListJobsRequest]) (*connect.Response[job.ListJobsResponse], error) {
 	return c.listJobs.CallUnary(ctx, req)
 }
 
 // SearchJobs calls jobs.job.v1.JobService.SearchJobs.
-func (c *jobServiceClient) SearchJobs(ctx context.Context, req *connect.Request[v1.SearchJobsRequest]) (*connect.Response[v1.SearchJobsResponse], error) {
+func (c *jobServiceClient) SearchJobs(ctx context.Context, req *connect.Request[job.SearchJobsRequest]) (*connect.Response[job.SearchJobsResponse], error) {
 	return c.searchJobs.CallUnary(ctx, req)
 }
 
 // CreateResume calls jobs.job.v1.JobService.CreateResume.
-func (c *jobServiceClient) CreateResume(ctx context.Context, req *connect.Request[v1.CreateResumeRequest]) (*connect.Response[v1.CreateResumeResponse], error) {
+func (c *jobServiceClient) CreateResume(ctx context.Context, req *connect.Request[job.CreateResumeRequest]) (*connect.Response[job.CreateResumeResponse], error) {
 	return c.createResume.CallUnary(ctx, req)
 }
 
 // GetResume calls jobs.job.v1.JobService.GetResume.
-func (c *jobServiceClient) GetResume(ctx context.Context, req *connect.Request[v1.GetResumeRequest]) (*connect.Response[v1.GetResumeResponse], error) {
+func (c *jobServiceClient) GetResume(ctx context.Context, req *connect.Request[job.GetResumeRequest]) (*connect.Response[job.GetResumeResponse], error) {
 	return c.getResume.CallUnary(ctx, req)
 }
 
 // UpdateResume calls jobs.job.v1.JobService.UpdateResume.
-func (c *jobServiceClient) UpdateResume(ctx context.Context, req *connect.Request[v1.UpdateResumeRequest]) (*connect.Response[v1.UpdateResumeResponse], error) {
+func (c *jobServiceClient) UpdateResume(ctx context.Context, req *connect.Request[job.UpdateResumeRequest]) (*connect.Response[job.UpdateResumeResponse], error) {
 	return c.updateResume.CallUnary(ctx, req)
 }
 
 // SearchResumes calls jobs.job.v1.JobService.SearchResumes.
-func (c *jobServiceClient) SearchResumes(ctx context.Context, req *connect.Request[v1.SearchResumesRequest]) (*connect.Response[v1.SearchResumesResponse], error) {
+func (c *jobServiceClient) SearchResumes(ctx context.Context, req *connect.Request[job.SearchResumesRequest]) (*connect.Response[job.SearchResumesResponse], error) {
 	return c.searchResumes.CallUnary(ctx, req)
 }
 
 // Apply calls jobs.job.v1.JobService.Apply.
-func (c *jobServiceClient) Apply(ctx context.Context, req *connect.Request[v1.ApplyRequest]) (*connect.Response[v1.ApplyResponse], error) {
+func (c *jobServiceClient) Apply(ctx context.Context, req *connect.Request[job.ApplyRequest]) (*connect.Response[job.ApplyResponse], error) {
 	return c.apply.CallUnary(ctx, req)
 }
 
 // GetApplications calls jobs.job.v1.JobService.GetApplications.
-func (c *jobServiceClient) GetApplications(ctx context.Context, req *connect.Request[v1.GetApplicationsRequest]) (*connect.Response[v1.GetApplicationsResponse], error) {
+func (c *jobServiceClient) GetApplications(ctx context.Context, req *connect.Request[job.GetApplicationsRequest]) (*connect.Response[job.GetApplicationsResponse], error) {
 	return c.getApplications.CallUnary(ctx, req)
 }
 
 // JobServiceHandler is an implementation of the jobs.job.v1.JobService service.
 type JobServiceHandler interface {
-	CreateJob(context.Context, *connect.Request[v1.CreateJobRequest]) (*connect.Response[v1.CreateJobResponse], error)
-	GetJob(context.Context, *connect.Request[v1.GetJobRequest]) (*connect.Response[v1.GetJobResponse], error)
-	UpdateJob(context.Context, *connect.Request[v1.UpdateJobRequest]) (*connect.Response[v1.UpdateJobResponse], error)
-	DeleteJob(context.Context, *connect.Request[v1.DeleteJobRequest]) (*connect.Response[v1.DeleteJobResponse], error)
-	ListJobs(context.Context, *connect.Request[v1.ListJobsRequest]) (*connect.Response[v1.ListJobsResponse], error)
-	SearchJobs(context.Context, *connect.Request[v1.SearchJobsRequest]) (*connect.Response[v1.SearchJobsResponse], error)
-	CreateResume(context.Context, *connect.Request[v1.CreateResumeRequest]) (*connect.Response[v1.CreateResumeResponse], error)
-	GetResume(context.Context, *connect.Request[v1.GetResumeRequest]) (*connect.Response[v1.GetResumeResponse], error)
-	UpdateResume(context.Context, *connect.Request[v1.UpdateResumeRequest]) (*connect.Response[v1.UpdateResumeResponse], error)
-	SearchResumes(context.Context, *connect.Request[v1.SearchResumesRequest]) (*connect.Response[v1.SearchResumesResponse], error)
-	Apply(context.Context, *connect.Request[v1.ApplyRequest]) (*connect.Response[v1.ApplyResponse], error)
-	GetApplications(context.Context, *connect.Request[v1.GetApplicationsRequest]) (*connect.Response[v1.GetApplicationsResponse], error)
+	CreateJob(context.Context, *connect.Request[job.CreateJobRequest]) (*connect.Response[job.CreateJobResponse], error)
+	GetJob(context.Context, *connect.Request[job.GetJobRequest]) (*connect.Response[job.GetJobResponse], error)
+	UpdateJob(context.Context, *connect.Request[job.UpdateJobRequest]) (*connect.Response[job.UpdateJobResponse], error)
+	DeleteJob(context.Context, *connect.Request[job.DeleteJobRequest]) (*connect.Response[job.DeleteJobResponse], error)
+	ListJobs(context.Context, *connect.Request[job.ListJobsRequest]) (*connect.Response[job.ListJobsResponse], error)
+	SearchJobs(context.Context, *connect.Request[job.SearchJobsRequest]) (*connect.Response[job.SearchJobsResponse], error)
+	CreateResume(context.Context, *connect.Request[job.CreateResumeRequest]) (*connect.Response[job.CreateResumeResponse], error)
+	GetResume(context.Context, *connect.Request[job.GetResumeRequest]) (*connect.Response[job.GetResumeResponse], error)
+	UpdateResume(context.Context, *connect.Request[job.UpdateResumeRequest]) (*connect.Response[job.UpdateResumeResponse], error)
+	SearchResumes(context.Context, *connect.Request[job.SearchResumesRequest]) (*connect.Response[job.SearchResumesResponse], error)
+	Apply(context.Context, *connect.Request[job.ApplyRequest]) (*connect.Response[job.ApplyResponse], error)
+	GetApplications(context.Context, *connect.Request[job.GetApplicationsRequest]) (*connect.Response[job.GetApplicationsResponse], error)
 }
 
 // NewJobServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -261,7 +261,7 @@ type JobServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewJobServiceHandler(svc JobServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	jobServiceMethods := v1.File_jobs_job_job_proto.Services().ByName("JobService").Methods()
+	jobServiceMethods := job.File_jobs_job_job_proto.Services().ByName("JobService").Methods()
 	jobServiceCreateJobHandler := connect.NewUnaryHandler(
 		JobServiceCreateJobProcedure,
 		svc.CreateJob,
@@ -369,50 +369,50 @@ func NewJobServiceHandler(svc JobServiceHandler, opts ...connect.HandlerOption) 
 // UnimplementedJobServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedJobServiceHandler struct{}
 
-func (UnimplementedJobServiceHandler) CreateJob(context.Context, *connect.Request[v1.CreateJobRequest]) (*connect.Response[v1.CreateJobResponse], error) {
+func (UnimplementedJobServiceHandler) CreateJob(context.Context, *connect.Request[job.CreateJobRequest]) (*connect.Response[job.CreateJobResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.CreateJob is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) GetJob(context.Context, *connect.Request[v1.GetJobRequest]) (*connect.Response[v1.GetJobResponse], error) {
+func (UnimplementedJobServiceHandler) GetJob(context.Context, *connect.Request[job.GetJobRequest]) (*connect.Response[job.GetJobResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.GetJob is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) UpdateJob(context.Context, *connect.Request[v1.UpdateJobRequest]) (*connect.Response[v1.UpdateJobResponse], error) {
+func (UnimplementedJobServiceHandler) UpdateJob(context.Context, *connect.Request[job.UpdateJobRequest]) (*connect.Response[job.UpdateJobResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.UpdateJob is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) DeleteJob(context.Context, *connect.Request[v1.DeleteJobRequest]) (*connect.Response[v1.DeleteJobResponse], error) {
+func (UnimplementedJobServiceHandler) DeleteJob(context.Context, *connect.Request[job.DeleteJobRequest]) (*connect.Response[job.DeleteJobResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.DeleteJob is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) ListJobs(context.Context, *connect.Request[v1.ListJobsRequest]) (*connect.Response[v1.ListJobsResponse], error) {
+func (UnimplementedJobServiceHandler) ListJobs(context.Context, *connect.Request[job.ListJobsRequest]) (*connect.Response[job.ListJobsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.ListJobs is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) SearchJobs(context.Context, *connect.Request[v1.SearchJobsRequest]) (*connect.Response[v1.SearchJobsResponse], error) {
+func (UnimplementedJobServiceHandler) SearchJobs(context.Context, *connect.Request[job.SearchJobsRequest]) (*connect.Response[job.SearchJobsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.SearchJobs is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) CreateResume(context.Context, *connect.Request[v1.CreateResumeRequest]) (*connect.Response[v1.CreateResumeResponse], error) {
+func (UnimplementedJobServiceHandler) CreateResume(context.Context, *connect.Request[job.CreateResumeRequest]) (*connect.Response[job.CreateResumeResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.CreateResume is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) GetResume(context.Context, *connect.Request[v1.GetResumeRequest]) (*connect.Response[v1.GetResumeResponse], error) {
+func (UnimplementedJobServiceHandler) GetResume(context.Context, *connect.Request[job.GetResumeRequest]) (*connect.Response[job.GetResumeResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.GetResume is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) UpdateResume(context.Context, *connect.Request[v1.UpdateResumeRequest]) (*connect.Response[v1.UpdateResumeResponse], error) {
+func (UnimplementedJobServiceHandler) UpdateResume(context.Context, *connect.Request[job.UpdateResumeRequest]) (*connect.Response[job.UpdateResumeResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.UpdateResume is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) SearchResumes(context.Context, *connect.Request[v1.SearchResumesRequest]) (*connect.Response[v1.SearchResumesResponse], error) {
+func (UnimplementedJobServiceHandler) SearchResumes(context.Context, *connect.Request[job.SearchResumesRequest]) (*connect.Response[job.SearchResumesResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.SearchResumes is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) Apply(context.Context, *connect.Request[v1.ApplyRequest]) (*connect.Response[v1.ApplyResponse], error) {
+func (UnimplementedJobServiceHandler) Apply(context.Context, *connect.Request[job.ApplyRequest]) (*connect.Response[job.ApplyResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.Apply is not implemented"))
 }
 
-func (UnimplementedJobServiceHandler) GetApplications(context.Context, *connect.Request[v1.GetApplicationsRequest]) (*connect.Response[v1.GetApplicationsResponse], error) {
+func (UnimplementedJobServiceHandler) GetApplications(context.Context, *connect.Request[job.GetApplicationsRequest]) (*connect.Response[job.GetApplicationsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("jobs.job.v1.JobService.GetApplications is not implemented"))
 }
