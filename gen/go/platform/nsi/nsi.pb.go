@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        (unknown)
-// source: platform/nsi/nso.proto
+// source: platform/nsi/nsi.proto
 
 package v1
 
@@ -35,7 +35,7 @@ type City struct {
 
 func (x *City) Reset() {
 	*x = City{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[0]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -47,7 +47,7 @@ func (x *City) String() string {
 func (*City) ProtoMessage() {}
 
 func (x *City) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[0]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +60,7 @@ func (x *City) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use City.ProtoReflect.Descriptor instead.
 func (*City) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{0}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *City) GetId() string {
@@ -117,7 +117,7 @@ type CarMark struct {
 
 func (x *CarMark) Reset() {
 	*x = CarMark{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[1]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -129,7 +129,7 @@ func (x *CarMark) String() string {
 func (*CarMark) ProtoMessage() {}
 
 func (x *CarMark) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[1]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -142,7 +142,7 @@ func (x *CarMark) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarMark.ProtoReflect.Descriptor instead.
 func (*CarMark) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{1}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CarMark) GetId() int32 {
@@ -184,7 +184,7 @@ type CarModel struct {
 
 func (x *CarModel) Reset() {
 	*x = CarModel{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[2]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -196,7 +196,7 @@ func (x *CarModel) String() string {
 func (*CarModel) ProtoMessage() {}
 
 func (x *CarModel) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[2]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -209,7 +209,7 @@ func (x *CarModel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarModel.ProtoReflect.Descriptor instead.
 func (*CarModel) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{2}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CarModel) GetId() int32 {
@@ -246,7 +246,7 @@ type CarGeneration struct {
 
 func (x *CarGeneration) Reset() {
 	*x = CarGeneration{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[3]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -258,7 +258,7 @@ func (x *CarGeneration) String() string {
 func (*CarGeneration) ProtoMessage() {}
 
 func (x *CarGeneration) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[3]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -271,7 +271,7 @@ func (x *CarGeneration) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarGeneration.ProtoReflect.Descriptor instead.
 func (*CarGeneration) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{3}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CarGeneration) GetId() int32 {
@@ -323,7 +323,7 @@ type Category struct {
 
 func (x *Category) Reset() {
 	*x = Category{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[4]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -335,7 +335,7 @@ func (x *Category) String() string {
 func (*Category) ProtoMessage() {}
 
 func (x *Category) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[4]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -348,7 +348,7 @@ func (x *Category) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Category.ProtoReflect.Descriptor instead.
 func (*Category) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{4}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Category) GetId() int32 {
@@ -407,7 +407,7 @@ type ServiceGroup struct {
 
 func (x *ServiceGroup) Reset() {
 	*x = ServiceGroup{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[5]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -419,7 +419,7 @@ func (x *ServiceGroup) String() string {
 func (*ServiceGroup) ProtoMessage() {}
 
 func (x *ServiceGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[5]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -432,7 +432,7 @@ func (x *ServiceGroup) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceGroup.ProtoReflect.Descriptor instead.
 func (*ServiceGroup) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{5}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ServiceGroup) GetId() int64 {
@@ -484,7 +484,7 @@ type ServiceCategory struct {
 
 func (x *ServiceCategory) Reset() {
 	*x = ServiceCategory{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[6]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -496,7 +496,7 @@ func (x *ServiceCategory) String() string {
 func (*ServiceCategory) ProtoMessage() {}
 
 func (x *ServiceCategory) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[6]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -509,7 +509,7 @@ func (x *ServiceCategory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceCategory.ProtoReflect.Descriptor instead.
 func (*ServiceCategory) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{6}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ServiceCategory) GetId() int64 {
@@ -560,7 +560,7 @@ type AppVersion struct {
 
 func (x *AppVersion) Reset() {
 	*x = AppVersion{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[7]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -572,7 +572,7 @@ func (x *AppVersion) String() string {
 func (*AppVersion) ProtoMessage() {}
 
 func (x *AppVersion) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[7]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -585,7 +585,7 @@ func (x *AppVersion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AppVersion.ProtoReflect.Descriptor instead.
 func (*AppVersion) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{7}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AppVersion) GetPlatform() string {
@@ -634,7 +634,7 @@ type GetCitiesRequest struct {
 
 func (x *GetCitiesRequest) Reset() {
 	*x = GetCitiesRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[8]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -646,7 +646,7 @@ func (x *GetCitiesRequest) String() string {
 func (*GetCitiesRequest) ProtoMessage() {}
 
 func (x *GetCitiesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[8]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -659,7 +659,7 @@ func (x *GetCitiesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCitiesRequest.ProtoReflect.Descriptor instead.
 func (*GetCitiesRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{8}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetCitiesRequest) GetQuery() string {
@@ -692,7 +692,7 @@ type GetCitiesResponse struct {
 
 func (x *GetCitiesResponse) Reset() {
 	*x = GetCitiesResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[9]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -704,7 +704,7 @@ func (x *GetCitiesResponse) String() string {
 func (*GetCitiesResponse) ProtoMessage() {}
 
 func (x *GetCitiesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[9]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -717,7 +717,7 @@ func (x *GetCitiesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCitiesResponse.ProtoReflect.Descriptor instead.
 func (*GetCitiesResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{9}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetCitiesResponse) GetCities() []*City {
@@ -736,7 +736,7 @@ type GetCityRequest struct {
 
 func (x *GetCityRequest) Reset() {
 	*x = GetCityRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[10]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -748,7 +748,7 @@ func (x *GetCityRequest) String() string {
 func (*GetCityRequest) ProtoMessage() {}
 
 func (x *GetCityRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[10]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -761,7 +761,7 @@ func (x *GetCityRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCityRequest.ProtoReflect.Descriptor instead.
 func (*GetCityRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{10}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetCityRequest) GetCityId() string {
@@ -780,7 +780,7 @@ type GetCityResponse struct {
 
 func (x *GetCityResponse) Reset() {
 	*x = GetCityResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[11]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -792,7 +792,7 @@ func (x *GetCityResponse) String() string {
 func (*GetCityResponse) ProtoMessage() {}
 
 func (x *GetCityResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[11]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -805,7 +805,7 @@ func (x *GetCityResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCityResponse.ProtoReflect.Descriptor instead.
 func (*GetCityResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{11}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetCityResponse) GetCity() *City {
@@ -824,7 +824,7 @@ type GetCarMarksRequest struct {
 
 func (x *GetCarMarksRequest) Reset() {
 	*x = GetCarMarksRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[12]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -836,7 +836,7 @@ func (x *GetCarMarksRequest) String() string {
 func (*GetCarMarksRequest) ProtoMessage() {}
 
 func (x *GetCarMarksRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[12]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -849,7 +849,7 @@ func (x *GetCarMarksRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarMarksRequest.ProtoReflect.Descriptor instead.
 func (*GetCarMarksRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{12}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetCarMarksRequest) GetPopularOnly() bool {
@@ -868,7 +868,7 @@ type GetCarMarksResponse struct {
 
 func (x *GetCarMarksResponse) Reset() {
 	*x = GetCarMarksResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[13]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -880,7 +880,7 @@ func (x *GetCarMarksResponse) String() string {
 func (*GetCarMarksResponse) ProtoMessage() {}
 
 func (x *GetCarMarksResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[13]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -893,7 +893,7 @@ func (x *GetCarMarksResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarMarksResponse.ProtoReflect.Descriptor instead.
 func (*GetCarMarksResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{13}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetCarMarksResponse) GetMarks() []*CarMark {
@@ -912,7 +912,7 @@ type GetCarModelsRequest struct {
 
 func (x *GetCarModelsRequest) Reset() {
 	*x = GetCarModelsRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[14]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -924,7 +924,7 @@ func (x *GetCarModelsRequest) String() string {
 func (*GetCarModelsRequest) ProtoMessage() {}
 
 func (x *GetCarModelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[14]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -937,7 +937,7 @@ func (x *GetCarModelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarModelsRequest.ProtoReflect.Descriptor instead.
 func (*GetCarModelsRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{14}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GetCarModelsRequest) GetMarkId() int32 {
@@ -956,7 +956,7 @@ type GetCarModelsResponse struct {
 
 func (x *GetCarModelsResponse) Reset() {
 	*x = GetCarModelsResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[15]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -968,7 +968,7 @@ func (x *GetCarModelsResponse) String() string {
 func (*GetCarModelsResponse) ProtoMessage() {}
 
 func (x *GetCarModelsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[15]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -981,7 +981,7 @@ func (x *GetCarModelsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarModelsResponse.ProtoReflect.Descriptor instead.
 func (*GetCarModelsResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{15}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetCarModelsResponse) GetModels() []*CarModel {
@@ -1000,7 +1000,7 @@ type GetCarGenerationsRequest struct {
 
 func (x *GetCarGenerationsRequest) Reset() {
 	*x = GetCarGenerationsRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[16]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1012,7 +1012,7 @@ func (x *GetCarGenerationsRequest) String() string {
 func (*GetCarGenerationsRequest) ProtoMessage() {}
 
 func (x *GetCarGenerationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[16]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1025,7 +1025,7 @@ func (x *GetCarGenerationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarGenerationsRequest.ProtoReflect.Descriptor instead.
 func (*GetCarGenerationsRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{16}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetCarGenerationsRequest) GetModelId() int32 {
@@ -1044,7 +1044,7 @@ type GetCarGenerationsResponse struct {
 
 func (x *GetCarGenerationsResponse) Reset() {
 	*x = GetCarGenerationsResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[17]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1056,7 +1056,7 @@ func (x *GetCarGenerationsResponse) String() string {
 func (*GetCarGenerationsResponse) ProtoMessage() {}
 
 func (x *GetCarGenerationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[17]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1069,7 +1069,7 @@ func (x *GetCarGenerationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarGenerationsResponse.ProtoReflect.Descriptor instead.
 func (*GetCarGenerationsResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{17}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetCarGenerationsResponse) GetGenerations() []*CarGeneration {
@@ -1088,7 +1088,7 @@ type GetCategoriesRequest struct {
 
 func (x *GetCategoriesRequest) Reset() {
 	*x = GetCategoriesRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[18]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1100,7 +1100,7 @@ func (x *GetCategoriesRequest) String() string {
 func (*GetCategoriesRequest) ProtoMessage() {}
 
 func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[18]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1113,7 +1113,7 @@ func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoriesRequest.ProtoReflect.Descriptor instead.
 func (*GetCategoriesRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{18}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetCategoriesRequest) GetParentId() int32 {
@@ -1132,7 +1132,7 @@ type GetCategoriesResponse struct {
 
 func (x *GetCategoriesResponse) Reset() {
 	*x = GetCategoriesResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[19]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1144,7 +1144,7 @@ func (x *GetCategoriesResponse) String() string {
 func (*GetCategoriesResponse) ProtoMessage() {}
 
 func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[19]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1157,7 +1157,7 @@ func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoriesResponse.ProtoReflect.Descriptor instead.
 func (*GetCategoriesResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{19}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetCategoriesResponse) GetCategories() []*Category {
@@ -1176,7 +1176,7 @@ type GetCategoryRequest struct {
 
 func (x *GetCategoryRequest) Reset() {
 	*x = GetCategoryRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[20]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1188,7 +1188,7 @@ func (x *GetCategoryRequest) String() string {
 func (*GetCategoryRequest) ProtoMessage() {}
 
 func (x *GetCategoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[20]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1201,7 +1201,7 @@ func (x *GetCategoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoryRequest.ProtoReflect.Descriptor instead.
 func (*GetCategoryRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{20}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetCategoryRequest) GetCategoryId() int32 {
@@ -1220,7 +1220,7 @@ type GetCategoryResponse struct {
 
 func (x *GetCategoryResponse) Reset() {
 	*x = GetCategoryResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[21]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1232,7 +1232,7 @@ func (x *GetCategoryResponse) String() string {
 func (*GetCategoryResponse) ProtoMessage() {}
 
 func (x *GetCategoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[21]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1245,7 +1245,7 @@ func (x *GetCategoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoryResponse.ProtoReflect.Descriptor instead.
 func (*GetCategoryResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{21}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetCategoryResponse) GetCategory() *Category {
@@ -1264,7 +1264,7 @@ type GetAppVersionRequest struct {
 
 func (x *GetAppVersionRequest) Reset() {
 	*x = GetAppVersionRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[22]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1276,7 +1276,7 @@ func (x *GetAppVersionRequest) String() string {
 func (*GetAppVersionRequest) ProtoMessage() {}
 
 func (x *GetAppVersionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[22]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1289,7 +1289,7 @@ func (x *GetAppVersionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAppVersionRequest.ProtoReflect.Descriptor instead.
 func (*GetAppVersionRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{22}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GetAppVersionRequest) GetPlatform() string {
@@ -1308,7 +1308,7 @@ type GetAppVersionResponse struct {
 
 func (x *GetAppVersionResponse) Reset() {
 	*x = GetAppVersionResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[23]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1320,7 +1320,7 @@ func (x *GetAppVersionResponse) String() string {
 func (*GetAppVersionResponse) ProtoMessage() {}
 
 func (x *GetAppVersionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[23]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1333,7 +1333,7 @@ func (x *GetAppVersionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAppVersionResponse.ProtoReflect.Descriptor instead.
 func (*GetAppVersionResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{23}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *GetAppVersionResponse) GetVersion() *AppVersion {
@@ -1352,7 +1352,7 @@ type GetConfigRequest struct {
 
 func (x *GetConfigRequest) Reset() {
 	*x = GetConfigRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[24]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1364,7 +1364,7 @@ func (x *GetConfigRequest) String() string {
 func (*GetConfigRequest) ProtoMessage() {}
 
 func (x *GetConfigRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[24]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1377,7 +1377,7 @@ func (x *GetConfigRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConfigRequest.ProtoReflect.Descriptor instead.
 func (*GetConfigRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{24}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *GetConfigRequest) GetKey() string {
@@ -1396,7 +1396,7 @@ type GetConfigResponse struct {
 
 func (x *GetConfigResponse) Reset() {
 	*x = GetConfigResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[25]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1408,7 +1408,7 @@ func (x *GetConfigResponse) String() string {
 func (*GetConfigResponse) ProtoMessage() {}
 
 func (x *GetConfigResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[25]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1421,7 +1421,7 @@ func (x *GetConfigResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConfigResponse.ProtoReflect.Descriptor instead.
 func (*GetConfigResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{25}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetConfigResponse) GetValue() string {
@@ -1440,7 +1440,7 @@ type GetServiceGroupsRequest struct {
 
 func (x *GetServiceGroupsRequest) Reset() {
 	*x = GetServiceGroupsRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[26]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1452,7 +1452,7 @@ func (x *GetServiceGroupsRequest) String() string {
 func (*GetServiceGroupsRequest) ProtoMessage() {}
 
 func (x *GetServiceGroupsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[26]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1465,7 +1465,7 @@ func (x *GetServiceGroupsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceGroupsRequest.ProtoReflect.Descriptor instead.
 func (*GetServiceGroupsRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{26}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{26}
 }
 
 type GetServiceGroupsResponse struct {
@@ -1477,7 +1477,7 @@ type GetServiceGroupsResponse struct {
 
 func (x *GetServiceGroupsResponse) Reset() {
 	*x = GetServiceGroupsResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[27]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1489,7 +1489,7 @@ func (x *GetServiceGroupsResponse) String() string {
 func (*GetServiceGroupsResponse) ProtoMessage() {}
 
 func (x *GetServiceGroupsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[27]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1502,7 +1502,7 @@ func (x *GetServiceGroupsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceGroupsResponse.ProtoReflect.Descriptor instead.
 func (*GetServiceGroupsResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{27}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetServiceGroupsResponse) GetGroups() []*ServiceGroup {
@@ -1522,7 +1522,7 @@ type GetServiceCategoriesRequest struct {
 
 func (x *GetServiceCategoriesRequest) Reset() {
 	*x = GetServiceCategoriesRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[28]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1534,7 +1534,7 @@ func (x *GetServiceCategoriesRequest) String() string {
 func (*GetServiceCategoriesRequest) ProtoMessage() {}
 
 func (x *GetServiceCategoriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[28]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1547,7 +1547,7 @@ func (x *GetServiceCategoriesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceCategoriesRequest.ProtoReflect.Descriptor instead.
 func (*GetServiceCategoriesRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{28}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *GetServiceCategoriesRequest) GetGroupId() int64 {
@@ -1566,7 +1566,7 @@ type GetServiceCategoriesResponse struct {
 
 func (x *GetServiceCategoriesResponse) Reset() {
 	*x = GetServiceCategoriesResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[29]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1578,7 +1578,7 @@ func (x *GetServiceCategoriesResponse) String() string {
 func (*GetServiceCategoriesResponse) ProtoMessage() {}
 
 func (x *GetServiceCategoriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[29]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1591,7 +1591,7 @@ func (x *GetServiceCategoriesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceCategoriesResponse.ProtoReflect.Descriptor instead.
 func (*GetServiceCategoriesResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{29}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GetServiceCategoriesResponse) GetCategories() []*ServiceCategory {
@@ -1610,7 +1610,7 @@ type GetServiceCategoryRequest struct {
 
 func (x *GetServiceCategoryRequest) Reset() {
 	*x = GetServiceCategoryRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[30]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1622,7 +1622,7 @@ func (x *GetServiceCategoryRequest) String() string {
 func (*GetServiceCategoryRequest) ProtoMessage() {}
 
 func (x *GetServiceCategoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[30]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1635,7 +1635,7 @@ func (x *GetServiceCategoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceCategoryRequest.ProtoReflect.Descriptor instead.
 func (*GetServiceCategoryRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{30}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *GetServiceCategoryRequest) GetCategoryId() int64 {
@@ -1654,7 +1654,7 @@ type GetServiceCategoryResponse struct {
 
 func (x *GetServiceCategoryResponse) Reset() {
 	*x = GetServiceCategoryResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[31]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1666,7 +1666,7 @@ func (x *GetServiceCategoryResponse) String() string {
 func (*GetServiceCategoryResponse) ProtoMessage() {}
 
 func (x *GetServiceCategoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[31]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1679,7 +1679,7 @@ func (x *GetServiceCategoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceCategoryResponse.ProtoReflect.Descriptor instead.
 func (*GetServiceCategoryResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{31}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *GetServiceCategoryResponse) GetCategory() *ServiceCategory {
@@ -1700,7 +1700,7 @@ type ValidateGroupAndCategoriesRequest struct {
 
 func (x *ValidateGroupAndCategoriesRequest) Reset() {
 	*x = ValidateGroupAndCategoriesRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[32]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1712,7 +1712,7 @@ func (x *ValidateGroupAndCategoriesRequest) String() string {
 func (*ValidateGroupAndCategoriesRequest) ProtoMessage() {}
 
 func (x *ValidateGroupAndCategoriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[32]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1725,7 +1725,7 @@ func (x *ValidateGroupAndCategoriesRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use ValidateGroupAndCategoriesRequest.ProtoReflect.Descriptor instead.
 func (*ValidateGroupAndCategoriesRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{32}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *ValidateGroupAndCategoriesRequest) GetGroupId() int64 {
@@ -1752,7 +1752,7 @@ type ValidateGroupAndCategoriesResponse struct {
 
 func (x *ValidateGroupAndCategoriesResponse) Reset() {
 	*x = ValidateGroupAndCategoriesResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[33]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1764,7 +1764,7 @@ func (x *ValidateGroupAndCategoriesResponse) String() string {
 func (*ValidateGroupAndCategoriesResponse) ProtoMessage() {}
 
 func (x *ValidateGroupAndCategoriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[33]
+	mi := &file_platform_nsi_nsi_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1777,7 +1777,7 @@ func (x *ValidateGroupAndCategoriesResponse) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use ValidateGroupAndCategoriesResponse.ProtoReflect.Descriptor instead.
 func (*ValidateGroupAndCategoriesResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{33}
+	return file_platform_nsi_nsi_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *ValidateGroupAndCategoriesResponse) GetValid() bool {
@@ -1794,11 +1794,11 @@ func (x *ValidateGroupAndCategoriesResponse) GetErrorMessage() string {
 	return ""
 }
 
-var File_platform_nsi_nso_proto protoreflect.FileDescriptor
+var File_platform_nsi_nsi_proto protoreflect.FileDescriptor
 
-const file_platform_nsi_nso_proto_rawDesc = "" +
+const file_platform_nsi_nsi_proto_rawDesc = "" +
 	"\n" +
-	"\x16platform/nsi/nso.proto\x12\x0fplatform.nsi.v1\"\x80\x01\n" +
+	"\x16platform/nsi/nsi.proto\x12\x0fplatform.nsi.v1\"\x80\x01\n" +
 	"\x04City\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
@@ -1933,19 +1933,19 @@ const file_platform_nsi_nso_proto_rawDesc = "" +
 	"\tGetConfig\x12!.platform.nsi.v1.GetConfigRequest\x1a\".platform.nsi.v1.GetConfigResponseB3Z1gitlab.com/xakpro/cg-proto/gen/go/platform/nsi/v1b\x06proto3"
 
 var (
-	file_platform_nsi_nso_proto_rawDescOnce sync.Once
-	file_platform_nsi_nso_proto_rawDescData []byte
+	file_platform_nsi_nsi_proto_rawDescOnce sync.Once
+	file_platform_nsi_nsi_proto_rawDescData []byte
 )
 
-func file_platform_nsi_nso_proto_rawDescGZIP() []byte {
-	file_platform_nsi_nso_proto_rawDescOnce.Do(func() {
-		file_platform_nsi_nso_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_platform_nsi_nso_proto_rawDesc), len(file_platform_nsi_nso_proto_rawDesc)))
+func file_platform_nsi_nsi_proto_rawDescGZIP() []byte {
+	file_platform_nsi_nsi_proto_rawDescOnce.Do(func() {
+		file_platform_nsi_nsi_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_platform_nsi_nsi_proto_rawDesc), len(file_platform_nsi_nsi_proto_rawDesc)))
 	})
-	return file_platform_nsi_nso_proto_rawDescData
+	return file_platform_nsi_nsi_proto_rawDescData
 }
 
-var file_platform_nsi_nso_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
-var file_platform_nsi_nso_proto_goTypes = []any{
+var file_platform_nsi_nsi_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
+var file_platform_nsi_nsi_proto_goTypes = []any{
 	(*City)(nil),                               // 0: platform.nsi.v1.City
 	(*CarMark)(nil),                            // 1: platform.nsi.v1.CarMark
 	(*CarModel)(nil),                           // 2: platform.nsi.v1.CarModel
@@ -1981,7 +1981,7 @@ var file_platform_nsi_nso_proto_goTypes = []any{
 	(*ValidateGroupAndCategoriesRequest)(nil),  // 32: platform.nsi.v1.ValidateGroupAndCategoriesRequest
 	(*ValidateGroupAndCategoriesResponse)(nil), // 33: platform.nsi.v1.ValidateGroupAndCategoriesResponse
 }
-var file_platform_nsi_nso_proto_depIdxs = []int32{
+var file_platform_nsi_nsi_proto_depIdxs = []int32{
 	0,  // 0: platform.nsi.v1.GetCitiesResponse.cities:type_name -> platform.nsi.v1.City
 	0,  // 1: platform.nsi.v1.GetCityResponse.city:type_name -> platform.nsi.v1.City
 	1,  // 2: platform.nsi.v1.GetCarMarksResponse.marks:type_name -> platform.nsi.v1.CarMark
@@ -2026,26 +2026,26 @@ var file_platform_nsi_nso_proto_depIdxs = []int32{
 	0,  // [0:11] is the sub-list for field type_name
 }
 
-func init() { file_platform_nsi_nso_proto_init() }
-func file_platform_nsi_nso_proto_init() {
-	if File_platform_nsi_nso_proto != nil {
+func init() { file_platform_nsi_nsi_proto_init() }
+func file_platform_nsi_nsi_proto_init() {
+	if File_platform_nsi_nsi_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_platform_nsi_nso_proto_rawDesc), len(file_platform_nsi_nso_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_platform_nsi_nsi_proto_rawDesc), len(file_platform_nsi_nsi_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_platform_nsi_nso_proto_goTypes,
-		DependencyIndexes: file_platform_nsi_nso_proto_depIdxs,
-		MessageInfos:      file_platform_nsi_nso_proto_msgTypes,
+		GoTypes:           file_platform_nsi_nsi_proto_goTypes,
+		DependencyIndexes: file_platform_nsi_nsi_proto_depIdxs,
+		MessageInfos:      file_platform_nsi_nsi_proto_msgTypes,
 	}.Build()
-	File_platform_nsi_nso_proto = out.File
-	file_platform_nsi_nso_proto_goTypes = nil
-	file_platform_nsi_nso_proto_depIdxs = nil
+	File_platform_nsi_nsi_proto = out.File
+	file_platform_nsi_nsi_proto_goTypes = nil
+	file_platform_nsi_nsi_proto_depIdxs = nil
 }

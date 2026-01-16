@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.0
 // - protoc             (unknown)
-// source: platform/nsi/nso.proto
+// source: platform/nsi/nsi.proto
 
 package v1
 
@@ -575,5 +575,5 @@ var NsiService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "platform/nsi/nso.proto",
+	Metadata: "platform/nsi/nsi.proto",
 }
