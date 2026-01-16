@@ -393,6 +393,160 @@ func (x *Category) GetSortOrder() int32 {
 	return 0
 }
 
+// Service Group represents a service group (СТО, Кузовные, Запчасти, Шины, Автомойка)
+type ServiceGroup struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Slug          string                 `protobuf:"bytes,3,opt,name=slug,proto3" json:"slug,omitempty"`
+	Icon          string                 `protobuf:"bytes,4,opt,name=icon,proto3" json:"icon,omitempty"`
+	SortOrder     int32                  `protobuf:"varint,5,opt,name=sort_order,json=sortOrder,proto3" json:"sort_order,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServiceGroup) Reset() {
+	*x = ServiceGroup{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceGroup) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceGroup) ProtoMessage() {}
+
+func (x *ServiceGroup) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceGroup.ProtoReflect.Descriptor instead.
+func (*ServiceGroup) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ServiceGroup) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ServiceGroup) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ServiceGroup) GetSlug() string {
+	if x != nil {
+		return x.Slug
+	}
+	return ""
+}
+
+func (x *ServiceGroup) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+func (x *ServiceGroup) GetSortOrder() int32 {
+	if x != nil {
+		return x.SortOrder
+	}
+	return 0
+}
+
+// Service Category represents a service category within a group
+type ServiceCategory struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	GroupId       int64                  `protobuf:"varint,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Slug          string                 `protobuf:"bytes,4,opt,name=slug,proto3" json:"slug,omitempty"`
+	SortOrder     int32                  `protobuf:"varint,5,opt,name=sort_order,json=sortOrder,proto3" json:"sort_order,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServiceCategory) Reset() {
+	*x = ServiceCategory{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceCategory) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceCategory) ProtoMessage() {}
+
+func (x *ServiceCategory) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceCategory.ProtoReflect.Descriptor instead.
+func (*ServiceCategory) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ServiceCategory) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ServiceCategory) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
+func (x *ServiceCategory) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ServiceCategory) GetSlug() string {
+	if x != nil {
+		return x.Slug
+	}
+	return ""
+}
+
+func (x *ServiceCategory) GetSortOrder() int32 {
+	if x != nil {
+		return x.SortOrder
+	}
+	return 0
+}
+
 type AppVersion struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Platform       string                 `protobuf:"bytes,1,opt,name=platform,proto3" json:"platform,omitempty"`
@@ -406,7 +560,7 @@ type AppVersion struct {
 
 func (x *AppVersion) Reset() {
 	*x = AppVersion{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[5]
+	mi := &file_platform_nsi_nso_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -418,7 +572,7 @@ func (x *AppVersion) String() string {
 func (*AppVersion) ProtoMessage() {}
 
 func (x *AppVersion) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[5]
+	mi := &file_platform_nsi_nso_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -431,7 +585,7 @@ func (x *AppVersion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AppVersion.ProtoReflect.Descriptor instead.
 func (*AppVersion) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{5}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AppVersion) GetPlatform() string {
@@ -480,7 +634,7 @@ type GetCitiesRequest struct {
 
 func (x *GetCitiesRequest) Reset() {
 	*x = GetCitiesRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[6]
+	mi := &file_platform_nsi_nso_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -492,7 +646,7 @@ func (x *GetCitiesRequest) String() string {
 func (*GetCitiesRequest) ProtoMessage() {}
 
 func (x *GetCitiesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[6]
+	mi := &file_platform_nsi_nso_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -505,7 +659,7 @@ func (x *GetCitiesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCitiesRequest.ProtoReflect.Descriptor instead.
 func (*GetCitiesRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{6}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetCitiesRequest) GetQuery() string {
@@ -538,7 +692,7 @@ type GetCitiesResponse struct {
 
 func (x *GetCitiesResponse) Reset() {
 	*x = GetCitiesResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[7]
+	mi := &file_platform_nsi_nso_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -550,7 +704,7 @@ func (x *GetCitiesResponse) String() string {
 func (*GetCitiesResponse) ProtoMessage() {}
 
 func (x *GetCitiesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[7]
+	mi := &file_platform_nsi_nso_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -563,7 +717,7 @@ func (x *GetCitiesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCitiesResponse.ProtoReflect.Descriptor instead.
 func (*GetCitiesResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{7}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetCitiesResponse) GetCities() []*City {
@@ -582,7 +736,7 @@ type GetCityRequest struct {
 
 func (x *GetCityRequest) Reset() {
 	*x = GetCityRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[8]
+	mi := &file_platform_nsi_nso_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -594,7 +748,7 @@ func (x *GetCityRequest) String() string {
 func (*GetCityRequest) ProtoMessage() {}
 
 func (x *GetCityRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[8]
+	mi := &file_platform_nsi_nso_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -607,7 +761,7 @@ func (x *GetCityRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCityRequest.ProtoReflect.Descriptor instead.
 func (*GetCityRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{8}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetCityRequest) GetCityId() string {
@@ -626,7 +780,7 @@ type GetCityResponse struct {
 
 func (x *GetCityResponse) Reset() {
 	*x = GetCityResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[9]
+	mi := &file_platform_nsi_nso_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -638,7 +792,7 @@ func (x *GetCityResponse) String() string {
 func (*GetCityResponse) ProtoMessage() {}
 
 func (x *GetCityResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[9]
+	mi := &file_platform_nsi_nso_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -651,7 +805,7 @@ func (x *GetCityResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCityResponse.ProtoReflect.Descriptor instead.
 func (*GetCityResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{9}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetCityResponse) GetCity() *City {
@@ -670,7 +824,7 @@ type GetCarMarksRequest struct {
 
 func (x *GetCarMarksRequest) Reset() {
 	*x = GetCarMarksRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[10]
+	mi := &file_platform_nsi_nso_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -682,7 +836,7 @@ func (x *GetCarMarksRequest) String() string {
 func (*GetCarMarksRequest) ProtoMessage() {}
 
 func (x *GetCarMarksRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[10]
+	mi := &file_platform_nsi_nso_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -695,7 +849,7 @@ func (x *GetCarMarksRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarMarksRequest.ProtoReflect.Descriptor instead.
 func (*GetCarMarksRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{10}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetCarMarksRequest) GetPopularOnly() bool {
@@ -714,7 +868,7 @@ type GetCarMarksResponse struct {
 
 func (x *GetCarMarksResponse) Reset() {
 	*x = GetCarMarksResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[11]
+	mi := &file_platform_nsi_nso_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -726,7 +880,7 @@ func (x *GetCarMarksResponse) String() string {
 func (*GetCarMarksResponse) ProtoMessage() {}
 
 func (x *GetCarMarksResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[11]
+	mi := &file_platform_nsi_nso_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -739,7 +893,7 @@ func (x *GetCarMarksResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarMarksResponse.ProtoReflect.Descriptor instead.
 func (*GetCarMarksResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{11}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetCarMarksResponse) GetMarks() []*CarMark {
@@ -758,7 +912,7 @@ type GetCarModelsRequest struct {
 
 func (x *GetCarModelsRequest) Reset() {
 	*x = GetCarModelsRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[12]
+	mi := &file_platform_nsi_nso_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -770,7 +924,7 @@ func (x *GetCarModelsRequest) String() string {
 func (*GetCarModelsRequest) ProtoMessage() {}
 
 func (x *GetCarModelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[12]
+	mi := &file_platform_nsi_nso_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -783,7 +937,7 @@ func (x *GetCarModelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarModelsRequest.ProtoReflect.Descriptor instead.
 func (*GetCarModelsRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{12}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GetCarModelsRequest) GetMarkId() int32 {
@@ -802,7 +956,7 @@ type GetCarModelsResponse struct {
 
 func (x *GetCarModelsResponse) Reset() {
 	*x = GetCarModelsResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[13]
+	mi := &file_platform_nsi_nso_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -814,7 +968,7 @@ func (x *GetCarModelsResponse) String() string {
 func (*GetCarModelsResponse) ProtoMessage() {}
 
 func (x *GetCarModelsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[13]
+	mi := &file_platform_nsi_nso_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -827,7 +981,7 @@ func (x *GetCarModelsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarModelsResponse.ProtoReflect.Descriptor instead.
 func (*GetCarModelsResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{13}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetCarModelsResponse) GetModels() []*CarModel {
@@ -846,7 +1000,7 @@ type GetCarGenerationsRequest struct {
 
 func (x *GetCarGenerationsRequest) Reset() {
 	*x = GetCarGenerationsRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[14]
+	mi := &file_platform_nsi_nso_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -858,7 +1012,7 @@ func (x *GetCarGenerationsRequest) String() string {
 func (*GetCarGenerationsRequest) ProtoMessage() {}
 
 func (x *GetCarGenerationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[14]
+	mi := &file_platform_nsi_nso_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -871,7 +1025,7 @@ func (x *GetCarGenerationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarGenerationsRequest.ProtoReflect.Descriptor instead.
 func (*GetCarGenerationsRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{14}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetCarGenerationsRequest) GetModelId() int32 {
@@ -890,7 +1044,7 @@ type GetCarGenerationsResponse struct {
 
 func (x *GetCarGenerationsResponse) Reset() {
 	*x = GetCarGenerationsResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[15]
+	mi := &file_platform_nsi_nso_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -902,7 +1056,7 @@ func (x *GetCarGenerationsResponse) String() string {
 func (*GetCarGenerationsResponse) ProtoMessage() {}
 
 func (x *GetCarGenerationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[15]
+	mi := &file_platform_nsi_nso_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -915,7 +1069,7 @@ func (x *GetCarGenerationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCarGenerationsResponse.ProtoReflect.Descriptor instead.
 func (*GetCarGenerationsResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{15}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetCarGenerationsResponse) GetGenerations() []*CarGeneration {
@@ -934,7 +1088,7 @@ type GetCategoriesRequest struct {
 
 func (x *GetCategoriesRequest) Reset() {
 	*x = GetCategoriesRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[16]
+	mi := &file_platform_nsi_nso_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -946,7 +1100,7 @@ func (x *GetCategoriesRequest) String() string {
 func (*GetCategoriesRequest) ProtoMessage() {}
 
 func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[16]
+	mi := &file_platform_nsi_nso_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -959,7 +1113,7 @@ func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoriesRequest.ProtoReflect.Descriptor instead.
 func (*GetCategoriesRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{16}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetCategoriesRequest) GetParentId() int32 {
@@ -978,7 +1132,7 @@ type GetCategoriesResponse struct {
 
 func (x *GetCategoriesResponse) Reset() {
 	*x = GetCategoriesResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[17]
+	mi := &file_platform_nsi_nso_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -990,7 +1144,7 @@ func (x *GetCategoriesResponse) String() string {
 func (*GetCategoriesResponse) ProtoMessage() {}
 
 func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[17]
+	mi := &file_platform_nsi_nso_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1003,7 +1157,7 @@ func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoriesResponse.ProtoReflect.Descriptor instead.
 func (*GetCategoriesResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{17}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetCategoriesResponse) GetCategories() []*Category {
@@ -1022,7 +1176,7 @@ type GetCategoryRequest struct {
 
 func (x *GetCategoryRequest) Reset() {
 	*x = GetCategoryRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[18]
+	mi := &file_platform_nsi_nso_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1034,7 +1188,7 @@ func (x *GetCategoryRequest) String() string {
 func (*GetCategoryRequest) ProtoMessage() {}
 
 func (x *GetCategoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[18]
+	mi := &file_platform_nsi_nso_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1047,7 +1201,7 @@ func (x *GetCategoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoryRequest.ProtoReflect.Descriptor instead.
 func (*GetCategoryRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{18}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetCategoryRequest) GetCategoryId() int32 {
@@ -1066,7 +1220,7 @@ type GetCategoryResponse struct {
 
 func (x *GetCategoryResponse) Reset() {
 	*x = GetCategoryResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[19]
+	mi := &file_platform_nsi_nso_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1078,7 +1232,7 @@ func (x *GetCategoryResponse) String() string {
 func (*GetCategoryResponse) ProtoMessage() {}
 
 func (x *GetCategoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[19]
+	mi := &file_platform_nsi_nso_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1091,7 +1245,7 @@ func (x *GetCategoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoryResponse.ProtoReflect.Descriptor instead.
 func (*GetCategoryResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{19}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetCategoryResponse) GetCategory() *Category {
@@ -1110,7 +1264,7 @@ type GetAppVersionRequest struct {
 
 func (x *GetAppVersionRequest) Reset() {
 	*x = GetAppVersionRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[20]
+	mi := &file_platform_nsi_nso_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1122,7 +1276,7 @@ func (x *GetAppVersionRequest) String() string {
 func (*GetAppVersionRequest) ProtoMessage() {}
 
 func (x *GetAppVersionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[20]
+	mi := &file_platform_nsi_nso_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1135,7 +1289,7 @@ func (x *GetAppVersionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAppVersionRequest.ProtoReflect.Descriptor instead.
 func (*GetAppVersionRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{20}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GetAppVersionRequest) GetPlatform() string {
@@ -1154,7 +1308,7 @@ type GetAppVersionResponse struct {
 
 func (x *GetAppVersionResponse) Reset() {
 	*x = GetAppVersionResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[21]
+	mi := &file_platform_nsi_nso_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1166,7 +1320,7 @@ func (x *GetAppVersionResponse) String() string {
 func (*GetAppVersionResponse) ProtoMessage() {}
 
 func (x *GetAppVersionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[21]
+	mi := &file_platform_nsi_nso_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1179,7 +1333,7 @@ func (x *GetAppVersionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAppVersionResponse.ProtoReflect.Descriptor instead.
 func (*GetAppVersionResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{21}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *GetAppVersionResponse) GetVersion() *AppVersion {
@@ -1198,7 +1352,7 @@ type GetConfigRequest struct {
 
 func (x *GetConfigRequest) Reset() {
 	*x = GetConfigRequest{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[22]
+	mi := &file_platform_nsi_nso_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1210,7 +1364,7 @@ func (x *GetConfigRequest) String() string {
 func (*GetConfigRequest) ProtoMessage() {}
 
 func (x *GetConfigRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[22]
+	mi := &file_platform_nsi_nso_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1223,7 +1377,7 @@ func (x *GetConfigRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConfigRequest.ProtoReflect.Descriptor instead.
 func (*GetConfigRequest) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{22}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *GetConfigRequest) GetKey() string {
@@ -1242,7 +1396,7 @@ type GetConfigResponse struct {
 
 func (x *GetConfigResponse) Reset() {
 	*x = GetConfigResponse{}
-	mi := &file_platform_nsi_nso_proto_msgTypes[23]
+	mi := &file_platform_nsi_nso_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1254,7 +1408,7 @@ func (x *GetConfigResponse) String() string {
 func (*GetConfigResponse) ProtoMessage() {}
 
 func (x *GetConfigResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_platform_nsi_nso_proto_msgTypes[23]
+	mi := &file_platform_nsi_nso_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1267,12 +1421,375 @@ func (x *GetConfigResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConfigResponse.ProtoReflect.Descriptor instead.
 func (*GetConfigResponse) Descriptor() ([]byte, []int) {
-	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{23}
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetConfigResponse) GetValue() string {
 	if x != nil {
 		return x.Value
+	}
+	return ""
+}
+
+// Service Groups
+type GetServiceGroupsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServiceGroupsRequest) Reset() {
+	*x = GetServiceGroupsRequest{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServiceGroupsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceGroupsRequest) ProtoMessage() {}
+
+func (x *GetServiceGroupsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceGroupsRequest.ProtoReflect.Descriptor instead.
+func (*GetServiceGroupsRequest) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{26}
+}
+
+type GetServiceGroupsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Groups        []*ServiceGroup        `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServiceGroupsResponse) Reset() {
+	*x = GetServiceGroupsResponse{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServiceGroupsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceGroupsResponse) ProtoMessage() {}
+
+func (x *GetServiceGroupsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceGroupsResponse.ProtoReflect.Descriptor instead.
+func (*GetServiceGroupsResponse) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *GetServiceGroupsResponse) GetGroups() []*ServiceGroup {
+	if x != nil {
+		return x.Groups
+	}
+	return nil
+}
+
+// Service Categories
+type GetServiceCategoriesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	GroupId       int64                  `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // Filter by group, 0 = all categories
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServiceCategoriesRequest) Reset() {
+	*x = GetServiceCategoriesRequest{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServiceCategoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceCategoriesRequest) ProtoMessage() {}
+
+func (x *GetServiceCategoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceCategoriesRequest.ProtoReflect.Descriptor instead.
+func (*GetServiceCategoriesRequest) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *GetServiceCategoriesRequest) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
+type GetServiceCategoriesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Categories    []*ServiceCategory     `protobuf:"bytes,1,rep,name=categories,proto3" json:"categories,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServiceCategoriesResponse) Reset() {
+	*x = GetServiceCategoriesResponse{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServiceCategoriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceCategoriesResponse) ProtoMessage() {}
+
+func (x *GetServiceCategoriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceCategoriesResponse.ProtoReflect.Descriptor instead.
+func (*GetServiceCategoriesResponse) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *GetServiceCategoriesResponse) GetCategories() []*ServiceCategory {
+	if x != nil {
+		return x.Categories
+	}
+	return nil
+}
+
+type GetServiceCategoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryId    int64                  `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServiceCategoryRequest) Reset() {
+	*x = GetServiceCategoryRequest{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServiceCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceCategoryRequest) ProtoMessage() {}
+
+func (x *GetServiceCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceCategoryRequest.ProtoReflect.Descriptor instead.
+func (*GetServiceCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *GetServiceCategoryRequest) GetCategoryId() int64 {
+	if x != nil {
+		return x.CategoryId
+	}
+	return 0
+}
+
+type GetServiceCategoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Category      *ServiceCategory       `protobuf:"bytes,1,opt,name=category,proto3" json:"category,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServiceCategoryResponse) Reset() {
+	*x = GetServiceCategoryResponse{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServiceCategoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServiceCategoryResponse) ProtoMessage() {}
+
+func (x *GetServiceCategoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServiceCategoryResponse.ProtoReflect.Descriptor instead.
+func (*GetServiceCategoryResponse) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *GetServiceCategoryResponse) GetCategory() *ServiceCategory {
+	if x != nil {
+		return x.Category
+	}
+	return nil
+}
+
+// Validation - checks if category_ids belong to the specified group_id
+type ValidateGroupAndCategoriesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	GroupId       int64                  `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	CategoryIds   []int64                `protobuf:"varint,2,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ValidateGroupAndCategoriesRequest) Reset() {
+	*x = ValidateGroupAndCategoriesRequest{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ValidateGroupAndCategoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ValidateGroupAndCategoriesRequest) ProtoMessage() {}
+
+func (x *ValidateGroupAndCategoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ValidateGroupAndCategoriesRequest.ProtoReflect.Descriptor instead.
+func (*ValidateGroupAndCategoriesRequest) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *ValidateGroupAndCategoriesRequest) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
+func (x *ValidateGroupAndCategoriesRequest) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+type ValidateGroupAndCategoriesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Valid         bool                   `protobuf:"varint,1,opt,name=valid,proto3" json:"valid,omitempty"`
+	ErrorMessage  string                 `protobuf:"bytes,2,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"` // Populated if invalid
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ValidateGroupAndCategoriesResponse) Reset() {
+	*x = ValidateGroupAndCategoriesResponse{}
+	mi := &file_platform_nsi_nso_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ValidateGroupAndCategoriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ValidateGroupAndCategoriesResponse) ProtoMessage() {}
+
+func (x *ValidateGroupAndCategoriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_platform_nsi_nso_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ValidateGroupAndCategoriesResponse.ProtoReflect.Descriptor instead.
+func (*ValidateGroupAndCategoriesResponse) Descriptor() ([]byte, []int) {
+	return file_platform_nsi_nso_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *ValidateGroupAndCategoriesResponse) GetValid() bool {
+	if x != nil {
+		return x.Valid
+	}
+	return false
+}
+
+func (x *ValidateGroupAndCategoriesResponse) GetErrorMessage() string {
+	if x != nil {
+		return x.ErrorMessage
 	}
 	return ""
 }
@@ -1313,7 +1830,21 @@ const file_platform_nsi_nso_proto_rawDesc = "" +
 	"\x04slug\x18\x04 \x01(\tR\x04slug\x12\x19\n" +
 	"\bicon_url\x18\x05 \x01(\tR\aiconUrl\x12\x1d\n" +
 	"\n" +
-	"sort_order\x18\x06 \x01(\x05R\tsortOrder\"\xb4\x01\n" +
+	"sort_order\x18\x06 \x01(\x05R\tsortOrder\"y\n" +
+	"\fServiceGroup\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04slug\x18\x03 \x01(\tR\x04slug\x12\x12\n" +
+	"\x04icon\x18\x04 \x01(\tR\x04icon\x12\x1d\n" +
+	"\n" +
+	"sort_order\x18\x05 \x01(\x05R\tsortOrder\"\x83\x01\n" +
+	"\x0fServiceCategory\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\x03R\agroupId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n" +
+	"\x04slug\x18\x04 \x01(\tR\x04slug\x12\x1d\n" +
+	"\n" +
+	"sort_order\x18\x05 \x01(\x05R\tsortOrder\"\xb4\x01\n" +
 	"\n" +
 	"AppVersion\x12\x1a\n" +
 	"\bplatform\x18\x01 \x01(\tR\bplatform\x12\x1f\n" +
@@ -1363,7 +1894,28 @@ const file_platform_nsi_nso_proto_rawDesc = "" +
 	"\x10GetConfigRequest\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\")\n" +
 	"\x11GetConfigResponse\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\tR\x05value2\xbf\x06\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\"\x19\n" +
+	"\x17GetServiceGroupsRequest\"Q\n" +
+	"\x18GetServiceGroupsResponse\x125\n" +
+	"\x06groups\x18\x01 \x03(\v2\x1d.platform.nsi.v1.ServiceGroupR\x06groups\"8\n" +
+	"\x1bGetServiceCategoriesRequest\x12\x19\n" +
+	"\bgroup_id\x18\x01 \x01(\x03R\agroupId\"`\n" +
+	"\x1cGetServiceCategoriesResponse\x12@\n" +
+	"\n" +
+	"categories\x18\x01 \x03(\v2 .platform.nsi.v1.ServiceCategoryR\n" +
+	"categories\"<\n" +
+	"\x19GetServiceCategoryRequest\x12\x1f\n" +
+	"\vcategory_id\x18\x01 \x01(\x03R\n" +
+	"categoryId\"Z\n" +
+	"\x1aGetServiceCategoryResponse\x12<\n" +
+	"\bcategory\x18\x01 \x01(\v2 .platform.nsi.v1.ServiceCategoryR\bcategory\"a\n" +
+	"!ValidateGroupAndCategoriesRequest\x12\x19\n" +
+	"\bgroup_id\x18\x01 \x01(\x03R\agroupId\x12!\n" +
+	"\fcategory_ids\x18\x02 \x03(\x03R\vcategoryIds\"_\n" +
+	"\"ValidateGroupAndCategoriesResponse\x12\x14\n" +
+	"\x05valid\x18\x01 \x01(\bR\x05valid\x12#\n" +
+	"\rerror_message\x18\x02 \x01(\tR\ferrorMessage2\x94\n" +
+	"\n" +
 	"\n" +
 	"NsiService\x12R\n" +
 	"\tGetCities\x12!.platform.nsi.v1.GetCitiesRequest\x1a\".platform.nsi.v1.GetCitiesResponse\x12L\n" +
@@ -1372,7 +1924,11 @@ const file_platform_nsi_nso_proto_rawDesc = "" +
 	"\fGetCarModels\x12$.platform.nsi.v1.GetCarModelsRequest\x1a%.platform.nsi.v1.GetCarModelsResponse\x12j\n" +
 	"\x11GetCarGenerations\x12).platform.nsi.v1.GetCarGenerationsRequest\x1a*.platform.nsi.v1.GetCarGenerationsResponse\x12^\n" +
 	"\rGetCategories\x12%.platform.nsi.v1.GetCategoriesRequest\x1a&.platform.nsi.v1.GetCategoriesResponse\x12X\n" +
-	"\vGetCategory\x12#.platform.nsi.v1.GetCategoryRequest\x1a$.platform.nsi.v1.GetCategoryResponse\x12^\n" +
+	"\vGetCategory\x12#.platform.nsi.v1.GetCategoryRequest\x1a$.platform.nsi.v1.GetCategoryResponse\x12g\n" +
+	"\x10GetServiceGroups\x12(.platform.nsi.v1.GetServiceGroupsRequest\x1a).platform.nsi.v1.GetServiceGroupsResponse\x12s\n" +
+	"\x14GetServiceCategories\x12,.platform.nsi.v1.GetServiceCategoriesRequest\x1a-.platform.nsi.v1.GetServiceCategoriesResponse\x12m\n" +
+	"\x12GetServiceCategory\x12*.platform.nsi.v1.GetServiceCategoryRequest\x1a+.platform.nsi.v1.GetServiceCategoryResponse\x12\x85\x01\n" +
+	"\x1aValidateGroupAndCategories\x122.platform.nsi.v1.ValidateGroupAndCategoriesRequest\x1a3.platform.nsi.v1.ValidateGroupAndCategoriesResponse\x12^\n" +
 	"\rGetAppVersion\x12%.platform.nsi.v1.GetAppVersionRequest\x1a&.platform.nsi.v1.GetAppVersionResponse\x12R\n" +
 	"\tGetConfig\x12!.platform.nsi.v1.GetConfigRequest\x1a\".platform.nsi.v1.GetConfigResponseB3Z1gitlab.com/xakpro/cg-proto/gen/go/platform/nsi/v1b\x06proto3"
 
@@ -1388,32 +1944,42 @@ func file_platform_nsi_nso_proto_rawDescGZIP() []byte {
 	return file_platform_nsi_nso_proto_rawDescData
 }
 
-var file_platform_nsi_nso_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_platform_nsi_nso_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_platform_nsi_nso_proto_goTypes = []any{
-	(*City)(nil),                      // 0: platform.nsi.v1.City
-	(*CarMark)(nil),                   // 1: platform.nsi.v1.CarMark
-	(*CarModel)(nil),                  // 2: platform.nsi.v1.CarModel
-	(*CarGeneration)(nil),             // 3: platform.nsi.v1.CarGeneration
-	(*Category)(nil),                  // 4: platform.nsi.v1.Category
-	(*AppVersion)(nil),                // 5: platform.nsi.v1.AppVersion
-	(*GetCitiesRequest)(nil),          // 6: platform.nsi.v1.GetCitiesRequest
-	(*GetCitiesResponse)(nil),         // 7: platform.nsi.v1.GetCitiesResponse
-	(*GetCityRequest)(nil),            // 8: platform.nsi.v1.GetCityRequest
-	(*GetCityResponse)(nil),           // 9: platform.nsi.v1.GetCityResponse
-	(*GetCarMarksRequest)(nil),        // 10: platform.nsi.v1.GetCarMarksRequest
-	(*GetCarMarksResponse)(nil),       // 11: platform.nsi.v1.GetCarMarksResponse
-	(*GetCarModelsRequest)(nil),       // 12: platform.nsi.v1.GetCarModelsRequest
-	(*GetCarModelsResponse)(nil),      // 13: platform.nsi.v1.GetCarModelsResponse
-	(*GetCarGenerationsRequest)(nil),  // 14: platform.nsi.v1.GetCarGenerationsRequest
-	(*GetCarGenerationsResponse)(nil), // 15: platform.nsi.v1.GetCarGenerationsResponse
-	(*GetCategoriesRequest)(nil),      // 16: platform.nsi.v1.GetCategoriesRequest
-	(*GetCategoriesResponse)(nil),     // 17: platform.nsi.v1.GetCategoriesResponse
-	(*GetCategoryRequest)(nil),        // 18: platform.nsi.v1.GetCategoryRequest
-	(*GetCategoryResponse)(nil),       // 19: platform.nsi.v1.GetCategoryResponse
-	(*GetAppVersionRequest)(nil),      // 20: platform.nsi.v1.GetAppVersionRequest
-	(*GetAppVersionResponse)(nil),     // 21: platform.nsi.v1.GetAppVersionResponse
-	(*GetConfigRequest)(nil),          // 22: platform.nsi.v1.GetConfigRequest
-	(*GetConfigResponse)(nil),         // 23: platform.nsi.v1.GetConfigResponse
+	(*City)(nil),                               // 0: platform.nsi.v1.City
+	(*CarMark)(nil),                            // 1: platform.nsi.v1.CarMark
+	(*CarModel)(nil),                           // 2: platform.nsi.v1.CarModel
+	(*CarGeneration)(nil),                      // 3: platform.nsi.v1.CarGeneration
+	(*Category)(nil),                           // 4: platform.nsi.v1.Category
+	(*ServiceGroup)(nil),                       // 5: platform.nsi.v1.ServiceGroup
+	(*ServiceCategory)(nil),                    // 6: platform.nsi.v1.ServiceCategory
+	(*AppVersion)(nil),                         // 7: platform.nsi.v1.AppVersion
+	(*GetCitiesRequest)(nil),                   // 8: platform.nsi.v1.GetCitiesRequest
+	(*GetCitiesResponse)(nil),                  // 9: platform.nsi.v1.GetCitiesResponse
+	(*GetCityRequest)(nil),                     // 10: platform.nsi.v1.GetCityRequest
+	(*GetCityResponse)(nil),                    // 11: platform.nsi.v1.GetCityResponse
+	(*GetCarMarksRequest)(nil),                 // 12: platform.nsi.v1.GetCarMarksRequest
+	(*GetCarMarksResponse)(nil),                // 13: platform.nsi.v1.GetCarMarksResponse
+	(*GetCarModelsRequest)(nil),                // 14: platform.nsi.v1.GetCarModelsRequest
+	(*GetCarModelsResponse)(nil),               // 15: platform.nsi.v1.GetCarModelsResponse
+	(*GetCarGenerationsRequest)(nil),           // 16: platform.nsi.v1.GetCarGenerationsRequest
+	(*GetCarGenerationsResponse)(nil),          // 17: platform.nsi.v1.GetCarGenerationsResponse
+	(*GetCategoriesRequest)(nil),               // 18: platform.nsi.v1.GetCategoriesRequest
+	(*GetCategoriesResponse)(nil),              // 19: platform.nsi.v1.GetCategoriesResponse
+	(*GetCategoryRequest)(nil),                 // 20: platform.nsi.v1.GetCategoryRequest
+	(*GetCategoryResponse)(nil),                // 21: platform.nsi.v1.GetCategoryResponse
+	(*GetAppVersionRequest)(nil),               // 22: platform.nsi.v1.GetAppVersionRequest
+	(*GetAppVersionResponse)(nil),              // 23: platform.nsi.v1.GetAppVersionResponse
+	(*GetConfigRequest)(nil),                   // 24: platform.nsi.v1.GetConfigRequest
+	(*GetConfigResponse)(nil),                  // 25: platform.nsi.v1.GetConfigResponse
+	(*GetServiceGroupsRequest)(nil),            // 26: platform.nsi.v1.GetServiceGroupsRequest
+	(*GetServiceGroupsResponse)(nil),           // 27: platform.nsi.v1.GetServiceGroupsResponse
+	(*GetServiceCategoriesRequest)(nil),        // 28: platform.nsi.v1.GetServiceCategoriesRequest
+	(*GetServiceCategoriesResponse)(nil),       // 29: platform.nsi.v1.GetServiceCategoriesResponse
+	(*GetServiceCategoryRequest)(nil),          // 30: platform.nsi.v1.GetServiceCategoryRequest
+	(*GetServiceCategoryResponse)(nil),         // 31: platform.nsi.v1.GetServiceCategoryResponse
+	(*ValidateGroupAndCategoriesRequest)(nil),  // 32: platform.nsi.v1.ValidateGroupAndCategoriesRequest
+	(*ValidateGroupAndCategoriesResponse)(nil), // 33: platform.nsi.v1.ValidateGroupAndCategoriesResponse
 }
 var file_platform_nsi_nso_proto_depIdxs = []int32{
 	0,  // 0: platform.nsi.v1.GetCitiesResponse.cities:type_name -> platform.nsi.v1.City
@@ -1423,30 +1989,41 @@ var file_platform_nsi_nso_proto_depIdxs = []int32{
 	3,  // 4: platform.nsi.v1.GetCarGenerationsResponse.generations:type_name -> platform.nsi.v1.CarGeneration
 	4,  // 5: platform.nsi.v1.GetCategoriesResponse.categories:type_name -> platform.nsi.v1.Category
 	4,  // 6: platform.nsi.v1.GetCategoryResponse.category:type_name -> platform.nsi.v1.Category
-	5,  // 7: platform.nsi.v1.GetAppVersionResponse.version:type_name -> platform.nsi.v1.AppVersion
-	6,  // 8: platform.nsi.v1.NsiService.GetCities:input_type -> platform.nsi.v1.GetCitiesRequest
-	8,  // 9: platform.nsi.v1.NsiService.GetCity:input_type -> platform.nsi.v1.GetCityRequest
-	10, // 10: platform.nsi.v1.NsiService.GetCarMarks:input_type -> platform.nsi.v1.GetCarMarksRequest
-	12, // 11: platform.nsi.v1.NsiService.GetCarModels:input_type -> platform.nsi.v1.GetCarModelsRequest
-	14, // 12: platform.nsi.v1.NsiService.GetCarGenerations:input_type -> platform.nsi.v1.GetCarGenerationsRequest
-	16, // 13: platform.nsi.v1.NsiService.GetCategories:input_type -> platform.nsi.v1.GetCategoriesRequest
-	18, // 14: platform.nsi.v1.NsiService.GetCategory:input_type -> platform.nsi.v1.GetCategoryRequest
-	20, // 15: platform.nsi.v1.NsiService.GetAppVersion:input_type -> platform.nsi.v1.GetAppVersionRequest
-	22, // 16: platform.nsi.v1.NsiService.GetConfig:input_type -> platform.nsi.v1.GetConfigRequest
-	7,  // 17: platform.nsi.v1.NsiService.GetCities:output_type -> platform.nsi.v1.GetCitiesResponse
-	9,  // 18: platform.nsi.v1.NsiService.GetCity:output_type -> platform.nsi.v1.GetCityResponse
-	11, // 19: platform.nsi.v1.NsiService.GetCarMarks:output_type -> platform.nsi.v1.GetCarMarksResponse
-	13, // 20: platform.nsi.v1.NsiService.GetCarModels:output_type -> platform.nsi.v1.GetCarModelsResponse
-	15, // 21: platform.nsi.v1.NsiService.GetCarGenerations:output_type -> platform.nsi.v1.GetCarGenerationsResponse
-	17, // 22: platform.nsi.v1.NsiService.GetCategories:output_type -> platform.nsi.v1.GetCategoriesResponse
-	19, // 23: platform.nsi.v1.NsiService.GetCategory:output_type -> platform.nsi.v1.GetCategoryResponse
-	21, // 24: platform.nsi.v1.NsiService.GetAppVersion:output_type -> platform.nsi.v1.GetAppVersionResponse
-	23, // 25: platform.nsi.v1.NsiService.GetConfig:output_type -> platform.nsi.v1.GetConfigResponse
-	17, // [17:26] is the sub-list for method output_type
-	8,  // [8:17] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	7,  // 7: platform.nsi.v1.GetAppVersionResponse.version:type_name -> platform.nsi.v1.AppVersion
+	5,  // 8: platform.nsi.v1.GetServiceGroupsResponse.groups:type_name -> platform.nsi.v1.ServiceGroup
+	6,  // 9: platform.nsi.v1.GetServiceCategoriesResponse.categories:type_name -> platform.nsi.v1.ServiceCategory
+	6,  // 10: platform.nsi.v1.GetServiceCategoryResponse.category:type_name -> platform.nsi.v1.ServiceCategory
+	8,  // 11: platform.nsi.v1.NsiService.GetCities:input_type -> platform.nsi.v1.GetCitiesRequest
+	10, // 12: platform.nsi.v1.NsiService.GetCity:input_type -> platform.nsi.v1.GetCityRequest
+	12, // 13: platform.nsi.v1.NsiService.GetCarMarks:input_type -> platform.nsi.v1.GetCarMarksRequest
+	14, // 14: platform.nsi.v1.NsiService.GetCarModels:input_type -> platform.nsi.v1.GetCarModelsRequest
+	16, // 15: platform.nsi.v1.NsiService.GetCarGenerations:input_type -> platform.nsi.v1.GetCarGenerationsRequest
+	18, // 16: platform.nsi.v1.NsiService.GetCategories:input_type -> platform.nsi.v1.GetCategoriesRequest
+	20, // 17: platform.nsi.v1.NsiService.GetCategory:input_type -> platform.nsi.v1.GetCategoryRequest
+	26, // 18: platform.nsi.v1.NsiService.GetServiceGroups:input_type -> platform.nsi.v1.GetServiceGroupsRequest
+	28, // 19: platform.nsi.v1.NsiService.GetServiceCategories:input_type -> platform.nsi.v1.GetServiceCategoriesRequest
+	30, // 20: platform.nsi.v1.NsiService.GetServiceCategory:input_type -> platform.nsi.v1.GetServiceCategoryRequest
+	32, // 21: platform.nsi.v1.NsiService.ValidateGroupAndCategories:input_type -> platform.nsi.v1.ValidateGroupAndCategoriesRequest
+	22, // 22: platform.nsi.v1.NsiService.GetAppVersion:input_type -> platform.nsi.v1.GetAppVersionRequest
+	24, // 23: platform.nsi.v1.NsiService.GetConfig:input_type -> platform.nsi.v1.GetConfigRequest
+	9,  // 24: platform.nsi.v1.NsiService.GetCities:output_type -> platform.nsi.v1.GetCitiesResponse
+	11, // 25: platform.nsi.v1.NsiService.GetCity:output_type -> platform.nsi.v1.GetCityResponse
+	13, // 26: platform.nsi.v1.NsiService.GetCarMarks:output_type -> platform.nsi.v1.GetCarMarksResponse
+	15, // 27: platform.nsi.v1.NsiService.GetCarModels:output_type -> platform.nsi.v1.GetCarModelsResponse
+	17, // 28: platform.nsi.v1.NsiService.GetCarGenerations:output_type -> platform.nsi.v1.GetCarGenerationsResponse
+	19, // 29: platform.nsi.v1.NsiService.GetCategories:output_type -> platform.nsi.v1.GetCategoriesResponse
+	21, // 30: platform.nsi.v1.NsiService.GetCategory:output_type -> platform.nsi.v1.GetCategoryResponse
+	27, // 31: platform.nsi.v1.NsiService.GetServiceGroups:output_type -> platform.nsi.v1.GetServiceGroupsResponse
+	29, // 32: platform.nsi.v1.NsiService.GetServiceCategories:output_type -> platform.nsi.v1.GetServiceCategoriesResponse
+	31, // 33: platform.nsi.v1.NsiService.GetServiceCategory:output_type -> platform.nsi.v1.GetServiceCategoryResponse
+	33, // 34: platform.nsi.v1.NsiService.ValidateGroupAndCategories:output_type -> platform.nsi.v1.ValidateGroupAndCategoriesResponse
+	23, // 35: platform.nsi.v1.NsiService.GetAppVersion:output_type -> platform.nsi.v1.GetAppVersionResponse
+	25, // 36: platform.nsi.v1.NsiService.GetConfig:output_type -> platform.nsi.v1.GetConfigResponse
+	24, // [24:37] is the sub-list for method output_type
+	11, // [11:24] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_platform_nsi_nso_proto_init() }
@@ -1460,7 +2037,7 @@ func file_platform_nsi_nso_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_platform_nsi_nso_proto_rawDesc), len(file_platform_nsi_nso_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   24,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

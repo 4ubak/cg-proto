@@ -22,6 +22,10 @@ service OrganizationService {
   // GetMyOrganizations returns organizations where current user is a member
   rpc GetMyOrganizations(GetMyOrganizationsRequest) returns (GetMyOrganizationsResponse);
   
+  // Categories - for matching with requests
+  rpc SetCategories(SetCategoriesRequest) returns (SetCategoriesResponse);
+  rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
+  
   // Members
   rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
   rpc FireMember(FireMemberRequest) returns (FireMemberResponse);
@@ -42,11 +46,12 @@ service OrganizationService {
 
 enum OrganizationType {
   ORGANIZATION_TYPE_UNSPECIFIED = 0;
-  ORGANIZATION_TYPE_STO = 1;           // СТО
-  ORGANIZATION_TYPE_BODY_SHOP = 2;     // Кузовной цех
-  ORGANIZATION_TYPE_CAR_WASH = 3;      // Автомойка
-  ORGANIZATION_TYPE_PARTS_SUPPLIER = 4; // Поставщик запчастей
-  ORGANIZATION_TYPE_DEALER = 5;        // Дилер
+  ORGANIZATION_TYPE_STO = 1;           // СТО (group_id = 1)
+  ORGANIZATION_TYPE_BODY_SHOP = 2;     // Кузовной цех (group_id = 2)
+  ORGANIZATION_TYPE_CAR_WASH = 3;      // Автомойка (group_id = 5)
+  ORGANIZATION_TYPE_PARTS_SUPPLIER = 4; // Поставщик запчастей (group_id = 3)
+  ORGANIZATION_TYPE_TIRE_SERVICE = 5;  // Шиномонтаж (group_id = 4)
+  ORGANIZATION_TYPE_DEALER = 6;        // Дилер
 }
 
 enum MemberStatus {
@@ -69,6 +74,7 @@ message Organization {
   OrganizationSettings settings = 11;
   google.protobuf.Timestamp created_at = 12;
   google.protobuf.Timestamp updated_at = 13;
+  repeated int64 category_ids = 14;  // Service categories for matching
 }
 
 message OrganizationSettings {
@@ -124,6 +130,7 @@ message CreateOrganizationRequest {
   string address = 4;
   string phone = 5;
   int64 city_id = 6;
+  repeated int64 category_ids = 7;  // Optional: service categories
 }
 
 message CreateOrganizationResponse {
@@ -275,4 +282,22 @@ message GetRolesRequest {
 
 message GetRolesResponse {
   repeated Role roles = 1;
+}
+
+// Categories - for matching with service requests
+message SetCategoriesRequest {
+  string organization_id = 1;
+  repeated int64 category_ids = 2;  // NSI service_category IDs
+}
+
+message SetCategoriesResponse {
+  repeated int64 category_ids = 1;
+}
+
+message GetCategoriesRequest {
+  string organization_id = 1;
+}
+
+message GetCategoriesResponse {
+  repeated int64 category_ids = 1;
 }

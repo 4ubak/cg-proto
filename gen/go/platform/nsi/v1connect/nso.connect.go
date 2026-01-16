@@ -49,6 +49,18 @@ const (
 	NsiServiceGetCategoriesProcedure = "/platform.nsi.v1.NsiService/GetCategories"
 	// NsiServiceGetCategoryProcedure is the fully-qualified name of the NsiService's GetCategory RPC.
 	NsiServiceGetCategoryProcedure = "/platform.nsi.v1.NsiService/GetCategory"
+	// NsiServiceGetServiceGroupsProcedure is the fully-qualified name of the NsiService's
+	// GetServiceGroups RPC.
+	NsiServiceGetServiceGroupsProcedure = "/platform.nsi.v1.NsiService/GetServiceGroups"
+	// NsiServiceGetServiceCategoriesProcedure is the fully-qualified name of the NsiService's
+	// GetServiceCategories RPC.
+	NsiServiceGetServiceCategoriesProcedure = "/platform.nsi.v1.NsiService/GetServiceCategories"
+	// NsiServiceGetServiceCategoryProcedure is the fully-qualified name of the NsiService's
+	// GetServiceCategory RPC.
+	NsiServiceGetServiceCategoryProcedure = "/platform.nsi.v1.NsiService/GetServiceCategory"
+	// NsiServiceValidateGroupAndCategoriesProcedure is the fully-qualified name of the NsiService's
+	// ValidateGroupAndCategories RPC.
+	NsiServiceValidateGroupAndCategoriesProcedure = "/platform.nsi.v1.NsiService/ValidateGroupAndCategories"
 	// NsiServiceGetAppVersionProcedure is the fully-qualified name of the NsiService's GetAppVersion
 	// RPC.
 	NsiServiceGetAppVersionProcedure = "/platform.nsi.v1.NsiService/GetAppVersion"
@@ -65,6 +77,11 @@ type NsiServiceClient interface {
 	GetCarGenerations(context.Context, *connect.Request[v1.GetCarGenerationsRequest]) (*connect.Response[v1.GetCarGenerationsResponse], error)
 	GetCategories(context.Context, *connect.Request[v1.GetCategoriesRequest]) (*connect.Response[v1.GetCategoriesResponse], error)
 	GetCategory(context.Context, *connect.Request[v1.GetCategoryRequest]) (*connect.Response[v1.GetCategoryResponse], error)
+	// Service Groups and Categories (for matching)
+	GetServiceGroups(context.Context, *connect.Request[v1.GetServiceGroupsRequest]) (*connect.Response[v1.GetServiceGroupsResponse], error)
+	GetServiceCategories(context.Context, *connect.Request[v1.GetServiceCategoriesRequest]) (*connect.Response[v1.GetServiceCategoriesResponse], error)
+	GetServiceCategory(context.Context, *connect.Request[v1.GetServiceCategoryRequest]) (*connect.Response[v1.GetServiceCategoryResponse], error)
+	ValidateGroupAndCategories(context.Context, *connect.Request[v1.ValidateGroupAndCategoriesRequest]) (*connect.Response[v1.ValidateGroupAndCategoriesResponse], error)
 	GetAppVersion(context.Context, *connect.Request[v1.GetAppVersionRequest]) (*connect.Response[v1.GetAppVersionResponse], error)
 	GetConfig(context.Context, *connect.Request[v1.GetConfigRequest]) (*connect.Response[v1.GetConfigResponse], error)
 }
@@ -122,6 +139,30 @@ func NewNsiServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 			connect.WithSchema(nsiServiceMethods.ByName("GetCategory")),
 			connect.WithClientOptions(opts...),
 		),
+		getServiceGroups: connect.NewClient[v1.GetServiceGroupsRequest, v1.GetServiceGroupsResponse](
+			httpClient,
+			baseURL+NsiServiceGetServiceGroupsProcedure,
+			connect.WithSchema(nsiServiceMethods.ByName("GetServiceGroups")),
+			connect.WithClientOptions(opts...),
+		),
+		getServiceCategories: connect.NewClient[v1.GetServiceCategoriesRequest, v1.GetServiceCategoriesResponse](
+			httpClient,
+			baseURL+NsiServiceGetServiceCategoriesProcedure,
+			connect.WithSchema(nsiServiceMethods.ByName("GetServiceCategories")),
+			connect.WithClientOptions(opts...),
+		),
+		getServiceCategory: connect.NewClient[v1.GetServiceCategoryRequest, v1.GetServiceCategoryResponse](
+			httpClient,
+			baseURL+NsiServiceGetServiceCategoryProcedure,
+			connect.WithSchema(nsiServiceMethods.ByName("GetServiceCategory")),
+			connect.WithClientOptions(opts...),
+		),
+		validateGroupAndCategories: connect.NewClient[v1.ValidateGroupAndCategoriesRequest, v1.ValidateGroupAndCategoriesResponse](
+			httpClient,
+			baseURL+NsiServiceValidateGroupAndCategoriesProcedure,
+			connect.WithSchema(nsiServiceMethods.ByName("ValidateGroupAndCategories")),
+			connect.WithClientOptions(opts...),
+		),
 		getAppVersion: connect.NewClient[v1.GetAppVersionRequest, v1.GetAppVersionResponse](
 			httpClient,
 			baseURL+NsiServiceGetAppVersionProcedure,
@@ -139,15 +180,19 @@ func NewNsiServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 
 // nsiServiceClient implements NsiServiceClient.
 type nsiServiceClient struct {
-	getCities         *connect.Client[v1.GetCitiesRequest, v1.GetCitiesResponse]
-	getCity           *connect.Client[v1.GetCityRequest, v1.GetCityResponse]
-	getCarMarks       *connect.Client[v1.GetCarMarksRequest, v1.GetCarMarksResponse]
-	getCarModels      *connect.Client[v1.GetCarModelsRequest, v1.GetCarModelsResponse]
-	getCarGenerations *connect.Client[v1.GetCarGenerationsRequest, v1.GetCarGenerationsResponse]
-	getCategories     *connect.Client[v1.GetCategoriesRequest, v1.GetCategoriesResponse]
-	getCategory       *connect.Client[v1.GetCategoryRequest, v1.GetCategoryResponse]
-	getAppVersion     *connect.Client[v1.GetAppVersionRequest, v1.GetAppVersionResponse]
-	getConfig         *connect.Client[v1.GetConfigRequest, v1.GetConfigResponse]
+	getCities                  *connect.Client[v1.GetCitiesRequest, v1.GetCitiesResponse]
+	getCity                    *connect.Client[v1.GetCityRequest, v1.GetCityResponse]
+	getCarMarks                *connect.Client[v1.GetCarMarksRequest, v1.GetCarMarksResponse]
+	getCarModels               *connect.Client[v1.GetCarModelsRequest, v1.GetCarModelsResponse]
+	getCarGenerations          *connect.Client[v1.GetCarGenerationsRequest, v1.GetCarGenerationsResponse]
+	getCategories              *connect.Client[v1.GetCategoriesRequest, v1.GetCategoriesResponse]
+	getCategory                *connect.Client[v1.GetCategoryRequest, v1.GetCategoryResponse]
+	getServiceGroups           *connect.Client[v1.GetServiceGroupsRequest, v1.GetServiceGroupsResponse]
+	getServiceCategories       *connect.Client[v1.GetServiceCategoriesRequest, v1.GetServiceCategoriesResponse]
+	getServiceCategory         *connect.Client[v1.GetServiceCategoryRequest, v1.GetServiceCategoryResponse]
+	validateGroupAndCategories *connect.Client[v1.ValidateGroupAndCategoriesRequest, v1.ValidateGroupAndCategoriesResponse]
+	getAppVersion              *connect.Client[v1.GetAppVersionRequest, v1.GetAppVersionResponse]
+	getConfig                  *connect.Client[v1.GetConfigRequest, v1.GetConfigResponse]
 }
 
 // GetCities calls platform.nsi.v1.NsiService.GetCities.
@@ -185,6 +230,26 @@ func (c *nsiServiceClient) GetCategory(ctx context.Context, req *connect.Request
 	return c.getCategory.CallUnary(ctx, req)
 }
 
+// GetServiceGroups calls platform.nsi.v1.NsiService.GetServiceGroups.
+func (c *nsiServiceClient) GetServiceGroups(ctx context.Context, req *connect.Request[v1.GetServiceGroupsRequest]) (*connect.Response[v1.GetServiceGroupsResponse], error) {
+	return c.getServiceGroups.CallUnary(ctx, req)
+}
+
+// GetServiceCategories calls platform.nsi.v1.NsiService.GetServiceCategories.
+func (c *nsiServiceClient) GetServiceCategories(ctx context.Context, req *connect.Request[v1.GetServiceCategoriesRequest]) (*connect.Response[v1.GetServiceCategoriesResponse], error) {
+	return c.getServiceCategories.CallUnary(ctx, req)
+}
+
+// GetServiceCategory calls platform.nsi.v1.NsiService.GetServiceCategory.
+func (c *nsiServiceClient) GetServiceCategory(ctx context.Context, req *connect.Request[v1.GetServiceCategoryRequest]) (*connect.Response[v1.GetServiceCategoryResponse], error) {
+	return c.getServiceCategory.CallUnary(ctx, req)
+}
+
+// ValidateGroupAndCategories calls platform.nsi.v1.NsiService.ValidateGroupAndCategories.
+func (c *nsiServiceClient) ValidateGroupAndCategories(ctx context.Context, req *connect.Request[v1.ValidateGroupAndCategoriesRequest]) (*connect.Response[v1.ValidateGroupAndCategoriesResponse], error) {
+	return c.validateGroupAndCategories.CallUnary(ctx, req)
+}
+
 // GetAppVersion calls platform.nsi.v1.NsiService.GetAppVersion.
 func (c *nsiServiceClient) GetAppVersion(ctx context.Context, req *connect.Request[v1.GetAppVersionRequest]) (*connect.Response[v1.GetAppVersionResponse], error) {
 	return c.getAppVersion.CallUnary(ctx, req)
@@ -204,6 +269,11 @@ type NsiServiceHandler interface {
 	GetCarGenerations(context.Context, *connect.Request[v1.GetCarGenerationsRequest]) (*connect.Response[v1.GetCarGenerationsResponse], error)
 	GetCategories(context.Context, *connect.Request[v1.GetCategoriesRequest]) (*connect.Response[v1.GetCategoriesResponse], error)
 	GetCategory(context.Context, *connect.Request[v1.GetCategoryRequest]) (*connect.Response[v1.GetCategoryResponse], error)
+	// Service Groups and Categories (for matching)
+	GetServiceGroups(context.Context, *connect.Request[v1.GetServiceGroupsRequest]) (*connect.Response[v1.GetServiceGroupsResponse], error)
+	GetServiceCategories(context.Context, *connect.Request[v1.GetServiceCategoriesRequest]) (*connect.Response[v1.GetServiceCategoriesResponse], error)
+	GetServiceCategory(context.Context, *connect.Request[v1.GetServiceCategoryRequest]) (*connect.Response[v1.GetServiceCategoryResponse], error)
+	ValidateGroupAndCategories(context.Context, *connect.Request[v1.ValidateGroupAndCategoriesRequest]) (*connect.Response[v1.ValidateGroupAndCategoriesResponse], error)
 	GetAppVersion(context.Context, *connect.Request[v1.GetAppVersionRequest]) (*connect.Response[v1.GetAppVersionResponse], error)
 	GetConfig(context.Context, *connect.Request[v1.GetConfigRequest]) (*connect.Response[v1.GetConfigResponse], error)
 }
@@ -257,6 +327,30 @@ func NewNsiServiceHandler(svc NsiServiceHandler, opts ...connect.HandlerOption) 
 		connect.WithSchema(nsiServiceMethods.ByName("GetCategory")),
 		connect.WithHandlerOptions(opts...),
 	)
+	nsiServiceGetServiceGroupsHandler := connect.NewUnaryHandler(
+		NsiServiceGetServiceGroupsProcedure,
+		svc.GetServiceGroups,
+		connect.WithSchema(nsiServiceMethods.ByName("GetServiceGroups")),
+		connect.WithHandlerOptions(opts...),
+	)
+	nsiServiceGetServiceCategoriesHandler := connect.NewUnaryHandler(
+		NsiServiceGetServiceCategoriesProcedure,
+		svc.GetServiceCategories,
+		connect.WithSchema(nsiServiceMethods.ByName("GetServiceCategories")),
+		connect.WithHandlerOptions(opts...),
+	)
+	nsiServiceGetServiceCategoryHandler := connect.NewUnaryHandler(
+		NsiServiceGetServiceCategoryProcedure,
+		svc.GetServiceCategory,
+		connect.WithSchema(nsiServiceMethods.ByName("GetServiceCategory")),
+		connect.WithHandlerOptions(opts...),
+	)
+	nsiServiceValidateGroupAndCategoriesHandler := connect.NewUnaryHandler(
+		NsiServiceValidateGroupAndCategoriesProcedure,
+		svc.ValidateGroupAndCategories,
+		connect.WithSchema(nsiServiceMethods.ByName("ValidateGroupAndCategories")),
+		connect.WithHandlerOptions(opts...),
+	)
 	nsiServiceGetAppVersionHandler := connect.NewUnaryHandler(
 		NsiServiceGetAppVersionProcedure,
 		svc.GetAppVersion,
@@ -285,6 +379,14 @@ func NewNsiServiceHandler(svc NsiServiceHandler, opts ...connect.HandlerOption) 
 			nsiServiceGetCategoriesHandler.ServeHTTP(w, r)
 		case NsiServiceGetCategoryProcedure:
 			nsiServiceGetCategoryHandler.ServeHTTP(w, r)
+		case NsiServiceGetServiceGroupsProcedure:
+			nsiServiceGetServiceGroupsHandler.ServeHTTP(w, r)
+		case NsiServiceGetServiceCategoriesProcedure:
+			nsiServiceGetServiceCategoriesHandler.ServeHTTP(w, r)
+		case NsiServiceGetServiceCategoryProcedure:
+			nsiServiceGetServiceCategoryHandler.ServeHTTP(w, r)
+		case NsiServiceValidateGroupAndCategoriesProcedure:
+			nsiServiceValidateGroupAndCategoriesHandler.ServeHTTP(w, r)
 		case NsiServiceGetAppVersionProcedure:
 			nsiServiceGetAppVersionHandler.ServeHTTP(w, r)
 		case NsiServiceGetConfigProcedure:
@@ -324,6 +426,22 @@ func (UnimplementedNsiServiceHandler) GetCategories(context.Context, *connect.Re
 
 func (UnimplementedNsiServiceHandler) GetCategory(context.Context, *connect.Request[v1.GetCategoryRequest]) (*connect.Response[v1.GetCategoryResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.nsi.v1.NsiService.GetCategory is not implemented"))
+}
+
+func (UnimplementedNsiServiceHandler) GetServiceGroups(context.Context, *connect.Request[v1.GetServiceGroupsRequest]) (*connect.Response[v1.GetServiceGroupsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.nsi.v1.NsiService.GetServiceGroups is not implemented"))
+}
+
+func (UnimplementedNsiServiceHandler) GetServiceCategories(context.Context, *connect.Request[v1.GetServiceCategoriesRequest]) (*connect.Response[v1.GetServiceCategoriesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.nsi.v1.NsiService.GetServiceCategories is not implemented"))
+}
+
+func (UnimplementedNsiServiceHandler) GetServiceCategory(context.Context, *connect.Request[v1.GetServiceCategoryRequest]) (*connect.Response[v1.GetServiceCategoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.nsi.v1.NsiService.GetServiceCategory is not implemented"))
+}
+
+func (UnimplementedNsiServiceHandler) ValidateGroupAndCategories(context.Context, *connect.Request[v1.ValidateGroupAndCategoriesRequest]) (*connect.Response[v1.ValidateGroupAndCategoriesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("platform.nsi.v1.NsiService.ValidateGroupAndCategories is not implemented"))
 }
 
 func (UnimplementedNsiServiceHandler) GetAppVersion(context.Context, *connect.Request[v1.GetAppVersionRequest]) (*connect.Response[v1.GetAppVersionResponse], error) {

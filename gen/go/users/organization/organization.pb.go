@@ -26,11 +26,12 @@ type OrganizationType int32
 
 const (
 	OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED    OrganizationType = 0
-	OrganizationType_ORGANIZATION_TYPE_STO            OrganizationType = 1 // СТО
-	OrganizationType_ORGANIZATION_TYPE_BODY_SHOP      OrganizationType = 2 // Кузовной цех
-	OrganizationType_ORGANIZATION_TYPE_CAR_WASH       OrganizationType = 3 // Автомойка
-	OrganizationType_ORGANIZATION_TYPE_PARTS_SUPPLIER OrganizationType = 4 // Поставщик запчастей
-	OrganizationType_ORGANIZATION_TYPE_DEALER         OrganizationType = 5 // Дилер
+	OrganizationType_ORGANIZATION_TYPE_STO            OrganizationType = 1 // СТО (group_id = 1)
+	OrganizationType_ORGANIZATION_TYPE_BODY_SHOP      OrganizationType = 2 // Кузовной цех (group_id = 2)
+	OrganizationType_ORGANIZATION_TYPE_CAR_WASH       OrganizationType = 3 // Автомойка (group_id = 5)
+	OrganizationType_ORGANIZATION_TYPE_PARTS_SUPPLIER OrganizationType = 4 // Поставщик запчастей (group_id = 3)
+	OrganizationType_ORGANIZATION_TYPE_TIRE_SERVICE   OrganizationType = 5 // Шиномонтаж (group_id = 4)
+	OrganizationType_ORGANIZATION_TYPE_DEALER         OrganizationType = 6 // Дилер
 )
 
 // Enum value maps for OrganizationType.
@@ -41,7 +42,8 @@ var (
 		2: "ORGANIZATION_TYPE_BODY_SHOP",
 		3: "ORGANIZATION_TYPE_CAR_WASH",
 		4: "ORGANIZATION_TYPE_PARTS_SUPPLIER",
-		5: "ORGANIZATION_TYPE_DEALER",
+		5: "ORGANIZATION_TYPE_TIRE_SERVICE",
+		6: "ORGANIZATION_TYPE_DEALER",
 	}
 	OrganizationType_value = map[string]int32{
 		"ORGANIZATION_TYPE_UNSPECIFIED":    0,
@@ -49,7 +51,8 @@ var (
 		"ORGANIZATION_TYPE_BODY_SHOP":      2,
 		"ORGANIZATION_TYPE_CAR_WASH":       3,
 		"ORGANIZATION_TYPE_PARTS_SUPPLIER": 4,
-		"ORGANIZATION_TYPE_DEALER":         5,
+		"ORGANIZATION_TYPE_TIRE_SERVICE":   5,
+		"ORGANIZATION_TYPE_DEALER":         6,
 	}
 )
 
@@ -144,6 +147,7 @@ type Organization struct {
 	Settings      *OrganizationSettings  `protobuf:"bytes,11,opt,name=settings,proto3" json:"settings,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	CategoryIds   []int64                `protobuf:"varint,14,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"` // Service categories for matching
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -265,6 +269,13 @@ func (x *Organization) GetCreatedAt() *timestamppb.Timestamp {
 func (x *Organization) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
+	}
+	return nil
+}
+
+func (x *Organization) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
 	}
 	return nil
 }
@@ -698,6 +709,7 @@ type CreateOrganizationRequest struct {
 	Address       string                 `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
 	Phone         string                 `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
 	CityId        int64                  `protobuf:"varint,6,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
+	CategoryIds   []int64                `protobuf:"varint,7,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"` // Optional: service categories
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -772,6 +784,13 @@ func (x *CreateOrganizationRequest) GetCityId() int64 {
 		return x.CityId
 	}
 	return 0
+}
+
+func (x *CreateOrganizationRequest) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
 }
 
 type CreateOrganizationResponse struct {
@@ -2353,11 +2372,196 @@ func (x *GetRolesResponse) GetRoles() []*Role {
 	return nil
 }
 
+// Categories - for matching with service requests
+type SetCategoriesRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	CategoryIds    []int64                `protobuf:"varint,2,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"` // NSI service_category IDs
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SetCategoriesRequest) Reset() {
+	*x = SetCategoriesRequest{}
+	mi := &file_users_organization_organization_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetCategoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetCategoriesRequest) ProtoMessage() {}
+
+func (x *SetCategoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetCategoriesRequest.ProtoReflect.Descriptor instead.
+func (*SetCategoriesRequest) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *SetCategoriesRequest) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *SetCategoriesRequest) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+type SetCategoriesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryIds   []int64                `protobuf:"varint,1,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetCategoriesResponse) Reset() {
+	*x = SetCategoriesResponse{}
+	mi := &file_users_organization_organization_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetCategoriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetCategoriesResponse) ProtoMessage() {}
+
+func (x *SetCategoriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetCategoriesResponse.ProtoReflect.Descriptor instead.
+func (*SetCategoriesResponse) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *SetCategoriesResponse) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+type GetCategoriesRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetCategoriesRequest) Reset() {
+	*x = GetCategoriesRequest{}
+	mi := &file_users_organization_organization_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCategoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCategoriesRequest) ProtoMessage() {}
+
+func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCategoriesRequest.ProtoReflect.Descriptor instead.
+func (*GetCategoriesRequest) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *GetCategoriesRequest) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+type GetCategoriesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryIds   []int64                `protobuf:"varint,1,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCategoriesResponse) Reset() {
+	*x = GetCategoriesResponse{}
+	mi := &file_users_organization_organization_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCategoriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCategoriesResponse) ProtoMessage() {}
+
+func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCategoriesResponse.ProtoReflect.Descriptor instead.
+func (*GetCategoriesResponse) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *GetCategoriesResponse) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
 var File_users_organization_organization_proto protoreflect.FileDescriptor
 
 const file_users_organization_organization_proto_rawDesc = "" +
 	"\n" +
-	"%users/organization/organization.proto\x12\x15users.organization.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf0\x03\n" +
+	"%users/organization/organization.proto\x12\x15users.organization.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x93\x04\n" +
 	"\fOrganization\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12;\n" +
@@ -2374,7 +2578,8 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\x85\x01\n" +
+	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12!\n" +
+	"\fcategory_ids\x18\x0e \x03(\x03R\vcategoryIds\"\x85\x01\n" +
 	"\x14OrganizationSettings\x12#\n" +
 	"\raccept_orders\x18\x01 \x01(\bR\facceptOrders\x12H\n" +
 	"\rworking_hours\x18\x02 \x01(\v2#.users.organization.v1.WorkingHoursR\fworkingHours\"\xc6\x01\n" +
@@ -2413,14 +2618,15 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"expires_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xd7\x01\n" +
+	"expires_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xfa\x01\n" +
 	"\x19CreateOrganizationRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12;\n" +
 	"\x04type\x18\x02 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\x04type\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x18\n" +
 	"\aaddress\x18\x04 \x01(\tR\aaddress\x12\x14\n" +
 	"\x05phone\x18\x05 \x01(\tR\x05phone\x12\x17\n" +
-	"\acity_id\x18\x06 \x01(\x03R\x06cityId\"e\n" +
+	"\acity_id\x18\x06 \x01(\x03R\x06cityId\x12!\n" +
+	"\fcategory_ids\x18\a \x03(\x03R\vcategoryIds\"e\n" +
 	"\x1aCreateOrganizationResponse\x12G\n" +
 	"\forganization\x18\x01 \x01(\v2#.users.organization.v1.OrganizationR\forganization\"A\n" +
 	"\x16GetOrganizationRequest\x12'\n" +
@@ -2516,24 +2722,36 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x0fGetRolesRequest\x12T\n" +
 	"\x11organization_type\x18\x01 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\x10organizationType\"E\n" +
 	"\x10GetRolesResponse\x121\n" +
-	"\x05roles\x18\x01 \x03(\v2\x1b.users.organization.v1.RoleR\x05roles*\xd5\x01\n" +
+	"\x05roles\x18\x01 \x03(\v2\x1b.users.organization.v1.RoleR\x05roles\"b\n" +
+	"\x14SetCategoriesRequest\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12!\n" +
+	"\fcategory_ids\x18\x02 \x03(\x03R\vcategoryIds\":\n" +
+	"\x15SetCategoriesResponse\x12!\n" +
+	"\fcategory_ids\x18\x01 \x03(\x03R\vcategoryIds\"?\n" +
+	"\x14GetCategoriesRequest\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\":\n" +
+	"\x15GetCategoriesResponse\x12!\n" +
+	"\fcategory_ids\x18\x01 \x03(\x03R\vcategoryIds*\xf9\x01\n" +
 	"\x10OrganizationType\x12!\n" +
 	"\x1dORGANIZATION_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15ORGANIZATION_TYPE_STO\x10\x01\x12\x1f\n" +
 	"\x1bORGANIZATION_TYPE_BODY_SHOP\x10\x02\x12\x1e\n" +
 	"\x1aORGANIZATION_TYPE_CAR_WASH\x10\x03\x12$\n" +
-	" ORGANIZATION_TYPE_PARTS_SUPPLIER\x10\x04\x12\x1c\n" +
-	"\x18ORGANIZATION_TYPE_DEALER\x10\x05*`\n" +
+	" ORGANIZATION_TYPE_PARTS_SUPPLIER\x10\x04\x12\"\n" +
+	"\x1eORGANIZATION_TYPE_TIRE_SERVICE\x10\x05\x12\x1c\n" +
+	"\x18ORGANIZATION_TYPE_DEALER\x10\x06*`\n" +
 	"\fMemberStatus\x12\x1d\n" +
 	"\x19MEMBER_STATUS_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14MEMBER_STATUS_ACTIVE\x10\x01\x12\x17\n" +
-	"\x13MEMBER_STATUS_FIRED\x10\x022\x8e\x0e\n" +
+	"\x13MEMBER_STATUS_FIRED\x10\x022\xe6\x0f\n" +
 	"\x13OrganizationService\x12y\n" +
 	"\x12CreateOrganization\x120.users.organization.v1.CreateOrganizationRequest\x1a1.users.organization.v1.CreateOrganizationResponse\x12p\n" +
 	"\x0fGetOrganization\x12-.users.organization.v1.GetOrganizationRequest\x1a..users.organization.v1.GetOrganizationResponse\x12y\n" +
 	"\x12UpdateOrganization\x120.users.organization.v1.UpdateOrganizationRequest\x1a1.users.organization.v1.UpdateOrganizationResponse\x12y\n" +
 	"\x12DeleteOrganization\x120.users.organization.v1.DeleteOrganizationRequest\x1a1.users.organization.v1.DeleteOrganizationResponse\x12y\n" +
-	"\x12GetMyOrganizations\x120.users.organization.v1.GetMyOrganizationsRequest\x1a1.users.organization.v1.GetMyOrganizationsResponse\x12^\n" +
+	"\x12GetMyOrganizations\x120.users.organization.v1.GetMyOrganizationsRequest\x1a1.users.organization.v1.GetMyOrganizationsResponse\x12j\n" +
+	"\rSetCategories\x12+.users.organization.v1.SetCategoriesRequest\x1a,.users.organization.v1.SetCategoriesResponse\x12j\n" +
+	"\rGetCategories\x12+.users.organization.v1.GetCategoriesRequest\x1a,.users.organization.v1.GetCategoriesResponse\x12^\n" +
 	"\tAddMember\x12'.users.organization.v1.AddMemberRequest\x1a(.users.organization.v1.AddMemberResponse\x12a\n" +
 	"\n" +
 	"FireMember\x12(.users.organization.v1.FireMemberRequest\x1a).users.organization.v1.FireMemberResponse\x12s\n" +
@@ -2561,7 +2779,7 @@ func file_users_organization_organization_proto_rawDescGZIP() []byte {
 }
 
 var file_users_organization_organization_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
+var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 43)
 var file_users_organization_organization_proto_goTypes = []any{
 	(OrganizationType)(0),                // 0: users.organization.v1.OrganizationType
 	(MemberStatus)(0),                    // 1: users.organization.v1.MemberStatus
@@ -2604,19 +2822,23 @@ var file_users_organization_organization_proto_goTypes = []any{
 	(*CheckPermissionResponse)(nil),      // 38: users.organization.v1.CheckPermissionResponse
 	(*GetRolesRequest)(nil),              // 39: users.organization.v1.GetRolesRequest
 	(*GetRolesResponse)(nil),             // 40: users.organization.v1.GetRolesResponse
-	(*timestamppb.Timestamp)(nil),        // 41: google.protobuf.Timestamp
+	(*SetCategoriesRequest)(nil),         // 41: users.organization.v1.SetCategoriesRequest
+	(*SetCategoriesResponse)(nil),        // 42: users.organization.v1.SetCategoriesResponse
+	(*GetCategoriesRequest)(nil),         // 43: users.organization.v1.GetCategoriesRequest
+	(*GetCategoriesResponse)(nil),        // 44: users.organization.v1.GetCategoriesResponse
+	(*timestamppb.Timestamp)(nil),        // 45: google.protobuf.Timestamp
 }
 var file_users_organization_organization_proto_depIdxs = []int32{
 	0,  // 0: users.organization.v1.Organization.type:type_name -> users.organization.v1.OrganizationType
 	3,  // 1: users.organization.v1.Organization.settings:type_name -> users.organization.v1.OrganizationSettings
-	41, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
-	41, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
+	45, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
+	45, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
 	4,  // 4: users.organization.v1.OrganizationSettings.working_hours:type_name -> users.organization.v1.WorkingHours
 	1,  // 5: users.organization.v1.Member.status:type_name -> users.organization.v1.MemberStatus
-	41, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
-	41, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
-	41, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
-	41, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
+	45, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
+	45, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
+	45, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
+	45, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
 	0,  // 10: users.organization.v1.CreateOrganizationRequest.type:type_name -> users.organization.v1.OrganizationType
 	2,  // 11: users.organization.v1.CreateOrganizationResponse.organization:type_name -> users.organization.v1.Organization
 	2,  // 12: users.organization.v1.GetOrganizationResponse.organization:type_name -> users.organization.v1.Organization
@@ -2640,35 +2862,39 @@ var file_users_organization_organization_proto_depIdxs = []int32{
 	12, // 30: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
 	14, // 31: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
 	16, // 32: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
-	19, // 33: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
-	21, // 34: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
-	23, // 35: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
-	25, // 36: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
-	27, // 37: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
-	29, // 38: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
-	31, // 39: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
-	33, // 40: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
-	35, // 41: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
-	37, // 42: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
-	39, // 43: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
-	9,  // 44: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
-	11, // 45: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
-	13, // 46: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
-	15, // 47: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
-	17, // 48: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
-	20, // 49: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
-	22, // 50: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
-	24, // 51: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
-	26, // 52: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
-	28, // 53: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
-	30, // 54: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
-	32, // 55: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
-	34, // 56: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
-	36, // 57: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
-	38, // 58: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
-	40, // 59: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
-	44, // [44:60] is the sub-list for method output_type
-	28, // [28:44] is the sub-list for method input_type
+	41, // 33: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
+	43, // 34: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
+	19, // 35: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
+	21, // 36: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
+	23, // 37: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
+	25, // 38: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
+	27, // 39: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
+	29, // 40: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
+	31, // 41: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
+	33, // 42: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
+	35, // 43: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
+	37, // 44: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
+	39, // 45: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
+	9,  // 46: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
+	11, // 47: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
+	13, // 48: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
+	15, // 49: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
+	17, // 50: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
+	42, // 51: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
+	44, // 52: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
+	20, // 53: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
+	22, // 54: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
+	24, // 55: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
+	26, // 56: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
+	28, // 57: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
+	30, // 58: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
+	32, // 59: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
+	34, // 60: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
+	36, // 61: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
+	38, // 62: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
+	40, // 63: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
+	46, // [46:64] is the sub-list for method output_type
+	28, // [28:46] is the sub-list for method input_type
 	28, // [28:28] is the sub-list for extension type_name
 	28, // [28:28] is the sub-list for extension extendee
 	0,  // [0:28] is the sub-list for field type_name
@@ -2686,7 +2912,7 @@ func file_users_organization_organization_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_users_organization_organization_proto_rawDesc), len(file_users_organization_organization_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   39,
+			NumMessages:   43,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

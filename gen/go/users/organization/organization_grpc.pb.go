@@ -24,6 +24,8 @@ const (
 	OrganizationService_UpdateOrganization_FullMethodName   = "/users.organization.v1.OrganizationService/UpdateOrganization"
 	OrganizationService_DeleteOrganization_FullMethodName   = "/users.organization.v1.OrganizationService/DeleteOrganization"
 	OrganizationService_GetMyOrganizations_FullMethodName   = "/users.organization.v1.OrganizationService/GetMyOrganizations"
+	OrganizationService_SetCategories_FullMethodName        = "/users.organization.v1.OrganizationService/SetCategories"
+	OrganizationService_GetCategories_FullMethodName        = "/users.organization.v1.OrganizationService/GetCategories"
 	OrganizationService_AddMember_FullMethodName            = "/users.organization.v1.OrganizationService/AddMember"
 	OrganizationService_FireMember_FullMethodName           = "/users.organization.v1.OrganizationService/FireMember"
 	OrganizationService_UpdateMemberRole_FullMethodName     = "/users.organization.v1.OrganizationService/UpdateMemberRole"
@@ -51,6 +53,9 @@ type OrganizationServiceClient interface {
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
 	// GetMyOrganizations returns organizations where current user is a member
 	GetMyOrganizations(ctx context.Context, in *GetMyOrganizationsRequest, opts ...grpc.CallOption) (*GetMyOrganizationsResponse, error)
+	// Categories - for matching with requests
+	SetCategories(ctx context.Context, in *SetCategoriesRequest, opts ...grpc.CallOption) (*SetCategoriesResponse, error)
+	GetCategories(ctx context.Context, in *GetCategoriesRequest, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
 	// Members
 	AddMember(ctx context.Context, in *AddMemberRequest, opts ...grpc.CallOption) (*AddMemberResponse, error)
 	FireMember(ctx context.Context, in *FireMemberRequest, opts ...grpc.CallOption) (*FireMemberResponse, error)
@@ -119,6 +124,26 @@ func (c *organizationServiceClient) GetMyOrganizations(ctx context.Context, in *
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetMyOrganizationsResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_GetMyOrganizations_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) SetCategories(ctx context.Context, in *SetCategoriesRequest, opts ...grpc.CallOption) (*SetCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetCategoriesResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_SetCategories_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) GetCategories(ctx context.Context, in *GetCategoriesRequest, opts ...grpc.CallOption) (*GetCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCategoriesResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetCategories_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -249,6 +274,9 @@ type OrganizationServiceServer interface {
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
 	// GetMyOrganizations returns organizations where current user is a member
 	GetMyOrganizations(context.Context, *GetMyOrganizationsRequest) (*GetMyOrganizationsResponse, error)
+	// Categories - for matching with requests
+	SetCategories(context.Context, *SetCategoriesRequest) (*SetCategoriesResponse, error)
+	GetCategories(context.Context, *GetCategoriesRequest) (*GetCategoriesResponse, error)
 	// Members
 	AddMember(context.Context, *AddMemberRequest) (*AddMemberResponse, error)
 	FireMember(context.Context, *FireMemberRequest) (*FireMemberResponse, error)
@@ -287,6 +315,12 @@ func (UnimplementedOrganizationServiceServer) DeleteOrganization(context.Context
 }
 func (UnimplementedOrganizationServiceServer) GetMyOrganizations(context.Context, *GetMyOrganizationsRequest) (*GetMyOrganizationsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetMyOrganizations not implemented")
+}
+func (UnimplementedOrganizationServiceServer) SetCategories(context.Context, *SetCategoriesRequest) (*SetCategoriesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SetCategories not implemented")
+}
+func (UnimplementedOrganizationServiceServer) GetCategories(context.Context, *GetCategoriesRequest) (*GetCategoriesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCategories not implemented")
 }
 func (UnimplementedOrganizationServiceServer) AddMember(context.Context, *AddMemberRequest) (*AddMemberResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method AddMember not implemented")
@@ -428,6 +462,42 @@ func _OrganizationService_GetMyOrganizations_Handler(srv interface{}, ctx contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationServiceServer).GetMyOrganizations(ctx, req.(*GetMyOrganizationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_SetCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).SetCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_SetCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).SetCategories(ctx, req.(*SetCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_GetCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).GetCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_GetCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).GetCategories(ctx, req.(*GetCategoriesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -656,6 +726,14 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMyOrganizations",
 			Handler:    _OrganizationService_GetMyOrganizations_Handler,
+		},
+		{
+			MethodName: "SetCategories",
+			Handler:    _OrganizationService_SetCategories_Handler,
+		},
+		{
+			MethodName: "GetCategories",
+			Handler:    _OrganizationService_GetCategories_Handler,
 		},
 		{
 			MethodName: "AddMember",

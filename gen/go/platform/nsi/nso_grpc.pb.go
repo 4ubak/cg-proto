@@ -19,15 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	NsiService_GetCities_FullMethodName         = "/platform.nsi.v1.NsiService/GetCities"
-	NsiService_GetCity_FullMethodName           = "/platform.nsi.v1.NsiService/GetCity"
-	NsiService_GetCarMarks_FullMethodName       = "/platform.nsi.v1.NsiService/GetCarMarks"
-	NsiService_GetCarModels_FullMethodName      = "/platform.nsi.v1.NsiService/GetCarModels"
-	NsiService_GetCarGenerations_FullMethodName = "/platform.nsi.v1.NsiService/GetCarGenerations"
-	NsiService_GetCategories_FullMethodName     = "/platform.nsi.v1.NsiService/GetCategories"
-	NsiService_GetCategory_FullMethodName       = "/platform.nsi.v1.NsiService/GetCategory"
-	NsiService_GetAppVersion_FullMethodName     = "/platform.nsi.v1.NsiService/GetAppVersion"
-	NsiService_GetConfig_FullMethodName         = "/platform.nsi.v1.NsiService/GetConfig"
+	NsiService_GetCities_FullMethodName                  = "/platform.nsi.v1.NsiService/GetCities"
+	NsiService_GetCity_FullMethodName                    = "/platform.nsi.v1.NsiService/GetCity"
+	NsiService_GetCarMarks_FullMethodName                = "/platform.nsi.v1.NsiService/GetCarMarks"
+	NsiService_GetCarModels_FullMethodName               = "/platform.nsi.v1.NsiService/GetCarModels"
+	NsiService_GetCarGenerations_FullMethodName          = "/platform.nsi.v1.NsiService/GetCarGenerations"
+	NsiService_GetCategories_FullMethodName              = "/platform.nsi.v1.NsiService/GetCategories"
+	NsiService_GetCategory_FullMethodName                = "/platform.nsi.v1.NsiService/GetCategory"
+	NsiService_GetServiceGroups_FullMethodName           = "/platform.nsi.v1.NsiService/GetServiceGroups"
+	NsiService_GetServiceCategories_FullMethodName       = "/platform.nsi.v1.NsiService/GetServiceCategories"
+	NsiService_GetServiceCategory_FullMethodName         = "/platform.nsi.v1.NsiService/GetServiceCategory"
+	NsiService_ValidateGroupAndCategories_FullMethodName = "/platform.nsi.v1.NsiService/ValidateGroupAndCategories"
+	NsiService_GetAppVersion_FullMethodName              = "/platform.nsi.v1.NsiService/GetAppVersion"
+	NsiService_GetConfig_FullMethodName                  = "/platform.nsi.v1.NsiService/GetConfig"
 )
 
 // NsiServiceClient is the client API for NsiService service.
@@ -41,6 +45,11 @@ type NsiServiceClient interface {
 	GetCarGenerations(ctx context.Context, in *GetCarGenerationsRequest, opts ...grpc.CallOption) (*GetCarGenerationsResponse, error)
 	GetCategories(ctx context.Context, in *GetCategoriesRequest, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
 	GetCategory(ctx context.Context, in *GetCategoryRequest, opts ...grpc.CallOption) (*GetCategoryResponse, error)
+	// Service Groups and Categories (for matching)
+	GetServiceGroups(ctx context.Context, in *GetServiceGroupsRequest, opts ...grpc.CallOption) (*GetServiceGroupsResponse, error)
+	GetServiceCategories(ctx context.Context, in *GetServiceCategoriesRequest, opts ...grpc.CallOption) (*GetServiceCategoriesResponse, error)
+	GetServiceCategory(ctx context.Context, in *GetServiceCategoryRequest, opts ...grpc.CallOption) (*GetServiceCategoryResponse, error)
+	ValidateGroupAndCategories(ctx context.Context, in *ValidateGroupAndCategoriesRequest, opts ...grpc.CallOption) (*ValidateGroupAndCategoriesResponse, error)
 	GetAppVersion(ctx context.Context, in *GetAppVersionRequest, opts ...grpc.CallOption) (*GetAppVersionResponse, error)
 	GetConfig(ctx context.Context, in *GetConfigRequest, opts ...grpc.CallOption) (*GetConfigResponse, error)
 }
@@ -123,6 +132,46 @@ func (c *nsiServiceClient) GetCategory(ctx context.Context, in *GetCategoryReque
 	return out, nil
 }
 
+func (c *nsiServiceClient) GetServiceGroups(ctx context.Context, in *GetServiceGroupsRequest, opts ...grpc.CallOption) (*GetServiceGroupsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetServiceGroupsResponse)
+	err := c.cc.Invoke(ctx, NsiService_GetServiceGroups_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *nsiServiceClient) GetServiceCategories(ctx context.Context, in *GetServiceCategoriesRequest, opts ...grpc.CallOption) (*GetServiceCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetServiceCategoriesResponse)
+	err := c.cc.Invoke(ctx, NsiService_GetServiceCategories_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *nsiServiceClient) GetServiceCategory(ctx context.Context, in *GetServiceCategoryRequest, opts ...grpc.CallOption) (*GetServiceCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetServiceCategoryResponse)
+	err := c.cc.Invoke(ctx, NsiService_GetServiceCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *nsiServiceClient) ValidateGroupAndCategories(ctx context.Context, in *ValidateGroupAndCategoriesRequest, opts ...grpc.CallOption) (*ValidateGroupAndCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ValidateGroupAndCategoriesResponse)
+	err := c.cc.Invoke(ctx, NsiService_ValidateGroupAndCategories_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *nsiServiceClient) GetAppVersion(ctx context.Context, in *GetAppVersionRequest, opts ...grpc.CallOption) (*GetAppVersionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAppVersionResponse)
@@ -154,6 +203,11 @@ type NsiServiceServer interface {
 	GetCarGenerations(context.Context, *GetCarGenerationsRequest) (*GetCarGenerationsResponse, error)
 	GetCategories(context.Context, *GetCategoriesRequest) (*GetCategoriesResponse, error)
 	GetCategory(context.Context, *GetCategoryRequest) (*GetCategoryResponse, error)
+	// Service Groups and Categories (for matching)
+	GetServiceGroups(context.Context, *GetServiceGroupsRequest) (*GetServiceGroupsResponse, error)
+	GetServiceCategories(context.Context, *GetServiceCategoriesRequest) (*GetServiceCategoriesResponse, error)
+	GetServiceCategory(context.Context, *GetServiceCategoryRequest) (*GetServiceCategoryResponse, error)
+	ValidateGroupAndCategories(context.Context, *ValidateGroupAndCategoriesRequest) (*ValidateGroupAndCategoriesResponse, error)
 	GetAppVersion(context.Context, *GetAppVersionRequest) (*GetAppVersionResponse, error)
 	GetConfig(context.Context, *GetConfigRequest) (*GetConfigResponse, error)
 	mustEmbedUnimplementedNsiServiceServer()
@@ -186,6 +240,18 @@ func (UnimplementedNsiServiceServer) GetCategories(context.Context, *GetCategori
 }
 func (UnimplementedNsiServiceServer) GetCategory(context.Context, *GetCategoryRequest) (*GetCategoryResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCategory not implemented")
+}
+func (UnimplementedNsiServiceServer) GetServiceGroups(context.Context, *GetServiceGroupsRequest) (*GetServiceGroupsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetServiceGroups not implemented")
+}
+func (UnimplementedNsiServiceServer) GetServiceCategories(context.Context, *GetServiceCategoriesRequest) (*GetServiceCategoriesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetServiceCategories not implemented")
+}
+func (UnimplementedNsiServiceServer) GetServiceCategory(context.Context, *GetServiceCategoryRequest) (*GetServiceCategoryResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetServiceCategory not implemented")
+}
+func (UnimplementedNsiServiceServer) ValidateGroupAndCategories(context.Context, *ValidateGroupAndCategoriesRequest) (*ValidateGroupAndCategoriesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ValidateGroupAndCategories not implemented")
 }
 func (UnimplementedNsiServiceServer) GetAppVersion(context.Context, *GetAppVersionRequest) (*GetAppVersionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAppVersion not implemented")
@@ -340,6 +406,78 @@ func _NsiService_GetCategory_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NsiService_GetServiceGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServiceGroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NsiServiceServer).GetServiceGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NsiService_GetServiceGroups_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NsiServiceServer).GetServiceGroups(ctx, req.(*GetServiceGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NsiService_GetServiceCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServiceCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NsiServiceServer).GetServiceCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NsiService_GetServiceCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NsiServiceServer).GetServiceCategories(ctx, req.(*GetServiceCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NsiService_GetServiceCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServiceCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NsiServiceServer).GetServiceCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NsiService_GetServiceCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NsiServiceServer).GetServiceCategory(ctx, req.(*GetServiceCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NsiService_ValidateGroupAndCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidateGroupAndCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NsiServiceServer).ValidateGroupAndCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NsiService_ValidateGroupAndCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NsiServiceServer).ValidateGroupAndCategories(ctx, req.(*ValidateGroupAndCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _NsiService_GetAppVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAppVersionRequest)
 	if err := dec(in); err != nil {
@@ -410,6 +548,22 @@ var NsiService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCategory",
 			Handler:    _NsiService_GetCategory_Handler,
+		},
+		{
+			MethodName: "GetServiceGroups",
+			Handler:    _NsiService_GetServiceGroups_Handler,
+		},
+		{
+			MethodName: "GetServiceCategories",
+			Handler:    _NsiService_GetServiceCategories_Handler,
+		},
+		{
+			MethodName: "GetServiceCategory",
+			Handler:    _NsiService_GetServiceCategory_Handler,
+		},
+		{
+			MethodName: "ValidateGroupAndCategories",
+			Handler:    _NsiService_ValidateGroupAndCategories_Handler,
 		},
 		{
 			MethodName: "GetAppVersion",

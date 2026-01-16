@@ -48,6 +48,12 @@ const (
 	// OrganizationServiceGetMyOrganizationsProcedure is the fully-qualified name of the
 	// OrganizationService's GetMyOrganizations RPC.
 	OrganizationServiceGetMyOrganizationsProcedure = "/users.organization.v1.OrganizationService/GetMyOrganizations"
+	// OrganizationServiceSetCategoriesProcedure is the fully-qualified name of the
+	// OrganizationService's SetCategories RPC.
+	OrganizationServiceSetCategoriesProcedure = "/users.organization.v1.OrganizationService/SetCategories"
+	// OrganizationServiceGetCategoriesProcedure is the fully-qualified name of the
+	// OrganizationService's GetCategories RPC.
+	OrganizationServiceGetCategoriesProcedure = "/users.organization.v1.OrganizationService/GetCategories"
 	// OrganizationServiceAddMemberProcedure is the fully-qualified name of the OrganizationService's
 	// AddMember RPC.
 	OrganizationServiceAddMemberProcedure = "/users.organization.v1.OrganizationService/AddMember"
@@ -95,6 +101,9 @@ type OrganizationServiceClient interface {
 	DeleteOrganization(context.Context, *connect.Request[organization.DeleteOrganizationRequest]) (*connect.Response[organization.DeleteOrganizationResponse], error)
 	// GetMyOrganizations returns organizations where current user is a member
 	GetMyOrganizations(context.Context, *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error)
+	// Categories - for matching with requests
+	SetCategories(context.Context, *connect.Request[organization.SetCategoriesRequest]) (*connect.Response[organization.SetCategoriesResponse], error)
+	GetCategories(context.Context, *connect.Request[organization.GetCategoriesRequest]) (*connect.Response[organization.GetCategoriesResponse], error)
 	// Members
 	AddMember(context.Context, *connect.Request[organization.AddMemberRequest]) (*connect.Response[organization.AddMemberResponse], error)
 	FireMember(context.Context, *connect.Request[organization.FireMemberRequest]) (*connect.Response[organization.FireMemberResponse], error)
@@ -150,6 +159,18 @@ func NewOrganizationServiceClient(httpClient connect.HTTPClient, baseURL string,
 			httpClient,
 			baseURL+OrganizationServiceGetMyOrganizationsProcedure,
 			connect.WithSchema(organizationServiceMethods.ByName("GetMyOrganizations")),
+			connect.WithClientOptions(opts...),
+		),
+		setCategories: connect.NewClient[organization.SetCategoriesRequest, organization.SetCategoriesResponse](
+			httpClient,
+			baseURL+OrganizationServiceSetCategoriesProcedure,
+			connect.WithSchema(organizationServiceMethods.ByName("SetCategories")),
+			connect.WithClientOptions(opts...),
+		),
+		getCategories: connect.NewClient[organization.GetCategoriesRequest, organization.GetCategoriesResponse](
+			httpClient,
+			baseURL+OrganizationServiceGetCategoriesProcedure,
+			connect.WithSchema(organizationServiceMethods.ByName("GetCategories")),
 			connect.WithClientOptions(opts...),
 		),
 		addMember: connect.NewClient[organization.AddMemberRequest, organization.AddMemberResponse](
@@ -228,6 +249,8 @@ type organizationServiceClient struct {
 	updateOrganization   *connect.Client[organization.UpdateOrganizationRequest, organization.UpdateOrganizationResponse]
 	deleteOrganization   *connect.Client[organization.DeleteOrganizationRequest, organization.DeleteOrganizationResponse]
 	getMyOrganizations   *connect.Client[organization.GetMyOrganizationsRequest, organization.GetMyOrganizationsResponse]
+	setCategories        *connect.Client[organization.SetCategoriesRequest, organization.SetCategoriesResponse]
+	getCategories        *connect.Client[organization.GetCategoriesRequest, organization.GetCategoriesResponse]
 	addMember            *connect.Client[organization.AddMemberRequest, organization.AddMemberResponse]
 	fireMember           *connect.Client[organization.FireMemberRequest, organization.FireMemberResponse]
 	updateMemberRole     *connect.Client[organization.UpdateMemberRoleRequest, organization.UpdateMemberRoleResponse]
@@ -264,6 +287,16 @@ func (c *organizationServiceClient) DeleteOrganization(ctx context.Context, req 
 // GetMyOrganizations calls users.organization.v1.OrganizationService.GetMyOrganizations.
 func (c *organizationServiceClient) GetMyOrganizations(ctx context.Context, req *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error) {
 	return c.getMyOrganizations.CallUnary(ctx, req)
+}
+
+// SetCategories calls users.organization.v1.OrganizationService.SetCategories.
+func (c *organizationServiceClient) SetCategories(ctx context.Context, req *connect.Request[organization.SetCategoriesRequest]) (*connect.Response[organization.SetCategoriesResponse], error) {
+	return c.setCategories.CallUnary(ctx, req)
+}
+
+// GetCategories calls users.organization.v1.OrganizationService.GetCategories.
+func (c *organizationServiceClient) GetCategories(ctx context.Context, req *connect.Request[organization.GetCategoriesRequest]) (*connect.Response[organization.GetCategoriesResponse], error) {
+	return c.getCategories.CallUnary(ctx, req)
 }
 
 // AddMember calls users.organization.v1.OrganizationService.AddMember.
@@ -334,6 +367,9 @@ type OrganizationServiceHandler interface {
 	DeleteOrganization(context.Context, *connect.Request[organization.DeleteOrganizationRequest]) (*connect.Response[organization.DeleteOrganizationResponse], error)
 	// GetMyOrganizations returns organizations where current user is a member
 	GetMyOrganizations(context.Context, *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error)
+	// Categories - for matching with requests
+	SetCategories(context.Context, *connect.Request[organization.SetCategoriesRequest]) (*connect.Response[organization.SetCategoriesResponse], error)
+	GetCategories(context.Context, *connect.Request[organization.GetCategoriesRequest]) (*connect.Response[organization.GetCategoriesResponse], error)
 	// Members
 	AddMember(context.Context, *connect.Request[organization.AddMemberRequest]) (*connect.Response[organization.AddMemberResponse], error)
 	FireMember(context.Context, *connect.Request[organization.FireMemberRequest]) (*connect.Response[organization.FireMemberResponse], error)
@@ -385,6 +421,18 @@ func NewOrganizationServiceHandler(svc OrganizationServiceHandler, opts ...conne
 		OrganizationServiceGetMyOrganizationsProcedure,
 		svc.GetMyOrganizations,
 		connect.WithSchema(organizationServiceMethods.ByName("GetMyOrganizations")),
+		connect.WithHandlerOptions(opts...),
+	)
+	organizationServiceSetCategoriesHandler := connect.NewUnaryHandler(
+		OrganizationServiceSetCategoriesProcedure,
+		svc.SetCategories,
+		connect.WithSchema(organizationServiceMethods.ByName("SetCategories")),
+		connect.WithHandlerOptions(opts...),
+	)
+	organizationServiceGetCategoriesHandler := connect.NewUnaryHandler(
+		OrganizationServiceGetCategoriesProcedure,
+		svc.GetCategories,
+		connect.WithSchema(organizationServiceMethods.ByName("GetCategories")),
 		connect.WithHandlerOptions(opts...),
 	)
 	organizationServiceAddMemberHandler := connect.NewUnaryHandler(
@@ -465,6 +513,10 @@ func NewOrganizationServiceHandler(svc OrganizationServiceHandler, opts ...conne
 			organizationServiceDeleteOrganizationHandler.ServeHTTP(w, r)
 		case OrganizationServiceGetMyOrganizationsProcedure:
 			organizationServiceGetMyOrganizationsHandler.ServeHTTP(w, r)
+		case OrganizationServiceSetCategoriesProcedure:
+			organizationServiceSetCategoriesHandler.ServeHTTP(w, r)
+		case OrganizationServiceGetCategoriesProcedure:
+			organizationServiceGetCategoriesHandler.ServeHTTP(w, r)
 		case OrganizationServiceAddMemberProcedure:
 			organizationServiceAddMemberHandler.ServeHTTP(w, r)
 		case OrganizationServiceFireMemberProcedure:
@@ -514,6 +566,14 @@ func (UnimplementedOrganizationServiceHandler) DeleteOrganization(context.Contex
 
 func (UnimplementedOrganizationServiceHandler) GetMyOrganizations(context.Context, *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("users.organization.v1.OrganizationService.GetMyOrganizations is not implemented"))
+}
+
+func (UnimplementedOrganizationServiceHandler) SetCategories(context.Context, *connect.Request[organization.SetCategoriesRequest]) (*connect.Response[organization.SetCategoriesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("users.organization.v1.OrganizationService.SetCategories is not implemented"))
+}
+
+func (UnimplementedOrganizationServiceHandler) GetCategories(context.Context, *connect.Request[organization.GetCategoriesRequest]) (*connect.Response[organization.GetCategoriesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("users.organization.v1.OrganizationService.GetCategories is not implemented"))
 }
 
 func (UnimplementedOrganizationServiceHandler) AddMember(context.Context, *connect.Request[organization.AddMemberRequest]) (*connect.Response[organization.AddMemberResponse], error) {
