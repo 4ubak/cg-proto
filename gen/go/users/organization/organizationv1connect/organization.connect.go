@@ -42,6 +42,9 @@ const (
 	// OrganizationServiceUpdateOrganizationProcedure is the fully-qualified name of the
 	// OrganizationService's UpdateOrganization RPC.
 	OrganizationServiceUpdateOrganizationProcedure = "/users.organization.v1.OrganizationService/UpdateOrganization"
+	// OrganizationServiceDeleteOrganizationProcedure is the fully-qualified name of the
+	// OrganizationService's DeleteOrganization RPC.
+	OrganizationServiceDeleteOrganizationProcedure = "/users.organization.v1.OrganizationService/DeleteOrganization"
 	// OrganizationServiceGetMyOrganizationsProcedure is the fully-qualified name of the
 	// OrganizationService's GetMyOrganizations RPC.
 	OrganizationServiceGetMyOrganizationsProcedure = "/users.organization.v1.OrganizationService/GetMyOrganizations"
@@ -88,6 +91,8 @@ type OrganizationServiceClient interface {
 	GetOrganization(context.Context, *connect.Request[organization.GetOrganizationRequest]) (*connect.Response[organization.GetOrganizationResponse], error)
 	// UpdateOrganization updates organization
 	UpdateOrganization(context.Context, *connect.Request[organization.UpdateOrganizationRequest]) (*connect.Response[organization.UpdateOrganizationResponse], error)
+	// DeleteOrganization deletes organization (only owner can delete)
+	DeleteOrganization(context.Context, *connect.Request[organization.DeleteOrganizationRequest]) (*connect.Response[organization.DeleteOrganizationResponse], error)
 	// GetMyOrganizations returns organizations where current user is a member
 	GetMyOrganizations(context.Context, *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error)
 	// Members
@@ -133,6 +138,12 @@ func NewOrganizationServiceClient(httpClient connect.HTTPClient, baseURL string,
 			httpClient,
 			baseURL+OrganizationServiceUpdateOrganizationProcedure,
 			connect.WithSchema(organizationServiceMethods.ByName("UpdateOrganization")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteOrganization: connect.NewClient[organization.DeleteOrganizationRequest, organization.DeleteOrganizationResponse](
+			httpClient,
+			baseURL+OrganizationServiceDeleteOrganizationProcedure,
+			connect.WithSchema(organizationServiceMethods.ByName("DeleteOrganization")),
 			connect.WithClientOptions(opts...),
 		),
 		getMyOrganizations: connect.NewClient[organization.GetMyOrganizationsRequest, organization.GetMyOrganizationsResponse](
@@ -215,6 +226,7 @@ type organizationServiceClient struct {
 	createOrganization   *connect.Client[organization.CreateOrganizationRequest, organization.CreateOrganizationResponse]
 	getOrganization      *connect.Client[organization.GetOrganizationRequest, organization.GetOrganizationResponse]
 	updateOrganization   *connect.Client[organization.UpdateOrganizationRequest, organization.UpdateOrganizationResponse]
+	deleteOrganization   *connect.Client[organization.DeleteOrganizationRequest, organization.DeleteOrganizationResponse]
 	getMyOrganizations   *connect.Client[organization.GetMyOrganizationsRequest, organization.GetMyOrganizationsResponse]
 	addMember            *connect.Client[organization.AddMemberRequest, organization.AddMemberResponse]
 	fireMember           *connect.Client[organization.FireMemberRequest, organization.FireMemberResponse]
@@ -242,6 +254,11 @@ func (c *organizationServiceClient) GetOrganization(ctx context.Context, req *co
 // UpdateOrganization calls users.organization.v1.OrganizationService.UpdateOrganization.
 func (c *organizationServiceClient) UpdateOrganization(ctx context.Context, req *connect.Request[organization.UpdateOrganizationRequest]) (*connect.Response[organization.UpdateOrganizationResponse], error) {
 	return c.updateOrganization.CallUnary(ctx, req)
+}
+
+// DeleteOrganization calls users.organization.v1.OrganizationService.DeleteOrganization.
+func (c *organizationServiceClient) DeleteOrganization(ctx context.Context, req *connect.Request[organization.DeleteOrganizationRequest]) (*connect.Response[organization.DeleteOrganizationResponse], error) {
+	return c.deleteOrganization.CallUnary(ctx, req)
 }
 
 // GetMyOrganizations calls users.organization.v1.OrganizationService.GetMyOrganizations.
@@ -313,6 +330,8 @@ type OrganizationServiceHandler interface {
 	GetOrganization(context.Context, *connect.Request[organization.GetOrganizationRequest]) (*connect.Response[organization.GetOrganizationResponse], error)
 	// UpdateOrganization updates organization
 	UpdateOrganization(context.Context, *connect.Request[organization.UpdateOrganizationRequest]) (*connect.Response[organization.UpdateOrganizationResponse], error)
+	// DeleteOrganization deletes organization (only owner can delete)
+	DeleteOrganization(context.Context, *connect.Request[organization.DeleteOrganizationRequest]) (*connect.Response[organization.DeleteOrganizationResponse], error)
 	// GetMyOrganizations returns organizations where current user is a member
 	GetMyOrganizations(context.Context, *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error)
 	// Members
@@ -354,6 +373,12 @@ func NewOrganizationServiceHandler(svc OrganizationServiceHandler, opts ...conne
 		OrganizationServiceUpdateOrganizationProcedure,
 		svc.UpdateOrganization,
 		connect.WithSchema(organizationServiceMethods.ByName("UpdateOrganization")),
+		connect.WithHandlerOptions(opts...),
+	)
+	organizationServiceDeleteOrganizationHandler := connect.NewUnaryHandler(
+		OrganizationServiceDeleteOrganizationProcedure,
+		svc.DeleteOrganization,
+		connect.WithSchema(organizationServiceMethods.ByName("DeleteOrganization")),
 		connect.WithHandlerOptions(opts...),
 	)
 	organizationServiceGetMyOrganizationsHandler := connect.NewUnaryHandler(
@@ -436,6 +461,8 @@ func NewOrganizationServiceHandler(svc OrganizationServiceHandler, opts ...conne
 			organizationServiceGetOrganizationHandler.ServeHTTP(w, r)
 		case OrganizationServiceUpdateOrganizationProcedure:
 			organizationServiceUpdateOrganizationHandler.ServeHTTP(w, r)
+		case OrganizationServiceDeleteOrganizationProcedure:
+			organizationServiceDeleteOrganizationHandler.ServeHTTP(w, r)
 		case OrganizationServiceGetMyOrganizationsProcedure:
 			organizationServiceGetMyOrganizationsHandler.ServeHTTP(w, r)
 		case OrganizationServiceAddMemberProcedure:
@@ -479,6 +506,10 @@ func (UnimplementedOrganizationServiceHandler) GetOrganization(context.Context, 
 
 func (UnimplementedOrganizationServiceHandler) UpdateOrganization(context.Context, *connect.Request[organization.UpdateOrganizationRequest]) (*connect.Response[organization.UpdateOrganizationResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("users.organization.v1.OrganizationService.UpdateOrganization is not implemented"))
+}
+
+func (UnimplementedOrganizationServiceHandler) DeleteOrganization(context.Context, *connect.Request[organization.DeleteOrganizationRequest]) (*connect.Response[organization.DeleteOrganizationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("users.organization.v1.OrganizationService.DeleteOrganization is not implemented"))
 }
 
 func (UnimplementedOrganizationServiceHandler) GetMyOrganizations(context.Context, *connect.Request[organization.GetMyOrganizationsRequest]) (*connect.Response[organization.GetMyOrganizationsResponse], error) {

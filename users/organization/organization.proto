@@ -16,6 +16,9 @@ service OrganizationService {
   // UpdateOrganization updates organization
   rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
   
+  // DeleteOrganization deletes organization (only owner can delete)
+  rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse);
+  
   // GetMyOrganizations returns organizations where current user is a member
   rpc GetMyOrganizations(GetMyOrganizationsRequest) returns (GetMyOrganizationsResponse);
   
@@ -147,6 +150,14 @@ message UpdateOrganizationRequest {
 
 message UpdateOrganizationResponse {
   Organization organization = 1;
+}
+
+message DeleteOrganizationRequest {
+  string organization_id = 1;
+}
+
+message DeleteOrganizationResponse {
+  bool success = 1;
 }
 
 message GetMyOrganizationsRequest {}

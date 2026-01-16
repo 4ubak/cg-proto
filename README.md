@@ -467,9 +467,45 @@ buf breaking --against '.git#branch=main'
 # Генерация
 buf generate
 
-# Commit
+# Commit и создание тега
 git add .
 git commit -m "feat: add new method to AuthService"
-git tag v1.1.0
-git push --tags
+git tag -a v1.1.0 -m "Release v1.1.0: описание изменений"
+git push origin main
+git push origin v1.1.0
+git push github v1.1.0  # если используете GitHub mirror
+```
+
+## Обновление зависимостей в других проектах
+
+После создания нового тега версии, обновите зависимость в проектах:
+
+### Для проектов с GitHub replace
+
+```bash
+# В каждом сервисе выполните:
+cd cg-users/services/auth
+go get gitlab.com/xakpro/cg-proto@v1.1.0
+go mod tidy
+
+# Или используйте скрипт:
+./cg-proto/update-dependencies.sh v1.1.0
+```
+
+### Для проектов с локальным replace
+
+Проекты с `replace gitlab.com/xakpro/cg-proto => ../cg-proto` автоматически используют последнюю версию из локальной директории. Просто выполните:
+
+```bash
+cd cg-services
+go mod tidy
+```
+
+### Автоматическое обновление
+
+Используйте скрипт для автоматического обновления всех проектов:
+
+```bash
+cd cg-proto
+./update-dependencies.sh v1.1.0
 ```
