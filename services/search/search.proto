@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+package services.search.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/services/search;searchv1";
+
+import "google/protobuf/timestamp.proto";
+
+service SearchService {
+  // Search performs full-text search with filters
+  rpc Search(SearchRequest) returns (SearchResponse);
+  
+  // Suggest returns search suggestions (autocomplete)
+  rpc Suggest(SuggestRequest) returns (SuggestResponse);
+  
+  // Similar returns similar ads based on given ad
+  rpc Similar(SimilarRequest) returns (SimilarResponse);
+  
+  // Reindex triggers full or incremental reindex
+  rpc Reindex(ReindexRequest) returns (ReindexResponse);
+  
+  // IndexAd indexes a single ad (internal, from Kafka events)
+  rpc IndexAd(IndexAdRequest) returns (IndexAdResponse);
+  
+  // DeleteAd removes ad from index (internal, from Kafka events)
+  rpc DeleteAd(DeleteAdRequest) returns (DeleteAdResponse);
+}
+
+enum AdType {
+  AD_TYPE_UNSPECIFIED = 0;
+  AD_TYPE_CAR = 1;
+  AD_TYPE_PART = 2;
+  AD_TYPE_SERVICE = 3;
+}
+
+enum SortBy {
+  SORT_BY_UNSPECIFIED = 0;
+  SORT_BY_RELEVANCE = 1;
+  SORT_BY_PRICE_ASC = 2;
+  SORT_BY_PRICE_DESC = 3;
+  SORT_BY_DATE_DESC = 4;
+  SORT_BY_DATE_ASC = 5;
+}
+
+// Ad document for search results
+message Ad {
+  int64 id = 1;
+  AdType type = 2;
+  string status = 3;
+  int64 user_id = 4;
+  int64 organization_id = 5;
+  string title = 6;
+  string description = 7;
+  int64 price = 8;
+  string currency = 9;
+  int64 city_id = 10;
+  string city_name = 11;
+  int64 car_make_id = 12;
+  string car_make_name = 13;
+  int64 car_model_id = 14;
+  string car_model_name = 15;
+  int32 year = 16;
+  int32 mileage = 17;
+  int64 category_id = 18;
+  string condition = 19;
+  repeated string photos = 20;
+  bool is_vip = 21;
+  bool is_promoted = 22;
+  google.protobuf.Timestamp created_at = 23;
+}
+
+// Facet bucket for aggregations
+message FacetBucket {
+  string key = 1;
+  string name = 2;
+  int64 count = 3;
+}
+
+// Price range aggregation
+message PriceRange {
+  int64 min = 1;
+  int64 max = 2;
+  int64 avg = 3;
+}
+
+// Year range aggregation
+message YearRange {
+  int32 min = 1;
+  int32 max = 2;
+}
+
+// Facets (aggregations) for filtering
+message Facets {
+  repeated FacetBucket types = 1;
+  repeated FacetBucket cities = 2;
+  repeated FacetBucket car_makes = 3;
+  repeated FacetBucket categories = 4;
+  PriceRange price_range = 5;
+  YearRange year_range = 6;
+}
+
+// Search
+message SearchRequest {
+  string query = 1;
+  AdType type = 2;
+  int64 city_id = 3;
+  int64 car_make_id = 4;
+  int64 car_model_id = 5;
+  int64 category_id = 6;
+  int64 price_from = 7;
+  int64 price_to = 8;
+  int32 year_from = 9;
+  int32 year_to = 10;
+  string condition = 11;
+  int32 page = 12;
+  int32 page_size = 13;
+  SortBy sort_by = 14;
+}
+
+message SearchResponse {
+  repeated Ad ads = 1;
+  int32 total = 2;
+  Facets facets = 3;
+}
+
+// Suggest (autocomplete)
+message SuggestRequest {
+  string query = 1;
+  int32 limit = 2;
+}
+
+message SuggestResponse {
+  repeated string suggestions = 1;
+}
+
+// Similar ads
+message SimilarRequest {
+  int64 ad_id = 1;
+  int32 limit = 2;
+  bool exclude_own = 3;
+}
+
+message SimilarResponse {
+  repeated Ad ads = 1;
+}
+
+// Reindex
+message ReindexRequest {
+  bool full = 1;  // Full reindex or incremental
+}
+
+message ReindexResponse {
+  int32 indexed = 1;
+  int32 errors = 2;
+  int64 duration_ms = 3;
+}
+
+// IndexAd (internal)
+message IndexAdRequest {
+  Ad ad = 1;
+}
+
+message IndexAdResponse {
+  bool success = 1;
+}
+
+// DeleteAd (internal)
+message DeleteAdRequest {
+  int64 ad_id = 1;
+}
+
+message DeleteAdResponse {
+  bool success = 1;
+}
