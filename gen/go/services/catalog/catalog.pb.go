@@ -2372,7 +2372,7 @@ const file_services_catalog_catalog_proto_rawDesc = "" +
 	"\x0fUpdatePriceItem\x12+.services.catalog.v1.UpdatePriceItemRequest\x1a,.services.catalog.v1.UpdatePriceItemResponse\x12l\n" +
 	"\x0fDeletePriceItem\x12+.services.catalog.v1.DeletePriceItemRequest\x1a,.services.catalog.v1.DeletePriceItemResponse\x12c\n" +
 	"\fGetPriceList\x12(.services.catalog.v1.GetPriceListRequest\x1a).services.catalog.v1.GetPriceListResponse\x12f\n" +
-	"\rComparePrices\x12).services.catalog.v1.ComparePricesRequest\x1a*.services.catalog.v1.ComparePricesResponseB;Z9github.com/4ubak/cg-proto/gen/go/services/catalog;catalogb\x06proto3"
+	"\rComparePrices\x12).services.catalog.v1.ComparePricesRequest\x1a*.services.catalog.v1.ComparePricesResponseB<Z:gitlab.com/xakpro/cg-proto/gen/go/services/catalog;catalogb\x06proto3"
 
 var (
 	file_services_catalog_catalog_proto_rawDescOnce sync.Once

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package services.catalog.v1;
 
-option go_package = "github.com/4ubak/cg-proto/gen/go/services/catalog;catalog";
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/services/catalog;catalog";
 
 import "google/protobuf/timestamp.proto";
 

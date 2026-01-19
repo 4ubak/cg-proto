@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	catalog "github.com/4ubak/cg-proto/gen/go/services/catalog"
+	catalog "gitlab.com/xakpro/cg-proto/gen/go/services/catalog"
 	http "net/http"
 	strings "strings"
 )
