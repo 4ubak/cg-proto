@@ -22,56 +22,105 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type AdType int32
+type RequestType int32
 
 const (
-	AdType_AD_TYPE_UNSPECIFIED AdType = 0
-	AdType_AD_TYPE_CAR         AdType = 1
-	AdType_AD_TYPE_PART        AdType = 2
-	AdType_AD_TYPE_SERVICE     AdType = 3
+	RequestType_REQUEST_TYPE_UNSPECIFIED RequestType = 0
+	RequestType_REQUEST_TYPE_REPAIR      RequestType = 1 // Ремонт
+	RequestType_REQUEST_TYPE_PARTS       RequestType = 2 // Запчасти
 )
 
-// Enum value maps for AdType.
+// Enum value maps for RequestType.
 var (
-	AdType_name = map[int32]string{
-		0: "AD_TYPE_UNSPECIFIED",
-		1: "AD_TYPE_CAR",
-		2: "AD_TYPE_PART",
-		3: "AD_TYPE_SERVICE",
+	RequestType_name = map[int32]string{
+		0: "REQUEST_TYPE_UNSPECIFIED",
+		1: "REQUEST_TYPE_REPAIR",
+		2: "REQUEST_TYPE_PARTS",
 	}
-	AdType_value = map[string]int32{
-		"AD_TYPE_UNSPECIFIED": 0,
-		"AD_TYPE_CAR":         1,
-		"AD_TYPE_PART":        2,
-		"AD_TYPE_SERVICE":     3,
+	RequestType_value = map[string]int32{
+		"REQUEST_TYPE_UNSPECIFIED": 0,
+		"REQUEST_TYPE_REPAIR":      1,
+		"REQUEST_TYPE_PARTS":       2,
 	}
 )
 
-func (x AdType) Enum() *AdType {
-	p := new(AdType)
+func (x RequestType) Enum() *RequestType {
+	p := new(RequestType)
 	*p = x
 	return p
 }
 
-func (x AdType) String() string {
+func (x RequestType) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (AdType) Descriptor() protoreflect.EnumDescriptor {
+func (RequestType) Descriptor() protoreflect.EnumDescriptor {
 	return file_services_search_search_proto_enumTypes[0].Descriptor()
 }
 
-func (AdType) Type() protoreflect.EnumType {
+func (RequestType) Type() protoreflect.EnumType {
 	return &file_services_search_search_proto_enumTypes[0]
 }
 
-func (x AdType) Number() protoreflect.EnumNumber {
+func (x RequestType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use AdType.Descriptor instead.
-func (AdType) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use RequestType.Descriptor instead.
+func (RequestType) EnumDescriptor() ([]byte, []int) {
 	return file_services_search_search_proto_rawDescGZIP(), []int{0}
+}
+
+type RequestStatus int32
+
+const (
+	RequestStatus_REQUEST_STATUS_UNSPECIFIED RequestStatus = 0
+	RequestStatus_REQUEST_STATUS_MODERATION  RequestStatus = 1
+	RequestStatus_REQUEST_STATUS_PUBLISHED   RequestStatus = 2
+	RequestStatus_REQUEST_STATUS_DELETED     RequestStatus = 3
+)
+
+// Enum value maps for RequestStatus.
+var (
+	RequestStatus_name = map[int32]string{
+		0: "REQUEST_STATUS_UNSPECIFIED",
+		1: "REQUEST_STATUS_MODERATION",
+		2: "REQUEST_STATUS_PUBLISHED",
+		3: "REQUEST_STATUS_DELETED",
+	}
+	RequestStatus_value = map[string]int32{
+		"REQUEST_STATUS_UNSPECIFIED": 0,
+		"REQUEST_STATUS_MODERATION":  1,
+		"REQUEST_STATUS_PUBLISHED":   2,
+		"REQUEST_STATUS_DELETED":     3,
+	}
+)
+
+func (x RequestStatus) Enum() *RequestStatus {
+	p := new(RequestStatus)
+	*p = x
+	return p
+}
+
+func (x RequestStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (RequestStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_services_search_search_proto_enumTypes[1].Descriptor()
+}
+
+func (RequestStatus) Type() protoreflect.EnumType {
+	return &file_services_search_search_proto_enumTypes[1]
+}
+
+func (x RequestStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use RequestStatus.Descriptor instead.
+func (RequestStatus) EnumDescriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{1}
 }
 
 type SortBy int32
@@ -79,10 +128,8 @@ type SortBy int32
 const (
 	SortBy_SORT_BY_UNSPECIFIED SortBy = 0
 	SortBy_SORT_BY_RELEVANCE   SortBy = 1
-	SortBy_SORT_BY_PRICE_ASC   SortBy = 2
-	SortBy_SORT_BY_PRICE_DESC  SortBy = 3
-	SortBy_SORT_BY_DATE_DESC   SortBy = 4
-	SortBy_SORT_BY_DATE_ASC    SortBy = 5
+	SortBy_SORT_BY_DATE_DESC   SortBy = 2
+	SortBy_SORT_BY_DATE_ASC    SortBy = 3
 )
 
 // Enum value maps for SortBy.
@@ -90,18 +137,14 @@ var (
 	SortBy_name = map[int32]string{
 		0: "SORT_BY_UNSPECIFIED",
 		1: "SORT_BY_RELEVANCE",
-		2: "SORT_BY_PRICE_ASC",
-		3: "SORT_BY_PRICE_DESC",
-		4: "SORT_BY_DATE_DESC",
-		5: "SORT_BY_DATE_ASC",
+		2: "SORT_BY_DATE_DESC",
+		3: "SORT_BY_DATE_ASC",
 	}
 	SortBy_value = map[string]int32{
 		"SORT_BY_UNSPECIFIED": 0,
 		"SORT_BY_RELEVANCE":   1,
-		"SORT_BY_PRICE_ASC":   2,
-		"SORT_BY_PRICE_DESC":  3,
-		"SORT_BY_DATE_DESC":   4,
-		"SORT_BY_DATE_ASC":    5,
+		"SORT_BY_DATE_DESC":   2,
+		"SORT_BY_DATE_ASC":    3,
 	}
 )
 
@@ -116,11 +159,11 @@ func (x SortBy) String() string {
 }
 
 func (SortBy) Descriptor() protoreflect.EnumDescriptor {
-	return file_services_search_search_proto_enumTypes[1].Descriptor()
+	return file_services_search_search_proto_enumTypes[2].Descriptor()
 }
 
 func (SortBy) Type() protoreflect.EnumType {
-	return &file_services_search_search_proto_enumTypes[1]
+	return &file_services_search_search_proto_enumTypes[2]
 }
 
 func (x SortBy) Number() protoreflect.EnumNumber {
@@ -129,53 +172,54 @@ func (x SortBy) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SortBy.Descriptor instead.
 func (SortBy) EnumDescriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{1}
+	return file_services_search_search_proto_rawDescGZIP(), []int{2}
 }
 
-// Ad document for search results
-type Ad struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Id             int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Type           AdType                 `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.AdType" json:"type,omitempty"`
-	Status         string                 `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
-	UserId         int64                  `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,5,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	Title          string                 `protobuf:"bytes,6,opt,name=title,proto3" json:"title,omitempty"`
-	Description    string                 `protobuf:"bytes,7,opt,name=description,proto3" json:"description,omitempty"`
-	Price          int64                  `protobuf:"varint,8,opt,name=price,proto3" json:"price,omitempty"`
-	Currency       string                 `protobuf:"bytes,9,opt,name=currency,proto3" json:"currency,omitempty"`
-	CityId         int64                  `protobuf:"varint,10,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
-	CityName       string                 `protobuf:"bytes,11,opt,name=city_name,json=cityName,proto3" json:"city_name,omitempty"`
-	CarMakeId      int64                  `protobuf:"varint,12,opt,name=car_make_id,json=carMakeId,proto3" json:"car_make_id,omitempty"`
-	CarMakeName    string                 `protobuf:"bytes,13,opt,name=car_make_name,json=carMakeName,proto3" json:"car_make_name,omitempty"`
-	CarModelId     int64                  `protobuf:"varint,14,opt,name=car_model_id,json=carModelId,proto3" json:"car_model_id,omitempty"`
-	CarModelName   string                 `protobuf:"bytes,15,opt,name=car_model_name,json=carModelName,proto3" json:"car_model_name,omitempty"`
-	Year           int32                  `protobuf:"varint,16,opt,name=year,proto3" json:"year,omitempty"`
-	Mileage        int32                  `protobuf:"varint,17,opt,name=mileage,proto3" json:"mileage,omitempty"`
-	CategoryId     int64                  `protobuf:"varint,18,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	Condition      string                 `protobuf:"bytes,19,opt,name=condition,proto3" json:"condition,omitempty"`
-	Photos         []string               `protobuf:"bytes,20,rep,name=photos,proto3" json:"photos,omitempty"`
-	IsVip          bool                   `protobuf:"varint,21,opt,name=is_vip,json=isVip,proto3" json:"is_vip,omitempty"`
-	IsPromoted     bool                   `protobuf:"varint,22,opt,name=is_promoted,json=isPromoted,proto3" json:"is_promoted,omitempty"`
-	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,23,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+// Request document for search results
+type RequestDocument struct {
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	Id     int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type   RequestType            `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.RequestType" json:"type,omitempty"`
+	Status RequestStatus          `protobuf:"varint,3,opt,name=status,proto3,enum=services.search.v1.RequestStatus" json:"status,omitempty"`
+	UserId int64                  `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// NSI references
+	GroupId     int64   `protobuf:"varint,5,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	CategoryIds []int64 `protobuf:"varint,6,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	// Car info
+	CarMakeId    int64  `protobuf:"varint,7,opt,name=car_make_id,json=carMakeId,proto3" json:"car_make_id,omitempty"`
+	CarMakeName  string `protobuf:"bytes,8,opt,name=car_make_name,json=carMakeName,proto3" json:"car_make_name,omitempty"`
+	CarModelId   int64  `protobuf:"varint,9,opt,name=car_model_id,json=carModelId,proto3" json:"car_model_id,omitempty"`
+	CarModelName string `protobuf:"bytes,10,opt,name=car_model_name,json=carModelName,proto3" json:"car_model_name,omitempty"`
+	Year         int32  `protobuf:"varint,11,opt,name=year,proto3" json:"year,omitempty"`
+	// Description
+	Note   string   `protobuf:"bytes,12,opt,name=note,proto3" json:"note,omitempty"`
+	Photos []string `protobuf:"bytes,13,rep,name=photos,proto3" json:"photos,omitempty"`
+	// Location
+	CityId        int64                  `protobuf:"varint,14,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
+	CityName      string                 `protobuf:"bytes,15,opt,name=city_name,json=cityName,proto3" json:"city_name,omitempty"`
+	Address       string                 `protobuf:"bytes,16,opt,name=address,proto3" json:"address,omitempty"`
+	Latitude      float64                `protobuf:"fixed64,17,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64                `protobuf:"fixed64,18,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,19,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	PublishedAt   *timestamppb.Timestamp `protobuf:"bytes,20,opt,name=published_at,json=publishedAt,proto3" json:"published_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Ad) Reset() {
-	*x = Ad{}
+func (x *RequestDocument) Reset() {
+	*x = RequestDocument{}
 	mi := &file_services_search_search_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Ad) String() string {
+func (x *RequestDocument) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Ad) ProtoMessage() {}
+func (*RequestDocument) ProtoMessage() {}
 
-func (x *Ad) ProtoReflect() protoreflect.Message {
+func (x *RequestDocument) ProtoReflect() protoreflect.Message {
 	mi := &file_services_search_search_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -187,168 +231,147 @@ func (x *Ad) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Ad.ProtoReflect.Descriptor instead.
-func (*Ad) Descriptor() ([]byte, []int) {
+// Deprecated: Use RequestDocument.ProtoReflect.Descriptor instead.
+func (*RequestDocument) Descriptor() ([]byte, []int) {
 	return file_services_search_search_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Ad) GetId() int64 {
+func (x *RequestDocument) GetId() int64 {
 	if x != nil {
 		return x.Id
 	}
 	return 0
 }
 
-func (x *Ad) GetType() AdType {
+func (x *RequestDocument) GetType() RequestType {
 	if x != nil {
 		return x.Type
 	}
-	return AdType_AD_TYPE_UNSPECIFIED
+	return RequestType_REQUEST_TYPE_UNSPECIFIED
 }
 
-func (x *Ad) GetStatus() string {
+func (x *RequestDocument) GetStatus() RequestStatus {
 	if x != nil {
 		return x.Status
 	}
-	return ""
+	return RequestStatus_REQUEST_STATUS_UNSPECIFIED
 }
 
-func (x *Ad) GetUserId() int64 {
+func (x *RequestDocument) GetUserId() int64 {
 	if x != nil {
 		return x.UserId
 	}
 	return 0
 }
 
-func (x *Ad) GetOrganizationId() int64 {
+func (x *RequestDocument) GetGroupId() int64 {
 	if x != nil {
-		return x.OrganizationId
+		return x.GroupId
 	}
 	return 0
 }
 
-func (x *Ad) GetTitle() string {
+func (x *RequestDocument) GetCategoryIds() []int64 {
 	if x != nil {
-		return x.Title
+		return x.CategoryIds
 	}
-	return ""
+	return nil
 }
 
-func (x *Ad) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *Ad) GetPrice() int64 {
-	if x != nil {
-		return x.Price
-	}
-	return 0
-}
-
-func (x *Ad) GetCurrency() string {
-	if x != nil {
-		return x.Currency
-	}
-	return ""
-}
-
-func (x *Ad) GetCityId() int64 {
-	if x != nil {
-		return x.CityId
-	}
-	return 0
-}
-
-func (x *Ad) GetCityName() string {
-	if x != nil {
-		return x.CityName
-	}
-	return ""
-}
-
-func (x *Ad) GetCarMakeId() int64 {
+func (x *RequestDocument) GetCarMakeId() int64 {
 	if x != nil {
 		return x.CarMakeId
 	}
 	return 0
 }
 
-func (x *Ad) GetCarMakeName() string {
+func (x *RequestDocument) GetCarMakeName() string {
 	if x != nil {
 		return x.CarMakeName
 	}
 	return ""
 }
 
-func (x *Ad) GetCarModelId() int64 {
+func (x *RequestDocument) GetCarModelId() int64 {
 	if x != nil {
 		return x.CarModelId
 	}
 	return 0
 }
 
-func (x *Ad) GetCarModelName() string {
+func (x *RequestDocument) GetCarModelName() string {
 	if x != nil {
 		return x.CarModelName
 	}
 	return ""
 }
 
-func (x *Ad) GetYear() int32 {
+func (x *RequestDocument) GetYear() int32 {
 	if x != nil {
 		return x.Year
 	}
 	return 0
 }
 
-func (x *Ad) GetMileage() int32 {
+func (x *RequestDocument) GetNote() string {
 	if x != nil {
-		return x.Mileage
-	}
-	return 0
-}
-
-func (x *Ad) GetCategoryId() int64 {
-	if x != nil {
-		return x.CategoryId
-	}
-	return 0
-}
-
-func (x *Ad) GetCondition() string {
-	if x != nil {
-		return x.Condition
+		return x.Note
 	}
 	return ""
 }
 
-func (x *Ad) GetPhotos() []string {
+func (x *RequestDocument) GetPhotos() []string {
 	if x != nil {
 		return x.Photos
 	}
 	return nil
 }
 
-func (x *Ad) GetIsVip() bool {
+func (x *RequestDocument) GetCityId() int64 {
 	if x != nil {
-		return x.IsVip
+		return x.CityId
 	}
-	return false
+	return 0
 }
 
-func (x *Ad) GetIsPromoted() bool {
+func (x *RequestDocument) GetCityName() string {
 	if x != nil {
-		return x.IsPromoted
+		return x.CityName
 	}
-	return false
+	return ""
 }
 
-func (x *Ad) GetCreatedAt() *timestamppb.Timestamp {
+func (x *RequestDocument) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+func (x *RequestDocument) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *RequestDocument) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
+func (x *RequestDocument) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *RequestDocument) GetPublishedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.PublishedAt
 	}
 	return nil
 }
@@ -414,136 +437,21 @@ func (x *FacetBucket) GetCount() int64 {
 	return 0
 }
 
-// Price range aggregation
-type PriceRange struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Min           int64                  `protobuf:"varint,1,opt,name=min,proto3" json:"min,omitempty"`
-	Max           int64                  `protobuf:"varint,2,opt,name=max,proto3" json:"max,omitempty"`
-	Avg           int64                  `protobuf:"varint,3,opt,name=avg,proto3" json:"avg,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *PriceRange) Reset() {
-	*x = PriceRange{}
-	mi := &file_services_search_search_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *PriceRange) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PriceRange) ProtoMessage() {}
-
-func (x *PriceRange) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PriceRange.ProtoReflect.Descriptor instead.
-func (*PriceRange) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *PriceRange) GetMin() int64 {
-	if x != nil {
-		return x.Min
-	}
-	return 0
-}
-
-func (x *PriceRange) GetMax() int64 {
-	if x != nil {
-		return x.Max
-	}
-	return 0
-}
-
-func (x *PriceRange) GetAvg() int64 {
-	if x != nil {
-		return x.Avg
-	}
-	return 0
-}
-
-// Year range aggregation
-type YearRange struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Min           int32                  `protobuf:"varint,1,opt,name=min,proto3" json:"min,omitempty"`
-	Max           int32                  `protobuf:"varint,2,opt,name=max,proto3" json:"max,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *YearRange) Reset() {
-	*x = YearRange{}
-	mi := &file_services_search_search_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *YearRange) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*YearRange) ProtoMessage() {}
-
-func (x *YearRange) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use YearRange.ProtoReflect.Descriptor instead.
-func (*YearRange) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *YearRange) GetMin() int32 {
-	if x != nil {
-		return x.Min
-	}
-	return 0
-}
-
-func (x *YearRange) GetMax() int32 {
-	if x != nil {
-		return x.Max
-	}
-	return 0
-}
-
 // Facets (aggregations) for filtering
 type Facets struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Types         []*FacetBucket         `protobuf:"bytes,1,rep,name=types,proto3" json:"types,omitempty"`
-	Cities        []*FacetBucket         `protobuf:"bytes,2,rep,name=cities,proto3" json:"cities,omitempty"`
-	CarMakes      []*FacetBucket         `protobuf:"bytes,3,rep,name=car_makes,json=carMakes,proto3" json:"car_makes,omitempty"`
-	Categories    []*FacetBucket         `protobuf:"bytes,4,rep,name=categories,proto3" json:"categories,omitempty"`
-	PriceRange    *PriceRange            `protobuf:"bytes,5,opt,name=price_range,json=priceRange,proto3" json:"price_range,omitempty"`
-	YearRange     *YearRange             `protobuf:"bytes,6,opt,name=year_range,json=yearRange,proto3" json:"year_range,omitempty"`
+	Groups        []*FacetBucket         `protobuf:"bytes,2,rep,name=groups,proto3" json:"groups,omitempty"`
+	Categories    []*FacetBucket         `protobuf:"bytes,3,rep,name=categories,proto3" json:"categories,omitempty"`
+	Cities        []*FacetBucket         `protobuf:"bytes,4,rep,name=cities,proto3" json:"cities,omitempty"`
+	CarMakes      []*FacetBucket         `protobuf:"bytes,5,rep,name=car_makes,json=carMakes,proto3" json:"car_makes,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Facets) Reset() {
 	*x = Facets{}
-	mi := &file_services_search_search_proto_msgTypes[4]
+	mi := &file_services_search_search_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -555,7 +463,7 @@ func (x *Facets) String() string {
 func (*Facets) ProtoMessage() {}
 
 func (x *Facets) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[4]
+	mi := &file_services_search_search_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -568,12 +476,26 @@ func (x *Facets) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Facets.ProtoReflect.Descriptor instead.
 func (*Facets) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{4}
+	return file_services_search_search_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Facets) GetTypes() []*FacetBucket {
 	if x != nil {
 		return x.Types
+	}
+	return nil
+}
+
+func (x *Facets) GetGroups() []*FacetBucket {
+	if x != nil {
+		return x.Groups
+	}
+	return nil
+}
+
+func (x *Facets) GetCategories() []*FacetBucket {
+	if x != nil {
+		return x.Categories
 	}
 	return nil
 }
@@ -592,51 +514,27 @@ func (x *Facets) GetCarMakes() []*FacetBucket {
 	return nil
 }
 
-func (x *Facets) GetCategories() []*FacetBucket {
-	if x != nil {
-		return x.Categories
-	}
-	return nil
-}
-
-func (x *Facets) GetPriceRange() *PriceRange {
-	if x != nil {
-		return x.PriceRange
-	}
-	return nil
-}
-
-func (x *Facets) GetYearRange() *YearRange {
-	if x != nil {
-		return x.YearRange
-	}
-	return nil
-}
-
 // Search
 type SearchRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	Type          AdType                 `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.AdType" json:"type,omitempty"`
-	CityId        int64                  `protobuf:"varint,3,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
-	CarMakeId     int64                  `protobuf:"varint,4,opt,name=car_make_id,json=carMakeId,proto3" json:"car_make_id,omitempty"`
-	CarModelId    int64                  `protobuf:"varint,5,opt,name=car_model_id,json=carModelId,proto3" json:"car_model_id,omitempty"`
-	CategoryId    int64                  `protobuf:"varint,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	PriceFrom     int64                  `protobuf:"varint,7,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
-	PriceTo       int64                  `protobuf:"varint,8,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
-	YearFrom      int32                  `protobuf:"varint,9,opt,name=year_from,json=yearFrom,proto3" json:"year_from,omitempty"`
-	YearTo        int32                  `protobuf:"varint,10,opt,name=year_to,json=yearTo,proto3" json:"year_to,omitempty"`
-	Condition     string                 `protobuf:"bytes,11,opt,name=condition,proto3" json:"condition,omitempty"`
-	Page          int32                  `protobuf:"varint,12,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize      int32                  `protobuf:"varint,13,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	SortBy        SortBy                 `protobuf:"varint,14,opt,name=sort_by,json=sortBy,proto3,enum=services.search.v1.SortBy" json:"sort_by,omitempty"`
+	Type          RequestType            `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.RequestType" json:"type,omitempty"`
+	GroupId       int64                  `protobuf:"varint,3,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	CategoryId    int64                  `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	CityId        int64                  `protobuf:"varint,5,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
+	CarMakeId     int64                  `protobuf:"varint,6,opt,name=car_make_id,json=carMakeId,proto3" json:"car_make_id,omitempty"`
+	CarModelId    int64                  `protobuf:"varint,7,opt,name=car_model_id,json=carModelId,proto3" json:"car_model_id,omitempty"`
+	Year          int32                  `protobuf:"varint,8,opt,name=year,proto3" json:"year,omitempty"`
+	Page          int32                  `protobuf:"varint,9,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize      int32                  `protobuf:"varint,10,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SortBy        SortBy                 `protobuf:"varint,11,opt,name=sort_by,json=sortBy,proto3,enum=services.search.v1.SortBy" json:"sort_by,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SearchRequest) Reset() {
 	*x = SearchRequest{}
-	mi := &file_services_search_search_proto_msgTypes[5]
+	mi := &file_services_search_search_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -648,7 +546,7 @@ func (x *SearchRequest) String() string {
 func (*SearchRequest) ProtoMessage() {}
 
 func (x *SearchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[5]
+	mi := &file_services_search_search_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -661,7 +559,7 @@ func (x *SearchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchRequest.ProtoReflect.Descriptor instead.
 func (*SearchRequest) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{5}
+	return file_services_search_search_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SearchRequest) GetQuery() string {
@@ -671,11 +569,25 @@ func (x *SearchRequest) GetQuery() string {
 	return ""
 }
 
-func (x *SearchRequest) GetType() AdType {
+func (x *SearchRequest) GetType() RequestType {
 	if x != nil {
 		return x.Type
 	}
-	return AdType_AD_TYPE_UNSPECIFIED
+	return RequestType_REQUEST_TYPE_UNSPECIFIED
+}
+
+func (x *SearchRequest) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
+func (x *SearchRequest) GetCategoryId() int64 {
+	if x != nil {
+		return x.CategoryId
+	}
+	return 0
 }
 
 func (x *SearchRequest) GetCityId() int64 {
@@ -699,46 +611,11 @@ func (x *SearchRequest) GetCarModelId() int64 {
 	return 0
 }
 
-func (x *SearchRequest) GetCategoryId() int64 {
+func (x *SearchRequest) GetYear() int32 {
 	if x != nil {
-		return x.CategoryId
+		return x.Year
 	}
 	return 0
-}
-
-func (x *SearchRequest) GetPriceFrom() int64 {
-	if x != nil {
-		return x.PriceFrom
-	}
-	return 0
-}
-
-func (x *SearchRequest) GetPriceTo() int64 {
-	if x != nil {
-		return x.PriceTo
-	}
-	return 0
-}
-
-func (x *SearchRequest) GetYearFrom() int32 {
-	if x != nil {
-		return x.YearFrom
-	}
-	return 0
-}
-
-func (x *SearchRequest) GetYearTo() int32 {
-	if x != nil {
-		return x.YearTo
-	}
-	return 0
-}
-
-func (x *SearchRequest) GetCondition() string {
-	if x != nil {
-		return x.Condition
-	}
-	return ""
 }
 
 func (x *SearchRequest) GetPage() int32 {
@@ -764,7 +641,7 @@ func (x *SearchRequest) GetSortBy() SortBy {
 
 type SearchResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ads           []*Ad                  `protobuf:"bytes,1,rep,name=ads,proto3" json:"ads,omitempty"`
+	Requests      []*RequestDocument     `protobuf:"bytes,1,rep,name=requests,proto3" json:"requests,omitempty"`
 	Total         int32                  `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
 	Facets        *Facets                `protobuf:"bytes,3,opt,name=facets,proto3" json:"facets,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -773,7 +650,7 @@ type SearchResponse struct {
 
 func (x *SearchResponse) Reset() {
 	*x = SearchResponse{}
-	mi := &file_services_search_search_proto_msgTypes[6]
+	mi := &file_services_search_search_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -785,7 +662,7 @@ func (x *SearchResponse) String() string {
 func (*SearchResponse) ProtoMessage() {}
 
 func (x *SearchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[6]
+	mi := &file_services_search_search_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -798,12 +675,12 @@ func (x *SearchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchResponse.ProtoReflect.Descriptor instead.
 func (*SearchResponse) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{6}
+	return file_services_search_search_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *SearchResponse) GetAds() []*Ad {
+func (x *SearchResponse) GetRequests() []*RequestDocument {
 	if x != nil {
-		return x.Ads
+		return x.Requests
 	}
 	return nil
 }
@@ -833,7 +710,7 @@ type SuggestRequest struct {
 
 func (x *SuggestRequest) Reset() {
 	*x = SuggestRequest{}
-	mi := &file_services_search_search_proto_msgTypes[7]
+	mi := &file_services_search_search_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -845,7 +722,7 @@ func (x *SuggestRequest) String() string {
 func (*SuggestRequest) ProtoMessage() {}
 
 func (x *SuggestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[7]
+	mi := &file_services_search_search_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -858,7 +735,7 @@ func (x *SuggestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SuggestRequest.ProtoReflect.Descriptor instead.
 func (*SuggestRequest) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{7}
+	return file_services_search_search_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *SuggestRequest) GetQuery() string {
@@ -884,7 +761,7 @@ type SuggestResponse struct {
 
 func (x *SuggestResponse) Reset() {
 	*x = SuggestResponse{}
-	mi := &file_services_search_search_proto_msgTypes[8]
+	mi := &file_services_search_search_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -896,7 +773,7 @@ func (x *SuggestResponse) String() string {
 func (*SuggestResponse) ProtoMessage() {}
 
 func (x *SuggestResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[8]
+	mi := &file_services_search_search_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -909,7 +786,7 @@ func (x *SuggestResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SuggestResponse.ProtoReflect.Descriptor instead.
 func (*SuggestResponse) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{8}
+	return file_services_search_search_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SuggestResponse) GetSuggestions() []string {
@@ -919,19 +796,18 @@ func (x *SuggestResponse) GetSuggestions() []string {
 	return nil
 }
 
-// Similar ads
+// Similar requests
 type SimilarRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	AdId          int64                  `protobuf:"varint,1,opt,name=ad_id,json=adId,proto3" json:"ad_id,omitempty"`
+	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	Limit         int32                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
-	ExcludeOwn    bool                   `protobuf:"varint,3,opt,name=exclude_own,json=excludeOwn,proto3" json:"exclude_own,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SimilarRequest) Reset() {
 	*x = SimilarRequest{}
-	mi := &file_services_search_search_proto_msgTypes[9]
+	mi := &file_services_search_search_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -943,7 +819,7 @@ func (x *SimilarRequest) String() string {
 func (*SimilarRequest) ProtoMessage() {}
 
 func (x *SimilarRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[9]
+	mi := &file_services_search_search_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -956,12 +832,12 @@ func (x *SimilarRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SimilarRequest.ProtoReflect.Descriptor instead.
 func (*SimilarRequest) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{9}
+	return file_services_search_search_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *SimilarRequest) GetAdId() int64 {
+func (x *SimilarRequest) GetRequestId() int64 {
 	if x != nil {
-		return x.AdId
+		return x.RequestId
 	}
 	return 0
 }
@@ -973,23 +849,16 @@ func (x *SimilarRequest) GetLimit() int32 {
 	return 0
 }
 
-func (x *SimilarRequest) GetExcludeOwn() bool {
-	if x != nil {
-		return x.ExcludeOwn
-	}
-	return false
-}
-
 type SimilarResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ads           []*Ad                  `protobuf:"bytes,1,rep,name=ads,proto3" json:"ads,omitempty"`
+	Requests      []*RequestDocument     `protobuf:"bytes,1,rep,name=requests,proto3" json:"requests,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SimilarResponse) Reset() {
 	*x = SimilarResponse{}
-	mi := &file_services_search_search_proto_msgTypes[10]
+	mi := &file_services_search_search_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1001,7 +870,7 @@ func (x *SimilarResponse) String() string {
 func (*SimilarResponse) ProtoMessage() {}
 
 func (x *SimilarResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[10]
+	mi := &file_services_search_search_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1014,12 +883,12 @@ func (x *SimilarResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SimilarResponse.ProtoReflect.Descriptor instead.
 func (*SimilarResponse) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{10}
+	return file_services_search_search_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *SimilarResponse) GetAds() []*Ad {
+func (x *SimilarResponse) GetRequests() []*RequestDocument {
 	if x != nil {
-		return x.Ads
+		return x.Requests
 	}
 	return nil
 }
@@ -1034,7 +903,7 @@ type ReindexRequest struct {
 
 func (x *ReindexRequest) Reset() {
 	*x = ReindexRequest{}
-	mi := &file_services_search_search_proto_msgTypes[11]
+	mi := &file_services_search_search_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1046,7 +915,7 @@ func (x *ReindexRequest) String() string {
 func (*ReindexRequest) ProtoMessage() {}
 
 func (x *ReindexRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[11]
+	mi := &file_services_search_search_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1059,7 +928,7 @@ func (x *ReindexRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReindexRequest.ProtoReflect.Descriptor instead.
 func (*ReindexRequest) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{11}
+	return file_services_search_search_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ReindexRequest) GetFull() bool {
@@ -1080,7 +949,7 @@ type ReindexResponse struct {
 
 func (x *ReindexResponse) Reset() {
 	*x = ReindexResponse{}
-	mi := &file_services_search_search_proto_msgTypes[12]
+	mi := &file_services_search_search_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1092,7 +961,7 @@ func (x *ReindexResponse) String() string {
 func (*ReindexResponse) ProtoMessage() {}
 
 func (x *ReindexResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[12]
+	mi := &file_services_search_search_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1105,7 +974,7 @@ func (x *ReindexResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReindexResponse.ProtoReflect.Descriptor instead.
 func (*ReindexResponse) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{12}
+	return file_services_search_search_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ReindexResponse) GetIndexed() int32 {
@@ -1129,29 +998,29 @@ func (x *ReindexResponse) GetDurationMs() int64 {
 	return 0
 }
 
-// IndexAd (internal)
-type IndexAdRequest struct {
+// IndexRequest (internal)
+type IndexRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ad            *Ad                    `protobuf:"bytes,1,opt,name=ad,proto3" json:"ad,omitempty"`
+	Request       *RequestDocument       `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *IndexAdRequest) Reset() {
-	*x = IndexAdRequest{}
-	mi := &file_services_search_search_proto_msgTypes[13]
+func (x *IndexRequestRequest) Reset() {
+	*x = IndexRequestRequest{}
+	mi := &file_services_search_search_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *IndexAdRequest) String() string {
+func (x *IndexRequestRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*IndexAdRequest) ProtoMessage() {}
+func (*IndexRequestRequest) ProtoMessage() {}
 
-func (x *IndexAdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[13]
+func (x *IndexRequestRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1162,40 +1031,40 @@ func (x *IndexAdRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use IndexAdRequest.ProtoReflect.Descriptor instead.
-func (*IndexAdRequest) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{13}
+// Deprecated: Use IndexRequestRequest.ProtoReflect.Descriptor instead.
+func (*IndexRequestRequest) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *IndexAdRequest) GetAd() *Ad {
+func (x *IndexRequestRequest) GetRequest() *RequestDocument {
 	if x != nil {
-		return x.Ad
+		return x.Request
 	}
 	return nil
 }
 
-type IndexAdResponse struct {
+type IndexRequestResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *IndexAdResponse) Reset() {
-	*x = IndexAdResponse{}
-	mi := &file_services_search_search_proto_msgTypes[14]
+func (x *IndexRequestResponse) Reset() {
+	*x = IndexRequestResponse{}
+	mi := &file_services_search_search_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *IndexAdResponse) String() string {
+func (x *IndexRequestResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*IndexAdResponse) ProtoMessage() {}
+func (*IndexRequestResponse) ProtoMessage() {}
 
-func (x *IndexAdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[14]
+func (x *IndexRequestResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1206,41 +1075,41 @@ func (x *IndexAdResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use IndexAdResponse.ProtoReflect.Descriptor instead.
-func (*IndexAdResponse) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{14}
+// Deprecated: Use IndexRequestResponse.ProtoReflect.Descriptor instead.
+func (*IndexRequestResponse) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *IndexAdResponse) GetSuccess() bool {
+func (x *IndexRequestResponse) GetSuccess() bool {
 	if x != nil {
 		return x.Success
 	}
 	return false
 }
 
-// DeleteAd (internal)
-type DeleteAdRequest struct {
+// DeleteFromIndex (internal)
+type DeleteFromIndexRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	AdId          int64                  `protobuf:"varint,1,opt,name=ad_id,json=adId,proto3" json:"ad_id,omitempty"`
+	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteAdRequest) Reset() {
-	*x = DeleteAdRequest{}
-	mi := &file_services_search_search_proto_msgTypes[15]
+func (x *DeleteFromIndexRequest) Reset() {
+	*x = DeleteFromIndexRequest{}
+	mi := &file_services_search_search_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteAdRequest) String() string {
+func (x *DeleteFromIndexRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteAdRequest) ProtoMessage() {}
+func (*DeleteFromIndexRequest) ProtoMessage() {}
 
-func (x *DeleteAdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[15]
+func (x *DeleteFromIndexRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1251,40 +1120,40 @@ func (x *DeleteAdRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteAdRequest.ProtoReflect.Descriptor instead.
-func (*DeleteAdRequest) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{15}
+// Deprecated: Use DeleteFromIndexRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFromIndexRequest) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *DeleteAdRequest) GetAdId() int64 {
+func (x *DeleteFromIndexRequest) GetRequestId() int64 {
 	if x != nil {
-		return x.AdId
+		return x.RequestId
 	}
 	return 0
 }
 
-type DeleteAdResponse struct {
+type DeleteFromIndexResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteAdResponse) Reset() {
-	*x = DeleteAdResponse{}
-	mi := &file_services_search_search_proto_msgTypes[16]
+func (x *DeleteFromIndexResponse) Reset() {
+	*x = DeleteFromIndexResponse{}
+	mi := &file_services_search_search_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteAdResponse) String() string {
+func (x *DeleteFromIndexResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteAdResponse) ProtoMessage() {}
+func (*DeleteFromIndexResponse) ProtoMessage() {}
 
-func (x *DeleteAdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_search_search_proto_msgTypes[16]
+func (x *DeleteFromIndexResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1295,12 +1164,12 @@ func (x *DeleteAdResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteAdResponse.ProtoReflect.Descriptor instead.
-func (*DeleteAdResponse) Descriptor() ([]byte, []int) {
-	return file_services_search_search_proto_rawDescGZIP(), []int{16}
+// Deprecated: Use DeleteFromIndexResponse.ProtoReflect.Descriptor instead.
+func (*DeleteFromIndexResponse) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *DeleteAdResponse) GetSuccess() bool {
+func (x *DeleteFromIndexResponse) GetSuccess() bool {
 	if x != nil {
 		return x.Success
 	}
@@ -1311,128 +1180,110 @@ var File_services_search_search_proto protoreflect.FileDescriptor
 
 const file_services_search_search_proto_rawDesc = "" +
 	"\n" +
-	"\x1cservices/search/search.proto\x12\x12services.search.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc2\x05\n" +
-	"\x02Ad\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12.\n" +
-	"\x04type\x18\x02 \x01(\x0e2\x1a.services.search.v1.AdTypeR\x04type\x12\x16\n" +
-	"\x06status\x18\x03 \x01(\tR\x06status\x12\x17\n" +
-	"\auser_id\x18\x04 \x01(\x03R\x06userId\x12'\n" +
-	"\x0forganization_id\x18\x05 \x01(\x03R\x0eorganizationId\x12\x14\n" +
-	"\x05title\x18\x06 \x01(\tR\x05title\x12 \n" +
-	"\vdescription\x18\a \x01(\tR\vdescription\x12\x14\n" +
-	"\x05price\x18\b \x01(\x03R\x05price\x12\x1a\n" +
-	"\bcurrency\x18\t \x01(\tR\bcurrency\x12\x17\n" +
-	"\acity_id\x18\n" +
-	" \x01(\x03R\x06cityId\x12\x1b\n" +
-	"\tcity_name\x18\v \x01(\tR\bcityName\x12\x1e\n" +
-	"\vcar_make_id\x18\f \x01(\x03R\tcarMakeId\x12\"\n" +
-	"\rcar_make_name\x18\r \x01(\tR\vcarMakeName\x12 \n" +
-	"\fcar_model_id\x18\x0e \x01(\x03R\n" +
+	"\x1cservices/search/search.proto\x12\x12services.search.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb8\x05\n" +
+	"\x0fRequestDocument\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x123\n" +
+	"\x04type\x18\x02 \x01(\x0e2\x1f.services.search.v1.RequestTypeR\x04type\x129\n" +
+	"\x06status\x18\x03 \x01(\x0e2!.services.search.v1.RequestStatusR\x06status\x12\x17\n" +
+	"\auser_id\x18\x04 \x01(\x03R\x06userId\x12\x19\n" +
+	"\bgroup_id\x18\x05 \x01(\x03R\agroupId\x12!\n" +
+	"\fcategory_ids\x18\x06 \x03(\x03R\vcategoryIds\x12\x1e\n" +
+	"\vcar_make_id\x18\a \x01(\x03R\tcarMakeId\x12\"\n" +
+	"\rcar_make_name\x18\b \x01(\tR\vcarMakeName\x12 \n" +
+	"\fcar_model_id\x18\t \x01(\x03R\n" +
 	"carModelId\x12$\n" +
-	"\x0ecar_model_name\x18\x0f \x01(\tR\fcarModelName\x12\x12\n" +
-	"\x04year\x18\x10 \x01(\x05R\x04year\x12\x18\n" +
-	"\amileage\x18\x11 \x01(\x05R\amileage\x12\x1f\n" +
-	"\vcategory_id\x18\x12 \x01(\x03R\n" +
-	"categoryId\x12\x1c\n" +
-	"\tcondition\x18\x13 \x01(\tR\tcondition\x12\x16\n" +
-	"\x06photos\x18\x14 \x03(\tR\x06photos\x12\x15\n" +
-	"\x06is_vip\x18\x15 \x01(\bR\x05isVip\x12\x1f\n" +
-	"\vis_promoted\x18\x16 \x01(\bR\n" +
-	"isPromoted\x129\n" +
+	"\x0ecar_model_name\x18\n" +
+	" \x01(\tR\fcarModelName\x12\x12\n" +
+	"\x04year\x18\v \x01(\x05R\x04year\x12\x12\n" +
+	"\x04note\x18\f \x01(\tR\x04note\x12\x16\n" +
+	"\x06photos\x18\r \x03(\tR\x06photos\x12\x17\n" +
+	"\acity_id\x18\x0e \x01(\x03R\x06cityId\x12\x1b\n" +
+	"\tcity_name\x18\x0f \x01(\tR\bcityName\x12\x18\n" +
+	"\aaddress\x18\x10 \x01(\tR\aaddress\x12\x1a\n" +
+	"\blatitude\x18\x11 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x12 \x01(\x01R\tlongitude\x129\n" +
 	"\n" +
-	"created_at\x18\x17 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"I\n" +
+	"created_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12=\n" +
+	"\fpublished_at\x18\x14 \x01(\v2\x1a.google.protobuf.TimestampR\vpublishedAt\"I\n" +
 	"\vFacetBucket\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05count\x18\x03 \x01(\x03R\x05count\"B\n" +
-	"\n" +
-	"PriceRange\x12\x10\n" +
-	"\x03min\x18\x01 \x01(\x03R\x03min\x12\x10\n" +
-	"\x03max\x18\x02 \x01(\x03R\x03max\x12\x10\n" +
-	"\x03avg\x18\x03 \x01(\x03R\x03avg\"/\n" +
-	"\tYearRange\x12\x10\n" +
-	"\x03min\x18\x01 \x01(\x05R\x03min\x12\x10\n" +
-	"\x03max\x18\x02 \x01(\x05R\x03max\"\xf6\x02\n" +
+	"\x05count\x18\x03 \x01(\x03R\x05count\"\xb0\x02\n" +
 	"\x06Facets\x125\n" +
 	"\x05types\x18\x01 \x03(\v2\x1f.services.search.v1.FacetBucketR\x05types\x127\n" +
-	"\x06cities\x18\x02 \x03(\v2\x1f.services.search.v1.FacetBucketR\x06cities\x12<\n" +
-	"\tcar_makes\x18\x03 \x03(\v2\x1f.services.search.v1.FacetBucketR\bcarMakes\x12?\n" +
+	"\x06groups\x18\x02 \x03(\v2\x1f.services.search.v1.FacetBucketR\x06groups\x12?\n" +
 	"\n" +
-	"categories\x18\x04 \x03(\v2\x1f.services.search.v1.FacetBucketR\n" +
-	"categories\x12?\n" +
-	"\vprice_range\x18\x05 \x01(\v2\x1e.services.search.v1.PriceRangeR\n" +
-	"priceRange\x12<\n" +
-	"\n" +
-	"year_range\x18\x06 \x01(\v2\x1d.services.search.v1.YearRangeR\tyearRange\"\xc5\x03\n" +
+	"categories\x18\x03 \x03(\v2\x1f.services.search.v1.FacetBucketR\n" +
+	"categories\x127\n" +
+	"\x06cities\x18\x04 \x03(\v2\x1f.services.search.v1.FacetBucketR\x06cities\x12<\n" +
+	"\tcar_makes\x18\x05 \x03(\v2\x1f.services.search.v1.FacetBucketR\bcarMakes\"\xeb\x02\n" +
 	"\rSearchRequest\x12\x14\n" +
-	"\x05query\x18\x01 \x01(\tR\x05query\x12.\n" +
-	"\x04type\x18\x02 \x01(\x0e2\x1a.services.search.v1.AdTypeR\x04type\x12\x17\n" +
-	"\acity_id\x18\x03 \x01(\x03R\x06cityId\x12\x1e\n" +
-	"\vcar_make_id\x18\x04 \x01(\x03R\tcarMakeId\x12 \n" +
-	"\fcar_model_id\x18\x05 \x01(\x03R\n" +
-	"carModelId\x12\x1f\n" +
-	"\vcategory_id\x18\x06 \x01(\x03R\n" +
-	"categoryId\x12\x1d\n" +
-	"\n" +
-	"price_from\x18\a \x01(\x03R\tpriceFrom\x12\x19\n" +
-	"\bprice_to\x18\b \x01(\x03R\apriceTo\x12\x1b\n" +
-	"\tyear_from\x18\t \x01(\x05R\byearFrom\x12\x17\n" +
-	"\ayear_to\x18\n" +
-	" \x01(\x05R\x06yearTo\x12\x1c\n" +
-	"\tcondition\x18\v \x01(\tR\tcondition\x12\x12\n" +
-	"\x04page\x18\f \x01(\x05R\x04page\x12\x1b\n" +
-	"\tpage_size\x18\r \x01(\x05R\bpageSize\x123\n" +
-	"\asort_by\x18\x0e \x01(\x0e2\x1a.services.search.v1.SortByR\x06sortBy\"\x84\x01\n" +
-	"\x0eSearchResponse\x12(\n" +
-	"\x03ads\x18\x01 \x03(\v2\x16.services.search.v1.AdR\x03ads\x12\x14\n" +
+	"\x05query\x18\x01 \x01(\tR\x05query\x123\n" +
+	"\x04type\x18\x02 \x01(\x0e2\x1f.services.search.v1.RequestTypeR\x04type\x12\x19\n" +
+	"\bgroup_id\x18\x03 \x01(\x03R\agroupId\x12\x1f\n" +
+	"\vcategory_id\x18\x04 \x01(\x03R\n" +
+	"categoryId\x12\x17\n" +
+	"\acity_id\x18\x05 \x01(\x03R\x06cityId\x12\x1e\n" +
+	"\vcar_make_id\x18\x06 \x01(\x03R\tcarMakeId\x12 \n" +
+	"\fcar_model_id\x18\a \x01(\x03R\n" +
+	"carModelId\x12\x12\n" +
+	"\x04year\x18\b \x01(\x05R\x04year\x12\x12\n" +
+	"\x04page\x18\t \x01(\x05R\x04page\x12\x1b\n" +
+	"\tpage_size\x18\n" +
+	" \x01(\x05R\bpageSize\x123\n" +
+	"\asort_by\x18\v \x01(\x0e2\x1a.services.search.v1.SortByR\x06sortBy\"\x9b\x01\n" +
+	"\x0eSearchResponse\x12?\n" +
+	"\brequests\x18\x01 \x03(\v2#.services.search.v1.RequestDocumentR\brequests\x12\x14\n" +
 	"\x05total\x18\x02 \x01(\x05R\x05total\x122\n" +
 	"\x06facets\x18\x03 \x01(\v2\x1a.services.search.v1.FacetsR\x06facets\"<\n" +
 	"\x0eSuggestRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x05R\x05limit\"3\n" +
 	"\x0fSuggestResponse\x12 \n" +
-	"\vsuggestions\x18\x01 \x03(\tR\vsuggestions\"\\\n" +
-	"\x0eSimilarRequest\x12\x13\n" +
-	"\x05ad_id\x18\x01 \x01(\x03R\x04adId\x12\x14\n" +
-	"\x05limit\x18\x02 \x01(\x05R\x05limit\x12\x1f\n" +
-	"\vexclude_own\x18\x03 \x01(\bR\n" +
-	"excludeOwn\";\n" +
-	"\x0fSimilarResponse\x12(\n" +
-	"\x03ads\x18\x01 \x03(\v2\x16.services.search.v1.AdR\x03ads\"$\n" +
+	"\vsuggestions\x18\x01 \x03(\tR\vsuggestions\"E\n" +
+	"\x0eSimilarRequest\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\x03R\trequestId\x12\x14\n" +
+	"\x05limit\x18\x02 \x01(\x05R\x05limit\"R\n" +
+	"\x0fSimilarResponse\x12?\n" +
+	"\brequests\x18\x01 \x03(\v2#.services.search.v1.RequestDocumentR\brequests\"$\n" +
 	"\x0eReindexRequest\x12\x12\n" +
 	"\x04full\x18\x01 \x01(\bR\x04full\"d\n" +
 	"\x0fReindexResponse\x12\x18\n" +
 	"\aindexed\x18\x01 \x01(\x05R\aindexed\x12\x16\n" +
 	"\x06errors\x18\x02 \x01(\x05R\x06errors\x12\x1f\n" +
 	"\vduration_ms\x18\x03 \x01(\x03R\n" +
-	"durationMs\"8\n" +
-	"\x0eIndexAdRequest\x12&\n" +
-	"\x02ad\x18\x01 \x01(\v2\x16.services.search.v1.AdR\x02ad\"+\n" +
-	"\x0fIndexAdResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"&\n" +
-	"\x0fDeleteAdRequest\x12\x13\n" +
-	"\x05ad_id\x18\x01 \x01(\x03R\x04adId\",\n" +
-	"\x10DeleteAdResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess*Y\n" +
-	"\x06AdType\x12\x17\n" +
-	"\x13AD_TYPE_UNSPECIFIED\x10\x00\x12\x0f\n" +
-	"\vAD_TYPE_CAR\x10\x01\x12\x10\n" +
-	"\fAD_TYPE_PART\x10\x02\x12\x13\n" +
-	"\x0fAD_TYPE_SERVICE\x10\x03*\x94\x01\n" +
+	"durationMs\"T\n" +
+	"\x13IndexRequestRequest\x12=\n" +
+	"\arequest\x18\x01 \x01(\v2#.services.search.v1.RequestDocumentR\arequest\"0\n" +
+	"\x14IndexRequestResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"7\n" +
+	"\x16DeleteFromIndexRequest\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\x03R\trequestId\"3\n" +
+	"\x17DeleteFromIndexResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess*\\\n" +
+	"\vRequestType\x12\x1c\n" +
+	"\x18REQUEST_TYPE_UNSPECIFIED\x10\x00\x12\x17\n" +
+	"\x13REQUEST_TYPE_REPAIR\x10\x01\x12\x16\n" +
+	"\x12REQUEST_TYPE_PARTS\x10\x02*\x88\x01\n" +
+	"\rRequestStatus\x12\x1e\n" +
+	"\x1aREQUEST_STATUS_UNSPECIFIED\x10\x00\x12\x1d\n" +
+	"\x19REQUEST_STATUS_MODERATION\x10\x01\x12\x1c\n" +
+	"\x18REQUEST_STATUS_PUBLISHED\x10\x02\x12\x1a\n" +
+	"\x16REQUEST_STATUS_DELETED\x10\x03*e\n" +
 	"\x06SortBy\x12\x17\n" +
 	"\x13SORT_BY_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11SORT_BY_RELEVANCE\x10\x01\x12\x15\n" +
-	"\x11SORT_BY_PRICE_ASC\x10\x02\x12\x16\n" +
-	"\x12SORT_BY_PRICE_DESC\x10\x03\x12\x15\n" +
-	"\x11SORT_BY_DATE_DESC\x10\x04\x12\x14\n" +
-	"\x10SORT_BY_DATE_ASC\x10\x052\x87\x04\n" +
+	"\x11SORT_BY_DATE_DESC\x10\x02\x12\x14\n" +
+	"\x10SORT_BY_DATE_ASC\x10\x032\xab\x04\n" +
 	"\rSearchService\x12O\n" +
 	"\x06Search\x12!.services.search.v1.SearchRequest\x1a\".services.search.v1.SearchResponse\x12R\n" +
 	"\aSuggest\x12\".services.search.v1.SuggestRequest\x1a#.services.search.v1.SuggestResponse\x12R\n" +
 	"\aSimilar\x12\".services.search.v1.SimilarRequest\x1a#.services.search.v1.SimilarResponse\x12R\n" +
-	"\aReindex\x12\".services.search.v1.ReindexRequest\x1a#.services.search.v1.ReindexResponse\x12R\n" +
-	"\aIndexAd\x12\".services.search.v1.IndexAdRequest\x1a#.services.search.v1.IndexAdResponse\x12U\n" +
-	"\bDeleteAd\x12#.services.search.v1.DeleteAdRequest\x1a$.services.search.v1.DeleteAdResponseB<Z:gitlab.com/xakpro/cg-proto/gen/go/services/search;searchv1b\x06proto3"
+	"\aReindex\x12\".services.search.v1.ReindexRequest\x1a#.services.search.v1.ReindexResponse\x12a\n" +
+	"\fIndexRequest\x12'.services.search.v1.IndexRequestRequest\x1a(.services.search.v1.IndexRequestResponse\x12j\n" +
+	"\x0fDeleteFromIndex\x12*.services.search.v1.DeleteFromIndexRequest\x1a+.services.search.v1.DeleteFromIndexResponseB<Z:gitlab.com/xakpro/cg-proto/gen/go/services/search;searchv1b\x06proto3"
 
 var (
 	file_services_search_search_proto_rawDescOnce sync.Once
@@ -1446,62 +1297,62 @@ func file_services_search_search_proto_rawDescGZIP() []byte {
 	return file_services_search_search_proto_rawDescData
 }
 
-var file_services_search_search_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_services_search_search_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_services_search_search_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_services_search_search_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_services_search_search_proto_goTypes = []any{
-	(AdType)(0),                   // 0: services.search.v1.AdType
-	(SortBy)(0),                   // 1: services.search.v1.SortBy
-	(*Ad)(nil),                    // 2: services.search.v1.Ad
-	(*FacetBucket)(nil),           // 3: services.search.v1.FacetBucket
-	(*PriceRange)(nil),            // 4: services.search.v1.PriceRange
-	(*YearRange)(nil),             // 5: services.search.v1.YearRange
-	(*Facets)(nil),                // 6: services.search.v1.Facets
-	(*SearchRequest)(nil),         // 7: services.search.v1.SearchRequest
-	(*SearchResponse)(nil),        // 8: services.search.v1.SearchResponse
-	(*SuggestRequest)(nil),        // 9: services.search.v1.SuggestRequest
-	(*SuggestResponse)(nil),       // 10: services.search.v1.SuggestResponse
-	(*SimilarRequest)(nil),        // 11: services.search.v1.SimilarRequest
-	(*SimilarResponse)(nil),       // 12: services.search.v1.SimilarResponse
-	(*ReindexRequest)(nil),        // 13: services.search.v1.ReindexRequest
-	(*ReindexResponse)(nil),       // 14: services.search.v1.ReindexResponse
-	(*IndexAdRequest)(nil),        // 15: services.search.v1.IndexAdRequest
-	(*IndexAdResponse)(nil),       // 16: services.search.v1.IndexAdResponse
-	(*DeleteAdRequest)(nil),       // 17: services.search.v1.DeleteAdRequest
-	(*DeleteAdResponse)(nil),      // 18: services.search.v1.DeleteAdResponse
-	(*timestamppb.Timestamp)(nil), // 19: google.protobuf.Timestamp
+	(RequestType)(0),                // 0: services.search.v1.RequestType
+	(RequestStatus)(0),              // 1: services.search.v1.RequestStatus
+	(SortBy)(0),                     // 2: services.search.v1.SortBy
+	(*RequestDocument)(nil),         // 3: services.search.v1.RequestDocument
+	(*FacetBucket)(nil),             // 4: services.search.v1.FacetBucket
+	(*Facets)(nil),                  // 5: services.search.v1.Facets
+	(*SearchRequest)(nil),           // 6: services.search.v1.SearchRequest
+	(*SearchResponse)(nil),          // 7: services.search.v1.SearchResponse
+	(*SuggestRequest)(nil),          // 8: services.search.v1.SuggestRequest
+	(*SuggestResponse)(nil),         // 9: services.search.v1.SuggestResponse
+	(*SimilarRequest)(nil),          // 10: services.search.v1.SimilarRequest
+	(*SimilarResponse)(nil),         // 11: services.search.v1.SimilarResponse
+	(*ReindexRequest)(nil),          // 12: services.search.v1.ReindexRequest
+	(*ReindexResponse)(nil),         // 13: services.search.v1.ReindexResponse
+	(*IndexRequestRequest)(nil),     // 14: services.search.v1.IndexRequestRequest
+	(*IndexRequestResponse)(nil),    // 15: services.search.v1.IndexRequestResponse
+	(*DeleteFromIndexRequest)(nil),  // 16: services.search.v1.DeleteFromIndexRequest
+	(*DeleteFromIndexResponse)(nil), // 17: services.search.v1.DeleteFromIndexResponse
+	(*timestamppb.Timestamp)(nil),   // 18: google.protobuf.Timestamp
 }
 var file_services_search_search_proto_depIdxs = []int32{
-	0,  // 0: services.search.v1.Ad.type:type_name -> services.search.v1.AdType
-	19, // 1: services.search.v1.Ad.created_at:type_name -> google.protobuf.Timestamp
-	3,  // 2: services.search.v1.Facets.types:type_name -> services.search.v1.FacetBucket
-	3,  // 3: services.search.v1.Facets.cities:type_name -> services.search.v1.FacetBucket
-	3,  // 4: services.search.v1.Facets.car_makes:type_name -> services.search.v1.FacetBucket
-	3,  // 5: services.search.v1.Facets.categories:type_name -> services.search.v1.FacetBucket
-	4,  // 6: services.search.v1.Facets.price_range:type_name -> services.search.v1.PriceRange
-	5,  // 7: services.search.v1.Facets.year_range:type_name -> services.search.v1.YearRange
-	0,  // 8: services.search.v1.SearchRequest.type:type_name -> services.search.v1.AdType
-	1,  // 9: services.search.v1.SearchRequest.sort_by:type_name -> services.search.v1.SortBy
-	2,  // 10: services.search.v1.SearchResponse.ads:type_name -> services.search.v1.Ad
-	6,  // 11: services.search.v1.SearchResponse.facets:type_name -> services.search.v1.Facets
-	2,  // 12: services.search.v1.SimilarResponse.ads:type_name -> services.search.v1.Ad
-	2,  // 13: services.search.v1.IndexAdRequest.ad:type_name -> services.search.v1.Ad
-	7,  // 14: services.search.v1.SearchService.Search:input_type -> services.search.v1.SearchRequest
-	9,  // 15: services.search.v1.SearchService.Suggest:input_type -> services.search.v1.SuggestRequest
-	11, // 16: services.search.v1.SearchService.Similar:input_type -> services.search.v1.SimilarRequest
-	13, // 17: services.search.v1.SearchService.Reindex:input_type -> services.search.v1.ReindexRequest
-	15, // 18: services.search.v1.SearchService.IndexAd:input_type -> services.search.v1.IndexAdRequest
-	17, // 19: services.search.v1.SearchService.DeleteAd:input_type -> services.search.v1.DeleteAdRequest
-	8,  // 20: services.search.v1.SearchService.Search:output_type -> services.search.v1.SearchResponse
-	10, // 21: services.search.v1.SearchService.Suggest:output_type -> services.search.v1.SuggestResponse
-	12, // 22: services.search.v1.SearchService.Similar:output_type -> services.search.v1.SimilarResponse
-	14, // 23: services.search.v1.SearchService.Reindex:output_type -> services.search.v1.ReindexResponse
-	16, // 24: services.search.v1.SearchService.IndexAd:output_type -> services.search.v1.IndexAdResponse
-	18, // 25: services.search.v1.SearchService.DeleteAd:output_type -> services.search.v1.DeleteAdResponse
-	20, // [20:26] is the sub-list for method output_type
-	14, // [14:20] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	0,  // 0: services.search.v1.RequestDocument.type:type_name -> services.search.v1.RequestType
+	1,  // 1: services.search.v1.RequestDocument.status:type_name -> services.search.v1.RequestStatus
+	18, // 2: services.search.v1.RequestDocument.created_at:type_name -> google.protobuf.Timestamp
+	18, // 3: services.search.v1.RequestDocument.published_at:type_name -> google.protobuf.Timestamp
+	4,  // 4: services.search.v1.Facets.types:type_name -> services.search.v1.FacetBucket
+	4,  // 5: services.search.v1.Facets.groups:type_name -> services.search.v1.FacetBucket
+	4,  // 6: services.search.v1.Facets.categories:type_name -> services.search.v1.FacetBucket
+	4,  // 7: services.search.v1.Facets.cities:type_name -> services.search.v1.FacetBucket
+	4,  // 8: services.search.v1.Facets.car_makes:type_name -> services.search.v1.FacetBucket
+	0,  // 9: services.search.v1.SearchRequest.type:type_name -> services.search.v1.RequestType
+	2,  // 10: services.search.v1.SearchRequest.sort_by:type_name -> services.search.v1.SortBy
+	3,  // 11: services.search.v1.SearchResponse.requests:type_name -> services.search.v1.RequestDocument
+	5,  // 12: services.search.v1.SearchResponse.facets:type_name -> services.search.v1.Facets
+	3,  // 13: services.search.v1.SimilarResponse.requests:type_name -> services.search.v1.RequestDocument
+	3,  // 14: services.search.v1.IndexRequestRequest.request:type_name -> services.search.v1.RequestDocument
+	6,  // 15: services.search.v1.SearchService.Search:input_type -> services.search.v1.SearchRequest
+	8,  // 16: services.search.v1.SearchService.Suggest:input_type -> services.search.v1.SuggestRequest
+	10, // 17: services.search.v1.SearchService.Similar:input_type -> services.search.v1.SimilarRequest
+	12, // 18: services.search.v1.SearchService.Reindex:input_type -> services.search.v1.ReindexRequest
+	14, // 19: services.search.v1.SearchService.IndexRequest:input_type -> services.search.v1.IndexRequestRequest
+	16, // 20: services.search.v1.SearchService.DeleteFromIndex:input_type -> services.search.v1.DeleteFromIndexRequest
+	7,  // 21: services.search.v1.SearchService.Search:output_type -> services.search.v1.SearchResponse
+	9,  // 22: services.search.v1.SearchService.Suggest:output_type -> services.search.v1.SuggestResponse
+	11, // 23: services.search.v1.SearchService.Similar:output_type -> services.search.v1.SimilarResponse
+	13, // 24: services.search.v1.SearchService.Reindex:output_type -> services.search.v1.ReindexResponse
+	15, // 25: services.search.v1.SearchService.IndexRequest:output_type -> services.search.v1.IndexRequestResponse
+	17, // 26: services.search.v1.SearchService.DeleteFromIndex:output_type -> services.search.v1.DeleteFromIndexResponse
+	21, // [21:27] is the sub-list for method output_type
+	15, // [15:21] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_services_search_search_proto_init() }
@@ -1514,8 +1365,8 @@ func file_services_search_search_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_services_search_search_proto_rawDesc), len(file_services_search_search_proto_rawDesc)),
-			NumEnums:      2,
-			NumMessages:   17,
+			NumEnums:      3,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

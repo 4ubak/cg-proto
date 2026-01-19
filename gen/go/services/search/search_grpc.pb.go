@@ -19,30 +19,30 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	SearchService_Search_FullMethodName   = "/services.search.v1.SearchService/Search"
-	SearchService_Suggest_FullMethodName  = "/services.search.v1.SearchService/Suggest"
-	SearchService_Similar_FullMethodName  = "/services.search.v1.SearchService/Similar"
-	SearchService_Reindex_FullMethodName  = "/services.search.v1.SearchService/Reindex"
-	SearchService_IndexAd_FullMethodName  = "/services.search.v1.SearchService/IndexAd"
-	SearchService_DeleteAd_FullMethodName = "/services.search.v1.SearchService/DeleteAd"
+	SearchService_Search_FullMethodName          = "/services.search.v1.SearchService/Search"
+	SearchService_Suggest_FullMethodName         = "/services.search.v1.SearchService/Suggest"
+	SearchService_Similar_FullMethodName         = "/services.search.v1.SearchService/Similar"
+	SearchService_Reindex_FullMethodName         = "/services.search.v1.SearchService/Reindex"
+	SearchService_IndexRequest_FullMethodName    = "/services.search.v1.SearchService/IndexRequest"
+	SearchService_DeleteFromIndex_FullMethodName = "/services.search.v1.SearchService/DeleteFromIndex"
 )
 
 // SearchServiceClient is the client API for SearchService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SearchServiceClient interface {
-	// Search performs full-text search with filters
+	// Search performs full-text search on requests
 	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
 	// Suggest returns search suggestions (autocomplete)
 	Suggest(ctx context.Context, in *SuggestRequest, opts ...grpc.CallOption) (*SuggestResponse, error)
-	// Similar returns similar ads based on given ad
+	// Similar returns similar requests
 	Similar(ctx context.Context, in *SimilarRequest, opts ...grpc.CallOption) (*SimilarResponse, error)
 	// Reindex triggers full or incremental reindex
 	Reindex(ctx context.Context, in *ReindexRequest, opts ...grpc.CallOption) (*ReindexResponse, error)
-	// IndexAd indexes a single ad (internal, from Kafka events)
-	IndexAd(ctx context.Context, in *IndexAdRequest, opts ...grpc.CallOption) (*IndexAdResponse, error)
-	// DeleteAd removes ad from index (internal, from Kafka events)
-	DeleteAd(ctx context.Context, in *DeleteAdRequest, opts ...grpc.CallOption) (*DeleteAdResponse, error)
+	// IndexRequest indexes a single request (internal, from Kafka events)
+	IndexRequest(ctx context.Context, in *IndexRequestRequest, opts ...grpc.CallOption) (*IndexRequestResponse, error)
+	// DeleteRequest removes request from index (internal, from Kafka events)
+	DeleteFromIndex(ctx context.Context, in *DeleteFromIndexRequest, opts ...grpc.CallOption) (*DeleteFromIndexResponse, error)
 }
 
 type searchServiceClient struct {
@@ -93,20 +93,20 @@ func (c *searchServiceClient) Reindex(ctx context.Context, in *ReindexRequest, o
 	return out, nil
 }
 
-func (c *searchServiceClient) IndexAd(ctx context.Context, in *IndexAdRequest, opts ...grpc.CallOption) (*IndexAdResponse, error) {
+func (c *searchServiceClient) IndexRequest(ctx context.Context, in *IndexRequestRequest, opts ...grpc.CallOption) (*IndexRequestResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(IndexAdResponse)
-	err := c.cc.Invoke(ctx, SearchService_IndexAd_FullMethodName, in, out, cOpts...)
+	out := new(IndexRequestResponse)
+	err := c.cc.Invoke(ctx, SearchService_IndexRequest_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *searchServiceClient) DeleteAd(ctx context.Context, in *DeleteAdRequest, opts ...grpc.CallOption) (*DeleteAdResponse, error) {
+func (c *searchServiceClient) DeleteFromIndex(ctx context.Context, in *DeleteFromIndexRequest, opts ...grpc.CallOption) (*DeleteFromIndexResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteAdResponse)
-	err := c.cc.Invoke(ctx, SearchService_DeleteAd_FullMethodName, in, out, cOpts...)
+	out := new(DeleteFromIndexResponse)
+	err := c.cc.Invoke(ctx, SearchService_DeleteFromIndex_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,18 +117,18 @@ func (c *searchServiceClient) DeleteAd(ctx context.Context, in *DeleteAdRequest,
 // All implementations must embed UnimplementedSearchServiceServer
 // for forward compatibility.
 type SearchServiceServer interface {
-	// Search performs full-text search with filters
+	// Search performs full-text search on requests
 	Search(context.Context, *SearchRequest) (*SearchResponse, error)
 	// Suggest returns search suggestions (autocomplete)
 	Suggest(context.Context, *SuggestRequest) (*SuggestResponse, error)
-	// Similar returns similar ads based on given ad
+	// Similar returns similar requests
 	Similar(context.Context, *SimilarRequest) (*SimilarResponse, error)
 	// Reindex triggers full or incremental reindex
 	Reindex(context.Context, *ReindexRequest) (*ReindexResponse, error)
-	// IndexAd indexes a single ad (internal, from Kafka events)
-	IndexAd(context.Context, *IndexAdRequest) (*IndexAdResponse, error)
-	// DeleteAd removes ad from index (internal, from Kafka events)
-	DeleteAd(context.Context, *DeleteAdRequest) (*DeleteAdResponse, error)
+	// IndexRequest indexes a single request (internal, from Kafka events)
+	IndexRequest(context.Context, *IndexRequestRequest) (*IndexRequestResponse, error)
+	// DeleteRequest removes request from index (internal, from Kafka events)
+	DeleteFromIndex(context.Context, *DeleteFromIndexRequest) (*DeleteFromIndexResponse, error)
 	mustEmbedUnimplementedSearchServiceServer()
 }
 
@@ -151,11 +151,11 @@ func (UnimplementedSearchServiceServer) Similar(context.Context, *SimilarRequest
 func (UnimplementedSearchServiceServer) Reindex(context.Context, *ReindexRequest) (*ReindexResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Reindex not implemented")
 }
-func (UnimplementedSearchServiceServer) IndexAd(context.Context, *IndexAdRequest) (*IndexAdResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method IndexAd not implemented")
+func (UnimplementedSearchServiceServer) IndexRequest(context.Context, *IndexRequestRequest) (*IndexRequestResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method IndexRequest not implemented")
 }
-func (UnimplementedSearchServiceServer) DeleteAd(context.Context, *DeleteAdRequest) (*DeleteAdResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method DeleteAd not implemented")
+func (UnimplementedSearchServiceServer) DeleteFromIndex(context.Context, *DeleteFromIndexRequest) (*DeleteFromIndexResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteFromIndex not implemented")
 }
 func (UnimplementedSearchServiceServer) mustEmbedUnimplementedSearchServiceServer() {}
 func (UnimplementedSearchServiceServer) testEmbeddedByValue()                       {}
@@ -250,38 +250,38 @@ func _SearchService_Reindex_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SearchService_IndexAd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IndexAdRequest)
+func _SearchService_IndexRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IndexRequestRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SearchServiceServer).IndexAd(ctx, in)
+		return srv.(SearchServiceServer).IndexRequest(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SearchService_IndexAd_FullMethodName,
+		FullMethod: SearchService_IndexRequest_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SearchServiceServer).IndexAd(ctx, req.(*IndexAdRequest))
+		return srv.(SearchServiceServer).IndexRequest(ctx, req.(*IndexRequestRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SearchService_DeleteAd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAdRequest)
+func _SearchService_DeleteFromIndex_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteFromIndexRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SearchServiceServer).DeleteAd(ctx, in)
+		return srv.(SearchServiceServer).DeleteFromIndex(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SearchService_DeleteAd_FullMethodName,
+		FullMethod: SearchService_DeleteFromIndex_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SearchServiceServer).DeleteAd(ctx, req.(*DeleteAdRequest))
+		return srv.(SearchServiceServer).DeleteFromIndex(ctx, req.(*DeleteFromIndexRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -310,12 +310,12 @@ var SearchService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SearchService_Reindex_Handler,
 		},
 		{
-			MethodName: "IndexAd",
-			Handler:    _SearchService_IndexAd_Handler,
+			MethodName: "IndexRequest",
+			Handler:    _SearchService_IndexRequest_Handler,
 		},
 		{
-			MethodName: "DeleteAd",
-			Handler:    _SearchService_DeleteAd_Handler,
+			MethodName: "DeleteFromIndex",
+			Handler:    _SearchService_DeleteFromIndex_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

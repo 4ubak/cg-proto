@@ -41,26 +41,28 @@ const (
 	SearchServiceSimilarProcedure = "/services.search.v1.SearchService/Similar"
 	// SearchServiceReindexProcedure is the fully-qualified name of the SearchService's Reindex RPC.
 	SearchServiceReindexProcedure = "/services.search.v1.SearchService/Reindex"
-	// SearchServiceIndexAdProcedure is the fully-qualified name of the SearchService's IndexAd RPC.
-	SearchServiceIndexAdProcedure = "/services.search.v1.SearchService/IndexAd"
-	// SearchServiceDeleteAdProcedure is the fully-qualified name of the SearchService's DeleteAd RPC.
-	SearchServiceDeleteAdProcedure = "/services.search.v1.SearchService/DeleteAd"
+	// SearchServiceIndexRequestProcedure is the fully-qualified name of the SearchService's
+	// IndexRequest RPC.
+	SearchServiceIndexRequestProcedure = "/services.search.v1.SearchService/IndexRequest"
+	// SearchServiceDeleteFromIndexProcedure is the fully-qualified name of the SearchService's
+	// DeleteFromIndex RPC.
+	SearchServiceDeleteFromIndexProcedure = "/services.search.v1.SearchService/DeleteFromIndex"
 )
 
 // SearchServiceClient is a client for the services.search.v1.SearchService service.
 type SearchServiceClient interface {
-	// Search performs full-text search with filters
+	// Search performs full-text search on requests
 	Search(context.Context, *connect.Request[search.SearchRequest]) (*connect.Response[search.SearchResponse], error)
 	// Suggest returns search suggestions (autocomplete)
 	Suggest(context.Context, *connect.Request[search.SuggestRequest]) (*connect.Response[search.SuggestResponse], error)
-	// Similar returns similar ads based on given ad
+	// Similar returns similar requests
 	Similar(context.Context, *connect.Request[search.SimilarRequest]) (*connect.Response[search.SimilarResponse], error)
 	// Reindex triggers full or incremental reindex
 	Reindex(context.Context, *connect.Request[search.ReindexRequest]) (*connect.Response[search.ReindexResponse], error)
-	// IndexAd indexes a single ad (internal, from Kafka events)
-	IndexAd(context.Context, *connect.Request[search.IndexAdRequest]) (*connect.Response[search.IndexAdResponse], error)
-	// DeleteAd removes ad from index (internal, from Kafka events)
-	DeleteAd(context.Context, *connect.Request[search.DeleteAdRequest]) (*connect.Response[search.DeleteAdResponse], error)
+	// IndexRequest indexes a single request (internal, from Kafka events)
+	IndexRequest(context.Context, *connect.Request[search.IndexRequestRequest]) (*connect.Response[search.IndexRequestResponse], error)
+	// DeleteRequest removes request from index (internal, from Kafka events)
+	DeleteFromIndex(context.Context, *connect.Request[search.DeleteFromIndexRequest]) (*connect.Response[search.DeleteFromIndexResponse], error)
 }
 
 // NewSearchServiceClient constructs a client for the services.search.v1.SearchService service. By
@@ -98,16 +100,16 @@ func NewSearchServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(searchServiceMethods.ByName("Reindex")),
 			connect.WithClientOptions(opts...),
 		),
-		indexAd: connect.NewClient[search.IndexAdRequest, search.IndexAdResponse](
+		indexRequest: connect.NewClient[search.IndexRequestRequest, search.IndexRequestResponse](
 			httpClient,
-			baseURL+SearchServiceIndexAdProcedure,
-			connect.WithSchema(searchServiceMethods.ByName("IndexAd")),
+			baseURL+SearchServiceIndexRequestProcedure,
+			connect.WithSchema(searchServiceMethods.ByName("IndexRequest")),
 			connect.WithClientOptions(opts...),
 		),
-		deleteAd: connect.NewClient[search.DeleteAdRequest, search.DeleteAdResponse](
+		deleteFromIndex: connect.NewClient[search.DeleteFromIndexRequest, search.DeleteFromIndexResponse](
 			httpClient,
-			baseURL+SearchServiceDeleteAdProcedure,
-			connect.WithSchema(searchServiceMethods.ByName("DeleteAd")),
+			baseURL+SearchServiceDeleteFromIndexProcedure,
+			connect.WithSchema(searchServiceMethods.ByName("DeleteFromIndex")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -115,12 +117,12 @@ func NewSearchServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 
 // searchServiceClient implements SearchServiceClient.
 type searchServiceClient struct {
-	search   *connect.Client[search.SearchRequest, search.SearchResponse]
-	suggest  *connect.Client[search.SuggestRequest, search.SuggestResponse]
-	similar  *connect.Client[search.SimilarRequest, search.SimilarResponse]
-	reindex  *connect.Client[search.ReindexRequest, search.ReindexResponse]
-	indexAd  *connect.Client[search.IndexAdRequest, search.IndexAdResponse]
-	deleteAd *connect.Client[search.DeleteAdRequest, search.DeleteAdResponse]
+	search          *connect.Client[search.SearchRequest, search.SearchResponse]
+	suggest         *connect.Client[search.SuggestRequest, search.SuggestResponse]
+	similar         *connect.Client[search.SimilarRequest, search.SimilarResponse]
+	reindex         *connect.Client[search.ReindexRequest, search.ReindexResponse]
+	indexRequest    *connect.Client[search.IndexRequestRequest, search.IndexRequestResponse]
+	deleteFromIndex *connect.Client[search.DeleteFromIndexRequest, search.DeleteFromIndexResponse]
 }
 
 // Search calls services.search.v1.SearchService.Search.
@@ -143,30 +145,30 @@ func (c *searchServiceClient) Reindex(ctx context.Context, req *connect.Request[
 	return c.reindex.CallUnary(ctx, req)
 }
 
-// IndexAd calls services.search.v1.SearchService.IndexAd.
-func (c *searchServiceClient) IndexAd(ctx context.Context, req *connect.Request[search.IndexAdRequest]) (*connect.Response[search.IndexAdResponse], error) {
-	return c.indexAd.CallUnary(ctx, req)
+// IndexRequest calls services.search.v1.SearchService.IndexRequest.
+func (c *searchServiceClient) IndexRequest(ctx context.Context, req *connect.Request[search.IndexRequestRequest]) (*connect.Response[search.IndexRequestResponse], error) {
+	return c.indexRequest.CallUnary(ctx, req)
 }
 
-// DeleteAd calls services.search.v1.SearchService.DeleteAd.
-func (c *searchServiceClient) DeleteAd(ctx context.Context, req *connect.Request[search.DeleteAdRequest]) (*connect.Response[search.DeleteAdResponse], error) {
-	return c.deleteAd.CallUnary(ctx, req)
+// DeleteFromIndex calls services.search.v1.SearchService.DeleteFromIndex.
+func (c *searchServiceClient) DeleteFromIndex(ctx context.Context, req *connect.Request[search.DeleteFromIndexRequest]) (*connect.Response[search.DeleteFromIndexResponse], error) {
+	return c.deleteFromIndex.CallUnary(ctx, req)
 }
 
 // SearchServiceHandler is an implementation of the services.search.v1.SearchService service.
 type SearchServiceHandler interface {
-	// Search performs full-text search with filters
+	// Search performs full-text search on requests
 	Search(context.Context, *connect.Request[search.SearchRequest]) (*connect.Response[search.SearchResponse], error)
 	// Suggest returns search suggestions (autocomplete)
 	Suggest(context.Context, *connect.Request[search.SuggestRequest]) (*connect.Response[search.SuggestResponse], error)
-	// Similar returns similar ads based on given ad
+	// Similar returns similar requests
 	Similar(context.Context, *connect.Request[search.SimilarRequest]) (*connect.Response[search.SimilarResponse], error)
 	// Reindex triggers full or incremental reindex
 	Reindex(context.Context, *connect.Request[search.ReindexRequest]) (*connect.Response[search.ReindexResponse], error)
-	// IndexAd indexes a single ad (internal, from Kafka events)
-	IndexAd(context.Context, *connect.Request[search.IndexAdRequest]) (*connect.Response[search.IndexAdResponse], error)
-	// DeleteAd removes ad from index (internal, from Kafka events)
-	DeleteAd(context.Context, *connect.Request[search.DeleteAdRequest]) (*connect.Response[search.DeleteAdResponse], error)
+	// IndexRequest indexes a single request (internal, from Kafka events)
+	IndexRequest(context.Context, *connect.Request[search.IndexRequestRequest]) (*connect.Response[search.IndexRequestResponse], error)
+	// DeleteRequest removes request from index (internal, from Kafka events)
+	DeleteFromIndex(context.Context, *connect.Request[search.DeleteFromIndexRequest]) (*connect.Response[search.DeleteFromIndexResponse], error)
 }
 
 // NewSearchServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -200,16 +202,16 @@ func NewSearchServiceHandler(svc SearchServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(searchServiceMethods.ByName("Reindex")),
 		connect.WithHandlerOptions(opts...),
 	)
-	searchServiceIndexAdHandler := connect.NewUnaryHandler(
-		SearchServiceIndexAdProcedure,
-		svc.IndexAd,
-		connect.WithSchema(searchServiceMethods.ByName("IndexAd")),
+	searchServiceIndexRequestHandler := connect.NewUnaryHandler(
+		SearchServiceIndexRequestProcedure,
+		svc.IndexRequest,
+		connect.WithSchema(searchServiceMethods.ByName("IndexRequest")),
 		connect.WithHandlerOptions(opts...),
 	)
-	searchServiceDeleteAdHandler := connect.NewUnaryHandler(
-		SearchServiceDeleteAdProcedure,
-		svc.DeleteAd,
-		connect.WithSchema(searchServiceMethods.ByName("DeleteAd")),
+	searchServiceDeleteFromIndexHandler := connect.NewUnaryHandler(
+		SearchServiceDeleteFromIndexProcedure,
+		svc.DeleteFromIndex,
+		connect.WithSchema(searchServiceMethods.ByName("DeleteFromIndex")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/services.search.v1.SearchService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -222,10 +224,10 @@ func NewSearchServiceHandler(svc SearchServiceHandler, opts ...connect.HandlerOp
 			searchServiceSimilarHandler.ServeHTTP(w, r)
 		case SearchServiceReindexProcedure:
 			searchServiceReindexHandler.ServeHTTP(w, r)
-		case SearchServiceIndexAdProcedure:
-			searchServiceIndexAdHandler.ServeHTTP(w, r)
-		case SearchServiceDeleteAdProcedure:
-			searchServiceDeleteAdHandler.ServeHTTP(w, r)
+		case SearchServiceIndexRequestProcedure:
+			searchServiceIndexRequestHandler.ServeHTTP(w, r)
+		case SearchServiceDeleteFromIndexProcedure:
+			searchServiceDeleteFromIndexHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -251,10 +253,10 @@ func (UnimplementedSearchServiceHandler) Reindex(context.Context, *connect.Reque
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.search.v1.SearchService.Reindex is not implemented"))
 }
 
-func (UnimplementedSearchServiceHandler) IndexAd(context.Context, *connect.Request[search.IndexAdRequest]) (*connect.Response[search.IndexAdResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.search.v1.SearchService.IndexAd is not implemented"))
+func (UnimplementedSearchServiceHandler) IndexRequest(context.Context, *connect.Request[search.IndexRequestRequest]) (*connect.Response[search.IndexRequestResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.search.v1.SearchService.IndexRequest is not implemented"))
 }
 
-func (UnimplementedSearchServiceHandler) DeleteAd(context.Context, *connect.Request[search.DeleteAdRequest]) (*connect.Response[search.DeleteAdResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.search.v1.SearchService.DeleteAd is not implemented"))
+func (UnimplementedSearchServiceHandler) DeleteFromIndex(context.Context, *connect.Request[search.DeleteFromIndexRequest]) (*connect.Response[search.DeleteFromIndexResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.search.v1.SearchService.DeleteFromIndex is not implemented"))
 }
