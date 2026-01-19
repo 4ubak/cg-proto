@@ -132,7 +132,7 @@ type Bid struct {
 	RequestId      int64                  `protobuf:"varint,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	Type           BidType                `protobuf:"varint,3,opt,name=type,proto3,enum=services.bid.v1.BidType" json:"type,omitempty"`
 	Status         BidStatus              `protobuf:"varint,4,opt,name=status,proto3,enum=services.bid.v1.BidStatus" json:"status,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,5,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,5,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	// For STO
 	Price    *int64 `protobuf:"varint,6,opt,name=price,proto3,oneof" json:"price,omitempty"`
 	Currency string `protobuf:"bytes,7,opt,name=currency,proto3" json:"currency,omitempty"`
@@ -205,11 +205,11 @@ func (x *Bid) GetStatus() BidStatus {
 	return BidStatus_BID_STATUS_UNSPECIFIED
 }
 
-func (x *Bid) GetOrganizationId() int64 {
+func (x *Bid) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 func (x *Bid) GetPrice() int64 {
@@ -373,7 +373,7 @@ type CreateBidRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	RequestId      int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	Type           BidType                `protobuf:"varint,2,opt,name=type,proto3,enum=services.bid.v1.BidType" json:"type,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,3,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,3,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	// For STO
 	Price    *int64 `protobuf:"varint,4,opt,name=price,proto3,oneof" json:"price,omitempty"`
 	Currency string `protobuf:"bytes,5,opt,name=currency,proto3" json:"currency,omitempty"`
@@ -430,11 +430,11 @@ func (x *CreateBidRequest) GetType() BidType {
 	return BidType_BID_TYPE_UNSPECIFIED
 }
 
-func (x *CreateBidRequest) GetOrganizationId() int64 {
+func (x *CreateBidRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 func (x *CreateBidRequest) GetPrice() int64 {
@@ -700,7 +700,7 @@ func (x *GetBidResponse) GetBid() *Bid {
 type UpdateBidRequest struct {
 	state          protoimpl.MessageState  `protogen:"open.v1"`
 	BidId          int64                   `protobuf:"varint,1,opt,name=bid_id,json=bidId,proto3" json:"bid_id,omitempty"`
-	OrganizationId int64                   `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                  `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	Price          *int64                  `protobuf:"varint,3,opt,name=price,proto3,oneof" json:"price,omitempty"`
 	Currency       string                  `protobuf:"bytes,4,opt,name=currency,proto3" json:"currency,omitempty"`
 	Duration       *int32                  `protobuf:"varint,5,opt,name=duration,proto3,oneof" json:"duration,omitempty"`
@@ -748,11 +748,11 @@ func (x *UpdateBidRequest) GetBidId() int64 {
 	return 0
 }
 
-func (x *UpdateBidRequest) GetOrganizationId() int64 {
+func (x *UpdateBidRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 func (x *UpdateBidRequest) GetPrice() int64 {
@@ -845,7 +845,7 @@ func (x *UpdateBidResponse) GetBid() *Bid {
 type DeleteBidRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	BidId          int64                  `protobuf:"varint,1,opt,name=bid_id,json=bidId,proto3" json:"bid_id,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -887,11 +887,11 @@ func (x *DeleteBidRequest) GetBidId() int64 {
 	return 0
 }
 
-func (x *DeleteBidRequest) GetOrganizationId() int64 {
+func (x *DeleteBidRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 type DeleteBidResponse struct {
@@ -943,7 +943,7 @@ type ListBidsRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Type           BidType                `protobuf:"varint,1,opt,name=type,proto3,enum=services.bid.v1.BidType" json:"type,omitempty"`
 	Status         BidStatus              `protobuf:"varint,2,opt,name=status,proto3,enum=services.bid.v1.BidStatus" json:"status,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,3,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,3,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	RequestId      int64                  `protobuf:"varint,4,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	Page           int32                  `protobuf:"varint,5,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize       int32                  `protobuf:"varint,6,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
@@ -995,11 +995,11 @@ func (x *ListBidsRequest) GetStatus() BidStatus {
 	return BidStatus_BID_STATUS_UNSPECIFIED
 }
 
-func (x *ListBidsRequest) GetOrganizationId() int64 {
+func (x *ListBidsRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 func (x *ListBidsRequest) GetRequestId() int64 {
@@ -1199,7 +1199,7 @@ func (x *GetBidsByRequestResponse) GetTotal() int32 {
 // GetBidsByOrganization
 type GetBidsByOrganizationRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	OrganizationId int64                  `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	Status         BidStatus              `protobuf:"varint,2,opt,name=status,proto3,enum=services.bid.v1.BidStatus" json:"status,omitempty"`
 	Page           int32                  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize       int32                  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
@@ -1237,11 +1237,11 @@ func (*GetBidsByOrganizationRequest) Descriptor() ([]byte, []int) {
 	return file_services_bid_bid_proto_rawDescGZIP(), []int{15}
 }
 
-func (x *GetBidsByOrganizationRequest) GetOrganizationId() int64 {
+func (x *GetBidsByOrganizationRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 func (x *GetBidsByOrganizationRequest) GetStatus() BidStatus {
@@ -1515,7 +1515,7 @@ func (x *RejectBidResponse) GetBid() *Bid {
 type CancelBidRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	BidId          int64                  `protobuf:"varint,1,opt,name=bid_id,json=bidId,proto3" json:"bid_id,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1557,11 +1557,11 @@ func (x *CancelBidRequest) GetBidId() int64 {
 	return 0
 }
 
-func (x *CancelBidRequest) GetOrganizationId() int64 {
+func (x *CancelBidRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 type CancelBidResponse struct {
@@ -1619,7 +1619,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"request_id\x18\x02 \x01(\x03R\trequestId\x12,\n" +
 	"\x04type\x18\x03 \x01(\x0e2\x18.services.bid.v1.BidTypeR\x04type\x122\n" +
 	"\x06status\x18\x04 \x01(\x0e2\x1a.services.bid.v1.BidStatusR\x06status\x12'\n" +
-	"\x0forganization_id\x18\x05 \x01(\x03R\x0eorganizationId\x12\x19\n" +
+	"\x0forganization_id\x18\x05 \x01(\tR\x0eorganizationId\x12\x19\n" +
 	"\x05price\x18\x06 \x01(\x03H\x00R\x05price\x88\x01\x01\x12\x1a\n" +
 	"\bcurrency\x18\a \x01(\tR\bcurrency\x12\x1f\n" +
 	"\bduration\x18\b \x01(\x05H\x01R\bduration\x88\x01\x01\x12.\n" +
@@ -1647,7 +1647,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\n" +
 	"request_id\x18\x01 \x01(\x03R\trequestId\x12,\n" +
 	"\x04type\x18\x02 \x01(\x0e2\x18.services.bid.v1.BidTypeR\x04type\x12'\n" +
-	"\x0forganization_id\x18\x03 \x01(\x03R\x0eorganizationId\x12\x19\n" +
+	"\x0forganization_id\x18\x03 \x01(\tR\x0eorganizationId\x12\x19\n" +
 	"\x05price\x18\x04 \x01(\x03H\x00R\x05price\x88\x01\x01\x12\x1a\n" +
 	"\bcurrency\x18\x05 \x01(\tR\bcurrency\x12\x1f\n" +
 	"\bduration\x18\x06 \x01(\x05H\x01R\bduration\x88\x01\x01\x12;\n" +
@@ -1672,7 +1672,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x03bid\x18\x01 \x01(\v2\x14.services.bid.v1.BidR\x03bid\"\xcd\x02\n" +
 	"\x10UpdateBidRequest\x12\x15\n" +
 	"\x06bid_id\x18\x01 \x01(\x03R\x05bidId\x12'\n" +
-	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\x12\x19\n" +
+	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\x12\x19\n" +
 	"\x05price\x18\x03 \x01(\x03H\x00R\x05price\x88\x01\x01\x12\x1a\n" +
 	"\bcurrency\x18\x04 \x01(\tR\bcurrency\x12\x1f\n" +
 	"\bduration\x18\x05 \x01(\x05H\x01R\bduration\x88\x01\x01\x12;\n" +
@@ -1686,13 +1686,13 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x03bid\x18\x01 \x01(\v2\x14.services.bid.v1.BidR\x03bid\"R\n" +
 	"\x10DeleteBidRequest\x12\x15\n" +
 	"\x06bid_id\x18\x01 \x01(\x03R\x05bidId\x12'\n" +
-	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\"-\n" +
+	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\"-\n" +
 	"\x11DeleteBidResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"\xec\x01\n" +
 	"\x0fListBidsRequest\x12,\n" +
 	"\x04type\x18\x01 \x01(\x0e2\x18.services.bid.v1.BidTypeR\x04type\x122\n" +
 	"\x06status\x18\x02 \x01(\x0e2\x1a.services.bid.v1.BidStatusR\x06status\x12'\n" +
-	"\x0forganization_id\x18\x03 \x01(\x03R\x0eorganizationId\x12\x1d\n" +
+	"\x0forganization_id\x18\x03 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x04 \x01(\x03R\trequestId\x12\x12\n" +
 	"\x04page\x18\x05 \x01(\x05R\x04page\x12\x1b\n" +
@@ -1710,7 +1710,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x04bids\x18\x01 \x03(\v2\x14.services.bid.v1.BidR\x04bids\x12\x14\n" +
 	"\x05total\x18\x02 \x01(\x05R\x05total\"\xac\x01\n" +
 	"\x1cGetBidsByOrganizationRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\x122\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x122\n" +
 	"\x06status\x18\x02 \x01(\x0e2\x1a.services.bid.v1.BidStatusR\x06status\x12\x12\n" +
 	"\x04page\x18\x03 \x01(\x05R\x04page\x12\x1b\n" +
 	"\tpage_size\x18\x04 \x01(\x05R\bpageSize\"_\n" +
@@ -1729,7 +1729,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x03bid\x18\x01 \x01(\v2\x14.services.bid.v1.BidR\x03bid\"R\n" +
 	"\x10CancelBidRequest\x12\x15\n" +
 	"\x06bid_id\x18\x01 \x01(\x03R\x05bidId\x12'\n" +
-	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\";\n" +
+	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\";\n" +
 	"\x11CancelBidResponse\x12&\n" +
 	"\x03bid\x18\x01 \x01(\v2\x14.services.bid.v1.BidR\x03bid*R\n" +
 	"\aBidType\x12\x18\n" +

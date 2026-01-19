@@ -1600,7 +1600,7 @@ func (x *GetSuggestionsResponse) GetSuggestions() []string {
 // GetNewRequestsForOrganization
 type GetNewRequestsForOrganizationRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	OrganizationId int64                  `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1635,11 +1635,11 @@ func (*GetNewRequestsForOrganizationRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *GetNewRequestsForOrganizationRequest) GetOrganizationId() int64 {
+func (x *GetNewRequestsForOrganizationRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 type GetNewRequestsForOrganizationResponse struct {
@@ -1690,7 +1690,7 @@ func (x *GetNewRequestsForOrganizationResponse) GetRequestIds() []int64 {
 type MarkRequestAsViewedRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	RequestId      int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1732,11 +1732,11 @@ func (x *MarkRequestAsViewedRequest) GetRequestId() int64 {
 	return 0
 }
 
-func (x *MarkRequestAsViewedRequest) GetOrganizationId() int64 {
+func (x *MarkRequestAsViewedRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 type MarkRequestAsViewedResponse struct {
@@ -1787,7 +1787,7 @@ func (x *MarkRequestAsViewedResponse) GetSuccess() bool {
 type IsRequestNewRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	RequestId      int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	OrganizationId int64                  `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrganizationId string                 `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1829,11 +1829,11 @@ func (x *IsRequestNewRequest) GetRequestId() int64 {
 	return 0
 }
 
-func (x *IsRequestNewRequest) GetOrganizationId() int64 {
+func (x *IsRequestNewRequest) GetOrganizationId() string {
 	if x != nil {
 		return x.OrganizationId
 	}
-	return 0
+	return ""
 }
 
 type IsRequestNewResponse struct {
@@ -2019,20 +2019,20 @@ const file_services_request_request_proto_rawDesc = "" +
 	"\x16GetSuggestionsResponse\x12 \n" +
 	"\vsuggestions\x18\x01 \x03(\tR\vsuggestions\"O\n" +
 	"$GetNewRequestsForOrganizationRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\"H\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\"H\n" +
 	"%GetNewRequestsForOrganizationResponse\x12\x1f\n" +
 	"\vrequest_ids\x18\x01 \x03(\x03R\n" +
 	"requestIds\"d\n" +
 	"\x1aMarkRequestAsViewedRequest\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x01 \x01(\x03R\trequestId\x12'\n" +
-	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\"7\n" +
+	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\"7\n" +
 	"\x1bMarkRequestAsViewedResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"]\n" +
 	"\x13IsRequestNewRequest\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x01 \x01(\x03R\trequestId\x12'\n" +
-	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\"-\n" +
+	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\"-\n" +
 	"\x14IsRequestNewResponse\x12\x15\n" +
 	"\x06is_new\x18\x01 \x01(\bR\x05isNew*\\\n" +
 	"\vRequestType\x12\x1c\n" +
