@@ -1608,143 +1608,6 @@ func (x *CancelBidResponse) GetBid() *Bid {
 	return nil
 }
 
-// FindMatchingOrganizations (for matching service)
-type FindMatchingOrganizationsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	GroupId       int64                  `protobuf:"varint,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	CategoryIds   []int64                `protobuf:"varint,3,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
-	CarMakeId     int64                  `protobuf:"varint,4,opt,name=car_make_id,json=carMakeId,proto3" json:"car_make_id,omitempty"`
-	CarModelId    int64                  `protobuf:"varint,5,opt,name=car_model_id,json=carModelId,proto3" json:"car_model_id,omitempty"`
-	Year          int32                  `protobuf:"varint,6,opt,name=year,proto3" json:"year,omitempty"`
-	CityId        int64                  `protobuf:"varint,7,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *FindMatchingOrganizationsRequest) Reset() {
-	*x = FindMatchingOrganizationsRequest{}
-	mi := &file_services_bid_bid_proto_msgTypes[23]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *FindMatchingOrganizationsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*FindMatchingOrganizationsRequest) ProtoMessage() {}
-
-func (x *FindMatchingOrganizationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_services_bid_bid_proto_msgTypes[23]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use FindMatchingOrganizationsRequest.ProtoReflect.Descriptor instead.
-func (*FindMatchingOrganizationsRequest) Descriptor() ([]byte, []int) {
-	return file_services_bid_bid_proto_rawDescGZIP(), []int{23}
-}
-
-func (x *FindMatchingOrganizationsRequest) GetRequestId() int64 {
-	if x != nil {
-		return x.RequestId
-	}
-	return 0
-}
-
-func (x *FindMatchingOrganizationsRequest) GetGroupId() int64 {
-	if x != nil {
-		return x.GroupId
-	}
-	return 0
-}
-
-func (x *FindMatchingOrganizationsRequest) GetCategoryIds() []int64 {
-	if x != nil {
-		return x.CategoryIds
-	}
-	return nil
-}
-
-func (x *FindMatchingOrganizationsRequest) GetCarMakeId() int64 {
-	if x != nil {
-		return x.CarMakeId
-	}
-	return 0
-}
-
-func (x *FindMatchingOrganizationsRequest) GetCarModelId() int64 {
-	if x != nil {
-		return x.CarModelId
-	}
-	return 0
-}
-
-func (x *FindMatchingOrganizationsRequest) GetYear() int32 {
-	if x != nil {
-		return x.Year
-	}
-	return 0
-}
-
-func (x *FindMatchingOrganizationsRequest) GetCityId() int64 {
-	if x != nil {
-		return x.CityId
-	}
-	return 0
-}
-
-type FindMatchingOrganizationsResponse struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	OrganizationIds []int64                `protobuf:"varint,1,rep,packed,name=organization_ids,json=organizationIds,proto3" json:"organization_ids,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
-}
-
-func (x *FindMatchingOrganizationsResponse) Reset() {
-	*x = FindMatchingOrganizationsResponse{}
-	mi := &file_services_bid_bid_proto_msgTypes[24]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *FindMatchingOrganizationsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*FindMatchingOrganizationsResponse) ProtoMessage() {}
-
-func (x *FindMatchingOrganizationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_services_bid_bid_proto_msgTypes[24]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use FindMatchingOrganizationsResponse.ProtoReflect.Descriptor instead.
-func (*FindMatchingOrganizationsResponse) Descriptor() ([]byte, []int) {
-	return file_services_bid_bid_proto_rawDescGZIP(), []int{24}
-}
-
-func (x *FindMatchingOrganizationsResponse) GetOrganizationIds() []int64 {
-	if x != nil {
-		return x.OrganizationIds
-	}
-	return nil
-}
-
 var File_services_bid_bid_proto protoreflect.FileDescriptor
 
 const file_services_bid_bid_proto_rawDesc = "" +
@@ -1868,19 +1731,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x06bid_id\x18\x01 \x01(\x03R\x05bidId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\";\n" +
 	"\x11CancelBidResponse\x12&\n" +
-	"\x03bid\x18\x01 \x01(\v2\x14.services.bid.v1.BidR\x03bid\"\xee\x01\n" +
-	" FindMatchingOrganizationsRequest\x12\x1d\n" +
-	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\x12\x19\n" +
-	"\bgroup_id\x18\x02 \x01(\x03R\agroupId\x12!\n" +
-	"\fcategory_ids\x18\x03 \x03(\x03R\vcategoryIds\x12\x1e\n" +
-	"\vcar_make_id\x18\x04 \x01(\x03R\tcarMakeId\x12 \n" +
-	"\fcar_model_id\x18\x05 \x01(\x03R\n" +
-	"carModelId\x12\x12\n" +
-	"\x04year\x18\x06 \x01(\x05R\x04year\x12\x17\n" +
-	"\acity_id\x18\a \x01(\x03R\x06cityId\"N\n" +
-	"!FindMatchingOrganizationsResponse\x12)\n" +
-	"\x10organization_ids\x18\x01 \x03(\x03R\x0forganizationIds*R\n" +
+	"\x03bid\x18\x01 \x01(\v2\x14.services.bid.v1.BidR\x03bid*R\n" +
 	"\aBidType\x12\x18\n" +
 	"\x14BID_TYPE_UNSPECIFIED\x10\x00\x12\x10\n" +
 	"\fBID_TYPE_STO\x10\x01\x12\x1b\n" +
@@ -1890,7 +1741,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x12BID_STATUS_PENDING\x10\x01\x12\x17\n" +
 	"\x13BID_STATUS_ACCEPTED\x10\x02\x12\x17\n" +
 	"\x13BID_STATUS_REJECTED\x10\x03\x12\x18\n" +
-	"\x14BID_STATUS_CANCELLED\x10\x042\x86\b\n" +
+	"\x14BID_STATUS_CANCELLED\x10\x042\x81\a\n" +
 	"\n" +
 	"BidService\x12R\n" +
 	"\tCreateBid\x12!.services.bid.v1.CreateBidRequest\x1a\".services.bid.v1.CreateBidResponse\x12I\n" +
@@ -1902,8 +1753,7 @@ const file_services_bid_bid_proto_rawDesc = "" +
 	"\x15GetBidsByOrganization\x12-.services.bid.v1.GetBidsByOrganizationRequest\x1a..services.bid.v1.GetBidsByOrganizationResponse\x12R\n" +
 	"\tAcceptBid\x12!.services.bid.v1.AcceptBidRequest\x1a\".services.bid.v1.AcceptBidResponse\x12R\n" +
 	"\tRejectBid\x12!.services.bid.v1.RejectBidRequest\x1a\".services.bid.v1.RejectBidResponse\x12R\n" +
-	"\tCancelBid\x12!.services.bid.v1.CancelBidRequest\x1a\".services.bid.v1.CancelBidResponse\x12\x82\x01\n" +
-	"\x19FindMatchingOrganizations\x121.services.bid.v1.FindMatchingOrganizationsRequest\x1a2.services.bid.v1.FindMatchingOrganizationsResponseB6Z4gitlab.com/xakpro/cg-proto/gen/go/services/bid;bidv1b\x06proto3"
+	"\tCancelBid\x12!.services.bid.v1.CancelBidRequest\x1a\".services.bid.v1.CancelBidResponseB6Z4gitlab.com/xakpro/cg-proto/gen/go/services/bid;bidv1b\x06proto3"
 
 var (
 	file_services_bid_bid_proto_rawDescOnce sync.Once
@@ -1918,43 +1768,41 @@ func file_services_bid_bid_proto_rawDescGZIP() []byte {
 }
 
 var file_services_bid_bid_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_services_bid_bid_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_services_bid_bid_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_services_bid_bid_proto_goTypes = []any{
-	(BidType)(0),                              // 0: services.bid.v1.BidType
-	(BidStatus)(0),                            // 1: services.bid.v1.BidStatus
-	(*Bid)(nil),                               // 2: services.bid.v1.Bid
-	(*BidPart)(nil),                           // 3: services.bid.v1.BidPart
-	(*CreateBidRequest)(nil),                  // 4: services.bid.v1.CreateBidRequest
-	(*CreateBidPartRequest)(nil),              // 5: services.bid.v1.CreateBidPartRequest
-	(*CreateBidResponse)(nil),                 // 6: services.bid.v1.CreateBidResponse
-	(*GetBidRequest)(nil),                     // 7: services.bid.v1.GetBidRequest
-	(*GetBidResponse)(nil),                    // 8: services.bid.v1.GetBidResponse
-	(*UpdateBidRequest)(nil),                  // 9: services.bid.v1.UpdateBidRequest
-	(*UpdateBidResponse)(nil),                 // 10: services.bid.v1.UpdateBidResponse
-	(*DeleteBidRequest)(nil),                  // 11: services.bid.v1.DeleteBidRequest
-	(*DeleteBidResponse)(nil),                 // 12: services.bid.v1.DeleteBidResponse
-	(*ListBidsRequest)(nil),                   // 13: services.bid.v1.ListBidsRequest
-	(*ListBidsResponse)(nil),                  // 14: services.bid.v1.ListBidsResponse
-	(*GetBidsByRequestRequest)(nil),           // 15: services.bid.v1.GetBidsByRequestRequest
-	(*GetBidsByRequestResponse)(nil),          // 16: services.bid.v1.GetBidsByRequestResponse
-	(*GetBidsByOrganizationRequest)(nil),      // 17: services.bid.v1.GetBidsByOrganizationRequest
-	(*GetBidsByOrganizationResponse)(nil),     // 18: services.bid.v1.GetBidsByOrganizationResponse
-	(*AcceptBidRequest)(nil),                  // 19: services.bid.v1.AcceptBidRequest
-	(*AcceptBidResponse)(nil),                 // 20: services.bid.v1.AcceptBidResponse
-	(*RejectBidRequest)(nil),                  // 21: services.bid.v1.RejectBidRequest
-	(*RejectBidResponse)(nil),                 // 22: services.bid.v1.RejectBidResponse
-	(*CancelBidRequest)(nil),                  // 23: services.bid.v1.CancelBidRequest
-	(*CancelBidResponse)(nil),                 // 24: services.bid.v1.CancelBidResponse
-	(*FindMatchingOrganizationsRequest)(nil),  // 25: services.bid.v1.FindMatchingOrganizationsRequest
-	(*FindMatchingOrganizationsResponse)(nil), // 26: services.bid.v1.FindMatchingOrganizationsResponse
-	(*timestamppb.Timestamp)(nil),             // 27: google.protobuf.Timestamp
+	(BidType)(0),                          // 0: services.bid.v1.BidType
+	(BidStatus)(0),                        // 1: services.bid.v1.BidStatus
+	(*Bid)(nil),                           // 2: services.bid.v1.Bid
+	(*BidPart)(nil),                       // 3: services.bid.v1.BidPart
+	(*CreateBidRequest)(nil),              // 4: services.bid.v1.CreateBidRequest
+	(*CreateBidPartRequest)(nil),          // 5: services.bid.v1.CreateBidPartRequest
+	(*CreateBidResponse)(nil),             // 6: services.bid.v1.CreateBidResponse
+	(*GetBidRequest)(nil),                 // 7: services.bid.v1.GetBidRequest
+	(*GetBidResponse)(nil),                // 8: services.bid.v1.GetBidResponse
+	(*UpdateBidRequest)(nil),              // 9: services.bid.v1.UpdateBidRequest
+	(*UpdateBidResponse)(nil),             // 10: services.bid.v1.UpdateBidResponse
+	(*DeleteBidRequest)(nil),              // 11: services.bid.v1.DeleteBidRequest
+	(*DeleteBidResponse)(nil),             // 12: services.bid.v1.DeleteBidResponse
+	(*ListBidsRequest)(nil),               // 13: services.bid.v1.ListBidsRequest
+	(*ListBidsResponse)(nil),              // 14: services.bid.v1.ListBidsResponse
+	(*GetBidsByRequestRequest)(nil),       // 15: services.bid.v1.GetBidsByRequestRequest
+	(*GetBidsByRequestResponse)(nil),      // 16: services.bid.v1.GetBidsByRequestResponse
+	(*GetBidsByOrganizationRequest)(nil),  // 17: services.bid.v1.GetBidsByOrganizationRequest
+	(*GetBidsByOrganizationResponse)(nil), // 18: services.bid.v1.GetBidsByOrganizationResponse
+	(*AcceptBidRequest)(nil),              // 19: services.bid.v1.AcceptBidRequest
+	(*AcceptBidResponse)(nil),             // 20: services.bid.v1.AcceptBidResponse
+	(*RejectBidRequest)(nil),              // 21: services.bid.v1.RejectBidRequest
+	(*RejectBidResponse)(nil),             // 22: services.bid.v1.RejectBidResponse
+	(*CancelBidRequest)(nil),              // 23: services.bid.v1.CancelBidRequest
+	(*CancelBidResponse)(nil),             // 24: services.bid.v1.CancelBidResponse
+	(*timestamppb.Timestamp)(nil),         // 25: google.protobuf.Timestamp
 }
 var file_services_bid_bid_proto_depIdxs = []int32{
 	0,  // 0: services.bid.v1.Bid.type:type_name -> services.bid.v1.BidType
 	1,  // 1: services.bid.v1.Bid.status:type_name -> services.bid.v1.BidStatus
 	3,  // 2: services.bid.v1.Bid.parts:type_name -> services.bid.v1.BidPart
-	27, // 3: services.bid.v1.Bid.created_at:type_name -> google.protobuf.Timestamp
-	27, // 4: services.bid.v1.Bid.updated_at:type_name -> google.protobuf.Timestamp
+	25, // 3: services.bid.v1.Bid.created_at:type_name -> google.protobuf.Timestamp
+	25, // 4: services.bid.v1.Bid.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 5: services.bid.v1.CreateBidRequest.type:type_name -> services.bid.v1.BidType
 	5,  // 6: services.bid.v1.CreateBidRequest.parts:type_name -> services.bid.v1.CreateBidPartRequest
 	2,  // 7: services.bid.v1.CreateBidResponse.bid:type_name -> services.bid.v1.Bid
@@ -1981,20 +1829,18 @@ var file_services_bid_bid_proto_depIdxs = []int32{
 	19, // 28: services.bid.v1.BidService.AcceptBid:input_type -> services.bid.v1.AcceptBidRequest
 	21, // 29: services.bid.v1.BidService.RejectBid:input_type -> services.bid.v1.RejectBidRequest
 	23, // 30: services.bid.v1.BidService.CancelBid:input_type -> services.bid.v1.CancelBidRequest
-	25, // 31: services.bid.v1.BidService.FindMatchingOrganizations:input_type -> services.bid.v1.FindMatchingOrganizationsRequest
-	6,  // 32: services.bid.v1.BidService.CreateBid:output_type -> services.bid.v1.CreateBidResponse
-	8,  // 33: services.bid.v1.BidService.GetBid:output_type -> services.bid.v1.GetBidResponse
-	10, // 34: services.bid.v1.BidService.UpdateBid:output_type -> services.bid.v1.UpdateBidResponse
-	12, // 35: services.bid.v1.BidService.DeleteBid:output_type -> services.bid.v1.DeleteBidResponse
-	14, // 36: services.bid.v1.BidService.ListBids:output_type -> services.bid.v1.ListBidsResponse
-	16, // 37: services.bid.v1.BidService.GetBidsByRequest:output_type -> services.bid.v1.GetBidsByRequestResponse
-	18, // 38: services.bid.v1.BidService.GetBidsByOrganization:output_type -> services.bid.v1.GetBidsByOrganizationResponse
-	20, // 39: services.bid.v1.BidService.AcceptBid:output_type -> services.bid.v1.AcceptBidResponse
-	22, // 40: services.bid.v1.BidService.RejectBid:output_type -> services.bid.v1.RejectBidResponse
-	24, // 41: services.bid.v1.BidService.CancelBid:output_type -> services.bid.v1.CancelBidResponse
-	26, // 42: services.bid.v1.BidService.FindMatchingOrganizations:output_type -> services.bid.v1.FindMatchingOrganizationsResponse
-	32, // [32:43] is the sub-list for method output_type
-	21, // [21:32] is the sub-list for method input_type
+	6,  // 31: services.bid.v1.BidService.CreateBid:output_type -> services.bid.v1.CreateBidResponse
+	8,  // 32: services.bid.v1.BidService.GetBid:output_type -> services.bid.v1.GetBidResponse
+	10, // 33: services.bid.v1.BidService.UpdateBid:output_type -> services.bid.v1.UpdateBidResponse
+	12, // 34: services.bid.v1.BidService.DeleteBid:output_type -> services.bid.v1.DeleteBidResponse
+	14, // 35: services.bid.v1.BidService.ListBids:output_type -> services.bid.v1.ListBidsResponse
+	16, // 36: services.bid.v1.BidService.GetBidsByRequest:output_type -> services.bid.v1.GetBidsByRequestResponse
+	18, // 37: services.bid.v1.BidService.GetBidsByOrganization:output_type -> services.bid.v1.GetBidsByOrganizationResponse
+	20, // 38: services.bid.v1.BidService.AcceptBid:output_type -> services.bid.v1.AcceptBidResponse
+	22, // 39: services.bid.v1.BidService.RejectBid:output_type -> services.bid.v1.RejectBidResponse
+	24, // 40: services.bid.v1.BidService.CancelBid:output_type -> services.bid.v1.CancelBidResponse
+	31, // [31:41] is the sub-list for method output_type
+	21, // [21:31] is the sub-list for method input_type
 	21, // [21:21] is the sub-list for extension type_name
 	21, // [21:21] is the sub-list for extension extendee
 	0,  // [0:21] is the sub-list for field type_name
@@ -2014,7 +1860,7 @@ func file_services_bid_bid_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_services_bid_bid_proto_rawDesc), len(file_services_bid_bid_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   25,
+			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -55,9 +55,6 @@ const (
 	BidServiceRejectBidProcedure = "/services.bid.v1.BidService/RejectBid"
 	// BidServiceCancelBidProcedure is the fully-qualified name of the BidService's CancelBid RPC.
 	BidServiceCancelBidProcedure = "/services.bid.v1.BidService/CancelBid"
-	// BidServiceFindMatchingOrganizationsProcedure is the fully-qualified name of the BidService's
-	// FindMatchingOrganizations RPC.
-	BidServiceFindMatchingOrganizationsProcedure = "/services.bid.v1.BidService/FindMatchingOrganizations"
 )
 
 // BidServiceClient is a client for the services.bid.v1.BidService service.
@@ -82,8 +79,6 @@ type BidServiceClient interface {
 	RejectBid(context.Context, *connect.Request[bid.RejectBidRequest]) (*connect.Response[bid.RejectBidResponse], error)
 	// CancelBid cancels a bid (organization cancels their bid)
 	CancelBid(context.Context, *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error)
-	// FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-	FindMatchingOrganizations(context.Context, *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error)
 }
 
 // NewBidServiceClient constructs a client for the services.bid.v1.BidService service. By default,
@@ -157,28 +152,21 @@ func NewBidServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 			connect.WithSchema(bidServiceMethods.ByName("CancelBid")),
 			connect.WithClientOptions(opts...),
 		),
-		findMatchingOrganizations: connect.NewClient[bid.FindMatchingOrganizationsRequest, bid.FindMatchingOrganizationsResponse](
-			httpClient,
-			baseURL+BidServiceFindMatchingOrganizationsProcedure,
-			connect.WithSchema(bidServiceMethods.ByName("FindMatchingOrganizations")),
-			connect.WithClientOptions(opts...),
-		),
 	}
 }
 
 // bidServiceClient implements BidServiceClient.
 type bidServiceClient struct {
-	createBid                 *connect.Client[bid.CreateBidRequest, bid.CreateBidResponse]
-	getBid                    *connect.Client[bid.GetBidRequest, bid.GetBidResponse]
-	updateBid                 *connect.Client[bid.UpdateBidRequest, bid.UpdateBidResponse]
-	deleteBid                 *connect.Client[bid.DeleteBidRequest, bid.DeleteBidResponse]
-	listBids                  *connect.Client[bid.ListBidsRequest, bid.ListBidsResponse]
-	getBidsByRequest          *connect.Client[bid.GetBidsByRequestRequest, bid.GetBidsByRequestResponse]
-	getBidsByOrganization     *connect.Client[bid.GetBidsByOrganizationRequest, bid.GetBidsByOrganizationResponse]
-	acceptBid                 *connect.Client[bid.AcceptBidRequest, bid.AcceptBidResponse]
-	rejectBid                 *connect.Client[bid.RejectBidRequest, bid.RejectBidResponse]
-	cancelBid                 *connect.Client[bid.CancelBidRequest, bid.CancelBidResponse]
-	findMatchingOrganizations *connect.Client[bid.FindMatchingOrganizationsRequest, bid.FindMatchingOrganizationsResponse]
+	createBid             *connect.Client[bid.CreateBidRequest, bid.CreateBidResponse]
+	getBid                *connect.Client[bid.GetBidRequest, bid.GetBidResponse]
+	updateBid             *connect.Client[bid.UpdateBidRequest, bid.UpdateBidResponse]
+	deleteBid             *connect.Client[bid.DeleteBidRequest, bid.DeleteBidResponse]
+	listBids              *connect.Client[bid.ListBidsRequest, bid.ListBidsResponse]
+	getBidsByRequest      *connect.Client[bid.GetBidsByRequestRequest, bid.GetBidsByRequestResponse]
+	getBidsByOrganization *connect.Client[bid.GetBidsByOrganizationRequest, bid.GetBidsByOrganizationResponse]
+	acceptBid             *connect.Client[bid.AcceptBidRequest, bid.AcceptBidResponse]
+	rejectBid             *connect.Client[bid.RejectBidRequest, bid.RejectBidResponse]
+	cancelBid             *connect.Client[bid.CancelBidRequest, bid.CancelBidResponse]
 }
 
 // CreateBid calls services.bid.v1.BidService.CreateBid.
@@ -231,11 +219,6 @@ func (c *bidServiceClient) CancelBid(ctx context.Context, req *connect.Request[b
 	return c.cancelBid.CallUnary(ctx, req)
 }
 
-// FindMatchingOrganizations calls services.bid.v1.BidService.FindMatchingOrganizations.
-func (c *bidServiceClient) FindMatchingOrganizations(ctx context.Context, req *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error) {
-	return c.findMatchingOrganizations.CallUnary(ctx, req)
-}
-
 // BidServiceHandler is an implementation of the services.bid.v1.BidService service.
 type BidServiceHandler interface {
 	// CreateBid creates a new bid from organization to request
@@ -258,8 +241,6 @@ type BidServiceHandler interface {
 	RejectBid(context.Context, *connect.Request[bid.RejectBidRequest]) (*connect.Response[bid.RejectBidResponse], error)
 	// CancelBid cancels a bid (organization cancels their bid)
 	CancelBid(context.Context, *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error)
-	// FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-	FindMatchingOrganizations(context.Context, *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error)
 }
 
 // NewBidServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -329,12 +310,6 @@ func NewBidServiceHandler(svc BidServiceHandler, opts ...connect.HandlerOption) 
 		connect.WithSchema(bidServiceMethods.ByName("CancelBid")),
 		connect.WithHandlerOptions(opts...),
 	)
-	bidServiceFindMatchingOrganizationsHandler := connect.NewUnaryHandler(
-		BidServiceFindMatchingOrganizationsProcedure,
-		svc.FindMatchingOrganizations,
-		connect.WithSchema(bidServiceMethods.ByName("FindMatchingOrganizations")),
-		connect.WithHandlerOptions(opts...),
-	)
 	return "/services.bid.v1.BidService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case BidServiceCreateBidProcedure:
@@ -357,8 +332,6 @@ func NewBidServiceHandler(svc BidServiceHandler, opts ...connect.HandlerOption) 
 			bidServiceRejectBidHandler.ServeHTTP(w, r)
 		case BidServiceCancelBidProcedure:
 			bidServiceCancelBidHandler.ServeHTTP(w, r)
-		case BidServiceFindMatchingOrganizationsProcedure:
-			bidServiceFindMatchingOrganizationsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -406,8 +379,4 @@ func (UnimplementedBidServiceHandler) RejectBid(context.Context, *connect.Reques
 
 func (UnimplementedBidServiceHandler) CancelBid(context.Context, *connect.Request[bid.CancelBidRequest]) (*connect.Response[bid.CancelBidResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.CancelBid is not implemented"))
-}
-
-func (UnimplementedBidServiceHandler) FindMatchingOrganizations(context.Context, *connect.Request[bid.FindMatchingOrganizationsRequest]) (*connect.Response[bid.FindMatchingOrganizationsResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.bid.v1.BidService.FindMatchingOrganizations is not implemented"))
 }

@@ -36,9 +36,6 @@ service BidService {
   
   // CancelBid cancels a bid (organization cancels their bid)
   rpc CancelBid(CancelBidRequest) returns (CancelBidResponse);
-  
-  // FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-  rpc FindMatchingOrganizations(FindMatchingOrganizationsRequest) returns (FindMatchingOrganizationsResponse);
 }
 
 enum BidType {
@@ -224,20 +221,5 @@ message CancelBidRequest {
 
 message CancelBidResponse {
   Bid bid = 1;
-}
-
-// FindMatchingOrganizations (for matching service)
-message FindMatchingOrganizationsRequest {
-  int64 request_id = 1;
-  int64 group_id = 2;
-  repeated int64 category_ids = 3;
-  int64 car_make_id = 4;
-  int64 car_model_id = 5;
-  int32 year = 6;
-  int64 city_id = 7;
-}
-
-message FindMatchingOrganizationsResponse {
-  repeated int64 organization_ids = 1;
 }
 

@@ -19,17 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BidService_CreateBid_FullMethodName                 = "/services.bid.v1.BidService/CreateBid"
-	BidService_GetBid_FullMethodName                    = "/services.bid.v1.BidService/GetBid"
-	BidService_UpdateBid_FullMethodName                 = "/services.bid.v1.BidService/UpdateBid"
-	BidService_DeleteBid_FullMethodName                 = "/services.bid.v1.BidService/DeleteBid"
-	BidService_ListBids_FullMethodName                  = "/services.bid.v1.BidService/ListBids"
-	BidService_GetBidsByRequest_FullMethodName          = "/services.bid.v1.BidService/GetBidsByRequest"
-	BidService_GetBidsByOrganization_FullMethodName     = "/services.bid.v1.BidService/GetBidsByOrganization"
-	BidService_AcceptBid_FullMethodName                 = "/services.bid.v1.BidService/AcceptBid"
-	BidService_RejectBid_FullMethodName                 = "/services.bid.v1.BidService/RejectBid"
-	BidService_CancelBid_FullMethodName                 = "/services.bid.v1.BidService/CancelBid"
-	BidService_FindMatchingOrganizations_FullMethodName = "/services.bid.v1.BidService/FindMatchingOrganizations"
+	BidService_CreateBid_FullMethodName             = "/services.bid.v1.BidService/CreateBid"
+	BidService_GetBid_FullMethodName                = "/services.bid.v1.BidService/GetBid"
+	BidService_UpdateBid_FullMethodName             = "/services.bid.v1.BidService/UpdateBid"
+	BidService_DeleteBid_FullMethodName             = "/services.bid.v1.BidService/DeleteBid"
+	BidService_ListBids_FullMethodName              = "/services.bid.v1.BidService/ListBids"
+	BidService_GetBidsByRequest_FullMethodName      = "/services.bid.v1.BidService/GetBidsByRequest"
+	BidService_GetBidsByOrganization_FullMethodName = "/services.bid.v1.BidService/GetBidsByOrganization"
+	BidService_AcceptBid_FullMethodName             = "/services.bid.v1.BidService/AcceptBid"
+	BidService_RejectBid_FullMethodName             = "/services.bid.v1.BidService/RejectBid"
+	BidService_CancelBid_FullMethodName             = "/services.bid.v1.BidService/CancelBid"
 )
 
 // BidServiceClient is the client API for BidService service.
@@ -56,8 +55,6 @@ type BidServiceClient interface {
 	RejectBid(ctx context.Context, in *RejectBidRequest, opts ...grpc.CallOption) (*RejectBidResponse, error)
 	// CancelBid cancels a bid (organization cancels their bid)
 	CancelBid(ctx context.Context, in *CancelBidRequest, opts ...grpc.CallOption) (*CancelBidResponse, error)
-	// FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-	FindMatchingOrganizations(ctx context.Context, in *FindMatchingOrganizationsRequest, opts ...grpc.CallOption) (*FindMatchingOrganizationsResponse, error)
 }
 
 type bidServiceClient struct {
@@ -168,16 +165,6 @@ func (c *bidServiceClient) CancelBid(ctx context.Context, in *CancelBidRequest, 
 	return out, nil
 }
 
-func (c *bidServiceClient) FindMatchingOrganizations(ctx context.Context, in *FindMatchingOrganizationsRequest, opts ...grpc.CallOption) (*FindMatchingOrganizationsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FindMatchingOrganizationsResponse)
-	err := c.cc.Invoke(ctx, BidService_FindMatchingOrganizations_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // BidServiceServer is the server API for BidService service.
 // All implementations must embed UnimplementedBidServiceServer
 // for forward compatibility.
@@ -202,8 +189,6 @@ type BidServiceServer interface {
 	RejectBid(context.Context, *RejectBidRequest) (*RejectBidResponse, error)
 	// CancelBid cancels a bid (organization cancels their bid)
 	CancelBid(context.Context, *CancelBidRequest) (*CancelBidResponse, error)
-	// FindMatchingOrganizations finds organizations that match request criteria (for matching service)
-	FindMatchingOrganizations(context.Context, *FindMatchingOrganizationsRequest) (*FindMatchingOrganizationsResponse, error)
 	mustEmbedUnimplementedBidServiceServer()
 }
 
@@ -243,9 +228,6 @@ func (UnimplementedBidServiceServer) RejectBid(context.Context, *RejectBidReques
 }
 func (UnimplementedBidServiceServer) CancelBid(context.Context, *CancelBidRequest) (*CancelBidResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CancelBid not implemented")
-}
-func (UnimplementedBidServiceServer) FindMatchingOrganizations(context.Context, *FindMatchingOrganizationsRequest) (*FindMatchingOrganizationsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method FindMatchingOrganizations not implemented")
 }
 func (UnimplementedBidServiceServer) mustEmbedUnimplementedBidServiceServer() {}
 func (UnimplementedBidServiceServer) testEmbeddedByValue()                    {}
@@ -448,24 +430,6 @@ func _BidService_CancelBid_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BidService_FindMatchingOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindMatchingOrganizationsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BidServiceServer).FindMatchingOrganizations(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: BidService_FindMatchingOrganizations_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BidServiceServer).FindMatchingOrganizations(ctx, req.(*FindMatchingOrganizationsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // BidService_ServiceDesc is the grpc.ServiceDesc for BidService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -512,10 +476,6 @@ var BidService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CancelBid",
 			Handler:    _BidService_CancelBid_Handler,
-		},
-		{
-			MethodName: "FindMatchingOrganizations",
-			Handler:    _BidService_FindMatchingOrganizations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
