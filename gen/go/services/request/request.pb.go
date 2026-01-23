@@ -125,7 +125,7 @@ func (RequestStatus) EnumDescriptor() ([]byte, []int) {
 
 type Request struct {
 	state  protoimpl.MessageState `protogen:"open.v1"`
-	Id     int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id     string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // UUID string
 	Type   RequestType            `protobuf:"varint,2,opt,name=type,proto3,enum=services.request.v1.RequestType" json:"type,omitempty"`
 	Status RequestStatus          `protobuf:"varint,3,opt,name=status,proto3,enum=services.request.v1.RequestStatus" json:"status,omitempty"`
 	UserId int64                  `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -182,11 +182,11 @@ func (*Request) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Request) GetId() int64 {
+func (x *Request) GetId() string {
 	if x != nil {
 		return x.Id
 	}
-	return 0
+	return ""
 }
 
 func (x *Request) GetType() RequestType {
@@ -519,7 +519,7 @@ func (x *CreateRequestResponse) GetRequest() *Request {
 // GetRequest
 type GetRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID string
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -554,11 +554,11 @@ func (*GetRequestRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetRequestRequest) GetRequestId() int64 {
+func (x *GetRequestRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 type GetRequestResponse struct {
@@ -608,7 +608,7 @@ func (x *GetRequestResponse) GetRequest() *Request {
 // UpdateRequest
 type UpdateRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID string
 	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Note          *string                `protobuf:"bytes,3,opt,name=note,proto3,oneof" json:"note,omitempty"`
 	Photos        []string               `protobuf:"bytes,4,rep,name=photos,proto3" json:"photos,omitempty"`
@@ -649,11 +649,11 @@ func (*UpdateRequestRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *UpdateRequestRequest) GetRequestId() int64 {
+func (x *UpdateRequestRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 func (x *UpdateRequestRequest) GetUserId() int64 {
@@ -745,7 +745,7 @@ func (x *UpdateRequestResponse) GetRequest() *Request {
 // DeleteRequest
 type DeleteRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID string
 	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -781,11 +781,11 @@ func (*DeleteRequestRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *DeleteRequestRequest) GetRequestId() int64 {
+func (x *DeleteRequestRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 func (x *DeleteRequestRequest) GetUserId() int64 {
@@ -1188,7 +1188,7 @@ func (x *SearchRequestsResponse) GetTotal() int32 {
 // ChangeStatus
 type ChangeStatusRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID string
 	Status        RequestStatus          `protobuf:"varint,2,opt,name=status,proto3,enum=services.request.v1.RequestStatus" json:"status,omitempty"`
 	UserId        int64                  `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -1225,11 +1225,11 @@ func (*ChangeStatusRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *ChangeStatusRequest) GetRequestId() int64 {
+func (x *ChangeStatusRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 func (x *ChangeStatusRequest) GetStatus() RequestStatus {
@@ -1414,7 +1414,7 @@ func (x *GetUserRequestsResponse) GetTotal() int32 {
 // IncrementViews
 type IncrementViewsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID string
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1449,11 +1449,11 @@ func (*IncrementViewsRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{17}
 }
 
-func (x *IncrementViewsRequest) GetRequestId() int64 {
+func (x *IncrementViewsRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 type IncrementViewsResponse struct {
@@ -1644,7 +1644,7 @@ func (x *GetNewRequestsForOrganizationRequest) GetOrganizationId() string {
 
 type GetNewRequestsForOrganizationResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestIds    []int64                `protobuf:"varint,1,rep,packed,name=request_ids,json=requestIds,proto3" json:"request_ids,omitempty"`
+	RequestIds    []string               `protobuf:"bytes,1,rep,name=request_ids,json=requestIds,proto3" json:"request_ids,omitempty"` // UUID strings
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1679,7 +1679,7 @@ func (*GetNewRequestsForOrganizationResponse) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{22}
 }
 
-func (x *GetNewRequestsForOrganizationResponse) GetRequestIds() []int64 {
+func (x *GetNewRequestsForOrganizationResponse) GetRequestIds() []string {
 	if x != nil {
 		return x.RequestIds
 	}
@@ -1689,7 +1689,7 @@ func (x *GetNewRequestsForOrganizationResponse) GetRequestIds() []int64 {
 // MarkRequestAsViewed
 type MarkRequestAsViewedRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	RequestId      int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId      string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`                // UUID string
 	OrganizationId string                 `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -1725,11 +1725,11 @@ func (*MarkRequestAsViewedRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{23}
 }
 
-func (x *MarkRequestAsViewedRequest) GetRequestId() int64 {
+func (x *MarkRequestAsViewedRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 func (x *MarkRequestAsViewedRequest) GetOrganizationId() string {
@@ -1786,7 +1786,7 @@ func (x *MarkRequestAsViewedResponse) GetSuccess() bool {
 // IsRequestNew
 type IsRequestNewRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	RequestId      int64                  `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	RequestId      string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`                // UUID string
 	OrganizationId string                 `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"` // UUID from organization-service
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -1822,11 +1822,11 @@ func (*IsRequestNewRequest) Descriptor() ([]byte, []int) {
 	return file_services_request_request_proto_rawDescGZIP(), []int{25}
 }
 
-func (x *IsRequestNewRequest) GetRequestId() int64 {
+func (x *IsRequestNewRequest) GetRequestId() string {
 	if x != nil {
 		return x.RequestId
 	}
-	return 0
+	return ""
 }
 
 func (x *IsRequestNewRequest) GetOrganizationId() string {
@@ -1886,7 +1886,7 @@ const file_services_request_request_proto_rawDesc = "" +
 	"\n" +
 	"\x1eservices/request/request.proto\x12\x13services.request.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe3\x05\n" +
 	"\aRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x124\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x124\n" +
 	"\x04type\x18\x02 \x01(\x0e2 .services.request.v1.RequestTypeR\x04type\x12:\n" +
 	"\x06status\x18\x03 \x01(\x0e2\".services.request.v1.RequestStatusR\x06status\x12\x17\n" +
 	"\auser_id\x18\x04 \x01(\x03R\x06userId\x12\x19\n" +
@@ -1934,12 +1934,12 @@ const file_services_request_request_proto_rawDesc = "" +
 	"\arequest\x18\x01 \x01(\v2\x1c.services.request.v1.RequestR\arequest\"2\n" +
 	"\x11GetRequestRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\"L\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\"L\n" +
 	"\x12GetRequestResponse\x126\n" +
 	"\arequest\x18\x01 \x01(\v2\x1c.services.request.v1.RequestR\arequest\"\x92\x02\n" +
 	"\x14UpdateRequestRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\x12\x17\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x17\n" +
 	"\x04note\x18\x03 \x01(\tH\x00R\x04note\x88\x01\x01\x12\x16\n" +
 	"\x06photos\x18\x04 \x03(\tR\x06photos\x12\x1d\n" +
@@ -1956,7 +1956,7 @@ const file_services_request_request_proto_rawDesc = "" +
 	"\arequest\x18\x01 \x01(\v2\x1c.services.request.v1.RequestR\arequest\"N\n" +
 	"\x14DeleteRequestRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\x12\x17\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\"1\n" +
 	"\x15DeleteRequestResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"\xdf\x02\n" +
@@ -1995,7 +1995,7 @@ const file_services_request_request_proto_rawDesc = "" +
 	"\x05total\x18\x02 \x01(\x05R\x05total\"\x89\x01\n" +
 	"\x13ChangeStatusRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\x12:\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x12:\n" +
 	"\x06status\x18\x02 \x01(\x0e2\".services.request.v1.RequestStatusR\x06status\x12\x17\n" +
 	"\auser_id\x18\x03 \x01(\x03R\x06userId\"N\n" +
 	"\x14ChangeStatusResponse\x126\n" +
@@ -2010,7 +2010,7 @@ const file_services_request_request_proto_rawDesc = "" +
 	"\x05total\x18\x02 \x01(\x05R\x05total\"6\n" +
 	"\x15IncrementViewsRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\"2\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\"2\n" +
 	"\x16IncrementViewsResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"C\n" +
 	"\x15GetSuggestionsRequest\x12\x14\n" +
@@ -2021,17 +2021,17 @@ const file_services_request_request_proto_rawDesc = "" +
 	"$GetNewRequestsForOrganizationRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\"H\n" +
 	"%GetNewRequestsForOrganizationResponse\x12\x1f\n" +
-	"\vrequest_ids\x18\x01 \x03(\x03R\n" +
+	"\vrequest_ids\x18\x01 \x03(\tR\n" +
 	"requestIds\"d\n" +
 	"\x1aMarkRequestAsViewedRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\x12'\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\"7\n" +
 	"\x1bMarkRequestAsViewedResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"]\n" +
 	"\x13IsRequestNewRequest\x12\x1d\n" +
 	"\n" +
-	"request_id\x18\x01 \x01(\x03R\trequestId\x12'\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\"-\n" +
 	"\x14IsRequestNewResponse\x12\x15\n" +
 	"\x06is_new\x18\x01 \x01(\bR\x05isNew*\\\n" +

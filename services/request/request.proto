@@ -61,7 +61,7 @@ enum RequestStatus {
 }
 
 message Request {
-  int64 id = 1;
+  string id = 1;  // UUID string
   RequestType type = 2;
   RequestStatus status = 3;
   int64 user_id = 4;
@@ -121,7 +121,7 @@ message CreateRequestResponse {
 
 // GetRequest
 message GetRequestRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
 }
 
 message GetRequestResponse {
@@ -130,7 +130,7 @@ message GetRequestResponse {
 
 // UpdateRequest
 message UpdateRequestRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
   int64 user_id = 2;
   
   optional string note = 3;
@@ -147,7 +147,7 @@ message UpdateRequestResponse {
 
 // DeleteRequest
 message DeleteRequestRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
   int64 user_id = 2;
 }
 
@@ -196,7 +196,7 @@ message SearchRequestsResponse {
 
 // ChangeStatus
 message ChangeStatusRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
   RequestStatus status = 2;
   int64 user_id = 3;
 }
@@ -220,7 +220,7 @@ message GetUserRequestsResponse {
 
 // IncrementViews
 message IncrementViewsRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
 }
 
 message IncrementViewsResponse {
@@ -243,12 +243,12 @@ message GetNewRequestsForOrganizationRequest {
 }
 
 message GetNewRequestsForOrganizationResponse {
-  repeated int64 request_ids = 1;
+  repeated string request_ids = 1;  // UUID strings
 }
 
 // MarkRequestAsViewed
 message MarkRequestAsViewedRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
   string organization_id = 2;  // UUID from organization-service
 }
 
@@ -258,7 +258,7 @@ message MarkRequestAsViewedResponse {
 
 // IsRequestNew
 message IsRequestNewRequest {
-  int64 request_id = 1;
+  string request_id = 1;  // UUID string
   string organization_id = 2;  // UUID from organization-service
 }
 
