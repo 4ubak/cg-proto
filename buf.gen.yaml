@@ -11,9 +11,3 @@ plugins:
     out: gen/go
     opt:
       - paths=source_relative
-
-  # Connect-go (HTTP/JSON + gRPC)
-  - plugin: buf.build/connectrpc/go
-    out: gen/go
-    opt:
-      - paths=source_relative
