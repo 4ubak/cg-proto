@@ -296,7 +296,7 @@ option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/auth/v1;authv1";
 ```protobuf
 // Имя сервиса = Имя файла + Service
 service AuthService { ... }
-service AdService { ... }
+service RequestService { ... }
 service ChatService { ... }
 ```
 
