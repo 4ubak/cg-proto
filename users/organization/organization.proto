@@ -42,6 +42,9 @@ service OrganizationService {
   // Permissions
   rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
   rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+
+  // Public search (for mobile app - auto services, car washes, etc.)
+  rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse);
 }
 
 enum OrganizationType {
@@ -300,4 +303,41 @@ message GetCategoriesRequest {
 
 message GetCategoriesResponse {
   repeated int64 category_ids = 1;
+}
+
+// Public search for organizations (auto services, car washes, etc.)
+message SearchOrganizationsRequest {
+  OrganizationType type = 1;           // Filter by type (STO, CAR_WASH, etc.)
+  int64 city_id = 2;                   // Filter by city
+  repeated int64 category_ids = 3;     // Filter by service categories
+  string query = 4;                    // Search by name
+  int32 page = 5;
+  int32 limit = 6;
+  double latitude = 7;                 // For distance sorting
+  double longitude = 8;                // For distance sorting
+}
+
+message SearchOrganizationsResponse {
+  repeated OrganizationPublic organizations = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 limit = 4;
+}
+
+// Public organization info (for search results)
+message OrganizationPublic {
+  string id = 1;
+  string name = 2;
+  OrganizationType type = 3;
+  string description = 4;
+  string logo_url = 5;
+  string address = 6;
+  string phone = 7;
+  int64 city_id = 8;
+  string city_name = 9;
+  repeated int64 category_ids = 10;
+  OrganizationSettings settings = 11;
+  double rating = 12;
+  int32 reviews_count = 13;
+  double distance = 14;                // Distance in km (if lat/lon provided)
 }
