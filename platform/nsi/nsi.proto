@@ -53,6 +53,7 @@ message CarGeneration {
   string name = 3;
   int32 year_start = 4;
   int32 year_end = 5;
+  string photo_url = 6;
 }
 
 message Category {

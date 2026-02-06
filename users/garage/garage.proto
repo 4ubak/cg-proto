@@ -1,0 +1,384 @@
+syntax = "proto3";
+
+package users.garage.v1;
+
+option go_package = "gitlab.com/xakpro/cg-proto/gen/go/users/garage;garagev1";
+
+import "google/protobuf/timestamp.proto";
+
+service GarageService {
+  // Cars
+  rpc CreateCar(CreateCarRequest) returns (CreateCarResponse);
+  rpc GetCar(GetCarRequest) returns (GetCarResponse);
+  rpc ListCars(ListCarsRequest) returns (ListCarsResponse);
+  rpc UpdateCar(UpdateCarRequest) returns (UpdateCarResponse);
+  rpc DeleteCar(DeleteCarRequest) returns (DeleteCarResponse);
+
+  // Photos
+  rpc AddCarPhoto(AddCarPhotoRequest) returns (AddCarPhotoResponse);
+  rpc DeleteCarPhoto(DeleteCarPhotoRequest) returns (DeleteCarPhotoResponse);
+  rpc SetPrimaryPhoto(SetPrimaryPhotoRequest) returns (SetPrimaryPhotoResponse);
+
+  // Documents
+  rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse);
+  rpc GetDocument(GetDocumentRequest) returns (GetDocumentResponse);
+  rpc ListDocuments(ListDocumentsRequest) returns (ListDocumentsResponse);
+  rpc UpdateDocument(UpdateDocumentRequest) returns (UpdateDocumentResponse);
+  rpc DeleteDocument(DeleteDocumentRequest) returns (DeleteDocumentResponse);
+
+  // Service Records
+  rpc CreateServiceRecord(CreateServiceRecordRequest) returns (CreateServiceRecordResponse);
+  rpc GetServiceRecord(GetServiceRecordRequest) returns (GetServiceRecordResponse);
+  rpc ListServiceRecords(ListServiceRecordsRequest) returns (ListServiceRecordsResponse);
+  rpc UpdateServiceRecord(UpdateServiceRecordRequest) returns (UpdateServiceRecordResponse);
+  rpc DeleteServiceRecord(DeleteServiceRecordRequest) returns (DeleteServiceRecordResponse);
+
+  // Reminders
+  rpc CreateReminder(CreateReminderRequest) returns (CreateReminderResponse);
+  rpc GetReminder(GetReminderRequest) returns (GetReminderResponse);
+  rpc ListReminders(ListRemindersRequest) returns (ListRemindersResponse);
+  rpc ListUpcomingReminders(ListUpcomingRemindersRequest) returns (ListUpcomingRemindersResponse);
+  rpc UpdateReminder(UpdateReminderRequest) returns (UpdateReminderResponse);
+  rpc CompleteReminder(CompleteReminderRequest) returns (CompleteReminderResponse);
+  rpc DeleteReminder(DeleteReminderRequest) returns (DeleteReminderResponse);
+}
+
+// ==================== Core Messages ====================
+
+message Car {
+  int64 id = 1;
+  int64 user_id = 2;
+  int32 mark_id = 3;
+  int32 model_id = 4;
+  int32 generation_id = 5;
+  int32 year = 6;
+  string vin = 7;
+  string license_plate = 8;
+  string color = 9;
+  int32 mileage = 10;
+  bool is_primary = 11;
+  repeated CarPhoto photos = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+}
+
+message CarPhoto {
+  int64 id = 1;
+  int64 car_id = 2;
+  string url = 3;
+  bool is_primary = 4;
+  int32 sort_order = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+message CarDocument {
+  int64 id = 1;
+  int64 car_id = 2;
+  string type = 3;              // sts, pts, insurance, inspection
+  string number = 4;
+  google.protobuf.Timestamp issued_at = 5;
+  google.protobuf.Timestamp expires_at = 6;
+  string file_url = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}
+
+message ServiceRecord {
+  int64 id = 1;
+  int64 car_id = 2;
+  string type = 3;              // oil_change, tire_change, repair, maintenance, other
+  string title = 4;
+  string description = 5;
+  int32 mileage = 6;
+  string cost = 7;              // decimal as string for precision
+  google.protobuf.Timestamp service_date = 8;
+  string service_provider = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
+
+message Reminder {
+  int64 id = 1;
+  int64 car_id = 2;
+  string type = 3;              // insurance, inspection, oil_change, tire_change, custom
+  string title = 4;
+  string description = 5;
+  google.protobuf.Timestamp remind_at = 6;
+  int32 mileage_trigger = 7;
+  bool is_completed = 8;
+  google.protobuf.Timestamp completed_at = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
+
+// ==================== Cars ====================
+
+message CreateCarRequest {
+  int32 mark_id = 1;
+  int32 model_id = 2;
+  int32 generation_id = 3;
+  int32 year = 4;
+  string vin = 5;
+  string license_plate = 6;
+  string color = 7;
+  int32 mileage = 8;
+  bool is_primary = 9;
+}
+
+message CreateCarResponse {
+  Car car = 1;
+}
+
+message GetCarRequest {
+  int64 car_id = 1;
+}
+
+message GetCarResponse {
+  Car car = 1;
+}
+
+message ListCarsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message ListCarsResponse {
+  repeated Car cars = 1;
+  int32 total = 2;
+}
+
+message UpdateCarRequest {
+  int64 car_id = 1;
+  optional int32 mark_id = 2;
+  optional int32 model_id = 3;
+  optional int32 generation_id = 4;
+  optional int32 year = 5;
+  optional string vin = 6;
+  optional string license_plate = 7;
+  optional string color = 8;
+  optional int32 mileage = 9;
+  optional bool is_primary = 10;
+}
+
+message UpdateCarResponse {
+  Car car = 1;
+}
+
+message DeleteCarRequest {
+  int64 car_id = 1;
+}
+
+message DeleteCarResponse {}
+
+// ==================== Photos ====================
+
+message AddCarPhotoRequest {
+  int64 car_id = 1;
+  string url = 2;
+  bool is_primary = 3;
+  int32 sort_order = 4;
+}
+
+message AddCarPhotoResponse {
+  CarPhoto photo = 1;
+}
+
+message DeleteCarPhotoRequest {
+  int64 car_id = 1;
+  int64 photo_id = 2;
+}
+
+message DeleteCarPhotoResponse {}
+
+message SetPrimaryPhotoRequest {
+  int64 car_id = 1;
+  int64 photo_id = 2;
+}
+
+message SetPrimaryPhotoResponse {
+  CarPhoto photo = 1;
+}
+
+// ==================== Documents ====================
+
+message CreateDocumentRequest {
+  int64 car_id = 1;
+  string type = 2;
+  string number = 3;
+  google.protobuf.Timestamp issued_at = 4;
+  google.protobuf.Timestamp expires_at = 5;
+  string file_url = 6;
+}
+
+message CreateDocumentResponse {
+  CarDocument document = 1;
+}
+
+message GetDocumentRequest {
+  int64 car_id = 1;
+  int64 document_id = 2;
+}
+
+message GetDocumentResponse {
+  CarDocument document = 1;
+}
+
+message ListDocumentsRequest {
+  int64 car_id = 1;
+}
+
+message ListDocumentsResponse {
+  repeated CarDocument documents = 1;
+}
+
+message UpdateDocumentRequest {
+  int64 car_id = 1;
+  int64 document_id = 2;
+  optional string type = 3;
+  optional string number = 4;
+  optional google.protobuf.Timestamp issued_at = 5;
+  optional google.protobuf.Timestamp expires_at = 6;
+  optional string file_url = 7;
+}
+
+message UpdateDocumentResponse {
+  CarDocument document = 1;
+}
+
+message DeleteDocumentRequest {
+  int64 car_id = 1;
+  int64 document_id = 2;
+}
+
+message DeleteDocumentResponse {}
+
+// ==================== Service Records ====================
+
+message CreateServiceRecordRequest {
+  int64 car_id = 1;
+  string type = 2;
+  string title = 3;
+  string description = 4;
+  int32 mileage = 5;
+  string cost = 6;
+  google.protobuf.Timestamp service_date = 7;
+  string service_provider = 8;
+}
+
+message CreateServiceRecordResponse {
+  ServiceRecord record = 1;
+}
+
+message GetServiceRecordRequest {
+  int64 car_id = 1;
+  int64 record_id = 2;
+}
+
+message GetServiceRecordResponse {
+  ServiceRecord record = 1;
+}
+
+message ListServiceRecordsRequest {
+  int64 car_id = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message ListServiceRecordsResponse {
+  repeated ServiceRecord records = 1;
+  int32 total = 2;
+}
+
+message UpdateServiceRecordRequest {
+  int64 car_id = 1;
+  int64 record_id = 2;
+  optional string type = 3;
+  optional string title = 4;
+  optional string description = 5;
+  optional int32 mileage = 6;
+  optional string cost = 7;
+  optional google.protobuf.Timestamp service_date = 8;
+  optional string service_provider = 9;
+}
+
+message UpdateServiceRecordResponse {
+  ServiceRecord record = 1;
+}
+
+message DeleteServiceRecordRequest {
+  int64 car_id = 1;
+  int64 record_id = 2;
+}
+
+message DeleteServiceRecordResponse {}
+
+// ==================== Reminders ====================
+
+message CreateReminderRequest {
+  int64 car_id = 1;
+  string type = 2;
+  string title = 3;
+  string description = 4;
+  google.protobuf.Timestamp remind_at = 5;
+  int32 mileage_trigger = 6;
+}
+
+message CreateReminderResponse {
+  Reminder reminder = 1;
+}
+
+message GetReminderRequest {
+  int64 car_id = 1;
+  int64 reminder_id = 2;
+}
+
+message GetReminderResponse {
+  Reminder reminder = 1;
+}
+
+message ListRemindersRequest {
+  int64 car_id = 1;
+  bool include_completed = 2;
+}
+
+message ListRemindersResponse {
+  repeated Reminder reminders = 1;
+}
+
+message ListUpcomingRemindersRequest {
+  int32 days_ahead = 1;  // Number of days ahead to look
+}
+
+message ListUpcomingRemindersResponse {
+  repeated Reminder reminders = 1;
+}
+
+message UpdateReminderRequest {
+  int64 car_id = 1;
+  int64 reminder_id = 2;
+  optional string type = 3;
+  optional string title = 4;
+  optional string description = 5;
+  optional google.protobuf.Timestamp remind_at = 6;
+  optional int32 mileage_trigger = 7;
+}
+
+message UpdateReminderResponse {
+  Reminder reminder = 1;
+}
+
+message CompleteReminderRequest {
+  int64 car_id = 1;
+  int64 reminder_id = 2;
+}
+
+message CompleteReminderResponse {
+  Reminder reminder = 1;
+}
+
+message DeleteReminderRequest {
+  int64 car_id = 1;
+  int64 reminder_id = 2;
+}
+
+message DeleteReminderResponse {}

@@ -240,6 +240,7 @@ type CarGeneration struct {
 	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 	YearStart     int32                  `protobuf:"varint,4,opt,name=year_start,json=yearStart,proto3" json:"year_start,omitempty"`
 	YearEnd       int32                  `protobuf:"varint,5,opt,name=year_end,json=yearEnd,proto3" json:"year_end,omitempty"`
+	PhotoUrl      string                 `protobuf:"bytes,6,opt,name=photo_url,json=photoUrl,proto3" json:"photo_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -307,6 +308,13 @@ func (x *CarGeneration) GetYearEnd() int32 {
 		return x.YearEnd
 	}
 	return 0
+}
+
+func (x *CarGeneration) GetPhotoUrl() string {
+	if x != nil {
+		return x.PhotoUrl
+	}
+	return ""
 }
 
 type Category struct {
@@ -1815,14 +1823,15 @@ const file_platform_nsi_nsi_proto_rawDesc = "" +
 	"\bCarModel\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x17\n" +
 	"\amark_id\x18\x02 \x01(\x05R\x06markId\x12\x12\n" +
-	"\x04name\x18\x03 \x01(\tR\x04name\"\x88\x01\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\"\xa5\x01\n" +
 	"\rCarGeneration\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x19\n" +
 	"\bmodel_id\x18\x02 \x01(\x05R\amodelId\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12\x1d\n" +
 	"\n" +
 	"year_start\x18\x04 \x01(\x05R\tyearStart\x12\x19\n" +
-	"\byear_end\x18\x05 \x01(\x05R\ayearEnd\"\x99\x01\n" +
+	"\byear_end\x18\x05 \x01(\x05R\ayearEnd\x12\x1b\n" +
+	"\tphoto_url\x18\x06 \x01(\tR\bphotoUrl\"\x99\x01\n" +
 	"\bCategory\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1b\n" +
 	"\tparent_id\x18\x02 \x01(\x05R\bparentId\x12\x12\n" +
