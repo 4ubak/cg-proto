@@ -37,7 +37,6 @@ const (
 	OrganizationService_DeactivateInviteCode_FullMethodName = "/users.organization.v1.OrganizationService/DeactivateInviteCode"
 	OrganizationService_CheckPermission_FullMethodName      = "/users.organization.v1.OrganizationService/CheckPermission"
 	OrganizationService_GetRoles_FullMethodName             = "/users.organization.v1.OrganizationService/GetRoles"
-	OrganizationService_SearchOrganizations_FullMethodName  = "/users.organization.v1.OrganizationService/SearchOrganizations"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -71,8 +70,6 @@ type OrganizationServiceClient interface {
 	// Permissions
 	CheckPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
 	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesResponse, error)
-	// Public search (for mobile app - auto services, car washes, etc.)
-	SearchOrganizations(ctx context.Context, in *SearchOrganizationsRequest, opts ...grpc.CallOption) (*SearchOrganizationsResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -263,16 +260,6 @@ func (c *organizationServiceClient) GetRoles(ctx context.Context, in *GetRolesRe
 	return out, nil
 }
 
-func (c *organizationServiceClient) SearchOrganizations(ctx context.Context, in *SearchOrganizationsRequest, opts ...grpc.CallOption) (*SearchOrganizationsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SearchOrganizationsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_SearchOrganizations_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -304,8 +291,6 @@ type OrganizationServiceServer interface {
 	// Permissions
 	CheckPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
 	GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error)
-	// Public search (for mobile app - auto services, car washes, etc.)
-	SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -369,9 +354,6 @@ func (UnimplementedOrganizationServiceServer) CheckPermission(context.Context, *
 }
 func (UnimplementedOrganizationServiceServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetRoles not implemented")
-}
-func (UnimplementedOrganizationServiceServer) SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method SearchOrganizations not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -718,24 +700,6 @@ func _OrganizationService_GetRoles_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_SearchOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchOrganizationsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).SearchOrganizations(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_SearchOrganizations_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).SearchOrganizations(ctx, req.(*SearchOrganizationsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -814,10 +778,6 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRoles",
 			Handler:    _OrganizationService_GetRoles_Handler,
-		},
-		{
-			MethodName: "SearchOrganizations",
-			Handler:    _OrganizationService_SearchOrganizations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

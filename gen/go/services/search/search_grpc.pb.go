@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	SearchService_Search_FullMethodName          = "/services.search.v1.SearchService/Search"
-	SearchService_Suggest_FullMethodName         = "/services.search.v1.SearchService/Suggest"
-	SearchService_Similar_FullMethodName         = "/services.search.v1.SearchService/Similar"
-	SearchService_Reindex_FullMethodName         = "/services.search.v1.SearchService/Reindex"
-	SearchService_IndexRequest_FullMethodName    = "/services.search.v1.SearchService/IndexRequest"
-	SearchService_DeleteFromIndex_FullMethodName = "/services.search.v1.SearchService/DeleteFromIndex"
+	SearchService_Search_FullMethodName              = "/services.search.v1.SearchService/Search"
+	SearchService_SearchOrganizations_FullMethodName = "/services.search.v1.SearchService/SearchOrganizations"
+	SearchService_Suggest_FullMethodName             = "/services.search.v1.SearchService/Suggest"
+	SearchService_Similar_FullMethodName             = "/services.search.v1.SearchService/Similar"
+	SearchService_Reindex_FullMethodName             = "/services.search.v1.SearchService/Reindex"
+	SearchService_IndexRequest_FullMethodName        = "/services.search.v1.SearchService/IndexRequest"
+	SearchService_DeleteFromIndex_FullMethodName     = "/services.search.v1.SearchService/DeleteFromIndex"
 )
 
 // SearchServiceClient is the client API for SearchService service.
@@ -33,6 +34,8 @@ const (
 type SearchServiceClient interface {
 	// Search performs full-text search on requests
 	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
+	// SearchOrganizations performs search on organizations (auto services, car washes, etc.)
+	SearchOrganizations(ctx context.Context, in *SearchOrganizationsRequest, opts ...grpc.CallOption) (*SearchOrganizationsResponse, error)
 	// Suggest returns search suggestions (autocomplete)
 	Suggest(ctx context.Context, in *SuggestRequest, opts ...grpc.CallOption) (*SuggestResponse, error)
 	// Similar returns similar requests
@@ -57,6 +60,16 @@ func (c *searchServiceClient) Search(ctx context.Context, in *SearchRequest, opt
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SearchResponse)
 	err := c.cc.Invoke(ctx, SearchService_Search_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *searchServiceClient) SearchOrganizations(ctx context.Context, in *SearchOrganizationsRequest, opts ...grpc.CallOption) (*SearchOrganizationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchOrganizationsResponse)
+	err := c.cc.Invoke(ctx, SearchService_SearchOrganizations_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -119,6 +132,8 @@ func (c *searchServiceClient) DeleteFromIndex(ctx context.Context, in *DeleteFro
 type SearchServiceServer interface {
 	// Search performs full-text search on requests
 	Search(context.Context, *SearchRequest) (*SearchResponse, error)
+	// SearchOrganizations performs search on organizations (auto services, car washes, etc.)
+	SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error)
 	// Suggest returns search suggestions (autocomplete)
 	Suggest(context.Context, *SuggestRequest) (*SuggestResponse, error)
 	// Similar returns similar requests
@@ -141,6 +156,9 @@ type UnimplementedSearchServiceServer struct{}
 
 func (UnimplementedSearchServiceServer) Search(context.Context, *SearchRequest) (*SearchResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Search not implemented")
+}
+func (UnimplementedSearchServiceServer) SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SearchOrganizations not implemented")
 }
 func (UnimplementedSearchServiceServer) Suggest(context.Context, *SuggestRequest) (*SuggestResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Suggest not implemented")
@@ -192,6 +210,24 @@ func _SearchService_Search_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SearchServiceServer).Search(ctx, req.(*SearchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SearchService_SearchOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchOrganizationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SearchServiceServer).SearchOrganizations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SearchService_SearchOrganizations_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SearchServiceServer).SearchOrganizations(ctx, req.(*SearchOrganizationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -296,6 +332,10 @@ var SearchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Search",
 			Handler:    _SearchService_Search_Handler,
+		},
+		{
+			MethodName: "SearchOrganizations",
+			Handler:    _SearchService_SearchOrganizations_Handler,
 		},
 		{
 			MethodName: "Suggest",

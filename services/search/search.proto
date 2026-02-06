@@ -9,19 +9,22 @@ import "google/protobuf/timestamp.proto";
 service SearchService {
   // Search performs full-text search on requests
   rpc Search(SearchRequest) returns (SearchResponse);
-  
+
+  // SearchOrganizations performs search on organizations (auto services, car washes, etc.)
+  rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse);
+
   // Suggest returns search suggestions (autocomplete)
   rpc Suggest(SuggestRequest) returns (SuggestResponse);
-  
+
   // Similar returns similar requests
   rpc Similar(SimilarRequest) returns (SimilarResponse);
-  
+
   // Reindex triggers full or incremental reindex
   rpc Reindex(ReindexRequest) returns (ReindexResponse);
-  
+
   // IndexRequest indexes a single request (internal, from Kafka events)
   rpc IndexRequest(IndexRequestRequest) returns (IndexRequestResponse);
-  
+
   // DeleteRequest removes request from index (internal, from Kafka events)
   rpc DeleteFromIndex(DeleteFromIndexRequest) returns (DeleteFromIndexResponse);
 }
@@ -163,4 +166,82 @@ message DeleteFromIndexRequest {
 
 message DeleteFromIndexResponse {
   bool success = 1;
+}
+
+// ==================== Organization Search ====================
+
+enum OrganizationType {
+  ORGANIZATION_TYPE_UNSPECIFIED = 0;
+  ORGANIZATION_TYPE_STO = 1;           // СТО (auto service)
+  ORGANIZATION_TYPE_BODY_SHOP = 2;     // Кузовной цех
+  ORGANIZATION_TYPE_CAR_WASH = 3;      // Автомойка
+  ORGANIZATION_TYPE_PARTS_SUPPLIER = 4; // Поставщик запчастей
+  ORGANIZATION_TYPE_TIRE_SERVICE = 5;  // Шиномонтаж
+  ORGANIZATION_TYPE_DEALER = 6;        // Дилер
+}
+
+// Organization document for search results
+message OrganizationDocument {
+  string id = 1;
+  string name = 2;
+  OrganizationType type = 3;
+  string description = 4;
+  string logo_url = 5;
+  string address = 6;
+  string phone = 7;
+  int64 city_id = 8;
+  string city_name = 9;
+  repeated int64 category_ids = 10;
+  double rating = 11;
+  int32 reviews_count = 12;
+  double distance = 13;                // Distance in km (if lat/lon provided)
+  bool is_active = 14;
+
+  // Working hours
+  string working_hours = 15;           // e.g., "09:00-18:00"
+
+  // Geo coordinates
+  double latitude = 16;
+  double longitude = 17;
+}
+
+// SearchOrganizations
+message SearchOrganizationsRequest {
+  string query = 1;                    // Full-text search by name
+  OrganizationType type = 2;           // Filter by type (STO, CAR_WASH, etc.)
+  int64 city_id = 3;                   // Filter by city
+  repeated int64 category_ids = 4;     // Filter by service categories
+
+  // Geo search (sort by distance)
+  double latitude = 5;
+  double longitude = 6;
+  double radius_km = 7;                // Search radius in km (optional)
+
+  // Pagination
+  int32 page = 8;
+  int32 page_size = 9;
+
+  // Sorting
+  OrganizationSortBy sort_by = 10;
+}
+
+enum OrganizationSortBy {
+  ORGANIZATION_SORT_BY_UNSPECIFIED = 0;
+  ORGANIZATION_SORT_BY_RELEVANCE = 1;
+  ORGANIZATION_SORT_BY_DISTANCE = 2;
+  ORGANIZATION_SORT_BY_RATING = 3;
+  ORGANIZATION_SORT_BY_NAME = 4;
+}
+
+message SearchOrganizationsResponse {
+  repeated OrganizationDocument organizations = 1;
+  int32 total = 2;
+  OrganizationFacets facets = 3;
+}
+
+// Facets for organization search
+message OrganizationFacets {
+  repeated FacetBucket types = 1;
+  repeated FacetBucket cities = 2;
+  repeated FacetBucket categories = 3;
 }

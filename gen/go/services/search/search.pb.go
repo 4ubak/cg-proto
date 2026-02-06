@@ -175,6 +175,122 @@ func (SortBy) EnumDescriptor() ([]byte, []int) {
 	return file_services_search_search_proto_rawDescGZIP(), []int{2}
 }
 
+type OrganizationType int32
+
+const (
+	OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED    OrganizationType = 0
+	OrganizationType_ORGANIZATION_TYPE_STO            OrganizationType = 1 // СТО (auto service)
+	OrganizationType_ORGANIZATION_TYPE_BODY_SHOP      OrganizationType = 2 // Кузовной цех
+	OrganizationType_ORGANIZATION_TYPE_CAR_WASH       OrganizationType = 3 // Автомойка
+	OrganizationType_ORGANIZATION_TYPE_PARTS_SUPPLIER OrganizationType = 4 // Поставщик запчастей
+	OrganizationType_ORGANIZATION_TYPE_TIRE_SERVICE   OrganizationType = 5 // Шиномонтаж
+	OrganizationType_ORGANIZATION_TYPE_DEALER         OrganizationType = 6 // Дилер
+)
+
+// Enum value maps for OrganizationType.
+var (
+	OrganizationType_name = map[int32]string{
+		0: "ORGANIZATION_TYPE_UNSPECIFIED",
+		1: "ORGANIZATION_TYPE_STO",
+		2: "ORGANIZATION_TYPE_BODY_SHOP",
+		3: "ORGANIZATION_TYPE_CAR_WASH",
+		4: "ORGANIZATION_TYPE_PARTS_SUPPLIER",
+		5: "ORGANIZATION_TYPE_TIRE_SERVICE",
+		6: "ORGANIZATION_TYPE_DEALER",
+	}
+	OrganizationType_value = map[string]int32{
+		"ORGANIZATION_TYPE_UNSPECIFIED":    0,
+		"ORGANIZATION_TYPE_STO":            1,
+		"ORGANIZATION_TYPE_BODY_SHOP":      2,
+		"ORGANIZATION_TYPE_CAR_WASH":       3,
+		"ORGANIZATION_TYPE_PARTS_SUPPLIER": 4,
+		"ORGANIZATION_TYPE_TIRE_SERVICE":   5,
+		"ORGANIZATION_TYPE_DEALER":         6,
+	}
+)
+
+func (x OrganizationType) Enum() *OrganizationType {
+	p := new(OrganizationType)
+	*p = x
+	return p
+}
+
+func (x OrganizationType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (OrganizationType) Descriptor() protoreflect.EnumDescriptor {
+	return file_services_search_search_proto_enumTypes[3].Descriptor()
+}
+
+func (OrganizationType) Type() protoreflect.EnumType {
+	return &file_services_search_search_proto_enumTypes[3]
+}
+
+func (x OrganizationType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use OrganizationType.Descriptor instead.
+func (OrganizationType) EnumDescriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{3}
+}
+
+type OrganizationSortBy int32
+
+const (
+	OrganizationSortBy_ORGANIZATION_SORT_BY_UNSPECIFIED OrganizationSortBy = 0
+	OrganizationSortBy_ORGANIZATION_SORT_BY_RELEVANCE   OrganizationSortBy = 1
+	OrganizationSortBy_ORGANIZATION_SORT_BY_DISTANCE    OrganizationSortBy = 2
+	OrganizationSortBy_ORGANIZATION_SORT_BY_RATING      OrganizationSortBy = 3
+	OrganizationSortBy_ORGANIZATION_SORT_BY_NAME        OrganizationSortBy = 4
+)
+
+// Enum value maps for OrganizationSortBy.
+var (
+	OrganizationSortBy_name = map[int32]string{
+		0: "ORGANIZATION_SORT_BY_UNSPECIFIED",
+		1: "ORGANIZATION_SORT_BY_RELEVANCE",
+		2: "ORGANIZATION_SORT_BY_DISTANCE",
+		3: "ORGANIZATION_SORT_BY_RATING",
+		4: "ORGANIZATION_SORT_BY_NAME",
+	}
+	OrganizationSortBy_value = map[string]int32{
+		"ORGANIZATION_SORT_BY_UNSPECIFIED": 0,
+		"ORGANIZATION_SORT_BY_RELEVANCE":   1,
+		"ORGANIZATION_SORT_BY_DISTANCE":    2,
+		"ORGANIZATION_SORT_BY_RATING":      3,
+		"ORGANIZATION_SORT_BY_NAME":        4,
+	}
+)
+
+func (x OrganizationSortBy) Enum() *OrganizationSortBy {
+	p := new(OrganizationSortBy)
+	*p = x
+	return p
+}
+
+func (x OrganizationSortBy) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (OrganizationSortBy) Descriptor() protoreflect.EnumDescriptor {
+	return file_services_search_search_proto_enumTypes[4].Descriptor()
+}
+
+func (OrganizationSortBy) Type() protoreflect.EnumType {
+	return &file_services_search_search_proto_enumTypes[4]
+}
+
+func (x OrganizationSortBy) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use OrganizationSortBy.Descriptor instead.
+func (OrganizationSortBy) EnumDescriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{4}
+}
+
 // Request document for search results
 type RequestDocument struct {
 	state  protoimpl.MessageState `protogen:"open.v1"`
@@ -1176,6 +1292,422 @@ func (x *DeleteFromIndexResponse) GetSuccess() bool {
 	return false
 }
 
+// Organization document for search results
+type OrganizationDocument struct {
+	state        protoimpl.MessageState `protogen:"open.v1"`
+	Id           string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name         string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Type         OrganizationType       `protobuf:"varint,3,opt,name=type,proto3,enum=services.search.v1.OrganizationType" json:"type,omitempty"`
+	Description  string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl      string                 `protobuf:"bytes,5,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address      string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
+	Phone        string                 `protobuf:"bytes,7,opt,name=phone,proto3" json:"phone,omitempty"`
+	CityId       int64                  `protobuf:"varint,8,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
+	CityName     string                 `protobuf:"bytes,9,opt,name=city_name,json=cityName,proto3" json:"city_name,omitempty"`
+	CategoryIds  []int64                `protobuf:"varint,10,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	Rating       float64                `protobuf:"fixed64,11,opt,name=rating,proto3" json:"rating,omitempty"`
+	ReviewsCount int32                  `protobuf:"varint,12,opt,name=reviews_count,json=reviewsCount,proto3" json:"reviews_count,omitempty"`
+	Distance     float64                `protobuf:"fixed64,13,opt,name=distance,proto3" json:"distance,omitempty"` // Distance in km (if lat/lon provided)
+	IsActive     bool                   `protobuf:"varint,14,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	// Working hours
+	WorkingHours string `protobuf:"bytes,15,opt,name=working_hours,json=workingHours,proto3" json:"working_hours,omitempty"` // e.g., "09:00-18:00"
+	// Geo coordinates
+	Latitude      float64 `protobuf:"fixed64,16,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64 `protobuf:"fixed64,17,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrganizationDocument) Reset() {
+	*x = OrganizationDocument{}
+	mi := &file_services_search_search_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrganizationDocument) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrganizationDocument) ProtoMessage() {}
+
+func (x *OrganizationDocument) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrganizationDocument.ProtoReflect.Descriptor instead.
+func (*OrganizationDocument) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *OrganizationDocument) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetType() OrganizationType {
+	if x != nil {
+		return x.Type
+	}
+	return OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED
+}
+
+func (x *OrganizationDocument) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetLogoUrl() string {
+	if x != nil {
+		return x.LogoUrl
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetCityId() int64 {
+	if x != nil {
+		return x.CityId
+	}
+	return 0
+}
+
+func (x *OrganizationDocument) GetCityName() string {
+	if x != nil {
+		return x.CityName
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+func (x *OrganizationDocument) GetRating() float64 {
+	if x != nil {
+		return x.Rating
+	}
+	return 0
+}
+
+func (x *OrganizationDocument) GetReviewsCount() int32 {
+	if x != nil {
+		return x.ReviewsCount
+	}
+	return 0
+}
+
+func (x *OrganizationDocument) GetDistance() float64 {
+	if x != nil {
+		return x.Distance
+	}
+	return 0
+}
+
+func (x *OrganizationDocument) GetIsActive() bool {
+	if x != nil {
+		return x.IsActive
+	}
+	return false
+}
+
+func (x *OrganizationDocument) GetWorkingHours() string {
+	if x != nil {
+		return x.WorkingHours
+	}
+	return ""
+}
+
+func (x *OrganizationDocument) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *OrganizationDocument) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
+// SearchOrganizations
+type SearchOrganizationsRequest struct {
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	Query       string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`                                         // Full-text search by name
+	Type        OrganizationType       `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.OrganizationType" json:"type,omitempty"` // Filter by type (STO, CAR_WASH, etc.)
+	CityId      int64                  `protobuf:"varint,3,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`                        // Filter by city
+	CategoryIds []int64                `protobuf:"varint,4,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`  // Filter by service categories
+	// Geo search (sort by distance)
+	Latitude  float64 `protobuf:"fixed64,5,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude float64 `protobuf:"fixed64,6,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	RadiusKm  float64 `protobuf:"fixed64,7,opt,name=radius_km,json=radiusKm,proto3" json:"radius_km,omitempty"` // Search radius in km (optional)
+	// Pagination
+	Page     int32 `protobuf:"varint,8,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize int32 `protobuf:"varint,9,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// Sorting
+	SortBy        OrganizationSortBy `protobuf:"varint,10,opt,name=sort_by,json=sortBy,proto3,enum=services.search.v1.OrganizationSortBy" json:"sort_by,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchOrganizationsRequest) Reset() {
+	*x = SearchOrganizationsRequest{}
+	mi := &file_services_search_search_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchOrganizationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchOrganizationsRequest) ProtoMessage() {}
+
+func (x *SearchOrganizationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchOrganizationsRequest.ProtoReflect.Descriptor instead.
+func (*SearchOrganizationsRequest) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *SearchOrganizationsRequest) GetQuery() string {
+	if x != nil {
+		return x.Query
+	}
+	return ""
+}
+
+func (x *SearchOrganizationsRequest) GetType() OrganizationType {
+	if x != nil {
+		return x.Type
+	}
+	return OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED
+}
+
+func (x *SearchOrganizationsRequest) GetCityId() int64 {
+	if x != nil {
+		return x.CityId
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsRequest) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+func (x *SearchOrganizationsRequest) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsRequest) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsRequest) GetRadiusKm() float64 {
+	if x != nil {
+		return x.RadiusKm
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsRequest) GetSortBy() OrganizationSortBy {
+	if x != nil {
+		return x.SortBy
+	}
+	return OrganizationSortBy_ORGANIZATION_SORT_BY_UNSPECIFIED
+}
+
+type SearchOrganizationsResponse struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Organizations []*OrganizationDocument `protobuf:"bytes,1,rep,name=organizations,proto3" json:"organizations,omitempty"`
+	Total         int32                   `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	Facets        *OrganizationFacets     `protobuf:"bytes,3,opt,name=facets,proto3" json:"facets,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchOrganizationsResponse) Reset() {
+	*x = SearchOrganizationsResponse{}
+	mi := &file_services_search_search_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchOrganizationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchOrganizationsResponse) ProtoMessage() {}
+
+func (x *SearchOrganizationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchOrganizationsResponse.ProtoReflect.Descriptor instead.
+func (*SearchOrganizationsResponse) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SearchOrganizationsResponse) GetOrganizations() []*OrganizationDocument {
+	if x != nil {
+		return x.Organizations
+	}
+	return nil
+}
+
+func (x *SearchOrganizationsResponse) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *SearchOrganizationsResponse) GetFacets() *OrganizationFacets {
+	if x != nil {
+		return x.Facets
+	}
+	return nil
+}
+
+// Facets for organization search
+type OrganizationFacets struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Types         []*FacetBucket         `protobuf:"bytes,1,rep,name=types,proto3" json:"types,omitempty"`
+	Cities        []*FacetBucket         `protobuf:"bytes,2,rep,name=cities,proto3" json:"cities,omitempty"`
+	Categories    []*FacetBucket         `protobuf:"bytes,3,rep,name=categories,proto3" json:"categories,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrganizationFacets) Reset() {
+	*x = OrganizationFacets{}
+	mi := &file_services_search_search_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrganizationFacets) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrganizationFacets) ProtoMessage() {}
+
+func (x *OrganizationFacets) ProtoReflect() protoreflect.Message {
+	mi := &file_services_search_search_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrganizationFacets.ProtoReflect.Descriptor instead.
+func (*OrganizationFacets) Descriptor() ([]byte, []int) {
+	return file_services_search_search_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *OrganizationFacets) GetTypes() []*FacetBucket {
+	if x != nil {
+		return x.Types
+	}
+	return nil
+}
+
+func (x *OrganizationFacets) GetCities() []*FacetBucket {
+	if x != nil {
+		return x.Cities
+	}
+	return nil
+}
+
+func (x *OrganizationFacets) GetCategories() []*FacetBucket {
+	if x != nil {
+		return x.Categories
+	}
+	return nil
+}
+
 var File_services_search_search_proto protoreflect.FileDescriptor
 
 const file_services_search_search_proto_rawDesc = "" +
@@ -1262,7 +1794,48 @@ const file_services_search_search_proto_rawDesc = "" +
 	"\n" +
 	"request_id\x18\x01 \x01(\x03R\trequestId\"3\n" +
 	"\x17DeleteFromIndexResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess*\\\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x8f\x04\n" +
+	"\x14OrganizationDocument\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x128\n" +
+	"\x04type\x18\x03 \x01(\x0e2$.services.search.v1.OrganizationTypeR\x04type\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x19\n" +
+	"\blogo_url\x18\x05 \x01(\tR\alogoUrl\x12\x18\n" +
+	"\aaddress\x18\x06 \x01(\tR\aaddress\x12\x14\n" +
+	"\x05phone\x18\a \x01(\tR\x05phone\x12\x17\n" +
+	"\acity_id\x18\b \x01(\x03R\x06cityId\x12\x1b\n" +
+	"\tcity_name\x18\t \x01(\tR\bcityName\x12!\n" +
+	"\fcategory_ids\x18\n" +
+	" \x03(\x03R\vcategoryIds\x12\x16\n" +
+	"\x06rating\x18\v \x01(\x01R\x06rating\x12#\n" +
+	"\rreviews_count\x18\f \x01(\x05R\freviewsCount\x12\x1a\n" +
+	"\bdistance\x18\r \x01(\x01R\bdistance\x12\x1b\n" +
+	"\tis_active\x18\x0e \x01(\bR\bisActive\x12#\n" +
+	"\rworking_hours\x18\x0f \x01(\tR\fworkingHours\x12\x1a\n" +
+	"\blatitude\x18\x10 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x11 \x01(\x01R\tlongitude\"\xf1\x02\n" +
+	"\x1aSearchOrganizationsRequest\x12\x14\n" +
+	"\x05query\x18\x01 \x01(\tR\x05query\x128\n" +
+	"\x04type\x18\x02 \x01(\x0e2$.services.search.v1.OrganizationTypeR\x04type\x12\x17\n" +
+	"\acity_id\x18\x03 \x01(\x03R\x06cityId\x12!\n" +
+	"\fcategory_ids\x18\x04 \x03(\x03R\vcategoryIds\x12\x1a\n" +
+	"\blatitude\x18\x05 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x06 \x01(\x01R\tlongitude\x12\x1b\n" +
+	"\tradius_km\x18\a \x01(\x01R\bradiusKm\x12\x12\n" +
+	"\x04page\x18\b \x01(\x05R\x04page\x12\x1b\n" +
+	"\tpage_size\x18\t \x01(\x05R\bpageSize\x12?\n" +
+	"\asort_by\x18\n" +
+	" \x01(\x0e2&.services.search.v1.OrganizationSortByR\x06sortBy\"\xc3\x01\n" +
+	"\x1bSearchOrganizationsResponse\x12N\n" +
+	"\rorganizations\x18\x01 \x03(\v2(.services.search.v1.OrganizationDocumentR\rorganizations\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x05R\x05total\x12>\n" +
+	"\x06facets\x18\x03 \x01(\v2&.services.search.v1.OrganizationFacetsR\x06facets\"\xc5\x01\n" +
+	"\x12OrganizationFacets\x125\n" +
+	"\x05types\x18\x01 \x03(\v2\x1f.services.search.v1.FacetBucketR\x05types\x127\n" +
+	"\x06cities\x18\x02 \x03(\v2\x1f.services.search.v1.FacetBucketR\x06cities\x12?\n" +
+	"\n" +
+	"categories\x18\x03 \x03(\v2\x1f.services.search.v1.FacetBucketR\n" +
+	"categories*\\\n" +
 	"\vRequestType\x12\x1c\n" +
 	"\x18REQUEST_TYPE_UNSPECIFIED\x10\x00\x12\x17\n" +
 	"\x13REQUEST_TYPE_REPAIR\x10\x01\x12\x16\n" +
@@ -1276,9 +1849,24 @@ const file_services_search_search_proto_rawDesc = "" +
 	"\x13SORT_BY_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11SORT_BY_RELEVANCE\x10\x01\x12\x15\n" +
 	"\x11SORT_BY_DATE_DESC\x10\x02\x12\x14\n" +
-	"\x10SORT_BY_DATE_ASC\x10\x032\xab\x04\n" +
+	"\x10SORT_BY_DATE_ASC\x10\x03*\xf9\x01\n" +
+	"\x10OrganizationType\x12!\n" +
+	"\x1dORGANIZATION_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
+	"\x15ORGANIZATION_TYPE_STO\x10\x01\x12\x1f\n" +
+	"\x1bORGANIZATION_TYPE_BODY_SHOP\x10\x02\x12\x1e\n" +
+	"\x1aORGANIZATION_TYPE_CAR_WASH\x10\x03\x12$\n" +
+	" ORGANIZATION_TYPE_PARTS_SUPPLIER\x10\x04\x12\"\n" +
+	"\x1eORGANIZATION_TYPE_TIRE_SERVICE\x10\x05\x12\x1c\n" +
+	"\x18ORGANIZATION_TYPE_DEALER\x10\x06*\xc1\x01\n" +
+	"\x12OrganizationSortBy\x12$\n" +
+	" ORGANIZATION_SORT_BY_UNSPECIFIED\x10\x00\x12\"\n" +
+	"\x1eORGANIZATION_SORT_BY_RELEVANCE\x10\x01\x12!\n" +
+	"\x1dORGANIZATION_SORT_BY_DISTANCE\x10\x02\x12\x1f\n" +
+	"\x1bORGANIZATION_SORT_BY_RATING\x10\x03\x12\x1d\n" +
+	"\x19ORGANIZATION_SORT_BY_NAME\x10\x042\xa3\x05\n" +
 	"\rSearchService\x12O\n" +
-	"\x06Search\x12!.services.search.v1.SearchRequest\x1a\".services.search.v1.SearchResponse\x12R\n" +
+	"\x06Search\x12!.services.search.v1.SearchRequest\x1a\".services.search.v1.SearchResponse\x12v\n" +
+	"\x13SearchOrganizations\x12..services.search.v1.SearchOrganizationsRequest\x1a/.services.search.v1.SearchOrganizationsResponse\x12R\n" +
 	"\aSuggest\x12\".services.search.v1.SuggestRequest\x1a#.services.search.v1.SuggestResponse\x12R\n" +
 	"\aSimilar\x12\".services.search.v1.SimilarRequest\x1a#.services.search.v1.SimilarResponse\x12R\n" +
 	"\aReindex\x12\".services.search.v1.ReindexRequest\x1a#.services.search.v1.ReindexResponse\x12a\n" +
@@ -1297,62 +1885,78 @@ func file_services_search_search_proto_rawDescGZIP() []byte {
 	return file_services_search_search_proto_rawDescData
 }
 
-var file_services_search_search_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_services_search_search_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_services_search_search_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_services_search_search_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_services_search_search_proto_goTypes = []any{
-	(RequestType)(0),                // 0: services.search.v1.RequestType
-	(RequestStatus)(0),              // 1: services.search.v1.RequestStatus
-	(SortBy)(0),                     // 2: services.search.v1.SortBy
-	(*RequestDocument)(nil),         // 3: services.search.v1.RequestDocument
-	(*FacetBucket)(nil),             // 4: services.search.v1.FacetBucket
-	(*Facets)(nil),                  // 5: services.search.v1.Facets
-	(*SearchRequest)(nil),           // 6: services.search.v1.SearchRequest
-	(*SearchResponse)(nil),          // 7: services.search.v1.SearchResponse
-	(*SuggestRequest)(nil),          // 8: services.search.v1.SuggestRequest
-	(*SuggestResponse)(nil),         // 9: services.search.v1.SuggestResponse
-	(*SimilarRequest)(nil),          // 10: services.search.v1.SimilarRequest
-	(*SimilarResponse)(nil),         // 11: services.search.v1.SimilarResponse
-	(*ReindexRequest)(nil),          // 12: services.search.v1.ReindexRequest
-	(*ReindexResponse)(nil),         // 13: services.search.v1.ReindexResponse
-	(*IndexRequestRequest)(nil),     // 14: services.search.v1.IndexRequestRequest
-	(*IndexRequestResponse)(nil),    // 15: services.search.v1.IndexRequestResponse
-	(*DeleteFromIndexRequest)(nil),  // 16: services.search.v1.DeleteFromIndexRequest
-	(*DeleteFromIndexResponse)(nil), // 17: services.search.v1.DeleteFromIndexResponse
-	(*timestamppb.Timestamp)(nil),   // 18: google.protobuf.Timestamp
+	(RequestType)(0),                    // 0: services.search.v1.RequestType
+	(RequestStatus)(0),                  // 1: services.search.v1.RequestStatus
+	(SortBy)(0),                         // 2: services.search.v1.SortBy
+	(OrganizationType)(0),               // 3: services.search.v1.OrganizationType
+	(OrganizationSortBy)(0),             // 4: services.search.v1.OrganizationSortBy
+	(*RequestDocument)(nil),             // 5: services.search.v1.RequestDocument
+	(*FacetBucket)(nil),                 // 6: services.search.v1.FacetBucket
+	(*Facets)(nil),                      // 7: services.search.v1.Facets
+	(*SearchRequest)(nil),               // 8: services.search.v1.SearchRequest
+	(*SearchResponse)(nil),              // 9: services.search.v1.SearchResponse
+	(*SuggestRequest)(nil),              // 10: services.search.v1.SuggestRequest
+	(*SuggestResponse)(nil),             // 11: services.search.v1.SuggestResponse
+	(*SimilarRequest)(nil),              // 12: services.search.v1.SimilarRequest
+	(*SimilarResponse)(nil),             // 13: services.search.v1.SimilarResponse
+	(*ReindexRequest)(nil),              // 14: services.search.v1.ReindexRequest
+	(*ReindexResponse)(nil),             // 15: services.search.v1.ReindexResponse
+	(*IndexRequestRequest)(nil),         // 16: services.search.v1.IndexRequestRequest
+	(*IndexRequestResponse)(nil),        // 17: services.search.v1.IndexRequestResponse
+	(*DeleteFromIndexRequest)(nil),      // 18: services.search.v1.DeleteFromIndexRequest
+	(*DeleteFromIndexResponse)(nil),     // 19: services.search.v1.DeleteFromIndexResponse
+	(*OrganizationDocument)(nil),        // 20: services.search.v1.OrganizationDocument
+	(*SearchOrganizationsRequest)(nil),  // 21: services.search.v1.SearchOrganizationsRequest
+	(*SearchOrganizationsResponse)(nil), // 22: services.search.v1.SearchOrganizationsResponse
+	(*OrganizationFacets)(nil),          // 23: services.search.v1.OrganizationFacets
+	(*timestamppb.Timestamp)(nil),       // 24: google.protobuf.Timestamp
 }
 var file_services_search_search_proto_depIdxs = []int32{
 	0,  // 0: services.search.v1.RequestDocument.type:type_name -> services.search.v1.RequestType
 	1,  // 1: services.search.v1.RequestDocument.status:type_name -> services.search.v1.RequestStatus
-	18, // 2: services.search.v1.RequestDocument.created_at:type_name -> google.protobuf.Timestamp
-	18, // 3: services.search.v1.RequestDocument.published_at:type_name -> google.protobuf.Timestamp
-	4,  // 4: services.search.v1.Facets.types:type_name -> services.search.v1.FacetBucket
-	4,  // 5: services.search.v1.Facets.groups:type_name -> services.search.v1.FacetBucket
-	4,  // 6: services.search.v1.Facets.categories:type_name -> services.search.v1.FacetBucket
-	4,  // 7: services.search.v1.Facets.cities:type_name -> services.search.v1.FacetBucket
-	4,  // 8: services.search.v1.Facets.car_makes:type_name -> services.search.v1.FacetBucket
+	24, // 2: services.search.v1.RequestDocument.created_at:type_name -> google.protobuf.Timestamp
+	24, // 3: services.search.v1.RequestDocument.published_at:type_name -> google.protobuf.Timestamp
+	6,  // 4: services.search.v1.Facets.types:type_name -> services.search.v1.FacetBucket
+	6,  // 5: services.search.v1.Facets.groups:type_name -> services.search.v1.FacetBucket
+	6,  // 6: services.search.v1.Facets.categories:type_name -> services.search.v1.FacetBucket
+	6,  // 7: services.search.v1.Facets.cities:type_name -> services.search.v1.FacetBucket
+	6,  // 8: services.search.v1.Facets.car_makes:type_name -> services.search.v1.FacetBucket
 	0,  // 9: services.search.v1.SearchRequest.type:type_name -> services.search.v1.RequestType
 	2,  // 10: services.search.v1.SearchRequest.sort_by:type_name -> services.search.v1.SortBy
-	3,  // 11: services.search.v1.SearchResponse.requests:type_name -> services.search.v1.RequestDocument
-	5,  // 12: services.search.v1.SearchResponse.facets:type_name -> services.search.v1.Facets
-	3,  // 13: services.search.v1.SimilarResponse.requests:type_name -> services.search.v1.RequestDocument
-	3,  // 14: services.search.v1.IndexRequestRequest.request:type_name -> services.search.v1.RequestDocument
-	6,  // 15: services.search.v1.SearchService.Search:input_type -> services.search.v1.SearchRequest
-	8,  // 16: services.search.v1.SearchService.Suggest:input_type -> services.search.v1.SuggestRequest
-	10, // 17: services.search.v1.SearchService.Similar:input_type -> services.search.v1.SimilarRequest
-	12, // 18: services.search.v1.SearchService.Reindex:input_type -> services.search.v1.ReindexRequest
-	14, // 19: services.search.v1.SearchService.IndexRequest:input_type -> services.search.v1.IndexRequestRequest
-	16, // 20: services.search.v1.SearchService.DeleteFromIndex:input_type -> services.search.v1.DeleteFromIndexRequest
-	7,  // 21: services.search.v1.SearchService.Search:output_type -> services.search.v1.SearchResponse
-	9,  // 22: services.search.v1.SearchService.Suggest:output_type -> services.search.v1.SuggestResponse
-	11, // 23: services.search.v1.SearchService.Similar:output_type -> services.search.v1.SimilarResponse
-	13, // 24: services.search.v1.SearchService.Reindex:output_type -> services.search.v1.ReindexResponse
-	15, // 25: services.search.v1.SearchService.IndexRequest:output_type -> services.search.v1.IndexRequestResponse
-	17, // 26: services.search.v1.SearchService.DeleteFromIndex:output_type -> services.search.v1.DeleteFromIndexResponse
-	21, // [21:27] is the sub-list for method output_type
-	15, // [15:21] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	5,  // 11: services.search.v1.SearchResponse.requests:type_name -> services.search.v1.RequestDocument
+	7,  // 12: services.search.v1.SearchResponse.facets:type_name -> services.search.v1.Facets
+	5,  // 13: services.search.v1.SimilarResponse.requests:type_name -> services.search.v1.RequestDocument
+	5,  // 14: services.search.v1.IndexRequestRequest.request:type_name -> services.search.v1.RequestDocument
+	3,  // 15: services.search.v1.OrganizationDocument.type:type_name -> services.search.v1.OrganizationType
+	3,  // 16: services.search.v1.SearchOrganizationsRequest.type:type_name -> services.search.v1.OrganizationType
+	4,  // 17: services.search.v1.SearchOrganizationsRequest.sort_by:type_name -> services.search.v1.OrganizationSortBy
+	20, // 18: services.search.v1.SearchOrganizationsResponse.organizations:type_name -> services.search.v1.OrganizationDocument
+	23, // 19: services.search.v1.SearchOrganizationsResponse.facets:type_name -> services.search.v1.OrganizationFacets
+	6,  // 20: services.search.v1.OrganizationFacets.types:type_name -> services.search.v1.FacetBucket
+	6,  // 21: services.search.v1.OrganizationFacets.cities:type_name -> services.search.v1.FacetBucket
+	6,  // 22: services.search.v1.OrganizationFacets.categories:type_name -> services.search.v1.FacetBucket
+	8,  // 23: services.search.v1.SearchService.Search:input_type -> services.search.v1.SearchRequest
+	21, // 24: services.search.v1.SearchService.SearchOrganizations:input_type -> services.search.v1.SearchOrganizationsRequest
+	10, // 25: services.search.v1.SearchService.Suggest:input_type -> services.search.v1.SuggestRequest
+	12, // 26: services.search.v1.SearchService.Similar:input_type -> services.search.v1.SimilarRequest
+	14, // 27: services.search.v1.SearchService.Reindex:input_type -> services.search.v1.ReindexRequest
+	16, // 28: services.search.v1.SearchService.IndexRequest:input_type -> services.search.v1.IndexRequestRequest
+	18, // 29: services.search.v1.SearchService.DeleteFromIndex:input_type -> services.search.v1.DeleteFromIndexRequest
+	9,  // 30: services.search.v1.SearchService.Search:output_type -> services.search.v1.SearchResponse
+	22, // 31: services.search.v1.SearchService.SearchOrganizations:output_type -> services.search.v1.SearchOrganizationsResponse
+	11, // 32: services.search.v1.SearchService.Suggest:output_type -> services.search.v1.SuggestResponse
+	13, // 33: services.search.v1.SearchService.Similar:output_type -> services.search.v1.SimilarResponse
+	15, // 34: services.search.v1.SearchService.Reindex:output_type -> services.search.v1.ReindexResponse
+	17, // 35: services.search.v1.SearchService.IndexRequest:output_type -> services.search.v1.IndexRequestResponse
+	19, // 36: services.search.v1.SearchService.DeleteFromIndex:output_type -> services.search.v1.DeleteFromIndexResponse
+	30, // [30:37] is the sub-list for method output_type
+	23, // [23:30] is the sub-list for method input_type
+	23, // [23:23] is the sub-list for extension type_name
+	23, // [23:23] is the sub-list for extension extendee
+	0,  // [0:23] is the sub-list for field type_name
 }
 
 func init() { file_services_search_search_proto_init() }
@@ -1365,8 +1969,8 @@ func file_services_search_search_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_services_search_search_proto_rawDesc), len(file_services_search_search_proto_rawDesc)),
-			NumEnums:      3,
-			NumMessages:   15,
+			NumEnums:      5,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
