@@ -24,6 +24,9 @@ service UserService {
   
   // GetUsersByIDs returns multiple users by IDs (for batch loading)
   rpc GetUsersByIDs(GetUsersByIDsRequest) returns (GetUsersByIDsResponse);
+
+  // FindOrCreateByPhone atomically finds user by phone or creates minimal record (for sync service)
+  rpc FindOrCreateByPhone(FindOrCreateByPhoneRequest) returns (FindOrCreateByPhoneResponse);
   
   // GetSettings returns user notification settings
   rpc GetSettings(GetSettingsRequest) returns (GetSettingsResponse);
@@ -115,6 +118,16 @@ message CreateUserRequest {
 
 message CreateUserResponse {
   User user = 1;
+}
+
+// FindOrCreateByPhone (for sync service)
+message FindOrCreateByPhoneRequest {
+  string phone = 1;
+}
+
+message FindOrCreateByPhoneResponse {
+  User user = 1;
+  bool created = 2;
 }
 
 // Settings

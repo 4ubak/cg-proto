@@ -32,6 +32,9 @@ const (
 	OrganizationType_ORGANIZATION_TYPE_PARTS_SUPPLIER OrganizationType = 4 // Поставщик запчастей (group_id = 3)
 	OrganizationType_ORGANIZATION_TYPE_TIRE_SERVICE   OrganizationType = 5 // Шиномонтаж (group_id = 4)
 	OrganizationType_ORGANIZATION_TYPE_DEALER         OrganizationType = 6 // Дилер
+	OrganizationType_ORGANIZATION_TYPE_GAS_SERVICE    OrganizationType = 7 // Установка газа на авто
+	OrganizationType_ORGANIZATION_TYPE_OIL_SERVICE    OrganizationType = 8 // Замена масла и жидкостей
+	OrganizationType_ORGANIZATION_TYPE_EMERGENCY      OrganizationType = 9 // Срочная выездная помощь
 )
 
 // Enum value maps for OrganizationType.
@@ -44,6 +47,9 @@ var (
 		4: "ORGANIZATION_TYPE_PARTS_SUPPLIER",
 		5: "ORGANIZATION_TYPE_TIRE_SERVICE",
 		6: "ORGANIZATION_TYPE_DEALER",
+		7: "ORGANIZATION_TYPE_GAS_SERVICE",
+		8: "ORGANIZATION_TYPE_OIL_SERVICE",
+		9: "ORGANIZATION_TYPE_EMERGENCY",
 	}
 	OrganizationType_value = map[string]int32{
 		"ORGANIZATION_TYPE_UNSPECIFIED":    0,
@@ -53,6 +59,9 @@ var (
 		"ORGANIZATION_TYPE_PARTS_SUPPLIER": 4,
 		"ORGANIZATION_TYPE_TIRE_SERVICE":   5,
 		"ORGANIZATION_TYPE_DEALER":         6,
+		"ORGANIZATION_TYPE_GAS_SERVICE":    7,
+		"ORGANIZATION_TYPE_OIL_SERVICE":    8,
+		"ORGANIZATION_TYPE_EMERGENCY":      9,
 	}
 )
 
@@ -148,6 +157,18 @@ type Organization struct {
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	CategoryIds   []int64                `protobuf:"varint,14,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"` // Service categories for matching
+	LegacyId      *int64                 `protobuf:"varint,15,opt,name=legacy_id,json=legacyId,proto3,oneof" json:"legacy_id,omitempty"`
+	Rating        float64                `protobuf:"fixed64,16,opt,name=rating,proto3" json:"rating,omitempty"`
+	RatersCount   int32                  `protobuf:"varint,17,opt,name=raters_count,json=ratersCount,proto3" json:"raters_count,omitempty"`
+	Avatar        string                 `protobuf:"bytes,18,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	WhatsappLink  string                 `protobuf:"bytes,19,opt,name=whatsapp_link,json=whatsappLink,proto3" json:"whatsapp_link,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,20,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,21,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	IsReviewed    bool                   `protobuf:"varint,22,opt,name=is_reviewed,json=isReviewed,proto3" json:"is_reviewed,omitempty"`
+	CarMakeIds    []int64                `protobuf:"varint,23,rep,packed,name=car_make_ids,json=carMakeIds,proto3" json:"car_make_ids,omitempty"`
+	CarModelIds   []int64                `protobuf:"varint,24,rep,packed,name=car_model_ids,json=carModelIds,proto3" json:"car_model_ids,omitempty"`
+	YearFrom      *int32                 `protobuf:"varint,25,opt,name=year_from,json=yearFrom,proto3,oneof" json:"year_from,omitempty"`
+	YearTo        *int32                 `protobuf:"varint,26,opt,name=year_to,json=yearTo,proto3,oneof" json:"year_to,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -278,6 +299,90 @@ func (x *Organization) GetCategoryIds() []int64 {
 		return x.CategoryIds
 	}
 	return nil
+}
+
+func (x *Organization) GetLegacyId() int64 {
+	if x != nil && x.LegacyId != nil {
+		return *x.LegacyId
+	}
+	return 0
+}
+
+func (x *Organization) GetRating() float64 {
+	if x != nil {
+		return x.Rating
+	}
+	return 0
+}
+
+func (x *Organization) GetRatersCount() int32 {
+	if x != nil {
+		return x.RatersCount
+	}
+	return 0
+}
+
+func (x *Organization) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
+func (x *Organization) GetWhatsappLink() string {
+	if x != nil {
+		return x.WhatsappLink
+	}
+	return ""
+}
+
+func (x *Organization) GetLatitude() float64 {
+	if x != nil && x.Latitude != nil {
+		return *x.Latitude
+	}
+	return 0
+}
+
+func (x *Organization) GetLongitude() float64 {
+	if x != nil && x.Longitude != nil {
+		return *x.Longitude
+	}
+	return 0
+}
+
+func (x *Organization) GetIsReviewed() bool {
+	if x != nil {
+		return x.IsReviewed
+	}
+	return false
+}
+
+func (x *Organization) GetCarMakeIds() []int64 {
+	if x != nil {
+		return x.CarMakeIds
+	}
+	return nil
+}
+
+func (x *Organization) GetCarModelIds() []int64 {
+	if x != nil {
+		return x.CarModelIds
+	}
+	return nil
+}
+
+func (x *Organization) GetYearFrom() int32 {
+	if x != nil && x.YearFrom != nil {
+		return *x.YearFrom
+	}
+	return 0
+}
+
+func (x *Organization) GetYearTo() int32 {
+	if x != nil && x.YearTo != nil {
+		return *x.YearTo
+	}
+	return 0
 }
 
 type OrganizationSettings struct {
@@ -709,7 +814,13 @@ type CreateOrganizationRequest struct {
 	Address       string                 `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
 	Phone         string                 `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
 	CityId        int64                  `protobuf:"varint,6,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
-	CategoryIds   []int64                `protobuf:"varint,7,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"` // Optional: service categories
+	CategoryIds   []int64                `protobuf:"varint,7,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	CarMakeIds    []int64                `protobuf:"varint,8,rep,packed,name=car_make_ids,json=carMakeIds,proto3" json:"car_make_ids,omitempty"`
+	CarModelIds   []int64                `protobuf:"varint,9,rep,packed,name=car_model_ids,json=carModelIds,proto3" json:"car_model_ids,omitempty"`
+	YearFrom      *int32                 `protobuf:"varint,10,opt,name=year_from,json=yearFrom,proto3,oneof" json:"year_from,omitempty"`
+	YearTo        *int32                 `protobuf:"varint,11,opt,name=year_to,json=yearTo,proto3,oneof" json:"year_to,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,12,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,13,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -791,6 +902,48 @@ func (x *CreateOrganizationRequest) GetCategoryIds() []int64 {
 		return x.CategoryIds
 	}
 	return nil
+}
+
+func (x *CreateOrganizationRequest) GetCarMakeIds() []int64 {
+	if x != nil {
+		return x.CarMakeIds
+	}
+	return nil
+}
+
+func (x *CreateOrganizationRequest) GetCarModelIds() []int64 {
+	if x != nil {
+		return x.CarModelIds
+	}
+	return nil
+}
+
+func (x *CreateOrganizationRequest) GetYearFrom() int32 {
+	if x != nil && x.YearFrom != nil {
+		return *x.YearFrom
+	}
+	return 0
+}
+
+func (x *CreateOrganizationRequest) GetYearTo() int32 {
+	if x != nil && x.YearTo != nil {
+		return *x.YearTo
+	}
+	return 0
+}
+
+func (x *CreateOrganizationRequest) GetLatitude() float64 {
+	if x != nil && x.Latitude != nil {
+		return *x.Latitude
+	}
+	return 0
+}
+
+func (x *CreateOrganizationRequest) GetLongitude() float64 {
+	if x != nil && x.Longitude != nil {
+		return *x.Longitude
+	}
+	return 0
 }
 
 type CreateOrganizationResponse struct {
@@ -934,6 +1087,13 @@ type UpdateOrganizationRequest struct {
 	Address        *string                `protobuf:"bytes,5,opt,name=address,proto3,oneof" json:"address,omitempty"`
 	Phone          *string                `protobuf:"bytes,6,opt,name=phone,proto3,oneof" json:"phone,omitempty"`
 	Settings       *OrganizationSettings  `protobuf:"bytes,7,opt,name=settings,proto3,oneof" json:"settings,omitempty"`
+	CarMakeIds     []int64                `protobuf:"varint,8,rep,packed,name=car_make_ids,json=carMakeIds,proto3" json:"car_make_ids,omitempty"`
+	CarModelIds    []int64                `protobuf:"varint,9,rep,packed,name=car_model_ids,json=carModelIds,proto3" json:"car_model_ids,omitempty"`
+	YearFrom       *int32                 `protobuf:"varint,10,opt,name=year_from,json=yearFrom,proto3,oneof" json:"year_from,omitempty"`
+	YearTo         *int32                 `protobuf:"varint,11,opt,name=year_to,json=yearTo,proto3,oneof" json:"year_to,omitempty"`
+	Avatar         *string                `protobuf:"bytes,12,opt,name=avatar,proto3,oneof" json:"avatar,omitempty"`
+	Latitude       *float64               `protobuf:"fixed64,13,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude      *float64               `protobuf:"fixed64,14,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1015,6 +1175,55 @@ func (x *UpdateOrganizationRequest) GetSettings() *OrganizationSettings {
 		return x.Settings
 	}
 	return nil
+}
+
+func (x *UpdateOrganizationRequest) GetCarMakeIds() []int64 {
+	if x != nil {
+		return x.CarMakeIds
+	}
+	return nil
+}
+
+func (x *UpdateOrganizationRequest) GetCarModelIds() []int64 {
+	if x != nil {
+		return x.CarModelIds
+	}
+	return nil
+}
+
+func (x *UpdateOrganizationRequest) GetYearFrom() int32 {
+	if x != nil && x.YearFrom != nil {
+		return *x.YearFrom
+	}
+	return 0
+}
+
+func (x *UpdateOrganizationRequest) GetYearTo() int32 {
+	if x != nil && x.YearTo != nil {
+		return *x.YearTo
+	}
+	return 0
+}
+
+func (x *UpdateOrganizationRequest) GetAvatar() string {
+	if x != nil && x.Avatar != nil {
+		return *x.Avatar
+	}
+	return ""
+}
+
+func (x *UpdateOrganizationRequest) GetLatitude() float64 {
+	if x != nil && x.Latitude != nil {
+		return *x.Latitude
+	}
+	return 0
+}
+
+func (x *UpdateOrganizationRequest) GetLongitude() float64 {
+	if x != nil && x.Longitude != nil {
+		return *x.Longitude
+	}
+	return 0
 }
 
 type UpdateOrganizationResponse struct {
@@ -2372,6 +2581,231 @@ func (x *GetRolesResponse) GetRoles() []*Role {
 	return nil
 }
 
+// UpsertByLegacyID (for sync service - migrating orgs from old system)
+type UpsertByLegacyIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	LegacyId      int64                  `protobuf:"varint,1,opt,name=legacy_id,json=legacyId,proto3" json:"legacy_id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Type          OrganizationType       `protobuf:"varint,3,opt,name=type,proto3,enum=users.organization.v1.OrganizationType" json:"type,omitempty"`
+	OwnerUserId   int64                  `protobuf:"varint,4,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Address       string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
+	Phone         string                 `protobuf:"bytes,7,opt,name=phone,proto3" json:"phone,omitempty"`
+	CityId        int64                  `protobuf:"varint,8,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
+	Rating        float64                `protobuf:"fixed64,9,opt,name=rating,proto3" json:"rating,omitempty"`
+	RatersCount   int32                  `protobuf:"varint,10,opt,name=raters_count,json=ratersCount,proto3" json:"raters_count,omitempty"`
+	Avatar        string                 `protobuf:"bytes,11,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	WhatsappLink  string                 `protobuf:"bytes,12,opt,name=whatsapp_link,json=whatsappLink,proto3" json:"whatsapp_link,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,13,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,14,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	IsReviewed    bool                   `protobuf:"varint,15,opt,name=is_reviewed,json=isReviewed,proto3" json:"is_reviewed,omitempty"`
+	Status        string                 `protobuf:"bytes,16,opt,name=status,proto3" json:"status,omitempty"`
+	CategoryIds   []int64                `protobuf:"varint,17,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpsertByLegacyIDRequest) Reset() {
+	*x = UpsertByLegacyIDRequest{}
+	mi := &file_users_organization_organization_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpsertByLegacyIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpsertByLegacyIDRequest) ProtoMessage() {}
+
+func (x *UpsertByLegacyIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpsertByLegacyIDRequest.ProtoReflect.Descriptor instead.
+func (*UpsertByLegacyIDRequest) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *UpsertByLegacyIDRequest) GetLegacyId() int64 {
+	if x != nil {
+		return x.LegacyId
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetType() OrganizationType {
+	if x != nil {
+		return x.Type
+	}
+	return OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED
+}
+
+func (x *UpsertByLegacyIDRequest) GetOwnerUserId() int64 {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetCityId() int64 {
+	if x != nil {
+		return x.CityId
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetRating() float64 {
+	if x != nil {
+		return x.Rating
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetRatersCount() int32 {
+	if x != nil {
+		return x.RatersCount
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetWhatsappLink() string {
+	if x != nil {
+		return x.WhatsappLink
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetLatitude() float64 {
+	if x != nil && x.Latitude != nil {
+		return *x.Latitude
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetLongitude() float64 {
+	if x != nil && x.Longitude != nil {
+		return *x.Longitude
+	}
+	return 0
+}
+
+func (x *UpsertByLegacyIDRequest) GetIsReviewed() bool {
+	if x != nil {
+		return x.IsReviewed
+	}
+	return false
+}
+
+func (x *UpsertByLegacyIDRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *UpsertByLegacyIDRequest) GetCategoryIds() []int64 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+type UpsertByLegacyIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Organization  *Organization          `protobuf:"bytes,1,opt,name=organization,proto3" json:"organization,omitempty"`
+	Created       bool                   `protobuf:"varint,2,opt,name=created,proto3" json:"created,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpsertByLegacyIDResponse) Reset() {
+	*x = UpsertByLegacyIDResponse{}
+	mi := &file_users_organization_organization_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpsertByLegacyIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpsertByLegacyIDResponse) ProtoMessage() {}
+
+func (x *UpsertByLegacyIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpsertByLegacyIDResponse.ProtoReflect.Descriptor instead.
+func (*UpsertByLegacyIDResponse) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *UpsertByLegacyIDResponse) GetOrganization() *Organization {
+	if x != nil {
+		return x.Organization
+	}
+	return nil
+}
+
+func (x *UpsertByLegacyIDResponse) GetCreated() bool {
+	if x != nil {
+		return x.Created
+	}
+	return false
+}
+
 // Categories - for matching with service requests
 type SetCategoriesRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
@@ -2383,7 +2817,7 @@ type SetCategoriesRequest struct {
 
 func (x *SetCategoriesRequest) Reset() {
 	*x = SetCategoriesRequest{}
-	mi := &file_users_organization_organization_proto_msgTypes[39]
+	mi := &file_users_organization_organization_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2395,7 +2829,7 @@ func (x *SetCategoriesRequest) String() string {
 func (*SetCategoriesRequest) ProtoMessage() {}
 
 func (x *SetCategoriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_users_organization_organization_proto_msgTypes[39]
+	mi := &file_users_organization_organization_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2408,7 +2842,7 @@ func (x *SetCategoriesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetCategoriesRequest.ProtoReflect.Descriptor instead.
 func (*SetCategoriesRequest) Descriptor() ([]byte, []int) {
-	return file_users_organization_organization_proto_rawDescGZIP(), []int{39}
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *SetCategoriesRequest) GetOrganizationId() string {
@@ -2434,7 +2868,7 @@ type SetCategoriesResponse struct {
 
 func (x *SetCategoriesResponse) Reset() {
 	*x = SetCategoriesResponse{}
-	mi := &file_users_organization_organization_proto_msgTypes[40]
+	mi := &file_users_organization_organization_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2446,7 +2880,7 @@ func (x *SetCategoriesResponse) String() string {
 func (*SetCategoriesResponse) ProtoMessage() {}
 
 func (x *SetCategoriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_users_organization_organization_proto_msgTypes[40]
+	mi := &file_users_organization_organization_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2459,7 +2893,7 @@ func (x *SetCategoriesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetCategoriesResponse.ProtoReflect.Descriptor instead.
 func (*SetCategoriesResponse) Descriptor() ([]byte, []int) {
-	return file_users_organization_organization_proto_rawDescGZIP(), []int{40}
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *SetCategoriesResponse) GetCategoryIds() []int64 {
@@ -2478,7 +2912,7 @@ type GetCategoriesRequest struct {
 
 func (x *GetCategoriesRequest) Reset() {
 	*x = GetCategoriesRequest{}
-	mi := &file_users_organization_organization_proto_msgTypes[41]
+	mi := &file_users_organization_organization_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2490,7 +2924,7 @@ func (x *GetCategoriesRequest) String() string {
 func (*GetCategoriesRequest) ProtoMessage() {}
 
 func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_users_organization_organization_proto_msgTypes[41]
+	mi := &file_users_organization_organization_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2503,7 +2937,7 @@ func (x *GetCategoriesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoriesRequest.ProtoReflect.Descriptor instead.
 func (*GetCategoriesRequest) Descriptor() ([]byte, []int) {
-	return file_users_organization_organization_proto_rawDescGZIP(), []int{41}
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *GetCategoriesRequest) GetOrganizationId() string {
@@ -2522,7 +2956,7 @@ type GetCategoriesResponse struct {
 
 func (x *GetCategoriesResponse) Reset() {
 	*x = GetCategoriesResponse{}
-	mi := &file_users_organization_organization_proto_msgTypes[42]
+	mi := &file_users_organization_organization_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2534,7 +2968,7 @@ func (x *GetCategoriesResponse) String() string {
 func (*GetCategoriesResponse) ProtoMessage() {}
 
 func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_users_organization_organization_proto_msgTypes[42]
+	mi := &file_users_organization_organization_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2547,7 +2981,7 @@ func (x *GetCategoriesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCategoriesResponse.ProtoReflect.Descriptor instead.
 func (*GetCategoriesResponse) Descriptor() ([]byte, []int) {
-	return file_users_organization_organization_proto_rawDescGZIP(), []int{42}
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *GetCategoriesResponse) GetCategoryIds() []int64 {
@@ -2561,7 +2995,7 @@ var File_users_organization_organization_proto protoreflect.FileDescriptor
 
 const file_users_organization_organization_proto_rawDesc = "" +
 	"\n" +
-	"%users/organization/organization.proto\x12\x15users.organization.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x93\x04\n" +
+	"%users/organization/organization.proto\x12\x15users.organization.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdb\a\n" +
 	"\fOrganization\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12;\n" +
@@ -2579,7 +3013,30 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"created_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
 	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12!\n" +
-	"\fcategory_ids\x18\x0e \x03(\x03R\vcategoryIds\"\x85\x01\n" +
+	"\fcategory_ids\x18\x0e \x03(\x03R\vcategoryIds\x12 \n" +
+	"\tlegacy_id\x18\x0f \x01(\x03H\x00R\blegacyId\x88\x01\x01\x12\x16\n" +
+	"\x06rating\x18\x10 \x01(\x01R\x06rating\x12!\n" +
+	"\fraters_count\x18\x11 \x01(\x05R\vratersCount\x12\x16\n" +
+	"\x06avatar\x18\x12 \x01(\tR\x06avatar\x12#\n" +
+	"\rwhatsapp_link\x18\x13 \x01(\tR\fwhatsappLink\x12\x1f\n" +
+	"\blatitude\x18\x14 \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x15 \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1f\n" +
+	"\vis_reviewed\x18\x16 \x01(\bR\n" +
+	"isReviewed\x12 \n" +
+	"\fcar_make_ids\x18\x17 \x03(\x03R\n" +
+	"carMakeIds\x12\"\n" +
+	"\rcar_model_ids\x18\x18 \x03(\x03R\vcarModelIds\x12 \n" +
+	"\tyear_from\x18\x19 \x01(\x05H\x03R\byearFrom\x88\x01\x01\x12\x1c\n" +
+	"\ayear_to\x18\x1a \x01(\x05H\x04R\x06yearTo\x88\x01\x01B\f\n" +
+	"\n" +
+	"_legacy_idB\v\n" +
+	"\t_latitudeB\f\n" +
+	"\n" +
+	"_longitudeB\f\n" +
+	"\n" +
+	"_year_fromB\n" +
+	"\n" +
+	"\b_year_to\"\x85\x01\n" +
 	"\x14OrganizationSettings\x12#\n" +
 	"\raccept_orders\x18\x01 \x01(\bR\facceptOrders\x12H\n" +
 	"\rworking_hours\x18\x02 \x01(\v2#.users.organization.v1.WorkingHoursR\fworkingHours\"\xc6\x01\n" +
@@ -2618,7 +3075,7 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"expires_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xfa\x01\n" +
+	"expires_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xf9\x03\n" +
 	"\x19CreateOrganizationRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12;\n" +
 	"\x04type\x18\x02 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\x04type\x12 \n" +
@@ -2626,13 +3083,28 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\aaddress\x18\x04 \x01(\tR\aaddress\x12\x14\n" +
 	"\x05phone\x18\x05 \x01(\tR\x05phone\x12\x17\n" +
 	"\acity_id\x18\x06 \x01(\x03R\x06cityId\x12!\n" +
-	"\fcategory_ids\x18\a \x03(\x03R\vcategoryIds\"e\n" +
+	"\fcategory_ids\x18\a \x03(\x03R\vcategoryIds\x12 \n" +
+	"\fcar_make_ids\x18\b \x03(\x03R\n" +
+	"carMakeIds\x12\"\n" +
+	"\rcar_model_ids\x18\t \x03(\x03R\vcarModelIds\x12 \n" +
+	"\tyear_from\x18\n" +
+	" \x01(\x05H\x00R\byearFrom\x88\x01\x01\x12\x1c\n" +
+	"\ayear_to\x18\v \x01(\x05H\x01R\x06yearTo\x88\x01\x01\x12\x1f\n" +
+	"\blatitude\x18\f \x01(\x01H\x02R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\r \x01(\x01H\x03R\tlongitude\x88\x01\x01B\f\n" +
+	"\n" +
+	"_year_fromB\n" +
+	"\n" +
+	"\b_year_toB\v\n" +
+	"\t_latitudeB\f\n" +
+	"\n" +
+	"_longitude\"e\n" +
 	"\x1aCreateOrganizationResponse\x12G\n" +
 	"\forganization\x18\x01 \x01(\v2#.users.organization.v1.OrganizationR\forganization\"A\n" +
 	"\x16GetOrganizationRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\"b\n" +
 	"\x17GetOrganizationResponse\x12G\n" +
-	"\forganization\x18\x01 \x01(\v2#.users.organization.v1.OrganizationR\forganization\"\xf5\x02\n" +
+	"\forganization\x18\x01 \x01(\v2#.users.organization.v1.OrganizationR\forganization\"\x9c\x05\n" +
 	"\x19UpdateOrganizationRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12%\n" +
@@ -2640,14 +3112,32 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\blogo_url\x18\x04 \x01(\tH\x02R\alogoUrl\x88\x01\x01\x12\x1d\n" +
 	"\aaddress\x18\x05 \x01(\tH\x03R\aaddress\x88\x01\x01\x12\x19\n" +
 	"\x05phone\x18\x06 \x01(\tH\x04R\x05phone\x88\x01\x01\x12L\n" +
-	"\bsettings\x18\a \x01(\v2+.users.organization.v1.OrganizationSettingsH\x05R\bsettings\x88\x01\x01B\a\n" +
+	"\bsettings\x18\a \x01(\v2+.users.organization.v1.OrganizationSettingsH\x05R\bsettings\x88\x01\x01\x12 \n" +
+	"\fcar_make_ids\x18\b \x03(\x03R\n" +
+	"carMakeIds\x12\"\n" +
+	"\rcar_model_ids\x18\t \x03(\x03R\vcarModelIds\x12 \n" +
+	"\tyear_from\x18\n" +
+	" \x01(\x05H\x06R\byearFrom\x88\x01\x01\x12\x1c\n" +
+	"\ayear_to\x18\v \x01(\x05H\aR\x06yearTo\x88\x01\x01\x12\x1b\n" +
+	"\x06avatar\x18\f \x01(\tH\bR\x06avatar\x88\x01\x01\x12\x1f\n" +
+	"\blatitude\x18\r \x01(\x01H\tR\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x0e \x01(\x01H\n" +
+	"R\tlongitude\x88\x01\x01B\a\n" +
 	"\x05_nameB\x0e\n" +
 	"\f_descriptionB\v\n" +
 	"\t_logo_urlB\n" +
 	"\n" +
 	"\b_addressB\b\n" +
 	"\x06_phoneB\v\n" +
-	"\t_settings\"e\n" +
+	"\t_settingsB\f\n" +
+	"\n" +
+	"_year_fromB\n" +
+	"\n" +
+	"\b_year_toB\t\n" +
+	"\a_avatarB\v\n" +
+	"\t_latitudeB\f\n" +
+	"\n" +
+	"_longitude\"e\n" +
 	"\x1aUpdateOrganizationResponse\x12G\n" +
 	"\forganization\x18\x01 \x01(\v2#.users.organization.v1.OrganizationR\forganization\"D\n" +
 	"\x19DeleteOrganizationRequest\x12'\n" +
@@ -2722,7 +3212,33 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x0fGetRolesRequest\x12T\n" +
 	"\x11organization_type\x18\x01 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\x10organizationType\"E\n" +
 	"\x10GetRolesResponse\x121\n" +
-	"\x05roles\x18\x01 \x03(\v2\x1b.users.organization.v1.RoleR\x05roles\"b\n" +
+	"\x05roles\x18\x01 \x03(\v2\x1b.users.organization.v1.RoleR\x05roles\"\xc9\x04\n" +
+	"\x17UpsertByLegacyIDRequest\x12\x1b\n" +
+	"\tlegacy_id\x18\x01 \x01(\x03R\blegacyId\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12;\n" +
+	"\x04type\x18\x03 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\x04type\x12\"\n" +
+	"\rowner_user_id\x18\x04 \x01(\x03R\vownerUserId\x12 \n" +
+	"\vdescription\x18\x05 \x01(\tR\vdescription\x12\x18\n" +
+	"\aaddress\x18\x06 \x01(\tR\aaddress\x12\x14\n" +
+	"\x05phone\x18\a \x01(\tR\x05phone\x12\x17\n" +
+	"\acity_id\x18\b \x01(\x03R\x06cityId\x12\x16\n" +
+	"\x06rating\x18\t \x01(\x01R\x06rating\x12!\n" +
+	"\fraters_count\x18\n" +
+	" \x01(\x05R\vratersCount\x12\x16\n" +
+	"\x06avatar\x18\v \x01(\tR\x06avatar\x12#\n" +
+	"\rwhatsapp_link\x18\f \x01(\tR\fwhatsappLink\x12\x1f\n" +
+	"\blatitude\x18\r \x01(\x01H\x00R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x0e \x01(\x01H\x01R\tlongitude\x88\x01\x01\x12\x1f\n" +
+	"\vis_reviewed\x18\x0f \x01(\bR\n" +
+	"isReviewed\x12\x16\n" +
+	"\x06status\x18\x10 \x01(\tR\x06status\x12!\n" +
+	"\fcategory_ids\x18\x11 \x03(\x03R\vcategoryIdsB\v\n" +
+	"\t_latitudeB\f\n" +
+	"\n" +
+	"_longitude\"}\n" +
+	"\x18UpsertByLegacyIDResponse\x12G\n" +
+	"\forganization\x18\x01 \x01(\v2#.users.organization.v1.OrganizationR\forganization\x12\x18\n" +
+	"\acreated\x18\x02 \x01(\bR\acreated\"b\n" +
 	"\x14SetCategoriesRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12!\n" +
 	"\fcategory_ids\x18\x02 \x03(\x03R\vcategoryIds\":\n" +
@@ -2731,7 +3247,7 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x14GetCategoriesRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\":\n" +
 	"\x15GetCategoriesResponse\x12!\n" +
-	"\fcategory_ids\x18\x01 \x03(\x03R\vcategoryIds*\xf9\x01\n" +
+	"\fcategory_ids\x18\x01 \x03(\x03R\vcategoryIds*\xe0\x02\n" +
 	"\x10OrganizationType\x12!\n" +
 	"\x1dORGANIZATION_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15ORGANIZATION_TYPE_STO\x10\x01\x12\x1f\n" +
@@ -2739,17 +3255,21 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x1aORGANIZATION_TYPE_CAR_WASH\x10\x03\x12$\n" +
 	" ORGANIZATION_TYPE_PARTS_SUPPLIER\x10\x04\x12\"\n" +
 	"\x1eORGANIZATION_TYPE_TIRE_SERVICE\x10\x05\x12\x1c\n" +
-	"\x18ORGANIZATION_TYPE_DEALER\x10\x06*`\n" +
+	"\x18ORGANIZATION_TYPE_DEALER\x10\x06\x12!\n" +
+	"\x1dORGANIZATION_TYPE_GAS_SERVICE\x10\a\x12!\n" +
+	"\x1dORGANIZATION_TYPE_OIL_SERVICE\x10\b\x12\x1f\n" +
+	"\x1bORGANIZATION_TYPE_EMERGENCY\x10\t*`\n" +
 	"\fMemberStatus\x12\x1d\n" +
 	"\x19MEMBER_STATUS_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14MEMBER_STATUS_ACTIVE\x10\x01\x12\x17\n" +
-	"\x13MEMBER_STATUS_FIRED\x10\x022\xe6\x0f\n" +
+	"\x13MEMBER_STATUS_FIRED\x10\x022\xdb\x10\n" +
 	"\x13OrganizationService\x12y\n" +
 	"\x12CreateOrganization\x120.users.organization.v1.CreateOrganizationRequest\x1a1.users.organization.v1.CreateOrganizationResponse\x12p\n" +
 	"\x0fGetOrganization\x12-.users.organization.v1.GetOrganizationRequest\x1a..users.organization.v1.GetOrganizationResponse\x12y\n" +
 	"\x12UpdateOrganization\x120.users.organization.v1.UpdateOrganizationRequest\x1a1.users.organization.v1.UpdateOrganizationResponse\x12y\n" +
 	"\x12DeleteOrganization\x120.users.organization.v1.DeleteOrganizationRequest\x1a1.users.organization.v1.DeleteOrganizationResponse\x12y\n" +
-	"\x12GetMyOrganizations\x120.users.organization.v1.GetMyOrganizationsRequest\x1a1.users.organization.v1.GetMyOrganizationsResponse\x12j\n" +
+	"\x12GetMyOrganizations\x120.users.organization.v1.GetMyOrganizationsRequest\x1a1.users.organization.v1.GetMyOrganizationsResponse\x12s\n" +
+	"\x10UpsertByLegacyID\x12..users.organization.v1.UpsertByLegacyIDRequest\x1a/.users.organization.v1.UpsertByLegacyIDResponse\x12j\n" +
 	"\rSetCategories\x12+.users.organization.v1.SetCategoriesRequest\x1a,.users.organization.v1.SetCategoriesResponse\x12j\n" +
 	"\rGetCategories\x12+.users.organization.v1.GetCategoriesRequest\x1a,.users.organization.v1.GetCategoriesResponse\x12^\n" +
 	"\tAddMember\x12'.users.organization.v1.AddMemberRequest\x1a(.users.organization.v1.AddMemberResponse\x12a\n" +
@@ -2779,7 +3299,7 @@ func file_users_organization_organization_proto_rawDescGZIP() []byte {
 }
 
 var file_users_organization_organization_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 43)
+var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
 var file_users_organization_organization_proto_goTypes = []any{
 	(OrganizationType)(0),                // 0: users.organization.v1.OrganizationType
 	(MemberStatus)(0),                    // 1: users.organization.v1.MemberStatus
@@ -2822,23 +3342,25 @@ var file_users_organization_organization_proto_goTypes = []any{
 	(*CheckPermissionResponse)(nil),      // 38: users.organization.v1.CheckPermissionResponse
 	(*GetRolesRequest)(nil),              // 39: users.organization.v1.GetRolesRequest
 	(*GetRolesResponse)(nil),             // 40: users.organization.v1.GetRolesResponse
-	(*SetCategoriesRequest)(nil),         // 41: users.organization.v1.SetCategoriesRequest
-	(*SetCategoriesResponse)(nil),        // 42: users.organization.v1.SetCategoriesResponse
-	(*GetCategoriesRequest)(nil),         // 43: users.organization.v1.GetCategoriesRequest
-	(*GetCategoriesResponse)(nil),        // 44: users.organization.v1.GetCategoriesResponse
-	(*timestamppb.Timestamp)(nil),        // 45: google.protobuf.Timestamp
+	(*UpsertByLegacyIDRequest)(nil),      // 41: users.organization.v1.UpsertByLegacyIDRequest
+	(*UpsertByLegacyIDResponse)(nil),     // 42: users.organization.v1.UpsertByLegacyIDResponse
+	(*SetCategoriesRequest)(nil),         // 43: users.organization.v1.SetCategoriesRequest
+	(*SetCategoriesResponse)(nil),        // 44: users.organization.v1.SetCategoriesResponse
+	(*GetCategoriesRequest)(nil),         // 45: users.organization.v1.GetCategoriesRequest
+	(*GetCategoriesResponse)(nil),        // 46: users.organization.v1.GetCategoriesResponse
+	(*timestamppb.Timestamp)(nil),        // 47: google.protobuf.Timestamp
 }
 var file_users_organization_organization_proto_depIdxs = []int32{
 	0,  // 0: users.organization.v1.Organization.type:type_name -> users.organization.v1.OrganizationType
 	3,  // 1: users.organization.v1.Organization.settings:type_name -> users.organization.v1.OrganizationSettings
-	45, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
-	45, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
+	47, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
+	47, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
 	4,  // 4: users.organization.v1.OrganizationSettings.working_hours:type_name -> users.organization.v1.WorkingHours
 	1,  // 5: users.organization.v1.Member.status:type_name -> users.organization.v1.MemberStatus
-	45, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
-	45, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
-	45, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
-	45, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
+	47, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
+	47, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
+	47, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
+	47, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
 	0,  // 10: users.organization.v1.CreateOrganizationRequest.type:type_name -> users.organization.v1.OrganizationType
 	2,  // 11: users.organization.v1.CreateOrganizationResponse.organization:type_name -> users.organization.v1.Organization
 	2,  // 12: users.organization.v1.GetOrganizationResponse.organization:type_name -> users.organization.v1.Organization
@@ -2857,47 +3379,51 @@ var file_users_organization_organization_proto_depIdxs = []int32{
 	7,  // 25: users.organization.v1.GetInviteCodesResponse.invite_codes:type_name -> users.organization.v1.InviteCode
 	0,  // 26: users.organization.v1.GetRolesRequest.organization_type:type_name -> users.organization.v1.OrganizationType
 	6,  // 27: users.organization.v1.GetRolesResponse.roles:type_name -> users.organization.v1.Role
-	8,  // 28: users.organization.v1.OrganizationService.CreateOrganization:input_type -> users.organization.v1.CreateOrganizationRequest
-	10, // 29: users.organization.v1.OrganizationService.GetOrganization:input_type -> users.organization.v1.GetOrganizationRequest
-	12, // 30: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
-	14, // 31: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
-	16, // 32: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
-	41, // 33: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
-	43, // 34: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
-	19, // 35: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
-	21, // 36: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
-	23, // 37: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
-	25, // 38: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
-	27, // 39: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
-	29, // 40: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
-	31, // 41: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
-	33, // 42: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
-	35, // 43: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
-	37, // 44: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
-	39, // 45: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
-	9,  // 46: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
-	11, // 47: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
-	13, // 48: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
-	15, // 49: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
-	17, // 50: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
-	42, // 51: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
-	44, // 52: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
-	20, // 53: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
-	22, // 54: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
-	24, // 55: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
-	26, // 56: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
-	28, // 57: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
-	30, // 58: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
-	32, // 59: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
-	34, // 60: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
-	36, // 61: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
-	38, // 62: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
-	40, // 63: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
-	46, // [46:64] is the sub-list for method output_type
-	28, // [28:46] is the sub-list for method input_type
-	28, // [28:28] is the sub-list for extension type_name
-	28, // [28:28] is the sub-list for extension extendee
-	0,  // [0:28] is the sub-list for field type_name
+	0,  // 28: users.organization.v1.UpsertByLegacyIDRequest.type:type_name -> users.organization.v1.OrganizationType
+	2,  // 29: users.organization.v1.UpsertByLegacyIDResponse.organization:type_name -> users.organization.v1.Organization
+	8,  // 30: users.organization.v1.OrganizationService.CreateOrganization:input_type -> users.organization.v1.CreateOrganizationRequest
+	10, // 31: users.organization.v1.OrganizationService.GetOrganization:input_type -> users.organization.v1.GetOrganizationRequest
+	12, // 32: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
+	14, // 33: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
+	16, // 34: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
+	41, // 35: users.organization.v1.OrganizationService.UpsertByLegacyID:input_type -> users.organization.v1.UpsertByLegacyIDRequest
+	43, // 36: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
+	45, // 37: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
+	19, // 38: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
+	21, // 39: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
+	23, // 40: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
+	25, // 41: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
+	27, // 42: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
+	29, // 43: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
+	31, // 44: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
+	33, // 45: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
+	35, // 46: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
+	37, // 47: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
+	39, // 48: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
+	9,  // 49: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
+	11, // 50: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
+	13, // 51: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
+	15, // 52: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
+	17, // 53: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
+	42, // 54: users.organization.v1.OrganizationService.UpsertByLegacyID:output_type -> users.organization.v1.UpsertByLegacyIDResponse
+	44, // 55: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
+	46, // 56: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
+	20, // 57: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
+	22, // 58: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
+	24, // 59: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
+	26, // 60: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
+	28, // 61: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
+	30, // 62: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
+	32, // 63: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
+	34, // 64: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
+	36, // 65: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
+	38, // 66: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
+	40, // 67: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
+	49, // [49:68] is the sub-list for method output_type
+	30, // [30:49] is the sub-list for method input_type
+	30, // [30:30] is the sub-list for extension type_name
+	30, // [30:30] is the sub-list for extension extendee
+	0,  // [0:30] is the sub-list for field type_name
 }
 
 func init() { file_users_organization_organization_proto_init() }
@@ -2905,14 +3431,17 @@ func file_users_organization_organization_proto_init() {
 	if File_users_organization_organization_proto != nil {
 		return
 	}
+	file_users_organization_organization_proto_msgTypes[0].OneofWrappers = []any{}
+	file_users_organization_organization_proto_msgTypes[6].OneofWrappers = []any{}
 	file_users_organization_organization_proto_msgTypes[10].OneofWrappers = []any{}
+	file_users_organization_organization_proto_msgTypes[39].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_users_organization_organization_proto_rawDesc), len(file_users_organization_organization_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   43,
+			NumMessages:   45,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

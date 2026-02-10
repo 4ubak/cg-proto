@@ -21,6 +21,9 @@ service OrganizationService {
   
   // GetMyOrganizations returns organizations where current user is a member
   rpc GetMyOrganizations(GetMyOrganizationsRequest) returns (GetMyOrganizationsResponse);
+
+  // UpsertByLegacyID upserts organization by legacy_id (for sync service)
+  rpc UpsertByLegacyID(UpsertByLegacyIDRequest) returns (UpsertByLegacyIDResponse);
   
   // Categories - for matching with requests
   rpc SetCategories(SetCategoriesRequest) returns (SetCategoriesResponse);
@@ -52,6 +55,9 @@ enum OrganizationType {
   ORGANIZATION_TYPE_PARTS_SUPPLIER = 4; // Поставщик запчастей (group_id = 3)
   ORGANIZATION_TYPE_TIRE_SERVICE = 5;  // Шиномонтаж (group_id = 4)
   ORGANIZATION_TYPE_DEALER = 6;        // Дилер
+  ORGANIZATION_TYPE_GAS_SERVICE = 7;   // Установка газа на авто
+  ORGANIZATION_TYPE_OIL_SERVICE = 8;   // Замена масла и жидкостей
+  ORGANIZATION_TYPE_EMERGENCY = 9;     // Срочная выездная помощь
 }
 
 enum MemberStatus {
@@ -75,6 +81,18 @@ message Organization {
   google.protobuf.Timestamp created_at = 12;
   google.protobuf.Timestamp updated_at = 13;
   repeated int64 category_ids = 14;  // Service categories for matching
+  optional int64 legacy_id = 15;
+  double rating = 16;
+  int32 raters_count = 17;
+  string avatar = 18;
+  string whatsapp_link = 19;
+  optional double latitude = 20;
+  optional double longitude = 21;
+  bool is_reviewed = 22;
+  repeated int64 car_make_ids = 23;
+  repeated int64 car_model_ids = 24;
+  optional int32 year_from = 25;
+  optional int32 year_to = 26;
 }
 
 message OrganizationSettings {
@@ -130,7 +148,13 @@ message CreateOrganizationRequest {
   string address = 4;
   string phone = 5;
   int64 city_id = 6;
-  repeated int64 category_ids = 7;  // Optional: service categories
+  repeated int64 category_ids = 7;
+  repeated int64 car_make_ids = 8;
+  repeated int64 car_model_ids = 9;
+  optional int32 year_from = 10;
+  optional int32 year_to = 11;
+  optional double latitude = 12;
+  optional double longitude = 13;
 }
 
 message CreateOrganizationResponse {
@@ -153,6 +177,13 @@ message UpdateOrganizationRequest {
   optional string address = 5;
   optional string phone = 6;
   optional OrganizationSettings settings = 7;
+  repeated int64 car_make_ids = 8;
+  repeated int64 car_model_ids = 9;
+  optional int32 year_from = 10;
+  optional int32 year_to = 11;
+  optional string avatar = 12;
+  optional double latitude = 13;
+  optional double longitude = 14;
 }
 
 message UpdateOrganizationResponse {
@@ -282,6 +313,32 @@ message GetRolesRequest {
 
 message GetRolesResponse {
   repeated Role roles = 1;
+}
+
+// UpsertByLegacyID (for sync service - migrating orgs from old system)
+message UpsertByLegacyIDRequest {
+  int64 legacy_id = 1;
+  string name = 2;
+  OrganizationType type = 3;
+  int64 owner_user_id = 4;
+  string description = 5;
+  string address = 6;
+  string phone = 7;
+  int64 city_id = 8;
+  double rating = 9;
+  int32 raters_count = 10;
+  string avatar = 11;
+  string whatsapp_link = 12;
+  optional double latitude = 13;
+  optional double longitude = 14;
+  bool is_reviewed = 15;
+  string status = 16;
+  repeated int64 category_ids = 17;
+}
+
+message UpsertByLegacyIDResponse {
+  Organization organization = 1;
+  bool created = 2;
 }
 
 // Categories - for matching with service requests

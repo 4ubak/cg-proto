@@ -19,18 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_GetProfile_FullMethodName       = "/users.user.v1.UserService/GetProfile"
-	UserService_UpdateProfile_FullMethodName    = "/users.user.v1.UserService/UpdateProfile"
-	UserService_GetUserByID_FullMethodName      = "/users.user.v1.UserService/GetUserByID"
-	UserService_GetUserByPhone_FullMethodName   = "/users.user.v1.UserService/GetUserByPhone"
-	UserService_CreateUser_FullMethodName       = "/users.user.v1.UserService/CreateUser"
-	UserService_GetUsersByIDs_FullMethodName    = "/users.user.v1.UserService/GetUsersByIDs"
-	UserService_GetSettings_FullMethodName      = "/users.user.v1.UserService/GetSettings"
-	UserService_UpdateSettings_FullMethodName   = "/users.user.v1.UserService/UpdateSettings"
-	UserService_RegisterDevice_FullMethodName   = "/users.user.v1.UserService/RegisterDevice"
-	UserService_UnregisterDevice_FullMethodName = "/users.user.v1.UserService/UnregisterDevice"
-	UserService_GetDevices_FullMethodName       = "/users.user.v1.UserService/GetDevices"
-	UserService_DeleteAccount_FullMethodName    = "/users.user.v1.UserService/DeleteAccount"
+	UserService_GetProfile_FullMethodName          = "/users.user.v1.UserService/GetProfile"
+	UserService_UpdateProfile_FullMethodName       = "/users.user.v1.UserService/UpdateProfile"
+	UserService_GetUserByID_FullMethodName         = "/users.user.v1.UserService/GetUserByID"
+	UserService_GetUserByPhone_FullMethodName      = "/users.user.v1.UserService/GetUserByPhone"
+	UserService_CreateUser_FullMethodName          = "/users.user.v1.UserService/CreateUser"
+	UserService_GetUsersByIDs_FullMethodName       = "/users.user.v1.UserService/GetUsersByIDs"
+	UserService_FindOrCreateByPhone_FullMethodName = "/users.user.v1.UserService/FindOrCreateByPhone"
+	UserService_GetSettings_FullMethodName         = "/users.user.v1.UserService/GetSettings"
+	UserService_UpdateSettings_FullMethodName      = "/users.user.v1.UserService/UpdateSettings"
+	UserService_RegisterDevice_FullMethodName      = "/users.user.v1.UserService/RegisterDevice"
+	UserService_UnregisterDevice_FullMethodName    = "/users.user.v1.UserService/UnregisterDevice"
+	UserService_GetDevices_FullMethodName          = "/users.user.v1.UserService/GetDevices"
+	UserService_DeleteAccount_FullMethodName       = "/users.user.v1.UserService/DeleteAccount"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -49,6 +50,8 @@ type UserServiceClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	// GetUsersByIDs returns multiple users by IDs (for batch loading)
 	GetUsersByIDs(ctx context.Context, in *GetUsersByIDsRequest, opts ...grpc.CallOption) (*GetUsersByIDsResponse, error)
+	// FindOrCreateByPhone atomically finds user by phone or creates minimal record (for sync service)
+	FindOrCreateByPhone(ctx context.Context, in *FindOrCreateByPhoneRequest, opts ...grpc.CallOption) (*FindOrCreateByPhoneResponse, error)
 	// GetSettings returns user notification settings
 	GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error)
 	// UpdateSettings updates user notification settings
@@ -131,6 +134,16 @@ func (c *userServiceClient) GetUsersByIDs(ctx context.Context, in *GetUsersByIDs
 	return out, nil
 }
 
+func (c *userServiceClient) FindOrCreateByPhone(ctx context.Context, in *FindOrCreateByPhoneRequest, opts ...grpc.CallOption) (*FindOrCreateByPhoneResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindOrCreateByPhoneResponse)
+	err := c.cc.Invoke(ctx, UserService_FindOrCreateByPhone_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetSettingsResponse)
@@ -207,6 +220,8 @@ type UserServiceServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	// GetUsersByIDs returns multiple users by IDs (for batch loading)
 	GetUsersByIDs(context.Context, *GetUsersByIDsRequest) (*GetUsersByIDsResponse, error)
+	// FindOrCreateByPhone atomically finds user by phone or creates minimal record (for sync service)
+	FindOrCreateByPhone(context.Context, *FindOrCreateByPhoneRequest) (*FindOrCreateByPhoneResponse, error)
 	// GetSettings returns user notification settings
 	GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error)
 	// UpdateSettings updates user notification settings
@@ -246,6 +261,9 @@ func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserReq
 }
 func (UnimplementedUserServiceServer) GetUsersByIDs(context.Context, *GetUsersByIDsRequest) (*GetUsersByIDsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetUsersByIDs not implemented")
+}
+func (UnimplementedUserServiceServer) FindOrCreateByPhone(context.Context, *FindOrCreateByPhoneRequest) (*FindOrCreateByPhoneResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method FindOrCreateByPhone not implemented")
 }
 func (UnimplementedUserServiceServer) GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetSettings not implemented")
@@ -394,6 +412,24 @@ func _UserService_GetUsersByIDs_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_FindOrCreateByPhone_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindOrCreateByPhoneRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).FindOrCreateByPhone(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_FindOrCreateByPhone_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).FindOrCreateByPhone(ctx, req.(*FindOrCreateByPhoneRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_GetSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSettingsRequest)
 	if err := dec(in); err != nil {
@@ -532,6 +568,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUsersByIDs",
 			Handler:    _UserService_GetUsersByIDs_Handler,
+		},
+		{
+			MethodName: "FindOrCreateByPhone",
+			Handler:    _UserService_FindOrCreateByPhone_Handler,
 		},
 		{
 			MethodName: "GetSettings",
