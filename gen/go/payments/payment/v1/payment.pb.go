@@ -4814,11 +4814,12 @@ func (x *CancelOrderRequest) GetReason() string {
 }
 
 type CancelOrderResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Order         *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
-	Refund        *Refund                `protobuf:"bytes,2,opt,name=refund,proto3" json:"refund,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Order          *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	Refund         *Refund                `protobuf:"bytes,2,opt,name=refund,proto3" json:"refund,omitempty"`
+	RefundEligible bool                   `protobuf:"varint,3,opt,name=refund_eligible,json=refundEligible,proto3" json:"refund_eligible,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *CancelOrderResponse) Reset() {
@@ -4863,6 +4864,13 @@ func (x *CancelOrderResponse) GetRefund() *Refund {
 		return x.Refund
 	}
 	return nil
+}
+
+func (x *CancelOrderResponse) GetRefundEligible() bool {
+	if x != nil {
+		return x.RefundEligible
+	}
+	return false
 }
 
 type CreateBookingRequest struct {
@@ -7368,10 +7376,11 @@ const file_payments_payment_v1_payment_proto_rawDesc = "" +
 	"\x12CancelOrderRequest\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\x03R\aorderId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x16\n" +
-	"\x06reason\x18\x03 \x01(\tR\x06reason\"|\n" +
+	"\x06reason\x18\x03 \x01(\tR\x06reason\"\xa5\x01\n" +
 	"\x13CancelOrderResponse\x120\n" +
 	"\x05order\x18\x01 \x01(\v2\x1a.payments.payment.v1.OrderR\x05order\x123\n" +
-	"\x06refund\x18\x02 \x01(\v2\x1b.payments.payment.v1.RefundR\x06refund\"\xf3\x05\n" +
+	"\x06refund\x18\x02 \x01(\v2\x1b.payments.payment.v1.RefundR\x06refund\x12'\n" +
+	"\x0frefund_eligible\x18\x03 \x01(\bR\x0erefundEligible\"\xf3\x05\n" +
 	"\x14CreateBookingRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\x12C\n" +

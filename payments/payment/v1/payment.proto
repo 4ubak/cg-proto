@@ -624,6 +624,7 @@ message CancelOrderRequest {
 message CancelOrderResponse {
   Order order = 1;
   Refund refund = 2;
+  bool refund_eligible = 3;
 }
 
 // =============================================
