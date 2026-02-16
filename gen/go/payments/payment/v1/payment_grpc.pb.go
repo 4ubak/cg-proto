@@ -49,6 +49,7 @@ const (
 	PaymentService_UpdateWashService_FullMethodName     = "/payments.payment.v1.PaymentService/UpdateWashService"
 	PaymentService_SetWashPricing_FullMethodName        = "/payments.payment.v1.PaymentService/SetWashPricing"
 	PaymentService_GetAvailableSlots_FullMethodName     = "/payments.payment.v1.PaymentService/GetAvailableSlots"
+	PaymentService_GenerateWashSlots_FullMethodName     = "/payments.payment.v1.PaymentService/GenerateWashSlots"
 	PaymentService_HandleIokaWebhook_FullMethodName     = "/payments.payment.v1.PaymentService/HandleIokaWebhook"
 	PaymentService_HandleKaspiCheckPay_FullMethodName   = "/payments.payment.v1.PaymentService/HandleKaspiCheckPay"
 	PaymentService_GetRevenueStats_FullMethodName       = "/payments.payment.v1.PaymentService/GetRevenueStats"
@@ -97,6 +98,7 @@ type PaymentServiceClient interface {
 	UpdateWashService(ctx context.Context, in *UpdateWashServiceRequest, opts ...grpc.CallOption) (*UpdateWashServiceResponse, error)
 	SetWashPricing(ctx context.Context, in *SetWashPricingRequest, opts ...grpc.CallOption) (*SetWashPricingResponse, error)
 	GetAvailableSlots(ctx context.Context, in *GetAvailableSlotsRequest, opts ...grpc.CallOption) (*GetAvailableSlotsResponse, error)
+	GenerateWashSlots(ctx context.Context, in *GenerateWashSlotsRequest, opts ...grpc.CallOption) (*GenerateWashSlotsResponse, error)
 	// === Webhooks ===
 	HandleIokaWebhook(ctx context.Context, in *HandleIokaWebhookRequest, opts ...grpc.CallOption) (*HandleIokaWebhookResponse, error)
 	HandleKaspiCheckPay(ctx context.Context, in *HandleKaspiCheckPayRequest, opts ...grpc.CallOption) (*HandleKaspiCheckPayResponse, error)
@@ -414,6 +416,16 @@ func (c *paymentServiceClient) GetAvailableSlots(ctx context.Context, in *GetAva
 	return out, nil
 }
 
+func (c *paymentServiceClient) GenerateWashSlots(ctx context.Context, in *GenerateWashSlotsRequest, opts ...grpc.CallOption) (*GenerateWashSlotsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GenerateWashSlotsResponse)
+	err := c.cc.Invoke(ctx, PaymentService_GenerateWashSlots_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *paymentServiceClient) HandleIokaWebhook(ctx context.Context, in *HandleIokaWebhookRequest, opts ...grpc.CallOption) (*HandleIokaWebhookResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HandleIokaWebhookResponse)
@@ -505,6 +517,7 @@ type PaymentServiceServer interface {
 	UpdateWashService(context.Context, *UpdateWashServiceRequest) (*UpdateWashServiceResponse, error)
 	SetWashPricing(context.Context, *SetWashPricingRequest) (*SetWashPricingResponse, error)
 	GetAvailableSlots(context.Context, *GetAvailableSlotsRequest) (*GetAvailableSlotsResponse, error)
+	GenerateWashSlots(context.Context, *GenerateWashSlotsRequest) (*GenerateWashSlotsResponse, error)
 	// === Webhooks ===
 	HandleIokaWebhook(context.Context, *HandleIokaWebhookRequest) (*HandleIokaWebhookResponse, error)
 	HandleKaspiCheckPay(context.Context, *HandleKaspiCheckPayRequest) (*HandleKaspiCheckPayResponse, error)
@@ -611,6 +624,9 @@ func (UnimplementedPaymentServiceServer) SetWashPricing(context.Context, *SetWas
 }
 func (UnimplementedPaymentServiceServer) GetAvailableSlots(context.Context, *GetAvailableSlotsRequest) (*GetAvailableSlotsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAvailableSlots not implemented")
+}
+func (UnimplementedPaymentServiceServer) GenerateWashSlots(context.Context, *GenerateWashSlotsRequest) (*GenerateWashSlotsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GenerateWashSlots not implemented")
 }
 func (UnimplementedPaymentServiceServer) HandleIokaWebhook(context.Context, *HandleIokaWebhookRequest) (*HandleIokaWebhookResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method HandleIokaWebhook not implemented")
@@ -1188,6 +1204,24 @@ func _PaymentService_GetAvailableSlots_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_GenerateWashSlots_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateWashSlotsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).GenerateWashSlots(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_GenerateWashSlots_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).GenerateWashSlots(ctx, req.(*GenerateWashSlotsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PaymentService_HandleIokaWebhook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HandleIokaWebhookRequest)
 	if err := dec(in); err != nil {
@@ -1404,6 +1438,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAvailableSlots",
 			Handler:    _PaymentService_GetAvailableSlots_Handler,
+		},
+		{
+			MethodName: "GenerateWashSlots",
+			Handler:    _PaymentService_GenerateWashSlots_Handler,
 		},
 		{
 			MethodName: "HandleIokaWebhook",

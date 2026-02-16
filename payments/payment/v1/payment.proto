@@ -50,6 +50,7 @@ service PaymentService {
   rpc UpdateWashService(UpdateWashServiceRequest) returns (UpdateWashServiceResponse);
   rpc SetWashPricing(SetWashPricingRequest) returns (SetWashPricingResponse);
   rpc GetAvailableSlots(GetAvailableSlotsRequest) returns (GetAvailableSlotsResponse);
+  rpc GenerateWashSlots(GenerateWashSlotsRequest) returns (GenerateWashSlotsResponse);
 
   // === Webhooks ===
   rpc HandleIokaWebhook(HandleIokaWebhookRequest) returns (HandleIokaWebhookResponse);
@@ -758,6 +759,20 @@ message GetAvailableSlotsRequest {
 
 message GetAvailableSlotsResponse {
   repeated WashSlot slots = 1;
+}
+
+message GenerateWashSlotsRequest {
+  string organization_id = 1;
+  string date_from = 2;             // "2006-01-02"
+  string date_to = 3;               // "2006-01-02"
+  int32 bays_count = 4;             // number of wash bays
+  int32 slot_duration_minutes = 5;  // e.g. 30
+  string start_time = 6;            // "HH:MM" e.g. "09:00"
+  string end_time = 7;              // "HH:MM" e.g. "21:00"
+}
+
+message GenerateWashSlotsResponse {
+  int32 slots_created = 1;
 }
 
 // =============================================

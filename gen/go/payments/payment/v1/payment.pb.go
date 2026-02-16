@@ -6133,6 +6133,142 @@ func (x *GetAvailableSlotsResponse) GetSlots() []*WashSlot {
 	return nil
 }
 
+type GenerateWashSlotsRequest struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId      string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	DateFrom            string                 `protobuf:"bytes,2,opt,name=date_from,json=dateFrom,proto3" json:"date_from,omitempty"`                                     // "2006-01-02"
+	DateTo              string                 `protobuf:"bytes,3,opt,name=date_to,json=dateTo,proto3" json:"date_to,omitempty"`                                           // "2006-01-02"
+	BaysCount           int32                  `protobuf:"varint,4,opt,name=bays_count,json=baysCount,proto3" json:"bays_count,omitempty"`                                 // number of wash bays
+	SlotDurationMinutes int32                  `protobuf:"varint,5,opt,name=slot_duration_minutes,json=slotDurationMinutes,proto3" json:"slot_duration_minutes,omitempty"` // e.g. 30
+	StartTime           string                 `protobuf:"bytes,6,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`                                  // "HH:MM" e.g. "09:00"
+	EndTime             string                 `protobuf:"bytes,7,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`                                        // "HH:MM" e.g. "21:00"
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *GenerateWashSlotsRequest) Reset() {
+	*x = GenerateWashSlotsRequest{}
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[78]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GenerateWashSlotsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenerateWashSlotsRequest) ProtoMessage() {}
+
+func (x *GenerateWashSlotsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[78]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenerateWashSlotsRequest.ProtoReflect.Descriptor instead.
+func (*GenerateWashSlotsRequest) Descriptor() ([]byte, []int) {
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{78}
+}
+
+func (x *GenerateWashSlotsRequest) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *GenerateWashSlotsRequest) GetDateFrom() string {
+	if x != nil {
+		return x.DateFrom
+	}
+	return ""
+}
+
+func (x *GenerateWashSlotsRequest) GetDateTo() string {
+	if x != nil {
+		return x.DateTo
+	}
+	return ""
+}
+
+func (x *GenerateWashSlotsRequest) GetBaysCount() int32 {
+	if x != nil {
+		return x.BaysCount
+	}
+	return 0
+}
+
+func (x *GenerateWashSlotsRequest) GetSlotDurationMinutes() int32 {
+	if x != nil {
+		return x.SlotDurationMinutes
+	}
+	return 0
+}
+
+func (x *GenerateWashSlotsRequest) GetStartTime() string {
+	if x != nil {
+		return x.StartTime
+	}
+	return ""
+}
+
+func (x *GenerateWashSlotsRequest) GetEndTime() string {
+	if x != nil {
+		return x.EndTime
+	}
+	return ""
+}
+
+type GenerateWashSlotsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SlotsCreated  int32                  `protobuf:"varint,1,opt,name=slots_created,json=slotsCreated,proto3" json:"slots_created,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GenerateWashSlotsResponse) Reset() {
+	*x = GenerateWashSlotsResponse{}
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[79]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GenerateWashSlotsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenerateWashSlotsResponse) ProtoMessage() {}
+
+func (x *GenerateWashSlotsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[79]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenerateWashSlotsResponse.ProtoReflect.Descriptor instead.
+func (*GenerateWashSlotsResponse) Descriptor() ([]byte, []int) {
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{79}
+}
+
+func (x *GenerateWashSlotsResponse) GetSlotsCreated() int32 {
+	if x != nil {
+		return x.SlotsCreated
+	}
+	return 0
+}
+
 type HandleIokaWebhookRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RawBody       []byte                 `protobuf:"bytes,1,opt,name=raw_body,json=rawBody,proto3" json:"raw_body,omitempty"`
@@ -6143,7 +6279,7 @@ type HandleIokaWebhookRequest struct {
 
 func (x *HandleIokaWebhookRequest) Reset() {
 	*x = HandleIokaWebhookRequest{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[78]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6155,7 +6291,7 @@ func (x *HandleIokaWebhookRequest) String() string {
 func (*HandleIokaWebhookRequest) ProtoMessage() {}
 
 func (x *HandleIokaWebhookRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[78]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6168,7 +6304,7 @@ func (x *HandleIokaWebhookRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HandleIokaWebhookRequest.ProtoReflect.Descriptor instead.
 func (*HandleIokaWebhookRequest) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{78}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *HandleIokaWebhookRequest) GetRawBody() []byte {
@@ -6194,7 +6330,7 @@ type HandleIokaWebhookResponse struct {
 
 func (x *HandleIokaWebhookResponse) Reset() {
 	*x = HandleIokaWebhookResponse{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[79]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6206,7 +6342,7 @@ func (x *HandleIokaWebhookResponse) String() string {
 func (*HandleIokaWebhookResponse) ProtoMessage() {}
 
 func (x *HandleIokaWebhookResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[79]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6219,7 +6355,7 @@ func (x *HandleIokaWebhookResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HandleIokaWebhookResponse.ProtoReflect.Descriptor instead.
 func (*HandleIokaWebhookResponse) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{79}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *HandleIokaWebhookResponse) GetSuccess() bool {
@@ -6242,7 +6378,7 @@ type HandleKaspiCheckPayRequest struct {
 
 func (x *HandleKaspiCheckPayRequest) Reset() {
 	*x = HandleKaspiCheckPayRequest{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[80]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6254,7 +6390,7 @@ func (x *HandleKaspiCheckPayRequest) String() string {
 func (*HandleKaspiCheckPayRequest) ProtoMessage() {}
 
 func (x *HandleKaspiCheckPayRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[80]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6267,7 +6403,7 @@ func (x *HandleKaspiCheckPayRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HandleKaspiCheckPayRequest.ProtoReflect.Descriptor instead.
 func (*HandleKaspiCheckPayRequest) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{80}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *HandleKaspiCheckPayRequest) GetCommand() string {
@@ -6314,7 +6450,7 @@ type HandleKaspiCheckPayResponse struct {
 
 func (x *HandleKaspiCheckPayResponse) Reset() {
 	*x = HandleKaspiCheckPayResponse{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[81]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6326,7 +6462,7 @@ func (x *HandleKaspiCheckPayResponse) String() string {
 func (*HandleKaspiCheckPayResponse) ProtoMessage() {}
 
 func (x *HandleKaspiCheckPayResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[81]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6339,7 +6475,7 @@ func (x *HandleKaspiCheckPayResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HandleKaspiCheckPayResponse.ProtoReflect.Descriptor instead.
 func (*HandleKaspiCheckPayResponse) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{81}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *HandleKaspiCheckPayResponse) GetXmlResponse() string {
@@ -6360,7 +6496,7 @@ type GetRevenueStatsRequest struct {
 
 func (x *GetRevenueStatsRequest) Reset() {
 	*x = GetRevenueStatsRequest{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[82]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6372,7 +6508,7 @@ func (x *GetRevenueStatsRequest) String() string {
 func (*GetRevenueStatsRequest) ProtoMessage() {}
 
 func (x *GetRevenueStatsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[82]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6385,7 +6521,7 @@ func (x *GetRevenueStatsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRevenueStatsRequest.ProtoReflect.Descriptor instead.
 func (*GetRevenueStatsRequest) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{82}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{84}
 }
 
 func (x *GetRevenueStatsRequest) GetFrom() *timestamppb.Timestamp {
@@ -6426,7 +6562,7 @@ type RevenueDataPoint struct {
 
 func (x *RevenueDataPoint) Reset() {
 	*x = RevenueDataPoint{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[83]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6438,7 +6574,7 @@ func (x *RevenueDataPoint) String() string {
 func (*RevenueDataPoint) ProtoMessage() {}
 
 func (x *RevenueDataPoint) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[83]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6451,7 +6587,7 @@ func (x *RevenueDataPoint) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RevenueDataPoint.ProtoReflect.Descriptor instead.
 func (*RevenueDataPoint) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{83}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *RevenueDataPoint) GetPeriod() string {
@@ -6528,7 +6664,7 @@ type GetRevenueStatsResponse struct {
 
 func (x *GetRevenueStatsResponse) Reset() {
 	*x = GetRevenueStatsResponse{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[84]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[86]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6540,7 +6676,7 @@ func (x *GetRevenueStatsResponse) String() string {
 func (*GetRevenueStatsResponse) ProtoMessage() {}
 
 func (x *GetRevenueStatsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[84]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[86]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6553,7 +6689,7 @@ func (x *GetRevenueStatsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRevenueStatsResponse.ProtoReflect.Descriptor instead.
 func (*GetRevenueStatsResponse) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{84}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{86}
 }
 
 func (x *GetRevenueStatsResponse) GetDataPoints() []*RevenueDataPoint {
@@ -6586,7 +6722,7 @@ type GetSubscriptionStatsRequest struct {
 
 func (x *GetSubscriptionStatsRequest) Reset() {
 	*x = GetSubscriptionStatsRequest{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[85]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[87]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6598,7 +6734,7 @@ func (x *GetSubscriptionStatsRequest) String() string {
 func (*GetSubscriptionStatsRequest) ProtoMessage() {}
 
 func (x *GetSubscriptionStatsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[85]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[87]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6611,7 +6747,7 @@ func (x *GetSubscriptionStatsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSubscriptionStatsRequest.ProtoReflect.Descriptor instead.
 func (*GetSubscriptionStatsRequest) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{85}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{87}
 }
 
 func (x *GetSubscriptionStatsRequest) GetOrgType() string {
@@ -6635,7 +6771,7 @@ type GetSubscriptionStatsResponse struct {
 
 func (x *GetSubscriptionStatsResponse) Reset() {
 	*x = GetSubscriptionStatsResponse{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[86]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[88]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6647,7 +6783,7 @@ func (x *GetSubscriptionStatsResponse) String() string {
 func (*GetSubscriptionStatsResponse) ProtoMessage() {}
 
 func (x *GetSubscriptionStatsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[86]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[88]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6660,7 +6796,7 @@ func (x *GetSubscriptionStatsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSubscriptionStatsResponse.ProtoReflect.Descriptor instead.
 func (*GetSubscriptionStatsResponse) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{86}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{88}
 }
 
 func (x *GetSubscriptionStatsResponse) GetTotalActive() int32 {
@@ -6717,7 +6853,7 @@ type GetPaymentAuditLogRequest struct {
 
 func (x *GetPaymentAuditLogRequest) Reset() {
 	*x = GetPaymentAuditLogRequest{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[87]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[89]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6729,7 +6865,7 @@ func (x *GetPaymentAuditLogRequest) String() string {
 func (*GetPaymentAuditLogRequest) ProtoMessage() {}
 
 func (x *GetPaymentAuditLogRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[87]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[89]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6742,7 +6878,7 @@ func (x *GetPaymentAuditLogRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPaymentAuditLogRequest.ProtoReflect.Descriptor instead.
 func (*GetPaymentAuditLogRequest) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{87}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{89}
 }
 
 func (x *GetPaymentAuditLogRequest) GetEntityType() string {
@@ -6783,7 +6919,7 @@ type GetPaymentAuditLogResponse struct {
 
 func (x *GetPaymentAuditLogResponse) Reset() {
 	*x = GetPaymentAuditLogResponse{}
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[88]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[90]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6795,7 +6931,7 @@ func (x *GetPaymentAuditLogResponse) String() string {
 func (*GetPaymentAuditLogResponse) ProtoMessage() {}
 
 func (x *GetPaymentAuditLogResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_payments_payment_v1_payment_proto_msgTypes[88]
+	mi := &file_payments_payment_v1_payment_proto_msgTypes[90]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6808,7 +6944,7 @@ func (x *GetPaymentAuditLogResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPaymentAuditLogResponse.ProtoReflect.Descriptor instead.
 func (*GetPaymentAuditLogResponse) Descriptor() ([]byte, []int) {
-	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{88}
+	return file_payments_payment_v1_payment_proto_rawDescGZIP(), []int{90}
 }
 
 func (x *GetPaymentAuditLogResponse) GetEntries() []*AuditLogEntry {
@@ -7342,7 +7478,19 @@ const file_payments_payment_v1_payment_proto_rawDesc = "" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x12\n" +
 	"\x04date\x18\x02 \x01(\tR\x04date\"P\n" +
 	"\x19GetAvailableSlotsResponse\x123\n" +
-	"\x05slots\x18\x01 \x03(\v2\x1d.payments.payment.v1.WashSlotR\x05slots\"\xc7\x01\n" +
+	"\x05slots\x18\x01 \x03(\v2\x1d.payments.payment.v1.WashSlotR\x05slots\"\x86\x02\n" +
+	"\x18GenerateWashSlotsRequest\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1b\n" +
+	"\tdate_from\x18\x02 \x01(\tR\bdateFrom\x12\x17\n" +
+	"\adate_to\x18\x03 \x01(\tR\x06dateTo\x12\x1d\n" +
+	"\n" +
+	"bays_count\x18\x04 \x01(\x05R\tbaysCount\x122\n" +
+	"\x15slot_duration_minutes\x18\x05 \x01(\x05R\x13slotDurationMinutes\x12\x1d\n" +
+	"\n" +
+	"start_time\x18\x06 \x01(\tR\tstartTime\x12\x19\n" +
+	"\bend_time\x18\a \x01(\tR\aendTime\"@\n" +
+	"\x19GenerateWashSlotsResponse\x12#\n" +
+	"\rslots_created\x18\x01 \x01(\x05R\fslotsCreated\"\xc7\x01\n" +
 	"\x18HandleIokaWebhookRequest\x12\x19\n" +
 	"\braw_body\x18\x01 \x01(\fR\arawBody\x12T\n" +
 	"\aheaders\x18\x02 \x03(\v2:.payments.payment.v1.HandleIokaWebhookRequest.HeadersEntryR\aheaders\x1a:\n" +
@@ -7469,7 +7617,7 @@ const file_payments_payment_v1_payment_proto_rawDesc = "" +
 	"\fDeliveryType\x12\x1d\n" +
 	"\x19DELIVERY_TYPE_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14DELIVERY_TYPE_PICKUP\x10\x01\x12\x1a\n" +
-	"\x16DELIVERY_TYPE_DELIVERY\x10\x022\xea\x1d\n" +
+	"\x16DELIVERY_TYPE_DELIVERY\x10\x022\xde\x1e\n" +
 	"\x0ePaymentService\x12Z\n" +
 	"\tListPlans\x12%.payments.payment.v1.ListPlansRequest\x1a&.payments.payment.v1.ListPlansResponse\x12]\n" +
 	"\n" +
@@ -7505,6 +7653,7 @@ const file_payments_payment_v1_payment_proto_rawDesc = "" +
 	"\x11UpdateWashService\x12-.payments.payment.v1.UpdateWashServiceRequest\x1a..payments.payment.v1.UpdateWashServiceResponse\x12i\n" +
 	"\x0eSetWashPricing\x12*.payments.payment.v1.SetWashPricingRequest\x1a+.payments.payment.v1.SetWashPricingResponse\x12r\n" +
 	"\x11GetAvailableSlots\x12-.payments.payment.v1.GetAvailableSlotsRequest\x1a..payments.payment.v1.GetAvailableSlotsResponse\x12r\n" +
+	"\x11GenerateWashSlots\x12-.payments.payment.v1.GenerateWashSlotsRequest\x1a..payments.payment.v1.GenerateWashSlotsResponse\x12r\n" +
 	"\x11HandleIokaWebhook\x12-.payments.payment.v1.HandleIokaWebhookRequest\x1a..payments.payment.v1.HandleIokaWebhookResponse\x12x\n" +
 	"\x13HandleKaspiCheckPay\x12/.payments.payment.v1.HandleKaspiCheckPayRequest\x1a0.payments.payment.v1.HandleKaspiCheckPayResponse\x12l\n" +
 	"\x0fGetRevenueStats\x12+.payments.payment.v1.GetRevenueStatsRequest\x1a,.payments.payment.v1.GetRevenueStatsResponse\x12{\n" +
@@ -7524,7 +7673,7 @@ func file_payments_payment_v1_payment_proto_rawDescGZIP() []byte {
 }
 
 var file_payments_payment_v1_payment_proto_enumTypes = make([]protoimpl.EnumInfo, 11)
-var file_payments_payment_v1_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 95)
+var file_payments_payment_v1_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 97)
 var file_payments_payment_v1_payment_proto_goTypes = []any{
 	(PlanType)(0),                         // 0: payments.payment.v1.PlanType
 	(SubscriptionStatus)(0),               // 1: payments.payment.v1.SubscriptionStatus
@@ -7615,74 +7764,76 @@ var file_payments_payment_v1_payment_proto_goTypes = []any{
 	(*SetWashPricingResponse)(nil),        // 86: payments.payment.v1.SetWashPricingResponse
 	(*GetAvailableSlotsRequest)(nil),      // 87: payments.payment.v1.GetAvailableSlotsRequest
 	(*GetAvailableSlotsResponse)(nil),     // 88: payments.payment.v1.GetAvailableSlotsResponse
-	(*HandleIokaWebhookRequest)(nil),      // 89: payments.payment.v1.HandleIokaWebhookRequest
-	(*HandleIokaWebhookResponse)(nil),     // 90: payments.payment.v1.HandleIokaWebhookResponse
-	(*HandleKaspiCheckPayRequest)(nil),    // 91: payments.payment.v1.HandleKaspiCheckPayRequest
-	(*HandleKaspiCheckPayResponse)(nil),   // 92: payments.payment.v1.HandleKaspiCheckPayResponse
-	(*GetRevenueStatsRequest)(nil),        // 93: payments.payment.v1.GetRevenueStatsRequest
-	(*RevenueDataPoint)(nil),              // 94: payments.payment.v1.RevenueDataPoint
-	(*GetRevenueStatsResponse)(nil),       // 95: payments.payment.v1.GetRevenueStatsResponse
-	(*GetSubscriptionStatsRequest)(nil),   // 96: payments.payment.v1.GetSubscriptionStatsRequest
-	(*GetSubscriptionStatsResponse)(nil),  // 97: payments.payment.v1.GetSubscriptionStatsResponse
-	(*GetPaymentAuditLogRequest)(nil),     // 98: payments.payment.v1.GetPaymentAuditLogRequest
-	(*GetPaymentAuditLogResponse)(nil),    // 99: payments.payment.v1.GetPaymentAuditLogResponse
-	nil,                                   // 100: payments.payment.v1.Plan.FeaturesEntry
-	nil,                                   // 101: payments.payment.v1.Subscription.TierAttributesEntry
-	nil,                                   // 102: payments.payment.v1.CreatePlanRequest.FeaturesEntry
-	nil,                                   // 103: payments.payment.v1.UpdatePlanRequest.FeaturesEntry
-	nil,                                   // 104: payments.payment.v1.CreateSubscriptionRequest.TierAttributesEntry
-	nil,                                   // 105: payments.payment.v1.HandleIokaWebhookRequest.HeadersEntry
-	(*timestamppb.Timestamp)(nil),         // 106: google.protobuf.Timestamp
+	(*GenerateWashSlotsRequest)(nil),      // 89: payments.payment.v1.GenerateWashSlotsRequest
+	(*GenerateWashSlotsResponse)(nil),     // 90: payments.payment.v1.GenerateWashSlotsResponse
+	(*HandleIokaWebhookRequest)(nil),      // 91: payments.payment.v1.HandleIokaWebhookRequest
+	(*HandleIokaWebhookResponse)(nil),     // 92: payments.payment.v1.HandleIokaWebhookResponse
+	(*HandleKaspiCheckPayRequest)(nil),    // 93: payments.payment.v1.HandleKaspiCheckPayRequest
+	(*HandleKaspiCheckPayResponse)(nil),   // 94: payments.payment.v1.HandleKaspiCheckPayResponse
+	(*GetRevenueStatsRequest)(nil),        // 95: payments.payment.v1.GetRevenueStatsRequest
+	(*RevenueDataPoint)(nil),              // 96: payments.payment.v1.RevenueDataPoint
+	(*GetRevenueStatsResponse)(nil),       // 97: payments.payment.v1.GetRevenueStatsResponse
+	(*GetSubscriptionStatsRequest)(nil),   // 98: payments.payment.v1.GetSubscriptionStatsRequest
+	(*GetSubscriptionStatsResponse)(nil),  // 99: payments.payment.v1.GetSubscriptionStatsResponse
+	(*GetPaymentAuditLogRequest)(nil),     // 100: payments.payment.v1.GetPaymentAuditLogRequest
+	(*GetPaymentAuditLogResponse)(nil),    // 101: payments.payment.v1.GetPaymentAuditLogResponse
+	nil,                                   // 102: payments.payment.v1.Plan.FeaturesEntry
+	nil,                                   // 103: payments.payment.v1.Subscription.TierAttributesEntry
+	nil,                                   // 104: payments.payment.v1.CreatePlanRequest.FeaturesEntry
+	nil,                                   // 105: payments.payment.v1.UpdatePlanRequest.FeaturesEntry
+	nil,                                   // 106: payments.payment.v1.CreateSubscriptionRequest.TierAttributesEntry
+	nil,                                   // 107: payments.payment.v1.HandleIokaWebhookRequest.HeadersEntry
+	(*timestamppb.Timestamp)(nil),         // 108: google.protobuf.Timestamp
 }
 var file_payments_payment_v1_payment_proto_depIdxs = []int32{
 	0,   // 0: payments.payment.v1.Plan.plan_type:type_name -> payments.payment.v1.PlanType
-	100, // 1: payments.payment.v1.Plan.features:type_name -> payments.payment.v1.Plan.FeaturesEntry
+	102, // 1: payments.payment.v1.Plan.features:type_name -> payments.payment.v1.Plan.FeaturesEntry
 	12,  // 2: payments.payment.v1.Plan.prices:type_name -> payments.payment.v1.PlanPrice
-	106, // 3: payments.payment.v1.Plan.created_at:type_name -> google.protobuf.Timestamp
-	106, // 4: payments.payment.v1.Plan.updated_at:type_name -> google.protobuf.Timestamp
+	108, // 3: payments.payment.v1.Plan.created_at:type_name -> google.protobuf.Timestamp
+	108, // 4: payments.payment.v1.Plan.updated_at:type_name -> google.protobuf.Timestamp
 	13,  // 5: payments.payment.v1.PlanPrice.tiers:type_name -> payments.payment.v1.PlanPriceTier
 	1,   // 6: payments.payment.v1.Subscription.status:type_name -> payments.payment.v1.SubscriptionStatus
-	106, // 7: payments.payment.v1.Subscription.current_period_start:type_name -> google.protobuf.Timestamp
-	106, // 8: payments.payment.v1.Subscription.current_period_end:type_name -> google.protobuf.Timestamp
-	106, // 9: payments.payment.v1.Subscription.cancelled_at:type_name -> google.protobuf.Timestamp
-	101, // 10: payments.payment.v1.Subscription.tier_attributes:type_name -> payments.payment.v1.Subscription.TierAttributesEntry
-	106, // 11: payments.payment.v1.Subscription.created_at:type_name -> google.protobuf.Timestamp
-	106, // 12: payments.payment.v1.Subscription.updated_at:type_name -> google.protobuf.Timestamp
+	108, // 7: payments.payment.v1.Subscription.current_period_start:type_name -> google.protobuf.Timestamp
+	108, // 8: payments.payment.v1.Subscription.current_period_end:type_name -> google.protobuf.Timestamp
+	108, // 9: payments.payment.v1.Subscription.cancelled_at:type_name -> google.protobuf.Timestamp
+	103, // 10: payments.payment.v1.Subscription.tier_attributes:type_name -> payments.payment.v1.Subscription.TierAttributesEntry
+	108, // 11: payments.payment.v1.Subscription.created_at:type_name -> google.protobuf.Timestamp
+	108, // 12: payments.payment.v1.Subscription.updated_at:type_name -> google.protobuf.Timestamp
 	11,  // 13: payments.payment.v1.Subscription.plan:type_name -> payments.payment.v1.Plan
 	4,   // 14: payments.payment.v1.Transaction.provider:type_name -> payments.payment.v1.PaymentProvider
 	5,   // 15: payments.payment.v1.Transaction.payment_method:type_name -> payments.payment.v1.PaymentMethod
 	2,   // 16: payments.payment.v1.Transaction.status:type_name -> payments.payment.v1.TransactionStatus
 	3,   // 17: payments.payment.v1.Transaction.type:type_name -> payments.payment.v1.TransactionType
-	106, // 18: payments.payment.v1.Transaction.paid_at:type_name -> google.protobuf.Timestamp
-	106, // 19: payments.payment.v1.Transaction.created_at:type_name -> google.protobuf.Timestamp
-	106, // 20: payments.payment.v1.Transaction.updated_at:type_name -> google.protobuf.Timestamp
-	106, // 21: payments.payment.v1.Refund.created_at:type_name -> google.protobuf.Timestamp
+	108, // 18: payments.payment.v1.Transaction.paid_at:type_name -> google.protobuf.Timestamp
+	108, // 19: payments.payment.v1.Transaction.created_at:type_name -> google.protobuf.Timestamp
+	108, // 20: payments.payment.v1.Transaction.updated_at:type_name -> google.protobuf.Timestamp
+	108, // 21: payments.payment.v1.Refund.created_at:type_name -> google.protobuf.Timestamp
 	6,   // 22: payments.payment.v1.Order.status:type_name -> payments.payment.v1.OrderStatus
 	10,  // 23: payments.payment.v1.Order.delivery_type:type_name -> payments.payment.v1.DeliveryType
 	7,   // 24: payments.payment.v1.Order.escrow_status:type_name -> payments.payment.v1.EscrowStatus
 	18,  // 25: payments.payment.v1.Order.items:type_name -> payments.payment.v1.OrderItem
-	106, // 26: payments.payment.v1.Order.created_at:type_name -> google.protobuf.Timestamp
-	106, // 27: payments.payment.v1.Order.updated_at:type_name -> google.protobuf.Timestamp
+	108, // 26: payments.payment.v1.Order.created_at:type_name -> google.protobuf.Timestamp
+	108, // 27: payments.payment.v1.Order.updated_at:type_name -> google.protobuf.Timestamp
 	20,  // 28: payments.payment.v1.WashService.pricing:type_name -> payments.payment.v1.WashPricing
-	106, // 29: payments.payment.v1.WashService.created_at:type_name -> google.protobuf.Timestamp
-	106, // 30: payments.payment.v1.WashService.updated_at:type_name -> google.protobuf.Timestamp
+	108, // 29: payments.payment.v1.WashService.created_at:type_name -> google.protobuf.Timestamp
+	108, // 30: payments.payment.v1.WashService.updated_at:type_name -> google.protobuf.Timestamp
 	8,   // 31: payments.payment.v1.Booking.booking_type:type_name -> payments.payment.v1.BookingType
 	9,   // 32: payments.payment.v1.Booking.status:type_name -> payments.payment.v1.BookingStatus
-	106, // 33: payments.payment.v1.Booking.created_at:type_name -> google.protobuf.Timestamp
-	106, // 34: payments.payment.v1.Booking.updated_at:type_name -> google.protobuf.Timestamp
-	106, // 35: payments.payment.v1.BidPurchase.created_at:type_name -> google.protobuf.Timestamp
-	106, // 36: payments.payment.v1.AuditLogEntry.created_at:type_name -> google.protobuf.Timestamp
+	108, // 33: payments.payment.v1.Booking.created_at:type_name -> google.protobuf.Timestamp
+	108, // 34: payments.payment.v1.Booking.updated_at:type_name -> google.protobuf.Timestamp
+	108, // 35: payments.payment.v1.BidPurchase.created_at:type_name -> google.protobuf.Timestamp
+	108, // 36: payments.payment.v1.AuditLogEntry.created_at:type_name -> google.protobuf.Timestamp
 	11,  // 37: payments.payment.v1.ListPlansResponse.plans:type_name -> payments.payment.v1.Plan
 	0,   // 38: payments.payment.v1.CreatePlanRequest.plan_type:type_name -> payments.payment.v1.PlanType
-	102, // 39: payments.payment.v1.CreatePlanRequest.features:type_name -> payments.payment.v1.CreatePlanRequest.FeaturesEntry
+	104, // 39: payments.payment.v1.CreatePlanRequest.features:type_name -> payments.payment.v1.CreatePlanRequest.FeaturesEntry
 	11,  // 40: payments.payment.v1.CreatePlanResponse.plan:type_name -> payments.payment.v1.Plan
-	103, // 41: payments.payment.v1.UpdatePlanRequest.features:type_name -> payments.payment.v1.UpdatePlanRequest.FeaturesEntry
+	105, // 41: payments.payment.v1.UpdatePlanRequest.features:type_name -> payments.payment.v1.UpdatePlanRequest.FeaturesEntry
 	11,  // 42: payments.payment.v1.UpdatePlanResponse.plan:type_name -> payments.payment.v1.Plan
 	32,  // 43: payments.payment.v1.SetPlanPricesRequest.prices:type_name -> payments.payment.v1.PlanPriceInput
 	33,  // 44: payments.payment.v1.PlanPriceInput.tiers:type_name -> payments.payment.v1.PlanPriceTierInput
 	11,  // 45: payments.payment.v1.SetPlanPricesResponse.plan:type_name -> payments.payment.v1.Plan
 	5,   // 46: payments.payment.v1.CreateSubscriptionRequest.payment_method:type_name -> payments.payment.v1.PaymentMethod
-	104, // 47: payments.payment.v1.CreateSubscriptionRequest.tier_attributes:type_name -> payments.payment.v1.CreateSubscriptionRequest.TierAttributesEntry
+	106, // 47: payments.payment.v1.CreateSubscriptionRequest.tier_attributes:type_name -> payments.payment.v1.CreateSubscriptionRequest.TierAttributesEntry
 	14,  // 48: payments.payment.v1.CreateSubscriptionResponse.subscription:type_name -> payments.payment.v1.Subscription
 	14,  // 49: payments.payment.v1.GetSubscriptionResponse.subscription:type_name -> payments.payment.v1.Subscription
 	14,  // 50: payments.payment.v1.GetSubscriptionsByOrgResponse.subscriptions:type_name -> payments.payment.v1.Subscription
@@ -7720,10 +7871,10 @@ var file_payments_payment_v1_payment_proto_depIdxs = []int32{
 	85,  // 82: payments.payment.v1.SetWashPricingRequest.pricing:type_name -> payments.payment.v1.WashPricingInput
 	19,  // 83: payments.payment.v1.SetWashPricingResponse.service:type_name -> payments.payment.v1.WashService
 	21,  // 84: payments.payment.v1.GetAvailableSlotsResponse.slots:type_name -> payments.payment.v1.WashSlot
-	105, // 85: payments.payment.v1.HandleIokaWebhookRequest.headers:type_name -> payments.payment.v1.HandleIokaWebhookRequest.HeadersEntry
-	106, // 86: payments.payment.v1.GetRevenueStatsRequest.from:type_name -> google.protobuf.Timestamp
-	106, // 87: payments.payment.v1.GetRevenueStatsRequest.to:type_name -> google.protobuf.Timestamp
-	94,  // 88: payments.payment.v1.GetRevenueStatsResponse.data_points:type_name -> payments.payment.v1.RevenueDataPoint
+	107, // 85: payments.payment.v1.HandleIokaWebhookRequest.headers:type_name -> payments.payment.v1.HandleIokaWebhookRequest.HeadersEntry
+	108, // 86: payments.payment.v1.GetRevenueStatsRequest.from:type_name -> google.protobuf.Timestamp
+	108, // 87: payments.payment.v1.GetRevenueStatsRequest.to:type_name -> google.protobuf.Timestamp
+	96,  // 88: payments.payment.v1.GetRevenueStatsResponse.data_points:type_name -> payments.payment.v1.RevenueDataPoint
 	24,  // 89: payments.payment.v1.GetPaymentAuditLogResponse.entries:type_name -> payments.payment.v1.AuditLogEntry
 	25,  // 90: payments.payment.v1.PaymentService.ListPlans:input_type -> payments.payment.v1.ListPlansRequest
 	27,  // 91: payments.payment.v1.PaymentService.CreatePlan:input_type -> payments.payment.v1.CreatePlanRequest
@@ -7755,48 +7906,50 @@ var file_payments_payment_v1_payment_proto_depIdxs = []int32{
 	82,  // 117: payments.payment.v1.PaymentService.UpdateWashService:input_type -> payments.payment.v1.UpdateWashServiceRequest
 	84,  // 118: payments.payment.v1.PaymentService.SetWashPricing:input_type -> payments.payment.v1.SetWashPricingRequest
 	87,  // 119: payments.payment.v1.PaymentService.GetAvailableSlots:input_type -> payments.payment.v1.GetAvailableSlotsRequest
-	89,  // 120: payments.payment.v1.PaymentService.HandleIokaWebhook:input_type -> payments.payment.v1.HandleIokaWebhookRequest
-	91,  // 121: payments.payment.v1.PaymentService.HandleKaspiCheckPay:input_type -> payments.payment.v1.HandleKaspiCheckPayRequest
-	93,  // 122: payments.payment.v1.PaymentService.GetRevenueStats:input_type -> payments.payment.v1.GetRevenueStatsRequest
-	96,  // 123: payments.payment.v1.PaymentService.GetSubscriptionStats:input_type -> payments.payment.v1.GetSubscriptionStatsRequest
-	98,  // 124: payments.payment.v1.PaymentService.GetPaymentAuditLog:input_type -> payments.payment.v1.GetPaymentAuditLogRequest
-	26,  // 125: payments.payment.v1.PaymentService.ListPlans:output_type -> payments.payment.v1.ListPlansResponse
-	28,  // 126: payments.payment.v1.PaymentService.CreatePlan:output_type -> payments.payment.v1.CreatePlanResponse
-	30,  // 127: payments.payment.v1.PaymentService.UpdatePlan:output_type -> payments.payment.v1.UpdatePlanResponse
-	34,  // 128: payments.payment.v1.PaymentService.SetPlanPrices:output_type -> payments.payment.v1.SetPlanPricesResponse
-	36,  // 129: payments.payment.v1.PaymentService.CreateSubscription:output_type -> payments.payment.v1.CreateSubscriptionResponse
-	38,  // 130: payments.payment.v1.PaymentService.GetSubscription:output_type -> payments.payment.v1.GetSubscriptionResponse
-	40,  // 131: payments.payment.v1.PaymentService.GetSubscriptionsByOrg:output_type -> payments.payment.v1.GetSubscriptionsByOrgResponse
-	42,  // 132: payments.payment.v1.PaymentService.CancelSubscription:output_type -> payments.payment.v1.CancelSubscriptionResponse
-	44,  // 133: payments.payment.v1.PaymentService.CheckBidAccess:output_type -> payments.payment.v1.CheckBidAccessResponse
-	46,  // 134: payments.payment.v1.PaymentService.ListTransactions:output_type -> payments.payment.v1.ListTransactionsResponse
-	48,  // 135: payments.payment.v1.PaymentService.GetTransaction:output_type -> payments.payment.v1.GetTransactionResponse
-	50,  // 136: payments.payment.v1.PaymentService.InitiateRefund:output_type -> payments.payment.v1.InitiateRefundResponse
-	52,  // 137: payments.payment.v1.PaymentService.PurchaseBid:output_type -> payments.payment.v1.PurchaseBidResponse
-	54,  // 138: payments.payment.v1.PaymentService.GetBidPurchasePrice:output_type -> payments.payment.v1.GetBidPurchasePriceResponse
-	57,  // 139: payments.payment.v1.PaymentService.CreateOrder:output_type -> payments.payment.v1.CreateOrderResponse
-	59,  // 140: payments.payment.v1.PaymentService.GetOrder:output_type -> payments.payment.v1.GetOrderResponse
-	61,  // 141: payments.payment.v1.PaymentService.ListOrders:output_type -> payments.payment.v1.ListOrdersResponse
-	63,  // 142: payments.payment.v1.PaymentService.ConfirmShipment:output_type -> payments.payment.v1.ConfirmShipmentResponse
-	65,  // 143: payments.payment.v1.PaymentService.ConfirmReceipt:output_type -> payments.payment.v1.ConfirmReceiptResponse
-	67,  // 144: payments.payment.v1.PaymentService.CancelOrder:output_type -> payments.payment.v1.CancelOrderResponse
-	69,  // 145: payments.payment.v1.PaymentService.CreateBooking:output_type -> payments.payment.v1.CreateBookingResponse
-	71,  // 146: payments.payment.v1.PaymentService.GetBooking:output_type -> payments.payment.v1.GetBookingResponse
-	73,  // 147: payments.payment.v1.PaymentService.ListBookings:output_type -> payments.payment.v1.ListBookingsResponse
-	75,  // 148: payments.payment.v1.PaymentService.CancelBooking:output_type -> payments.payment.v1.CancelBookingResponse
-	77,  // 149: payments.payment.v1.PaymentService.AssignNoQueueBooking:output_type -> payments.payment.v1.AssignNoQueueBookingResponse
-	79,  // 150: payments.payment.v1.PaymentService.ListWashServices:output_type -> payments.payment.v1.ListWashServicesResponse
-	81,  // 151: payments.payment.v1.PaymentService.CreateWashService:output_type -> payments.payment.v1.CreateWashServiceResponse
-	83,  // 152: payments.payment.v1.PaymentService.UpdateWashService:output_type -> payments.payment.v1.UpdateWashServiceResponse
-	86,  // 153: payments.payment.v1.PaymentService.SetWashPricing:output_type -> payments.payment.v1.SetWashPricingResponse
-	88,  // 154: payments.payment.v1.PaymentService.GetAvailableSlots:output_type -> payments.payment.v1.GetAvailableSlotsResponse
-	90,  // 155: payments.payment.v1.PaymentService.HandleIokaWebhook:output_type -> payments.payment.v1.HandleIokaWebhookResponse
-	92,  // 156: payments.payment.v1.PaymentService.HandleKaspiCheckPay:output_type -> payments.payment.v1.HandleKaspiCheckPayResponse
-	95,  // 157: payments.payment.v1.PaymentService.GetRevenueStats:output_type -> payments.payment.v1.GetRevenueStatsResponse
-	97,  // 158: payments.payment.v1.PaymentService.GetSubscriptionStats:output_type -> payments.payment.v1.GetSubscriptionStatsResponse
-	99,  // 159: payments.payment.v1.PaymentService.GetPaymentAuditLog:output_type -> payments.payment.v1.GetPaymentAuditLogResponse
-	125, // [125:160] is the sub-list for method output_type
-	90,  // [90:125] is the sub-list for method input_type
+	89,  // 120: payments.payment.v1.PaymentService.GenerateWashSlots:input_type -> payments.payment.v1.GenerateWashSlotsRequest
+	91,  // 121: payments.payment.v1.PaymentService.HandleIokaWebhook:input_type -> payments.payment.v1.HandleIokaWebhookRequest
+	93,  // 122: payments.payment.v1.PaymentService.HandleKaspiCheckPay:input_type -> payments.payment.v1.HandleKaspiCheckPayRequest
+	95,  // 123: payments.payment.v1.PaymentService.GetRevenueStats:input_type -> payments.payment.v1.GetRevenueStatsRequest
+	98,  // 124: payments.payment.v1.PaymentService.GetSubscriptionStats:input_type -> payments.payment.v1.GetSubscriptionStatsRequest
+	100, // 125: payments.payment.v1.PaymentService.GetPaymentAuditLog:input_type -> payments.payment.v1.GetPaymentAuditLogRequest
+	26,  // 126: payments.payment.v1.PaymentService.ListPlans:output_type -> payments.payment.v1.ListPlansResponse
+	28,  // 127: payments.payment.v1.PaymentService.CreatePlan:output_type -> payments.payment.v1.CreatePlanResponse
+	30,  // 128: payments.payment.v1.PaymentService.UpdatePlan:output_type -> payments.payment.v1.UpdatePlanResponse
+	34,  // 129: payments.payment.v1.PaymentService.SetPlanPrices:output_type -> payments.payment.v1.SetPlanPricesResponse
+	36,  // 130: payments.payment.v1.PaymentService.CreateSubscription:output_type -> payments.payment.v1.CreateSubscriptionResponse
+	38,  // 131: payments.payment.v1.PaymentService.GetSubscription:output_type -> payments.payment.v1.GetSubscriptionResponse
+	40,  // 132: payments.payment.v1.PaymentService.GetSubscriptionsByOrg:output_type -> payments.payment.v1.GetSubscriptionsByOrgResponse
+	42,  // 133: payments.payment.v1.PaymentService.CancelSubscription:output_type -> payments.payment.v1.CancelSubscriptionResponse
+	44,  // 134: payments.payment.v1.PaymentService.CheckBidAccess:output_type -> payments.payment.v1.CheckBidAccessResponse
+	46,  // 135: payments.payment.v1.PaymentService.ListTransactions:output_type -> payments.payment.v1.ListTransactionsResponse
+	48,  // 136: payments.payment.v1.PaymentService.GetTransaction:output_type -> payments.payment.v1.GetTransactionResponse
+	50,  // 137: payments.payment.v1.PaymentService.InitiateRefund:output_type -> payments.payment.v1.InitiateRefundResponse
+	52,  // 138: payments.payment.v1.PaymentService.PurchaseBid:output_type -> payments.payment.v1.PurchaseBidResponse
+	54,  // 139: payments.payment.v1.PaymentService.GetBidPurchasePrice:output_type -> payments.payment.v1.GetBidPurchasePriceResponse
+	57,  // 140: payments.payment.v1.PaymentService.CreateOrder:output_type -> payments.payment.v1.CreateOrderResponse
+	59,  // 141: payments.payment.v1.PaymentService.GetOrder:output_type -> payments.payment.v1.GetOrderResponse
+	61,  // 142: payments.payment.v1.PaymentService.ListOrders:output_type -> payments.payment.v1.ListOrdersResponse
+	63,  // 143: payments.payment.v1.PaymentService.ConfirmShipment:output_type -> payments.payment.v1.ConfirmShipmentResponse
+	65,  // 144: payments.payment.v1.PaymentService.ConfirmReceipt:output_type -> payments.payment.v1.ConfirmReceiptResponse
+	67,  // 145: payments.payment.v1.PaymentService.CancelOrder:output_type -> payments.payment.v1.CancelOrderResponse
+	69,  // 146: payments.payment.v1.PaymentService.CreateBooking:output_type -> payments.payment.v1.CreateBookingResponse
+	71,  // 147: payments.payment.v1.PaymentService.GetBooking:output_type -> payments.payment.v1.GetBookingResponse
+	73,  // 148: payments.payment.v1.PaymentService.ListBookings:output_type -> payments.payment.v1.ListBookingsResponse
+	75,  // 149: payments.payment.v1.PaymentService.CancelBooking:output_type -> payments.payment.v1.CancelBookingResponse
+	77,  // 150: payments.payment.v1.PaymentService.AssignNoQueueBooking:output_type -> payments.payment.v1.AssignNoQueueBookingResponse
+	79,  // 151: payments.payment.v1.PaymentService.ListWashServices:output_type -> payments.payment.v1.ListWashServicesResponse
+	81,  // 152: payments.payment.v1.PaymentService.CreateWashService:output_type -> payments.payment.v1.CreateWashServiceResponse
+	83,  // 153: payments.payment.v1.PaymentService.UpdateWashService:output_type -> payments.payment.v1.UpdateWashServiceResponse
+	86,  // 154: payments.payment.v1.PaymentService.SetWashPricing:output_type -> payments.payment.v1.SetWashPricingResponse
+	88,  // 155: payments.payment.v1.PaymentService.GetAvailableSlots:output_type -> payments.payment.v1.GetAvailableSlotsResponse
+	90,  // 156: payments.payment.v1.PaymentService.GenerateWashSlots:output_type -> payments.payment.v1.GenerateWashSlotsResponse
+	92,  // 157: payments.payment.v1.PaymentService.HandleIokaWebhook:output_type -> payments.payment.v1.HandleIokaWebhookResponse
+	94,  // 158: payments.payment.v1.PaymentService.HandleKaspiCheckPay:output_type -> payments.payment.v1.HandleKaspiCheckPayResponse
+	97,  // 159: payments.payment.v1.PaymentService.GetRevenueStats:output_type -> payments.payment.v1.GetRevenueStatsResponse
+	99,  // 160: payments.payment.v1.PaymentService.GetSubscriptionStats:output_type -> payments.payment.v1.GetSubscriptionStatsResponse
+	101, // 161: payments.payment.v1.PaymentService.GetPaymentAuditLog:output_type -> payments.payment.v1.GetPaymentAuditLogResponse
+	126, // [126:162] is the sub-list for method output_type
+	90,  // [90:126] is the sub-list for method input_type
 	90,  // [90:90] is the sub-list for extension type_name
 	90,  // [90:90] is the sub-list for extension extendee
 	0,   // [0:90] is the sub-list for field type_name
@@ -7817,7 +7970,7 @@ func file_payments_payment_v1_payment_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_payments_payment_v1_payment_proto_rawDesc), len(file_payments_payment_v1_payment_proto_rawDesc)),
 			NumEnums:      11,
-			NumMessages:   95,
+			NumMessages:   97,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
