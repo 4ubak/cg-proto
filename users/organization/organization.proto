@@ -45,6 +45,10 @@ service OrganizationService {
   // Permissions
   rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
   rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+
+  // Organization profiles (type-specific settings)
+  rpc GetOrgProfile(GetOrgProfileRequest) returns (GetOrgProfileResponse);
+  rpc UpdateOrgProfile(UpdateOrgProfileRequest) returns (UpdateOrgProfileResponse);
 }
 
 enum OrganizationType {
@@ -334,6 +338,7 @@ message UpsertByLegacyIDRequest {
   bool is_reviewed = 15;
   string status = 16;
   repeated int64 category_ids = 17;
+  repeated int64 car_make_ids = 18;
 }
 
 message UpsertByLegacyIDResponse {
@@ -357,4 +362,66 @@ message GetCategoriesRequest {
 
 message GetCategoriesResponse {
   repeated int64 category_ids = 1;
+}
+
+// =============================================
+// Organization Profiles (type-specific settings)
+// =============================================
+
+message STOProfile {
+  string organization_id = 1;
+  int32 posts_count = 2;
+  bool has_diagnostics = 3;
+  bool has_lift = 4;
+  repeated string specializations = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message CarWashProfile {
+  string organization_id = 1;
+  int32 bays_count = 2;
+  int32 slot_duration_minutes = 3;
+  bool booking_enabled = 4;
+  bool no_queue_enabled = 5;
+  bool auto_slot_generation = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message PartsProfile {
+  string organization_id = 1;
+  bool has_delivery = 2;
+  repeated int64 delivery_city_ids = 3;
+  int64 min_order_amount = 4;
+  int32 return_policy_days = 5;
+  string catalog_url = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message GetOrgProfileRequest {
+  string organization_id = 1;
+}
+
+message GetOrgProfileResponse {
+  // Only one of these will be set, based on org type
+  optional STOProfile sto_profile = 1;
+  optional CarWashProfile carwash_profile = 2;
+  optional PartsProfile parts_profile = 3;
+}
+
+message UpdateOrgProfileRequest {
+  string organization_id = 1;
+  // Only one of these should be set
+  optional STOProfile sto_profile = 2;
+  optional CarWashProfile carwash_profile = 3;
+  optional PartsProfile parts_profile = 4;
+}
+
+message UpdateOrgProfileResponse {
+  // Returns the updated profile
+  optional STOProfile sto_profile = 1;
+  optional CarWashProfile carwash_profile = 2;
+  optional PartsProfile parts_profile = 3;
 }

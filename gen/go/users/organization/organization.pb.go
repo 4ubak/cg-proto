@@ -2601,6 +2601,7 @@ type UpsertByLegacyIDRequest struct {
 	IsReviewed    bool                   `protobuf:"varint,15,opt,name=is_reviewed,json=isReviewed,proto3" json:"is_reviewed,omitempty"`
 	Status        string                 `protobuf:"bytes,16,opt,name=status,proto3" json:"status,omitempty"`
 	CategoryIds   []int64                `protobuf:"varint,17,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	CarMakeIds    []int64                `protobuf:"varint,18,rep,packed,name=car_make_ids,json=carMakeIds,proto3" json:"car_make_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2750,6 +2751,13 @@ func (x *UpsertByLegacyIDRequest) GetStatus() string {
 func (x *UpsertByLegacyIDRequest) GetCategoryIds() []int64 {
 	if x != nil {
 		return x.CategoryIds
+	}
+	return nil
+}
+
+func (x *UpsertByLegacyIDRequest) GetCarMakeIds() []int64 {
+	if x != nil {
+		return x.CarMakeIds
 	}
 	return nil
 }
@@ -2991,6 +2999,533 @@ func (x *GetCategoriesResponse) GetCategoryIds() []int64 {
 	return nil
 }
 
+type STOProfile struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId  string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	PostsCount      int32                  `protobuf:"varint,2,opt,name=posts_count,json=postsCount,proto3" json:"posts_count,omitempty"`
+	HasDiagnostics  bool                   `protobuf:"varint,3,opt,name=has_diagnostics,json=hasDiagnostics,proto3" json:"has_diagnostics,omitempty"`
+	HasLift         bool                   `protobuf:"varint,4,opt,name=has_lift,json=hasLift,proto3" json:"has_lift,omitempty"`
+	Specializations []string               `protobuf:"bytes,5,rep,name=specializations,proto3" json:"specializations,omitempty"`
+	CreatedAt       *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt       *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *STOProfile) Reset() {
+	*x = STOProfile{}
+	mi := &file_users_organization_organization_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *STOProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*STOProfile) ProtoMessage() {}
+
+func (x *STOProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use STOProfile.ProtoReflect.Descriptor instead.
+func (*STOProfile) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *STOProfile) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *STOProfile) GetPostsCount() int32 {
+	if x != nil {
+		return x.PostsCount
+	}
+	return 0
+}
+
+func (x *STOProfile) GetHasDiagnostics() bool {
+	if x != nil {
+		return x.HasDiagnostics
+	}
+	return false
+}
+
+func (x *STOProfile) GetHasLift() bool {
+	if x != nil {
+		return x.HasLift
+	}
+	return false
+}
+
+func (x *STOProfile) GetSpecializations() []string {
+	if x != nil {
+		return x.Specializations
+	}
+	return nil
+}
+
+func (x *STOProfile) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *STOProfile) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+type CarWashProfile struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId      string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	BaysCount           int32                  `protobuf:"varint,2,opt,name=bays_count,json=baysCount,proto3" json:"bays_count,omitempty"`
+	SlotDurationMinutes int32                  `protobuf:"varint,3,opt,name=slot_duration_minutes,json=slotDurationMinutes,proto3" json:"slot_duration_minutes,omitempty"`
+	BookingEnabled      bool                   `protobuf:"varint,4,opt,name=booking_enabled,json=bookingEnabled,proto3" json:"booking_enabled,omitempty"`
+	NoQueueEnabled      bool                   `protobuf:"varint,5,opt,name=no_queue_enabled,json=noQueueEnabled,proto3" json:"no_queue_enabled,omitempty"`
+	AutoSlotGeneration  bool                   `protobuf:"varint,6,opt,name=auto_slot_generation,json=autoSlotGeneration,proto3" json:"auto_slot_generation,omitempty"`
+	CreatedAt           *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt           *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *CarWashProfile) Reset() {
+	*x = CarWashProfile{}
+	mi := &file_users_organization_organization_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CarWashProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CarWashProfile) ProtoMessage() {}
+
+func (x *CarWashProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CarWashProfile.ProtoReflect.Descriptor instead.
+func (*CarWashProfile) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *CarWashProfile) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *CarWashProfile) GetBaysCount() int32 {
+	if x != nil {
+		return x.BaysCount
+	}
+	return 0
+}
+
+func (x *CarWashProfile) GetSlotDurationMinutes() int32 {
+	if x != nil {
+		return x.SlotDurationMinutes
+	}
+	return 0
+}
+
+func (x *CarWashProfile) GetBookingEnabled() bool {
+	if x != nil {
+		return x.BookingEnabled
+	}
+	return false
+}
+
+func (x *CarWashProfile) GetNoQueueEnabled() bool {
+	if x != nil {
+		return x.NoQueueEnabled
+	}
+	return false
+}
+
+func (x *CarWashProfile) GetAutoSlotGeneration() bool {
+	if x != nil {
+		return x.AutoSlotGeneration
+	}
+	return false
+}
+
+func (x *CarWashProfile) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *CarWashProfile) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+type PartsProfile struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId   string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	HasDelivery      bool                   `protobuf:"varint,2,opt,name=has_delivery,json=hasDelivery,proto3" json:"has_delivery,omitempty"`
+	DeliveryCityIds  []int64                `protobuf:"varint,3,rep,packed,name=delivery_city_ids,json=deliveryCityIds,proto3" json:"delivery_city_ids,omitempty"`
+	MinOrderAmount   int64                  `protobuf:"varint,4,opt,name=min_order_amount,json=minOrderAmount,proto3" json:"min_order_amount,omitempty"`
+	ReturnPolicyDays int32                  `protobuf:"varint,5,opt,name=return_policy_days,json=returnPolicyDays,proto3" json:"return_policy_days,omitempty"`
+	CatalogUrl       string                 `protobuf:"bytes,6,opt,name=catalog_url,json=catalogUrl,proto3" json:"catalog_url,omitempty"`
+	CreatedAt        *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt        *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *PartsProfile) Reset() {
+	*x = PartsProfile{}
+	mi := &file_users_organization_organization_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PartsProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PartsProfile) ProtoMessage() {}
+
+func (x *PartsProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PartsProfile.ProtoReflect.Descriptor instead.
+func (*PartsProfile) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *PartsProfile) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *PartsProfile) GetHasDelivery() bool {
+	if x != nil {
+		return x.HasDelivery
+	}
+	return false
+}
+
+func (x *PartsProfile) GetDeliveryCityIds() []int64 {
+	if x != nil {
+		return x.DeliveryCityIds
+	}
+	return nil
+}
+
+func (x *PartsProfile) GetMinOrderAmount() int64 {
+	if x != nil {
+		return x.MinOrderAmount
+	}
+	return 0
+}
+
+func (x *PartsProfile) GetReturnPolicyDays() int32 {
+	if x != nil {
+		return x.ReturnPolicyDays
+	}
+	return 0
+}
+
+func (x *PartsProfile) GetCatalogUrl() string {
+	if x != nil {
+		return x.CatalogUrl
+	}
+	return ""
+}
+
+func (x *PartsProfile) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *PartsProfile) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+type GetOrgProfileRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetOrgProfileRequest) Reset() {
+	*x = GetOrgProfileRequest{}
+	mi := &file_users_organization_organization_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOrgProfileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOrgProfileRequest) ProtoMessage() {}
+
+func (x *GetOrgProfileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOrgProfileRequest.ProtoReflect.Descriptor instead.
+func (*GetOrgProfileRequest) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *GetOrgProfileRequest) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+type GetOrgProfileResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Only one of these will be set, based on org type
+	StoProfile     *STOProfile     `protobuf:"bytes,1,opt,name=sto_profile,json=stoProfile,proto3,oneof" json:"sto_profile,omitempty"`
+	CarwashProfile *CarWashProfile `protobuf:"bytes,2,opt,name=carwash_profile,json=carwashProfile,proto3,oneof" json:"carwash_profile,omitempty"`
+	PartsProfile   *PartsProfile   `protobuf:"bytes,3,opt,name=parts_profile,json=partsProfile,proto3,oneof" json:"parts_profile,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetOrgProfileResponse) Reset() {
+	*x = GetOrgProfileResponse{}
+	mi := &file_users_organization_organization_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOrgProfileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOrgProfileResponse) ProtoMessage() {}
+
+func (x *GetOrgProfileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOrgProfileResponse.ProtoReflect.Descriptor instead.
+func (*GetOrgProfileResponse) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{49}
+}
+
+func (x *GetOrgProfileResponse) GetStoProfile() *STOProfile {
+	if x != nil {
+		return x.StoProfile
+	}
+	return nil
+}
+
+func (x *GetOrgProfileResponse) GetCarwashProfile() *CarWashProfile {
+	if x != nil {
+		return x.CarwashProfile
+	}
+	return nil
+}
+
+func (x *GetOrgProfileResponse) GetPartsProfile() *PartsProfile {
+	if x != nil {
+		return x.PartsProfile
+	}
+	return nil
+}
+
+type UpdateOrgProfileRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	// Only one of these should be set
+	StoProfile     *STOProfile     `protobuf:"bytes,2,opt,name=sto_profile,json=stoProfile,proto3,oneof" json:"sto_profile,omitempty"`
+	CarwashProfile *CarWashProfile `protobuf:"bytes,3,opt,name=carwash_profile,json=carwashProfile,proto3,oneof" json:"carwash_profile,omitempty"`
+	PartsProfile   *PartsProfile   `protobuf:"bytes,4,opt,name=parts_profile,json=partsProfile,proto3,oneof" json:"parts_profile,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UpdateOrgProfileRequest) Reset() {
+	*x = UpdateOrgProfileRequest{}
+	mi := &file_users_organization_organization_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateOrgProfileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateOrgProfileRequest) ProtoMessage() {}
+
+func (x *UpdateOrgProfileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateOrgProfileRequest.ProtoReflect.Descriptor instead.
+func (*UpdateOrgProfileRequest) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *UpdateOrgProfileRequest) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *UpdateOrgProfileRequest) GetStoProfile() *STOProfile {
+	if x != nil {
+		return x.StoProfile
+	}
+	return nil
+}
+
+func (x *UpdateOrgProfileRequest) GetCarwashProfile() *CarWashProfile {
+	if x != nil {
+		return x.CarwashProfile
+	}
+	return nil
+}
+
+func (x *UpdateOrgProfileRequest) GetPartsProfile() *PartsProfile {
+	if x != nil {
+		return x.PartsProfile
+	}
+	return nil
+}
+
+type UpdateOrgProfileResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Returns the updated profile
+	StoProfile     *STOProfile     `protobuf:"bytes,1,opt,name=sto_profile,json=stoProfile,proto3,oneof" json:"sto_profile,omitempty"`
+	CarwashProfile *CarWashProfile `protobuf:"bytes,2,opt,name=carwash_profile,json=carwashProfile,proto3,oneof" json:"carwash_profile,omitempty"`
+	PartsProfile   *PartsProfile   `protobuf:"bytes,3,opt,name=parts_profile,json=partsProfile,proto3,oneof" json:"parts_profile,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UpdateOrgProfileResponse) Reset() {
+	*x = UpdateOrgProfileResponse{}
+	mi := &file_users_organization_organization_proto_msgTypes[51]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateOrgProfileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateOrgProfileResponse) ProtoMessage() {}
+
+func (x *UpdateOrgProfileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[51]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateOrgProfileResponse.ProtoReflect.Descriptor instead.
+func (*UpdateOrgProfileResponse) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{51}
+}
+
+func (x *UpdateOrgProfileResponse) GetStoProfile() *STOProfile {
+	if x != nil {
+		return x.StoProfile
+	}
+	return nil
+}
+
+func (x *UpdateOrgProfileResponse) GetCarwashProfile() *CarWashProfile {
+	if x != nil {
+		return x.CarwashProfile
+	}
+	return nil
+}
+
+func (x *UpdateOrgProfileResponse) GetPartsProfile() *PartsProfile {
+	if x != nil {
+		return x.PartsProfile
+	}
+	return nil
+}
+
 var File_users_organization_organization_proto protoreflect.FileDescriptor
 
 const file_users_organization_organization_proto_rawDesc = "" +
@@ -3212,7 +3747,7 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x0fGetRolesRequest\x12T\n" +
 	"\x11organization_type\x18\x01 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\x10organizationType\"E\n" +
 	"\x10GetRolesResponse\x121\n" +
-	"\x05roles\x18\x01 \x03(\v2\x1b.users.organization.v1.RoleR\x05roles\"\xc9\x04\n" +
+	"\x05roles\x18\x01 \x03(\v2\x1b.users.organization.v1.RoleR\x05roles\"\xeb\x04\n" +
 	"\x17UpsertByLegacyIDRequest\x12\x1b\n" +
 	"\tlegacy_id\x18\x01 \x01(\x03R\blegacyId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12;\n" +
@@ -3232,7 +3767,9 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\vis_reviewed\x18\x0f \x01(\bR\n" +
 	"isReviewed\x12\x16\n" +
 	"\x06status\x18\x10 \x01(\tR\x06status\x12!\n" +
-	"\fcategory_ids\x18\x11 \x03(\x03R\vcategoryIdsB\v\n" +
+	"\fcategory_ids\x18\x11 \x03(\x03R\vcategoryIds\x12 \n" +
+	"\fcar_make_ids\x18\x12 \x03(\x03R\n" +
+	"carMakeIdsB\v\n" +
 	"\t_latitudeB\f\n" +
 	"\n" +
 	"_longitude\"}\n" +
@@ -3247,7 +3784,70 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x14GetCategoriesRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\":\n" +
 	"\x15GetCategoriesResponse\x12!\n" +
-	"\fcategory_ids\x18\x01 \x03(\x03R\vcategoryIds*\xe0\x02\n" +
+	"\fcategory_ids\x18\x01 \x03(\x03R\vcategoryIds\"\xba\x02\n" +
+	"\n" +
+	"STOProfile\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1f\n" +
+	"\vposts_count\x18\x02 \x01(\x05R\n" +
+	"postsCount\x12'\n" +
+	"\x0fhas_diagnostics\x18\x03 \x01(\bR\x0ehasDiagnostics\x12\x19\n" +
+	"\bhas_lift\x18\x04 \x01(\bR\ahasLift\x12(\n" +
+	"\x0fspecializations\x18\x05 \x03(\tR\x0fspecializations\x129\n" +
+	"\n" +
+	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\x87\x03\n" +
+	"\x0eCarWashProfile\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
+	"\n" +
+	"bays_count\x18\x02 \x01(\x05R\tbaysCount\x122\n" +
+	"\x15slot_duration_minutes\x18\x03 \x01(\x05R\x13slotDurationMinutes\x12'\n" +
+	"\x0fbooking_enabled\x18\x04 \x01(\bR\x0ebookingEnabled\x12(\n" +
+	"\x10no_queue_enabled\x18\x05 \x01(\bR\x0enoQueueEnabled\x120\n" +
+	"\x14auto_slot_generation\x18\x06 \x01(\bR\x12autoSlotGeneration\x129\n" +
+	"\n" +
+	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xf5\x02\n" +
+	"\fPartsProfile\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12!\n" +
+	"\fhas_delivery\x18\x02 \x01(\bR\vhasDelivery\x12*\n" +
+	"\x11delivery_city_ids\x18\x03 \x03(\x03R\x0fdeliveryCityIds\x12(\n" +
+	"\x10min_order_amount\x18\x04 \x01(\x03R\x0eminOrderAmount\x12,\n" +
+	"\x12return_policy_days\x18\x05 \x01(\x05R\x10returnPolicyDays\x12\x1f\n" +
+	"\vcatalog_url\x18\x06 \x01(\tR\n" +
+	"catalogUrl\x129\n" +
+	"\n" +
+	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"?\n" +
+	"\x14GetOrgProfileRequest\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\"\xba\x02\n" +
+	"\x15GetOrgProfileResponse\x12G\n" +
+	"\vsto_profile\x18\x01 \x01(\v2!.users.organization.v1.STOProfileH\x00R\n" +
+	"stoProfile\x88\x01\x01\x12S\n" +
+	"\x0fcarwash_profile\x18\x02 \x01(\v2%.users.organization.v1.CarWashProfileH\x01R\x0ecarwashProfile\x88\x01\x01\x12M\n" +
+	"\rparts_profile\x18\x03 \x01(\v2#.users.organization.v1.PartsProfileH\x02R\fpartsProfile\x88\x01\x01B\x0e\n" +
+	"\f_sto_profileB\x12\n" +
+	"\x10_carwash_profileB\x10\n" +
+	"\x0e_parts_profile\"\xe5\x02\n" +
+	"\x17UpdateOrgProfileRequest\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12G\n" +
+	"\vsto_profile\x18\x02 \x01(\v2!.users.organization.v1.STOProfileH\x00R\n" +
+	"stoProfile\x88\x01\x01\x12S\n" +
+	"\x0fcarwash_profile\x18\x03 \x01(\v2%.users.organization.v1.CarWashProfileH\x01R\x0ecarwashProfile\x88\x01\x01\x12M\n" +
+	"\rparts_profile\x18\x04 \x01(\v2#.users.organization.v1.PartsProfileH\x02R\fpartsProfile\x88\x01\x01B\x0e\n" +
+	"\f_sto_profileB\x12\n" +
+	"\x10_carwash_profileB\x10\n" +
+	"\x0e_parts_profile\"\xbd\x02\n" +
+	"\x18UpdateOrgProfileResponse\x12G\n" +
+	"\vsto_profile\x18\x01 \x01(\v2!.users.organization.v1.STOProfileH\x00R\n" +
+	"stoProfile\x88\x01\x01\x12S\n" +
+	"\x0fcarwash_profile\x18\x02 \x01(\v2%.users.organization.v1.CarWashProfileH\x01R\x0ecarwashProfile\x88\x01\x01\x12M\n" +
+	"\rparts_profile\x18\x03 \x01(\v2#.users.organization.v1.PartsProfileH\x02R\fpartsProfile\x88\x01\x01B\x0e\n" +
+	"\f_sto_profileB\x12\n" +
+	"\x10_carwash_profileB\x10\n" +
+	"\x0e_parts_profile*\xe0\x02\n" +
 	"\x10OrganizationType\x12!\n" +
 	"\x1dORGANIZATION_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15ORGANIZATION_TYPE_STO\x10\x01\x12\x1f\n" +
@@ -3262,7 +3862,7 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\fMemberStatus\x12\x1d\n" +
 	"\x19MEMBER_STATUS_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14MEMBER_STATUS_ACTIVE\x10\x01\x12\x17\n" +
-	"\x13MEMBER_STATUS_FIRED\x10\x022\xdb\x10\n" +
+	"\x13MEMBER_STATUS_FIRED\x10\x022\xbc\x12\n" +
 	"\x13OrganizationService\x12y\n" +
 	"\x12CreateOrganization\x120.users.organization.v1.CreateOrganizationRequest\x1a1.users.organization.v1.CreateOrganizationResponse\x12p\n" +
 	"\x0fGetOrganization\x12-.users.organization.v1.GetOrganizationRequest\x1a..users.organization.v1.GetOrganizationResponse\x12y\n" +
@@ -3284,7 +3884,9 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x0eGetInviteCodes\x12,.users.organization.v1.GetInviteCodesRequest\x1a-.users.organization.v1.GetInviteCodesResponse\x12\x7f\n" +
 	"\x14DeactivateInviteCode\x122.users.organization.v1.DeactivateInviteCodeRequest\x1a3.users.organization.v1.DeactivateInviteCodeResponse\x12p\n" +
 	"\x0fCheckPermission\x12-.users.organization.v1.CheckPermissionRequest\x1a..users.organization.v1.CheckPermissionResponse\x12[\n" +
-	"\bGetRoles\x12&.users.organization.v1.GetRolesRequest\x1a'.users.organization.v1.GetRolesResponseBEZCgitlab.com/xakpro/cg-proto/gen/go/users/organization;organizationv1b\x06proto3"
+	"\bGetRoles\x12&.users.organization.v1.GetRolesRequest\x1a'.users.organization.v1.GetRolesResponse\x12j\n" +
+	"\rGetOrgProfile\x12+.users.organization.v1.GetOrgProfileRequest\x1a,.users.organization.v1.GetOrgProfileResponse\x12s\n" +
+	"\x10UpdateOrgProfile\x12..users.organization.v1.UpdateOrgProfileRequest\x1a/.users.organization.v1.UpdateOrgProfileResponseBEZCgitlab.com/xakpro/cg-proto/gen/go/users/organization;organizationv1b\x06proto3"
 
 var (
 	file_users_organization_organization_proto_rawDescOnce sync.Once
@@ -3299,7 +3901,7 @@ func file_users_organization_organization_proto_rawDescGZIP() []byte {
 }
 
 var file_users_organization_organization_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
+var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
 var file_users_organization_organization_proto_goTypes = []any{
 	(OrganizationType)(0),                // 0: users.organization.v1.OrganizationType
 	(MemberStatus)(0),                    // 1: users.organization.v1.MemberStatus
@@ -3348,19 +3950,26 @@ var file_users_organization_organization_proto_goTypes = []any{
 	(*SetCategoriesResponse)(nil),        // 44: users.organization.v1.SetCategoriesResponse
 	(*GetCategoriesRequest)(nil),         // 45: users.organization.v1.GetCategoriesRequest
 	(*GetCategoriesResponse)(nil),        // 46: users.organization.v1.GetCategoriesResponse
-	(*timestamppb.Timestamp)(nil),        // 47: google.protobuf.Timestamp
+	(*STOProfile)(nil),                   // 47: users.organization.v1.STOProfile
+	(*CarWashProfile)(nil),               // 48: users.organization.v1.CarWashProfile
+	(*PartsProfile)(nil),                 // 49: users.organization.v1.PartsProfile
+	(*GetOrgProfileRequest)(nil),         // 50: users.organization.v1.GetOrgProfileRequest
+	(*GetOrgProfileResponse)(nil),        // 51: users.organization.v1.GetOrgProfileResponse
+	(*UpdateOrgProfileRequest)(nil),      // 52: users.organization.v1.UpdateOrgProfileRequest
+	(*UpdateOrgProfileResponse)(nil),     // 53: users.organization.v1.UpdateOrgProfileResponse
+	(*timestamppb.Timestamp)(nil),        // 54: google.protobuf.Timestamp
 }
 var file_users_organization_organization_proto_depIdxs = []int32{
 	0,  // 0: users.organization.v1.Organization.type:type_name -> users.organization.v1.OrganizationType
 	3,  // 1: users.organization.v1.Organization.settings:type_name -> users.organization.v1.OrganizationSettings
-	47, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
-	47, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
+	54, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
+	54, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
 	4,  // 4: users.organization.v1.OrganizationSettings.working_hours:type_name -> users.organization.v1.WorkingHours
 	1,  // 5: users.organization.v1.Member.status:type_name -> users.organization.v1.MemberStatus
-	47, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
-	47, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
-	47, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
-	47, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
+	54, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
+	54, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
+	54, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
+	54, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
 	0,  // 10: users.organization.v1.CreateOrganizationRequest.type:type_name -> users.organization.v1.OrganizationType
 	2,  // 11: users.organization.v1.CreateOrganizationResponse.organization:type_name -> users.organization.v1.Organization
 	2,  // 12: users.organization.v1.GetOrganizationResponse.organization:type_name -> users.organization.v1.Organization
@@ -3381,49 +3990,68 @@ var file_users_organization_organization_proto_depIdxs = []int32{
 	6,  // 27: users.organization.v1.GetRolesResponse.roles:type_name -> users.organization.v1.Role
 	0,  // 28: users.organization.v1.UpsertByLegacyIDRequest.type:type_name -> users.organization.v1.OrganizationType
 	2,  // 29: users.organization.v1.UpsertByLegacyIDResponse.organization:type_name -> users.organization.v1.Organization
-	8,  // 30: users.organization.v1.OrganizationService.CreateOrganization:input_type -> users.organization.v1.CreateOrganizationRequest
-	10, // 31: users.organization.v1.OrganizationService.GetOrganization:input_type -> users.organization.v1.GetOrganizationRequest
-	12, // 32: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
-	14, // 33: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
-	16, // 34: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
-	41, // 35: users.organization.v1.OrganizationService.UpsertByLegacyID:input_type -> users.organization.v1.UpsertByLegacyIDRequest
-	43, // 36: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
-	45, // 37: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
-	19, // 38: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
-	21, // 39: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
-	23, // 40: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
-	25, // 41: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
-	27, // 42: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
-	29, // 43: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
-	31, // 44: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
-	33, // 45: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
-	35, // 46: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
-	37, // 47: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
-	39, // 48: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
-	9,  // 49: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
-	11, // 50: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
-	13, // 51: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
-	15, // 52: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
-	17, // 53: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
-	42, // 54: users.organization.v1.OrganizationService.UpsertByLegacyID:output_type -> users.organization.v1.UpsertByLegacyIDResponse
-	44, // 55: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
-	46, // 56: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
-	20, // 57: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
-	22, // 58: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
-	24, // 59: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
-	26, // 60: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
-	28, // 61: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
-	30, // 62: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
-	32, // 63: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
-	34, // 64: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
-	36, // 65: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
-	38, // 66: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
-	40, // 67: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
-	49, // [49:68] is the sub-list for method output_type
-	30, // [30:49] is the sub-list for method input_type
-	30, // [30:30] is the sub-list for extension type_name
-	30, // [30:30] is the sub-list for extension extendee
-	0,  // [0:30] is the sub-list for field type_name
+	54, // 30: users.organization.v1.STOProfile.created_at:type_name -> google.protobuf.Timestamp
+	54, // 31: users.organization.v1.STOProfile.updated_at:type_name -> google.protobuf.Timestamp
+	54, // 32: users.organization.v1.CarWashProfile.created_at:type_name -> google.protobuf.Timestamp
+	54, // 33: users.organization.v1.CarWashProfile.updated_at:type_name -> google.protobuf.Timestamp
+	54, // 34: users.organization.v1.PartsProfile.created_at:type_name -> google.protobuf.Timestamp
+	54, // 35: users.organization.v1.PartsProfile.updated_at:type_name -> google.protobuf.Timestamp
+	47, // 36: users.organization.v1.GetOrgProfileResponse.sto_profile:type_name -> users.organization.v1.STOProfile
+	48, // 37: users.organization.v1.GetOrgProfileResponse.carwash_profile:type_name -> users.organization.v1.CarWashProfile
+	49, // 38: users.organization.v1.GetOrgProfileResponse.parts_profile:type_name -> users.organization.v1.PartsProfile
+	47, // 39: users.organization.v1.UpdateOrgProfileRequest.sto_profile:type_name -> users.organization.v1.STOProfile
+	48, // 40: users.organization.v1.UpdateOrgProfileRequest.carwash_profile:type_name -> users.organization.v1.CarWashProfile
+	49, // 41: users.organization.v1.UpdateOrgProfileRequest.parts_profile:type_name -> users.organization.v1.PartsProfile
+	47, // 42: users.organization.v1.UpdateOrgProfileResponse.sto_profile:type_name -> users.organization.v1.STOProfile
+	48, // 43: users.organization.v1.UpdateOrgProfileResponse.carwash_profile:type_name -> users.organization.v1.CarWashProfile
+	49, // 44: users.organization.v1.UpdateOrgProfileResponse.parts_profile:type_name -> users.organization.v1.PartsProfile
+	8,  // 45: users.organization.v1.OrganizationService.CreateOrganization:input_type -> users.organization.v1.CreateOrganizationRequest
+	10, // 46: users.organization.v1.OrganizationService.GetOrganization:input_type -> users.organization.v1.GetOrganizationRequest
+	12, // 47: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
+	14, // 48: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
+	16, // 49: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
+	41, // 50: users.organization.v1.OrganizationService.UpsertByLegacyID:input_type -> users.organization.v1.UpsertByLegacyIDRequest
+	43, // 51: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
+	45, // 52: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
+	19, // 53: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
+	21, // 54: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
+	23, // 55: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
+	25, // 56: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
+	27, // 57: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
+	29, // 58: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
+	31, // 59: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
+	33, // 60: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
+	35, // 61: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
+	37, // 62: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
+	39, // 63: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
+	50, // 64: users.organization.v1.OrganizationService.GetOrgProfile:input_type -> users.organization.v1.GetOrgProfileRequest
+	52, // 65: users.organization.v1.OrganizationService.UpdateOrgProfile:input_type -> users.organization.v1.UpdateOrgProfileRequest
+	9,  // 66: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
+	11, // 67: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
+	13, // 68: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
+	15, // 69: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
+	17, // 70: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
+	42, // 71: users.organization.v1.OrganizationService.UpsertByLegacyID:output_type -> users.organization.v1.UpsertByLegacyIDResponse
+	44, // 72: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
+	46, // 73: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
+	20, // 74: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
+	22, // 75: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
+	24, // 76: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
+	26, // 77: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
+	28, // 78: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
+	30, // 79: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
+	32, // 80: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
+	34, // 81: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
+	36, // 82: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
+	38, // 83: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
+	40, // 84: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
+	51, // 85: users.organization.v1.OrganizationService.GetOrgProfile:output_type -> users.organization.v1.GetOrgProfileResponse
+	53, // 86: users.organization.v1.OrganizationService.UpdateOrgProfile:output_type -> users.organization.v1.UpdateOrgProfileResponse
+	66, // [66:87] is the sub-list for method output_type
+	45, // [45:66] is the sub-list for method input_type
+	45, // [45:45] is the sub-list for extension type_name
+	45, // [45:45] is the sub-list for extension extendee
+	0,  // [0:45] is the sub-list for field type_name
 }
 
 func init() { file_users_organization_organization_proto_init() }
@@ -3435,13 +4063,16 @@ func file_users_organization_organization_proto_init() {
 	file_users_organization_organization_proto_msgTypes[6].OneofWrappers = []any{}
 	file_users_organization_organization_proto_msgTypes[10].OneofWrappers = []any{}
 	file_users_organization_organization_proto_msgTypes[39].OneofWrappers = []any{}
+	file_users_organization_organization_proto_msgTypes[49].OneofWrappers = []any{}
+	file_users_organization_organization_proto_msgTypes[50].OneofWrappers = []any{}
+	file_users_organization_organization_proto_msgTypes[51].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_users_organization_organization_proto_rawDesc), len(file_users_organization_organization_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   45,
+			NumMessages:   52,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

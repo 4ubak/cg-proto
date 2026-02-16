@@ -38,6 +38,8 @@ const (
 	OrganizationService_DeactivateInviteCode_FullMethodName = "/users.organization.v1.OrganizationService/DeactivateInviteCode"
 	OrganizationService_CheckPermission_FullMethodName      = "/users.organization.v1.OrganizationService/CheckPermission"
 	OrganizationService_GetRoles_FullMethodName             = "/users.organization.v1.OrganizationService/GetRoles"
+	OrganizationService_GetOrgProfile_FullMethodName        = "/users.organization.v1.OrganizationService/GetOrgProfile"
+	OrganizationService_UpdateOrgProfile_FullMethodName     = "/users.organization.v1.OrganizationService/UpdateOrgProfile"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -73,6 +75,9 @@ type OrganizationServiceClient interface {
 	// Permissions
 	CheckPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
 	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesResponse, error)
+	// Organization profiles (type-specific settings)
+	GetOrgProfile(ctx context.Context, in *GetOrgProfileRequest, opts ...grpc.CallOption) (*GetOrgProfileResponse, error)
+	UpdateOrgProfile(ctx context.Context, in *UpdateOrgProfileRequest, opts ...grpc.CallOption) (*UpdateOrgProfileResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -273,6 +278,26 @@ func (c *organizationServiceClient) GetRoles(ctx context.Context, in *GetRolesRe
 	return out, nil
 }
 
+func (c *organizationServiceClient) GetOrgProfile(ctx context.Context, in *GetOrgProfileRequest, opts ...grpc.CallOption) (*GetOrgProfileResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetOrgProfileResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetOrgProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateOrgProfile(ctx context.Context, in *UpdateOrgProfileRequest, opts ...grpc.CallOption) (*UpdateOrgProfileResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateOrgProfileResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateOrgProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -306,6 +331,9 @@ type OrganizationServiceServer interface {
 	// Permissions
 	CheckPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
 	GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error)
+	// Organization profiles (type-specific settings)
+	GetOrgProfile(context.Context, *GetOrgProfileRequest) (*GetOrgProfileResponse, error)
+	UpdateOrgProfile(context.Context, *UpdateOrgProfileRequest) (*UpdateOrgProfileResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -372,6 +400,12 @@ func (UnimplementedOrganizationServiceServer) CheckPermission(context.Context, *
 }
 func (UnimplementedOrganizationServiceServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetRoles not implemented")
+}
+func (UnimplementedOrganizationServiceServer) GetOrgProfile(context.Context, *GetOrgProfileRequest) (*GetOrgProfileResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetOrgProfile not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateOrgProfile(context.Context, *UpdateOrgProfileRequest) (*UpdateOrgProfileResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateOrgProfile not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -736,6 +770,42 @@ func _OrganizationService_GetRoles_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_GetOrgProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrgProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).GetOrgProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_GetOrgProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).GetOrgProfile(ctx, req.(*GetOrgProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateOrgProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateOrgProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateOrgProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateOrgProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateOrgProfile(ctx, req.(*UpdateOrgProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -818,6 +888,14 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRoles",
 			Handler:    _OrganizationService_GetRoles_Handler,
+		},
+		{
+			MethodName: "GetOrgProfile",
+			Handler:    _OrganizationService_GetOrgProfile_Handler,
+		},
+		{
+			MethodName: "UpdateOrgProfile",
+			Handler:    _OrganizationService_UpdateOrgProfile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
