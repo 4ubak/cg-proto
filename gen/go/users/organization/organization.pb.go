@@ -27,9 +27,9 @@ type OrganizationType int32
 const (
 	OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED    OrganizationType = 0
 	OrganizationType_ORGANIZATION_TYPE_STO            OrganizationType = 1 // СТО (group_id = 1)
-	OrganizationType_ORGANIZATION_TYPE_BODY_SHOP      OrganizationType = 2 // Кузовной цех (group_id = 2)
+	OrganizationType_ORGANIZATION_TYPE_BODY_SHOP      OrganizationType = 2 // Кузовной цех (group_id = 3)
 	OrganizationType_ORGANIZATION_TYPE_CAR_WASH       OrganizationType = 3 // Автомойка (group_id = 5)
-	OrganizationType_ORGANIZATION_TYPE_PARTS_SUPPLIER OrganizationType = 4 // Поставщик запчастей (group_id = 3)
+	OrganizationType_ORGANIZATION_TYPE_PARTS_SUPPLIER OrganizationType = 4 // Поставщик запчастей (group_id = 2)
 	OrganizationType_ORGANIZATION_TYPE_TIRE_SERVICE   OrganizationType = 5 // Шиномонтаж (group_id = 4)
 	OrganizationType_ORGANIZATION_TYPE_DEALER         OrganizationType = 6 // Дилер
 	OrganizationType_ORGANIZATION_TYPE_GAS_SERVICE    OrganizationType = 7 // Установка газа на авто
