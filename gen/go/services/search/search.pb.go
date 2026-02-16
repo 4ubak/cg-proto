@@ -1471,7 +1471,7 @@ func (x *OrganizationDocument) GetLongitude() float64 {
 type SearchOrganizationsRequest struct {
 	state       protoimpl.MessageState `protogen:"open.v1"`
 	Query       string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`                                         // Full-text search by name
-	Type        OrganizationType       `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.OrganizationType" json:"type,omitempty"` // Filter by type (STO, CAR_WASH, etc.)
+	Type        OrganizationType       `protobuf:"varint,2,opt,name=type,proto3,enum=services.search.v1.OrganizationType" json:"type,omitempty"` // Filter by type (STO, CAR_WASH, etc.) — deprecated, use group_id
 	CityId      int64                  `protobuf:"varint,3,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`                        // Filter by city
 	CategoryIds []int64                `protobuf:"varint,4,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`  // Filter by service categories
 	// Geo search (sort by distance)
@@ -1482,7 +1482,9 @@ type SearchOrganizationsRequest struct {
 	Page     int32 `protobuf:"varint,8,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize int32 `protobuf:"varint,9,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	// Sorting
-	SortBy        OrganizationSortBy `protobuf:"varint,10,opt,name=sort_by,json=sortBy,proto3,enum=services.search.v1.OrganizationSortBy" json:"sort_by,omitempty"`
+	SortBy OrganizationSortBy `protobuf:"varint,10,opt,name=sort_by,json=sortBy,proto3,enum=services.search.v1.OrganizationSortBy" json:"sort_by,omitempty"`
+	// NSI group filter (preferred over type)
+	GroupId       int64 `protobuf:"varint,11,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // NSI service group ID — filter organizations by group
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1585,6 +1587,13 @@ func (x *SearchOrganizationsRequest) GetSortBy() OrganizationSortBy {
 		return x.SortBy
 	}
 	return OrganizationSortBy_ORGANIZATION_SORT_BY_UNSPECIFIED
+}
+
+func (x *SearchOrganizationsRequest) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
 }
 
 type SearchOrganizationsResponse struct {
@@ -1813,7 +1822,7 @@ const file_services_search_search_proto_rawDesc = "" +
 	"\tis_active\x18\x0e \x01(\bR\bisActive\x12#\n" +
 	"\rworking_hours\x18\x0f \x01(\tR\fworkingHours\x12\x1a\n" +
 	"\blatitude\x18\x10 \x01(\x01R\blatitude\x12\x1c\n" +
-	"\tlongitude\x18\x11 \x01(\x01R\tlongitude\"\xf1\x02\n" +
+	"\tlongitude\x18\x11 \x01(\x01R\tlongitude\"\x8c\x03\n" +
 	"\x1aSearchOrganizationsRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x128\n" +
 	"\x04type\x18\x02 \x01(\x0e2$.services.search.v1.OrganizationTypeR\x04type\x12\x17\n" +
@@ -1825,7 +1834,8 @@ const file_services_search_search_proto_rawDesc = "" +
 	"\x04page\x18\b \x01(\x05R\x04page\x12\x1b\n" +
 	"\tpage_size\x18\t \x01(\x05R\bpageSize\x12?\n" +
 	"\asort_by\x18\n" +
-	" \x01(\x0e2&.services.search.v1.OrganizationSortByR\x06sortBy\"\xc3\x01\n" +
+	" \x01(\x0e2&.services.search.v1.OrganizationSortByR\x06sortBy\x12\x19\n" +
+	"\bgroup_id\x18\v \x01(\x03R\agroupId\"\xc3\x01\n" +
 	"\x1bSearchOrganizationsResponse\x12N\n" +
 	"\rorganizations\x18\x01 \x03(\v2(.services.search.v1.OrganizationDocumentR\rorganizations\x12\x14\n" +
 	"\x05total\x18\x02 \x01(\x05R\x05total\x12>\n" +

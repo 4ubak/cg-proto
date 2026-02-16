@@ -208,7 +208,7 @@ message OrganizationDocument {
 // SearchOrganizations
 message SearchOrganizationsRequest {
   string query = 1;                    // Full-text search by name
-  OrganizationType type = 2;           // Filter by type (STO, CAR_WASH, etc.)
+  OrganizationType type = 2;           // Filter by type (STO, CAR_WASH, etc.) — deprecated, use group_id
   int64 city_id = 3;                   // Filter by city
   repeated int64 category_ids = 4;     // Filter by service categories
 
@@ -223,6 +223,9 @@ message SearchOrganizationsRequest {
 
   // Sorting
   OrganizationSortBy sort_by = 10;
+
+  // NSI group filter (preferred over type)
+  int64 group_id = 11;                 // NSI service group ID — filter organizations by group
 }
 
 enum OrganizationSortBy {
