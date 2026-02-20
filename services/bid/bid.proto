@@ -54,7 +54,7 @@ enum BidStatus {
 
 message Bid {
   int64 id = 1;
-  int64 request_id = 2;
+  string request_id = 2;
   BidType type = 3;
   BidStatus status = 4;
   string organization_id = 5;  // UUID from organization-service
@@ -87,7 +87,7 @@ message BidPart {
 
 // CreateBid
 message CreateBidRequest {
-  int64 request_id = 1;
+  string request_id = 1;
   BidType type = 2;
   string organization_id = 3;  // UUID from organization-service
   
@@ -157,7 +157,7 @@ message ListBidsRequest {
   BidType type = 1;
   BidStatus status = 2;
   string organization_id = 3;  // UUID from organization-service
-  int64 request_id = 4;
+  string request_id = 4;
   int32 page = 5;
   int32 page_size = 6;
 }
@@ -169,7 +169,7 @@ message ListBidsResponse {
 
 // GetBidsByRequest
 message GetBidsByRequestRequest {
-  int64 request_id = 1;
+  string request_id = 1;
   BidStatus status = 2;
   int32 page = 3;
   int32 page_size = 4;
