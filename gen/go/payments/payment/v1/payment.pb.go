@@ -4187,6 +4187,7 @@ type PurchaseBidRequest struct {
 	RequestId      int64                  `protobuf:"varint,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	PaymentMethod  PaymentMethod          `protobuf:"varint,3,opt,name=payment_method,json=paymentMethod,proto3,enum=payments.payment.v1.PaymentMethod" json:"payment_method,omitempty"`
 	IdempotencyKey string                 `protobuf:"bytes,4,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	GroupId        int64                  `protobuf:"varint,5,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -4249,6 +4250,13 @@ func (x *PurchaseBidRequest) GetIdempotencyKey() string {
 	return ""
 }
 
+func (x *PurchaseBidRequest) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
 type PurchaseBidResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	BidPurchase   *BidPurchase           `protobuf:"bytes,1,opt,name=bid_purchase,json=bidPurchase,proto3" json:"bid_purchase,omitempty"`
@@ -4304,6 +4312,7 @@ func (x *PurchaseBidResponse) GetPaymentUrl() string {
 type GetBidPurchasePriceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrgType       string                 `protobuf:"bytes,1,opt,name=org_type,json=orgType,proto3" json:"org_type,omitempty"`
+	GroupId       int64                  `protobuf:"varint,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4343,6 +4352,13 @@ func (x *GetBidPurchasePriceRequest) GetOrgType() string {
 		return x.OrgType
 	}
 	return ""
+}
+
+func (x *GetBidPurchasePriceRequest) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
 }
 
 type GetBidPurchasePriceResponse struct {
@@ -7634,19 +7650,21 @@ const file_payments_payment_v1_payment_proto_rawDesc = "" +
 	"\x06reason\x18\x03 \x01(\tR\x06reason\x12!\n" +
 	"\finitiator_id\x18\x04 \x01(\x03R\vinitiatorId\"M\n" +
 	"\x16InitiateRefundResponse\x123\n" +
-	"\x06refund\x18\x01 \x01(\v2\x1b.payments.payment.v1.RefundR\x06refund\"\xd0\x01\n" +
+	"\x06refund\x18\x01 \x01(\v2\x1b.payments.payment.v1.RefundR\x06refund\"\xeb\x01\n" +
 	"\x12PurchaseBidRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x02 \x01(\x03R\trequestId\x12I\n" +
 	"\x0epayment_method\x18\x03 \x01(\x0e2\".payments.payment.v1.PaymentMethodR\rpaymentMethod\x12'\n" +
-	"\x0fidempotency_key\x18\x04 \x01(\tR\x0eidempotencyKey\"{\n" +
+	"\x0fidempotency_key\x18\x04 \x01(\tR\x0eidempotencyKey\x12\x19\n" +
+	"\bgroup_id\x18\x05 \x01(\x03R\agroupId\"{\n" +
 	"\x13PurchaseBidResponse\x12C\n" +
 	"\fbid_purchase\x18\x01 \x01(\v2 .payments.payment.v1.BidPurchaseR\vbidPurchase\x12\x1f\n" +
 	"\vpayment_url\x18\x02 \x01(\tR\n" +
-	"paymentUrl\"7\n" +
+	"paymentUrl\"R\n" +
 	"\x1aGetBidPurchasePriceRequest\x12\x19\n" +
-	"\borg_type\x18\x01 \x01(\tR\aorgType\"\\\n" +
+	"\borg_type\x18\x01 \x01(\tR\aorgType\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\x03R\agroupId\"\\\n" +
 	"\x1bGetBidPurchasePriceResponse\x12!\n" +
 	"\fprice_amount\x18\x01 \x01(\x03R\vpriceAmount\x12\x1a\n" +
 	"\bcurrency\x18\x02 \x01(\tR\bcurrency\"\xbe\x03\n" +
