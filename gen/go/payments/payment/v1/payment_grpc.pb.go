@@ -19,42 +19,43 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PaymentService_ListPlans_FullMethodName             = "/payments.payment.v1.PaymentService/ListPlans"
-	PaymentService_CreatePlan_FullMethodName            = "/payments.payment.v1.PaymentService/CreatePlan"
-	PaymentService_UpdatePlan_FullMethodName            = "/payments.payment.v1.PaymentService/UpdatePlan"
-	PaymentService_SetPlanPrices_FullMethodName         = "/payments.payment.v1.PaymentService/SetPlanPrices"
-	PaymentService_CreateSubscription_FullMethodName    = "/payments.payment.v1.PaymentService/CreateSubscription"
-	PaymentService_GetSubscription_FullMethodName       = "/payments.payment.v1.PaymentService/GetSubscription"
-	PaymentService_GetSubscriptionsByOrg_FullMethodName = "/payments.payment.v1.PaymentService/GetSubscriptionsByOrg"
-	PaymentService_CancelSubscription_FullMethodName    = "/payments.payment.v1.PaymentService/CancelSubscription"
-	PaymentService_CheckBidAccess_FullMethodName        = "/payments.payment.v1.PaymentService/CheckBidAccess"
-	PaymentService_ListTransactions_FullMethodName      = "/payments.payment.v1.PaymentService/ListTransactions"
-	PaymentService_GetTransaction_FullMethodName        = "/payments.payment.v1.PaymentService/GetTransaction"
-	PaymentService_InitiateRefund_FullMethodName        = "/payments.payment.v1.PaymentService/InitiateRefund"
-	PaymentService_PurchaseBid_FullMethodName           = "/payments.payment.v1.PaymentService/PurchaseBid"
-	PaymentService_GetBidPurchasePrice_FullMethodName   = "/payments.payment.v1.PaymentService/GetBidPurchasePrice"
-	PaymentService_CreateOrder_FullMethodName           = "/payments.payment.v1.PaymentService/CreateOrder"
-	PaymentService_GetOrder_FullMethodName              = "/payments.payment.v1.PaymentService/GetOrder"
-	PaymentService_ListOrders_FullMethodName            = "/payments.payment.v1.PaymentService/ListOrders"
-	PaymentService_ConfirmShipment_FullMethodName       = "/payments.payment.v1.PaymentService/ConfirmShipment"
-	PaymentService_ConfirmReceipt_FullMethodName        = "/payments.payment.v1.PaymentService/ConfirmReceipt"
-	PaymentService_CancelOrder_FullMethodName           = "/payments.payment.v1.PaymentService/CancelOrder"
-	PaymentService_CreateBooking_FullMethodName         = "/payments.payment.v1.PaymentService/CreateBooking"
-	PaymentService_GetBooking_FullMethodName            = "/payments.payment.v1.PaymentService/GetBooking"
-	PaymentService_ListBookings_FullMethodName          = "/payments.payment.v1.PaymentService/ListBookings"
-	PaymentService_CancelBooking_FullMethodName         = "/payments.payment.v1.PaymentService/CancelBooking"
-	PaymentService_AssignNoQueueBooking_FullMethodName  = "/payments.payment.v1.PaymentService/AssignNoQueueBooking"
-	PaymentService_ListWashServices_FullMethodName      = "/payments.payment.v1.PaymentService/ListWashServices"
-	PaymentService_CreateWashService_FullMethodName     = "/payments.payment.v1.PaymentService/CreateWashService"
-	PaymentService_UpdateWashService_FullMethodName     = "/payments.payment.v1.PaymentService/UpdateWashService"
-	PaymentService_SetWashPricing_FullMethodName        = "/payments.payment.v1.PaymentService/SetWashPricing"
-	PaymentService_GetAvailableSlots_FullMethodName     = "/payments.payment.v1.PaymentService/GetAvailableSlots"
-	PaymentService_GenerateWashSlots_FullMethodName     = "/payments.payment.v1.PaymentService/GenerateWashSlots"
-	PaymentService_HandleIokaWebhook_FullMethodName     = "/payments.payment.v1.PaymentService/HandleIokaWebhook"
-	PaymentService_HandleKaspiCheckPay_FullMethodName   = "/payments.payment.v1.PaymentService/HandleKaspiCheckPay"
-	PaymentService_GetRevenueStats_FullMethodName       = "/payments.payment.v1.PaymentService/GetRevenueStats"
-	PaymentService_GetSubscriptionStats_FullMethodName  = "/payments.payment.v1.PaymentService/GetSubscriptionStats"
-	PaymentService_GetPaymentAuditLog_FullMethodName    = "/payments.payment.v1.PaymentService/GetPaymentAuditLog"
+	PaymentService_ListPlans_FullMethodName                  = "/payments.payment.v1.PaymentService/ListPlans"
+	PaymentService_CreatePlan_FullMethodName                 = "/payments.payment.v1.PaymentService/CreatePlan"
+	PaymentService_UpdatePlan_FullMethodName                 = "/payments.payment.v1.PaymentService/UpdatePlan"
+	PaymentService_SetPlanPrices_FullMethodName              = "/payments.payment.v1.PaymentService/SetPlanPrices"
+	PaymentService_CreateSubscription_FullMethodName         = "/payments.payment.v1.PaymentService/CreateSubscription"
+	PaymentService_GetSubscription_FullMethodName            = "/payments.payment.v1.PaymentService/GetSubscription"
+	PaymentService_GetSubscriptionsByOrg_FullMethodName      = "/payments.payment.v1.PaymentService/GetSubscriptionsByOrg"
+	PaymentService_CancelSubscription_FullMethodName         = "/payments.payment.v1.PaymentService/CancelSubscription"
+	PaymentService_CheckBidAccess_FullMethodName             = "/payments.payment.v1.PaymentService/CheckBidAccess"
+	PaymentService_CalculateSubscriptionPrice_FullMethodName = "/payments.payment.v1.PaymentService/CalculateSubscriptionPrice"
+	PaymentService_ListTransactions_FullMethodName           = "/payments.payment.v1.PaymentService/ListTransactions"
+	PaymentService_GetTransaction_FullMethodName             = "/payments.payment.v1.PaymentService/GetTransaction"
+	PaymentService_InitiateRefund_FullMethodName             = "/payments.payment.v1.PaymentService/InitiateRefund"
+	PaymentService_PurchaseBid_FullMethodName                = "/payments.payment.v1.PaymentService/PurchaseBid"
+	PaymentService_GetBidPurchasePrice_FullMethodName        = "/payments.payment.v1.PaymentService/GetBidPurchasePrice"
+	PaymentService_CreateOrder_FullMethodName                = "/payments.payment.v1.PaymentService/CreateOrder"
+	PaymentService_GetOrder_FullMethodName                   = "/payments.payment.v1.PaymentService/GetOrder"
+	PaymentService_ListOrders_FullMethodName                 = "/payments.payment.v1.PaymentService/ListOrders"
+	PaymentService_ConfirmShipment_FullMethodName            = "/payments.payment.v1.PaymentService/ConfirmShipment"
+	PaymentService_ConfirmReceipt_FullMethodName             = "/payments.payment.v1.PaymentService/ConfirmReceipt"
+	PaymentService_CancelOrder_FullMethodName                = "/payments.payment.v1.PaymentService/CancelOrder"
+	PaymentService_CreateBooking_FullMethodName              = "/payments.payment.v1.PaymentService/CreateBooking"
+	PaymentService_GetBooking_FullMethodName                 = "/payments.payment.v1.PaymentService/GetBooking"
+	PaymentService_ListBookings_FullMethodName               = "/payments.payment.v1.PaymentService/ListBookings"
+	PaymentService_CancelBooking_FullMethodName              = "/payments.payment.v1.PaymentService/CancelBooking"
+	PaymentService_AssignNoQueueBooking_FullMethodName       = "/payments.payment.v1.PaymentService/AssignNoQueueBooking"
+	PaymentService_ListWashServices_FullMethodName           = "/payments.payment.v1.PaymentService/ListWashServices"
+	PaymentService_CreateWashService_FullMethodName          = "/payments.payment.v1.PaymentService/CreateWashService"
+	PaymentService_UpdateWashService_FullMethodName          = "/payments.payment.v1.PaymentService/UpdateWashService"
+	PaymentService_SetWashPricing_FullMethodName             = "/payments.payment.v1.PaymentService/SetWashPricing"
+	PaymentService_GetAvailableSlots_FullMethodName          = "/payments.payment.v1.PaymentService/GetAvailableSlots"
+	PaymentService_GenerateWashSlots_FullMethodName          = "/payments.payment.v1.PaymentService/GenerateWashSlots"
+	PaymentService_HandleIokaWebhook_FullMethodName          = "/payments.payment.v1.PaymentService/HandleIokaWebhook"
+	PaymentService_HandleKaspiCheckPay_FullMethodName        = "/payments.payment.v1.PaymentService/HandleKaspiCheckPay"
+	PaymentService_GetRevenueStats_FullMethodName            = "/payments.payment.v1.PaymentService/GetRevenueStats"
+	PaymentService_GetSubscriptionStats_FullMethodName       = "/payments.payment.v1.PaymentService/GetSubscriptionStats"
+	PaymentService_GetPaymentAuditLog_FullMethodName         = "/payments.payment.v1.PaymentService/GetPaymentAuditLog"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -72,6 +73,7 @@ type PaymentServiceClient interface {
 	GetSubscriptionsByOrg(ctx context.Context, in *GetSubscriptionsByOrgRequest, opts ...grpc.CallOption) (*GetSubscriptionsByOrgResponse, error)
 	CancelSubscription(ctx context.Context, in *CancelSubscriptionRequest, opts ...grpc.CallOption) (*CancelSubscriptionResponse, error)
 	CheckBidAccess(ctx context.Context, in *CheckBidAccessRequest, opts ...grpc.CallOption) (*CheckBidAccessResponse, error)
+	CalculateSubscriptionPrice(ctx context.Context, in *CalculateSubscriptionPriceRequest, opts ...grpc.CallOption) (*CalculateSubscriptionPriceResponse, error)
 	// === Transactions (admin) ===
 	ListTransactions(ctx context.Context, in *ListTransactionsRequest, opts ...grpc.CallOption) (*ListTransactionsResponse, error)
 	GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error)
@@ -200,6 +202,16 @@ func (c *paymentServiceClient) CheckBidAccess(ctx context.Context, in *CheckBidA
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CheckBidAccessResponse)
 	err := c.cc.Invoke(ctx, PaymentService_CheckBidAccess_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentServiceClient) CalculateSubscriptionPrice(ctx context.Context, in *CalculateSubscriptionPriceRequest, opts ...grpc.CallOption) (*CalculateSubscriptionPriceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CalculateSubscriptionPriceResponse)
+	err := c.cc.Invoke(ctx, PaymentService_CalculateSubscriptionPrice_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -491,6 +503,7 @@ type PaymentServiceServer interface {
 	GetSubscriptionsByOrg(context.Context, *GetSubscriptionsByOrgRequest) (*GetSubscriptionsByOrgResponse, error)
 	CancelSubscription(context.Context, *CancelSubscriptionRequest) (*CancelSubscriptionResponse, error)
 	CheckBidAccess(context.Context, *CheckBidAccessRequest) (*CheckBidAccessResponse, error)
+	CalculateSubscriptionPrice(context.Context, *CalculateSubscriptionPriceRequest) (*CalculateSubscriptionPriceResponse, error)
 	// === Transactions (admin) ===
 	ListTransactions(context.Context, *ListTransactionsRequest) (*ListTransactionsResponse, error)
 	GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error)
@@ -561,6 +574,9 @@ func (UnimplementedPaymentServiceServer) CancelSubscription(context.Context, *Ca
 }
 func (UnimplementedPaymentServiceServer) CheckBidAccess(context.Context, *CheckBidAccessRequest) (*CheckBidAccessResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CheckBidAccess not implemented")
+}
+func (UnimplementedPaymentServiceServer) CalculateSubscriptionPrice(context.Context, *CalculateSubscriptionPriceRequest) (*CalculateSubscriptionPriceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CalculateSubscriptionPrice not implemented")
 }
 func (UnimplementedPaymentServiceServer) ListTransactions(context.Context, *ListTransactionsRequest) (*ListTransactionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListTransactions not implemented")
@@ -822,6 +838,24 @@ func _PaymentService_CheckBidAccess_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentServiceServer).CheckBidAccess(ctx, req.(*CheckBidAccessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentService_CalculateSubscriptionPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CalculateSubscriptionPriceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).CalculateSubscriptionPrice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_CalculateSubscriptionPrice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).CalculateSubscriptionPrice(ctx, req.(*CalculateSubscriptionPriceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1354,6 +1388,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckBidAccess",
 			Handler:    _PaymentService_CheckBidAccess_Handler,
+		},
+		{
+			MethodName: "CalculateSubscriptionPrice",
+			Handler:    _PaymentService_CalculateSubscriptionPrice_Handler,
 		},
 		{
 			MethodName: "ListTransactions",

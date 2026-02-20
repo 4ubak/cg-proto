@@ -49,6 +49,9 @@ service OrganizationService {
   // Organization profiles (type-specific settings)
   rpc GetOrgProfile(GetOrgProfileRequest) returns (GetOrgProfileResponse);
   rpc UpdateOrgProfile(UpdateOrgProfileRequest) returns (UpdateOrgProfileResponse);
+
+  // Subscription info (for payment service)
+  rpc GetOrganizationSubscriptionInfo(GetOrgSubscriptionInfoRequest) returns (GetOrgSubscriptionInfoResponse);
 }
 
 enum OrganizationType {
@@ -97,6 +100,8 @@ message Organization {
   repeated int64 car_model_ids = 24;
   optional int32 year_from = 25;
   optional int32 year_to = 26;
+  bool is_rented = 27;
+  int32 posts_count = 28;
 }
 
 message OrganizationSettings {
@@ -424,4 +429,21 @@ message UpdateOrgProfileResponse {
   optional STOProfile sto_profile = 1;
   optional CarWashProfile carwash_profile = 2;
   optional PartsProfile parts_profile = 3;
+}
+
+// =============================================
+// Subscription Info (for payment service)
+// =============================================
+
+message GetOrgSubscriptionInfoRequest {
+  string organization_id = 1;
+}
+
+message GetOrgSubscriptionInfoResponse {
+  string organization_id = 1;
+  int64 group_id = 2;    // derived from OrganizationType
+  int64 city_id = 3;
+  int32 posts_count = 4;
+  bool is_rented = 5;
+  OrganizationType org_type = 6;
 }

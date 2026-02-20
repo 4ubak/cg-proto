@@ -169,6 +169,8 @@ type Organization struct {
 	CarModelIds   []int64                `protobuf:"varint,24,rep,packed,name=car_model_ids,json=carModelIds,proto3" json:"car_model_ids,omitempty"`
 	YearFrom      *int32                 `protobuf:"varint,25,opt,name=year_from,json=yearFrom,proto3,oneof" json:"year_from,omitempty"`
 	YearTo        *int32                 `protobuf:"varint,26,opt,name=year_to,json=yearTo,proto3,oneof" json:"year_to,omitempty"`
+	IsRented      bool                   `protobuf:"varint,27,opt,name=is_rented,json=isRented,proto3" json:"is_rented,omitempty"`
+	PostsCount    int32                  `protobuf:"varint,28,opt,name=posts_count,json=postsCount,proto3" json:"posts_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -381,6 +383,20 @@ func (x *Organization) GetYearFrom() int32 {
 func (x *Organization) GetYearTo() int32 {
 	if x != nil && x.YearTo != nil {
 		return *x.YearTo
+	}
+	return 0
+}
+
+func (x *Organization) GetIsRented() bool {
+	if x != nil {
+		return x.IsRented
+	}
+	return false
+}
+
+func (x *Organization) GetPostsCount() int32 {
+	if x != nil {
+		return x.PostsCount
 	}
 	return 0
 }
@@ -3526,11 +3542,139 @@ func (x *UpdateOrgProfileResponse) GetPartsProfile() *PartsProfile {
 	return nil
 }
 
+type GetOrgSubscriptionInfoRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetOrgSubscriptionInfoRequest) Reset() {
+	*x = GetOrgSubscriptionInfoRequest{}
+	mi := &file_users_organization_organization_proto_msgTypes[52]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOrgSubscriptionInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOrgSubscriptionInfoRequest) ProtoMessage() {}
+
+func (x *GetOrgSubscriptionInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[52]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOrgSubscriptionInfoRequest.ProtoReflect.Descriptor instead.
+func (*GetOrgSubscriptionInfoRequest) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{52}
+}
+
+func (x *GetOrgSubscriptionInfoRequest) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+type GetOrgSubscriptionInfoResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	GroupId        int64                  `protobuf:"varint,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // derived from OrganizationType
+	CityId         int64                  `protobuf:"varint,3,opt,name=city_id,json=cityId,proto3" json:"city_id,omitempty"`
+	PostsCount     int32                  `protobuf:"varint,4,opt,name=posts_count,json=postsCount,proto3" json:"posts_count,omitempty"`
+	IsRented       bool                   `protobuf:"varint,5,opt,name=is_rented,json=isRented,proto3" json:"is_rented,omitempty"`
+	OrgType        OrganizationType       `protobuf:"varint,6,opt,name=org_type,json=orgType,proto3,enum=users.organization.v1.OrganizationType" json:"org_type,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetOrgSubscriptionInfoResponse) Reset() {
+	*x = GetOrgSubscriptionInfoResponse{}
+	mi := &file_users_organization_organization_proto_msgTypes[53]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOrgSubscriptionInfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOrgSubscriptionInfoResponse) ProtoMessage() {}
+
+func (x *GetOrgSubscriptionInfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_users_organization_organization_proto_msgTypes[53]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOrgSubscriptionInfoResponse.ProtoReflect.Descriptor instead.
+func (*GetOrgSubscriptionInfoResponse) Descriptor() ([]byte, []int) {
+	return file_users_organization_organization_proto_rawDescGZIP(), []int{53}
+}
+
+func (x *GetOrgSubscriptionInfoResponse) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *GetOrgSubscriptionInfoResponse) GetGroupId() int64 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
+func (x *GetOrgSubscriptionInfoResponse) GetCityId() int64 {
+	if x != nil {
+		return x.CityId
+	}
+	return 0
+}
+
+func (x *GetOrgSubscriptionInfoResponse) GetPostsCount() int32 {
+	if x != nil {
+		return x.PostsCount
+	}
+	return 0
+}
+
+func (x *GetOrgSubscriptionInfoResponse) GetIsRented() bool {
+	if x != nil {
+		return x.IsRented
+	}
+	return false
+}
+
+func (x *GetOrgSubscriptionInfoResponse) GetOrgType() OrganizationType {
+	if x != nil {
+		return x.OrgType
+	}
+	return OrganizationType_ORGANIZATION_TYPE_UNSPECIFIED
+}
+
 var File_users_organization_organization_proto protoreflect.FileDescriptor
 
 const file_users_organization_organization_proto_rawDesc = "" +
 	"\n" +
-	"%users/organization/organization.proto\x12\x15users.organization.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdb\a\n" +
+	"%users/organization/organization.proto\x12\x15users.organization.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x99\b\n" +
 	"\fOrganization\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12;\n" +
@@ -3562,7 +3706,10 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"carMakeIds\x12\"\n" +
 	"\rcar_model_ids\x18\x18 \x03(\x03R\vcarModelIds\x12 \n" +
 	"\tyear_from\x18\x19 \x01(\x05H\x03R\byearFrom\x88\x01\x01\x12\x1c\n" +
-	"\ayear_to\x18\x1a \x01(\x05H\x04R\x06yearTo\x88\x01\x01B\f\n" +
+	"\ayear_to\x18\x1a \x01(\x05H\x04R\x06yearTo\x88\x01\x01\x12\x1b\n" +
+	"\tis_rented\x18\x1b \x01(\bR\bisRented\x12\x1f\n" +
+	"\vposts_count\x18\x1c \x01(\x05R\n" +
+	"postsCountB\f\n" +
 	"\n" +
 	"_legacy_idB\v\n" +
 	"\t_latitudeB\f\n" +
@@ -3847,7 +3994,17 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\rparts_profile\x18\x03 \x01(\v2#.users.organization.v1.PartsProfileH\x02R\fpartsProfile\x88\x01\x01B\x0e\n" +
 	"\f_sto_profileB\x12\n" +
 	"\x10_carwash_profileB\x10\n" +
-	"\x0e_parts_profile*\xe0\x02\n" +
+	"\x0e_parts_profile\"H\n" +
+	"\x1dGetOrgSubscriptionInfoRequest\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\"\xff\x01\n" +
+	"\x1eGetOrgSubscriptionInfoResponse\x12'\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\x03R\agroupId\x12\x17\n" +
+	"\acity_id\x18\x03 \x01(\x03R\x06cityId\x12\x1f\n" +
+	"\vposts_count\x18\x04 \x01(\x05R\n" +
+	"postsCount\x12\x1b\n" +
+	"\tis_rented\x18\x05 \x01(\bR\bisRented\x12B\n" +
+	"\borg_type\x18\x06 \x01(\x0e2'.users.organization.v1.OrganizationTypeR\aorgType*\xe0\x02\n" +
 	"\x10OrganizationType\x12!\n" +
 	"\x1dORGANIZATION_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15ORGANIZATION_TYPE_STO\x10\x01\x12\x1f\n" +
@@ -3862,7 +4019,7 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\fMemberStatus\x12\x1d\n" +
 	"\x19MEMBER_STATUS_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14MEMBER_STATUS_ACTIVE\x10\x01\x12\x17\n" +
-	"\x13MEMBER_STATUS_FIRED\x10\x022\xbc\x12\n" +
+	"\x13MEMBER_STATUS_FIRED\x10\x022\xcd\x13\n" +
 	"\x13OrganizationService\x12y\n" +
 	"\x12CreateOrganization\x120.users.organization.v1.CreateOrganizationRequest\x1a1.users.organization.v1.CreateOrganizationResponse\x12p\n" +
 	"\x0fGetOrganization\x12-.users.organization.v1.GetOrganizationRequest\x1a..users.organization.v1.GetOrganizationResponse\x12y\n" +
@@ -3886,7 +4043,8 @@ const file_users_organization_organization_proto_rawDesc = "" +
 	"\x0fCheckPermission\x12-.users.organization.v1.CheckPermissionRequest\x1a..users.organization.v1.CheckPermissionResponse\x12[\n" +
 	"\bGetRoles\x12&.users.organization.v1.GetRolesRequest\x1a'.users.organization.v1.GetRolesResponse\x12j\n" +
 	"\rGetOrgProfile\x12+.users.organization.v1.GetOrgProfileRequest\x1a,.users.organization.v1.GetOrgProfileResponse\x12s\n" +
-	"\x10UpdateOrgProfile\x12..users.organization.v1.UpdateOrgProfileRequest\x1a/.users.organization.v1.UpdateOrgProfileResponseBEZCgitlab.com/xakpro/cg-proto/gen/go/users/organization;organizationv1b\x06proto3"
+	"\x10UpdateOrgProfile\x12..users.organization.v1.UpdateOrgProfileRequest\x1a/.users.organization.v1.UpdateOrgProfileResponse\x12\x8e\x01\n" +
+	"\x1fGetOrganizationSubscriptionInfo\x124.users.organization.v1.GetOrgSubscriptionInfoRequest\x1a5.users.organization.v1.GetOrgSubscriptionInfoResponseBEZCgitlab.com/xakpro/cg-proto/gen/go/users/organization;organizationv1b\x06proto3"
 
 var (
 	file_users_organization_organization_proto_rawDescOnce sync.Once
@@ -3901,75 +4059,77 @@ func file_users_organization_organization_proto_rawDescGZIP() []byte {
 }
 
 var file_users_organization_organization_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
+var file_users_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 54)
 var file_users_organization_organization_proto_goTypes = []any{
-	(OrganizationType)(0),                // 0: users.organization.v1.OrganizationType
-	(MemberStatus)(0),                    // 1: users.organization.v1.MemberStatus
-	(*Organization)(nil),                 // 2: users.organization.v1.Organization
-	(*OrganizationSettings)(nil),         // 3: users.organization.v1.OrganizationSettings
-	(*WorkingHours)(nil),                 // 4: users.organization.v1.WorkingHours
-	(*Member)(nil),                       // 5: users.organization.v1.Member
-	(*Role)(nil),                         // 6: users.organization.v1.Role
-	(*InviteCode)(nil),                   // 7: users.organization.v1.InviteCode
-	(*CreateOrganizationRequest)(nil),    // 8: users.organization.v1.CreateOrganizationRequest
-	(*CreateOrganizationResponse)(nil),   // 9: users.organization.v1.CreateOrganizationResponse
-	(*GetOrganizationRequest)(nil),       // 10: users.organization.v1.GetOrganizationRequest
-	(*GetOrganizationResponse)(nil),      // 11: users.organization.v1.GetOrganizationResponse
-	(*UpdateOrganizationRequest)(nil),    // 12: users.organization.v1.UpdateOrganizationRequest
-	(*UpdateOrganizationResponse)(nil),   // 13: users.organization.v1.UpdateOrganizationResponse
-	(*DeleteOrganizationRequest)(nil),    // 14: users.organization.v1.DeleteOrganizationRequest
-	(*DeleteOrganizationResponse)(nil),   // 15: users.organization.v1.DeleteOrganizationResponse
-	(*GetMyOrganizationsRequest)(nil),    // 16: users.organization.v1.GetMyOrganizationsRequest
-	(*GetMyOrganizationsResponse)(nil),   // 17: users.organization.v1.GetMyOrganizationsResponse
-	(*OrganizationMembership)(nil),       // 18: users.organization.v1.OrganizationMembership
-	(*AddMemberRequest)(nil),             // 19: users.organization.v1.AddMemberRequest
-	(*AddMemberResponse)(nil),            // 20: users.organization.v1.AddMemberResponse
-	(*FireMemberRequest)(nil),            // 21: users.organization.v1.FireMemberRequest
-	(*FireMemberResponse)(nil),           // 22: users.organization.v1.FireMemberResponse
-	(*UpdateMemberRoleRequest)(nil),      // 23: users.organization.v1.UpdateMemberRoleRequest
-	(*UpdateMemberRoleResponse)(nil),     // 24: users.organization.v1.UpdateMemberRoleResponse
-	(*GetMembersRequest)(nil),            // 25: users.organization.v1.GetMembersRequest
-	(*GetMembersResponse)(nil),           // 26: users.organization.v1.GetMembersResponse
-	(*GetMemberRequest)(nil),             // 27: users.organization.v1.GetMemberRequest
-	(*GetMemberResponse)(nil),            // 28: users.organization.v1.GetMemberResponse
-	(*CreateInviteCodeRequest)(nil),      // 29: users.organization.v1.CreateInviteCodeRequest
-	(*CreateInviteCodeResponse)(nil),     // 30: users.organization.v1.CreateInviteCodeResponse
-	(*UseInviteCodeRequest)(nil),         // 31: users.organization.v1.UseInviteCodeRequest
-	(*UseInviteCodeResponse)(nil),        // 32: users.organization.v1.UseInviteCodeResponse
-	(*GetInviteCodesRequest)(nil),        // 33: users.organization.v1.GetInviteCodesRequest
-	(*GetInviteCodesResponse)(nil),       // 34: users.organization.v1.GetInviteCodesResponse
-	(*DeactivateInviteCodeRequest)(nil),  // 35: users.organization.v1.DeactivateInviteCodeRequest
-	(*DeactivateInviteCodeResponse)(nil), // 36: users.organization.v1.DeactivateInviteCodeResponse
-	(*CheckPermissionRequest)(nil),       // 37: users.organization.v1.CheckPermissionRequest
-	(*CheckPermissionResponse)(nil),      // 38: users.organization.v1.CheckPermissionResponse
-	(*GetRolesRequest)(nil),              // 39: users.organization.v1.GetRolesRequest
-	(*GetRolesResponse)(nil),             // 40: users.organization.v1.GetRolesResponse
-	(*UpsertByLegacyIDRequest)(nil),      // 41: users.organization.v1.UpsertByLegacyIDRequest
-	(*UpsertByLegacyIDResponse)(nil),     // 42: users.organization.v1.UpsertByLegacyIDResponse
-	(*SetCategoriesRequest)(nil),         // 43: users.organization.v1.SetCategoriesRequest
-	(*SetCategoriesResponse)(nil),        // 44: users.organization.v1.SetCategoriesResponse
-	(*GetCategoriesRequest)(nil),         // 45: users.organization.v1.GetCategoriesRequest
-	(*GetCategoriesResponse)(nil),        // 46: users.organization.v1.GetCategoriesResponse
-	(*STOProfile)(nil),                   // 47: users.organization.v1.STOProfile
-	(*CarWashProfile)(nil),               // 48: users.organization.v1.CarWashProfile
-	(*PartsProfile)(nil),                 // 49: users.organization.v1.PartsProfile
-	(*GetOrgProfileRequest)(nil),         // 50: users.organization.v1.GetOrgProfileRequest
-	(*GetOrgProfileResponse)(nil),        // 51: users.organization.v1.GetOrgProfileResponse
-	(*UpdateOrgProfileRequest)(nil),      // 52: users.organization.v1.UpdateOrgProfileRequest
-	(*UpdateOrgProfileResponse)(nil),     // 53: users.organization.v1.UpdateOrgProfileResponse
-	(*timestamppb.Timestamp)(nil),        // 54: google.protobuf.Timestamp
+	(OrganizationType)(0),                  // 0: users.organization.v1.OrganizationType
+	(MemberStatus)(0),                      // 1: users.organization.v1.MemberStatus
+	(*Organization)(nil),                   // 2: users.organization.v1.Organization
+	(*OrganizationSettings)(nil),           // 3: users.organization.v1.OrganizationSettings
+	(*WorkingHours)(nil),                   // 4: users.organization.v1.WorkingHours
+	(*Member)(nil),                         // 5: users.organization.v1.Member
+	(*Role)(nil),                           // 6: users.organization.v1.Role
+	(*InviteCode)(nil),                     // 7: users.organization.v1.InviteCode
+	(*CreateOrganizationRequest)(nil),      // 8: users.organization.v1.CreateOrganizationRequest
+	(*CreateOrganizationResponse)(nil),     // 9: users.organization.v1.CreateOrganizationResponse
+	(*GetOrganizationRequest)(nil),         // 10: users.organization.v1.GetOrganizationRequest
+	(*GetOrganizationResponse)(nil),        // 11: users.organization.v1.GetOrganizationResponse
+	(*UpdateOrganizationRequest)(nil),      // 12: users.organization.v1.UpdateOrganizationRequest
+	(*UpdateOrganizationResponse)(nil),     // 13: users.organization.v1.UpdateOrganizationResponse
+	(*DeleteOrganizationRequest)(nil),      // 14: users.organization.v1.DeleteOrganizationRequest
+	(*DeleteOrganizationResponse)(nil),     // 15: users.organization.v1.DeleteOrganizationResponse
+	(*GetMyOrganizationsRequest)(nil),      // 16: users.organization.v1.GetMyOrganizationsRequest
+	(*GetMyOrganizationsResponse)(nil),     // 17: users.organization.v1.GetMyOrganizationsResponse
+	(*OrganizationMembership)(nil),         // 18: users.organization.v1.OrganizationMembership
+	(*AddMemberRequest)(nil),               // 19: users.organization.v1.AddMemberRequest
+	(*AddMemberResponse)(nil),              // 20: users.organization.v1.AddMemberResponse
+	(*FireMemberRequest)(nil),              // 21: users.organization.v1.FireMemberRequest
+	(*FireMemberResponse)(nil),             // 22: users.organization.v1.FireMemberResponse
+	(*UpdateMemberRoleRequest)(nil),        // 23: users.organization.v1.UpdateMemberRoleRequest
+	(*UpdateMemberRoleResponse)(nil),       // 24: users.organization.v1.UpdateMemberRoleResponse
+	(*GetMembersRequest)(nil),              // 25: users.organization.v1.GetMembersRequest
+	(*GetMembersResponse)(nil),             // 26: users.organization.v1.GetMembersResponse
+	(*GetMemberRequest)(nil),               // 27: users.organization.v1.GetMemberRequest
+	(*GetMemberResponse)(nil),              // 28: users.organization.v1.GetMemberResponse
+	(*CreateInviteCodeRequest)(nil),        // 29: users.organization.v1.CreateInviteCodeRequest
+	(*CreateInviteCodeResponse)(nil),       // 30: users.organization.v1.CreateInviteCodeResponse
+	(*UseInviteCodeRequest)(nil),           // 31: users.organization.v1.UseInviteCodeRequest
+	(*UseInviteCodeResponse)(nil),          // 32: users.organization.v1.UseInviteCodeResponse
+	(*GetInviteCodesRequest)(nil),          // 33: users.organization.v1.GetInviteCodesRequest
+	(*GetInviteCodesResponse)(nil),         // 34: users.organization.v1.GetInviteCodesResponse
+	(*DeactivateInviteCodeRequest)(nil),    // 35: users.organization.v1.DeactivateInviteCodeRequest
+	(*DeactivateInviteCodeResponse)(nil),   // 36: users.organization.v1.DeactivateInviteCodeResponse
+	(*CheckPermissionRequest)(nil),         // 37: users.organization.v1.CheckPermissionRequest
+	(*CheckPermissionResponse)(nil),        // 38: users.organization.v1.CheckPermissionResponse
+	(*GetRolesRequest)(nil),                // 39: users.organization.v1.GetRolesRequest
+	(*GetRolesResponse)(nil),               // 40: users.organization.v1.GetRolesResponse
+	(*UpsertByLegacyIDRequest)(nil),        // 41: users.organization.v1.UpsertByLegacyIDRequest
+	(*UpsertByLegacyIDResponse)(nil),       // 42: users.organization.v1.UpsertByLegacyIDResponse
+	(*SetCategoriesRequest)(nil),           // 43: users.organization.v1.SetCategoriesRequest
+	(*SetCategoriesResponse)(nil),          // 44: users.organization.v1.SetCategoriesResponse
+	(*GetCategoriesRequest)(nil),           // 45: users.organization.v1.GetCategoriesRequest
+	(*GetCategoriesResponse)(nil),          // 46: users.organization.v1.GetCategoriesResponse
+	(*STOProfile)(nil),                     // 47: users.organization.v1.STOProfile
+	(*CarWashProfile)(nil),                 // 48: users.organization.v1.CarWashProfile
+	(*PartsProfile)(nil),                   // 49: users.organization.v1.PartsProfile
+	(*GetOrgProfileRequest)(nil),           // 50: users.organization.v1.GetOrgProfileRequest
+	(*GetOrgProfileResponse)(nil),          // 51: users.organization.v1.GetOrgProfileResponse
+	(*UpdateOrgProfileRequest)(nil),        // 52: users.organization.v1.UpdateOrgProfileRequest
+	(*UpdateOrgProfileResponse)(nil),       // 53: users.organization.v1.UpdateOrgProfileResponse
+	(*GetOrgSubscriptionInfoRequest)(nil),  // 54: users.organization.v1.GetOrgSubscriptionInfoRequest
+	(*GetOrgSubscriptionInfoResponse)(nil), // 55: users.organization.v1.GetOrgSubscriptionInfoResponse
+	(*timestamppb.Timestamp)(nil),          // 56: google.protobuf.Timestamp
 }
 var file_users_organization_organization_proto_depIdxs = []int32{
 	0,  // 0: users.organization.v1.Organization.type:type_name -> users.organization.v1.OrganizationType
 	3,  // 1: users.organization.v1.Organization.settings:type_name -> users.organization.v1.OrganizationSettings
-	54, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
-	54, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
+	56, // 2: users.organization.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
+	56, // 3: users.organization.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
 	4,  // 4: users.organization.v1.OrganizationSettings.working_hours:type_name -> users.organization.v1.WorkingHours
 	1,  // 5: users.organization.v1.Member.status:type_name -> users.organization.v1.MemberStatus
-	54, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
-	54, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
-	54, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
-	54, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
+	56, // 6: users.organization.v1.Member.hired_at:type_name -> google.protobuf.Timestamp
+	56, // 7: users.organization.v1.Member.fired_at:type_name -> google.protobuf.Timestamp
+	56, // 8: users.organization.v1.InviteCode.created_at:type_name -> google.protobuf.Timestamp
+	56, // 9: users.organization.v1.InviteCode.expires_at:type_name -> google.protobuf.Timestamp
 	0,  // 10: users.organization.v1.CreateOrganizationRequest.type:type_name -> users.organization.v1.OrganizationType
 	2,  // 11: users.organization.v1.CreateOrganizationResponse.organization:type_name -> users.organization.v1.Organization
 	2,  // 12: users.organization.v1.GetOrganizationResponse.organization:type_name -> users.organization.v1.Organization
@@ -3990,12 +4150,12 @@ var file_users_organization_organization_proto_depIdxs = []int32{
 	6,  // 27: users.organization.v1.GetRolesResponse.roles:type_name -> users.organization.v1.Role
 	0,  // 28: users.organization.v1.UpsertByLegacyIDRequest.type:type_name -> users.organization.v1.OrganizationType
 	2,  // 29: users.organization.v1.UpsertByLegacyIDResponse.organization:type_name -> users.organization.v1.Organization
-	54, // 30: users.organization.v1.STOProfile.created_at:type_name -> google.protobuf.Timestamp
-	54, // 31: users.organization.v1.STOProfile.updated_at:type_name -> google.protobuf.Timestamp
-	54, // 32: users.organization.v1.CarWashProfile.created_at:type_name -> google.protobuf.Timestamp
-	54, // 33: users.organization.v1.CarWashProfile.updated_at:type_name -> google.protobuf.Timestamp
-	54, // 34: users.organization.v1.PartsProfile.created_at:type_name -> google.protobuf.Timestamp
-	54, // 35: users.organization.v1.PartsProfile.updated_at:type_name -> google.protobuf.Timestamp
+	56, // 30: users.organization.v1.STOProfile.created_at:type_name -> google.protobuf.Timestamp
+	56, // 31: users.organization.v1.STOProfile.updated_at:type_name -> google.protobuf.Timestamp
+	56, // 32: users.organization.v1.CarWashProfile.created_at:type_name -> google.protobuf.Timestamp
+	56, // 33: users.organization.v1.CarWashProfile.updated_at:type_name -> google.protobuf.Timestamp
+	56, // 34: users.organization.v1.PartsProfile.created_at:type_name -> google.protobuf.Timestamp
+	56, // 35: users.organization.v1.PartsProfile.updated_at:type_name -> google.protobuf.Timestamp
 	47, // 36: users.organization.v1.GetOrgProfileResponse.sto_profile:type_name -> users.organization.v1.STOProfile
 	48, // 37: users.organization.v1.GetOrgProfileResponse.carwash_profile:type_name -> users.organization.v1.CarWashProfile
 	49, // 38: users.organization.v1.GetOrgProfileResponse.parts_profile:type_name -> users.organization.v1.PartsProfile
@@ -4005,53 +4165,56 @@ var file_users_organization_organization_proto_depIdxs = []int32{
 	47, // 42: users.organization.v1.UpdateOrgProfileResponse.sto_profile:type_name -> users.organization.v1.STOProfile
 	48, // 43: users.organization.v1.UpdateOrgProfileResponse.carwash_profile:type_name -> users.organization.v1.CarWashProfile
 	49, // 44: users.organization.v1.UpdateOrgProfileResponse.parts_profile:type_name -> users.organization.v1.PartsProfile
-	8,  // 45: users.organization.v1.OrganizationService.CreateOrganization:input_type -> users.organization.v1.CreateOrganizationRequest
-	10, // 46: users.organization.v1.OrganizationService.GetOrganization:input_type -> users.organization.v1.GetOrganizationRequest
-	12, // 47: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
-	14, // 48: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
-	16, // 49: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
-	41, // 50: users.organization.v1.OrganizationService.UpsertByLegacyID:input_type -> users.organization.v1.UpsertByLegacyIDRequest
-	43, // 51: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
-	45, // 52: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
-	19, // 53: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
-	21, // 54: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
-	23, // 55: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
-	25, // 56: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
-	27, // 57: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
-	29, // 58: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
-	31, // 59: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
-	33, // 60: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
-	35, // 61: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
-	37, // 62: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
-	39, // 63: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
-	50, // 64: users.organization.v1.OrganizationService.GetOrgProfile:input_type -> users.organization.v1.GetOrgProfileRequest
-	52, // 65: users.organization.v1.OrganizationService.UpdateOrgProfile:input_type -> users.organization.v1.UpdateOrgProfileRequest
-	9,  // 66: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
-	11, // 67: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
-	13, // 68: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
-	15, // 69: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
-	17, // 70: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
-	42, // 71: users.organization.v1.OrganizationService.UpsertByLegacyID:output_type -> users.organization.v1.UpsertByLegacyIDResponse
-	44, // 72: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
-	46, // 73: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
-	20, // 74: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
-	22, // 75: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
-	24, // 76: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
-	26, // 77: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
-	28, // 78: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
-	30, // 79: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
-	32, // 80: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
-	34, // 81: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
-	36, // 82: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
-	38, // 83: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
-	40, // 84: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
-	51, // 85: users.organization.v1.OrganizationService.GetOrgProfile:output_type -> users.organization.v1.GetOrgProfileResponse
-	53, // 86: users.organization.v1.OrganizationService.UpdateOrgProfile:output_type -> users.organization.v1.UpdateOrgProfileResponse
-	66, // [66:87] is the sub-list for method output_type
-	45, // [45:66] is the sub-list for method input_type
-	45, // [45:45] is the sub-list for extension type_name
-	45, // [45:45] is the sub-list for extension extendee
-	0,  // [0:45] is the sub-list for field type_name
+	0,  // 45: users.organization.v1.GetOrgSubscriptionInfoResponse.org_type:type_name -> users.organization.v1.OrganizationType
+	8,  // 46: users.organization.v1.OrganizationService.CreateOrganization:input_type -> users.organization.v1.CreateOrganizationRequest
+	10, // 47: users.organization.v1.OrganizationService.GetOrganization:input_type -> users.organization.v1.GetOrganizationRequest
+	12, // 48: users.organization.v1.OrganizationService.UpdateOrganization:input_type -> users.organization.v1.UpdateOrganizationRequest
+	14, // 49: users.organization.v1.OrganizationService.DeleteOrganization:input_type -> users.organization.v1.DeleteOrganizationRequest
+	16, // 50: users.organization.v1.OrganizationService.GetMyOrganizations:input_type -> users.organization.v1.GetMyOrganizationsRequest
+	41, // 51: users.organization.v1.OrganizationService.UpsertByLegacyID:input_type -> users.organization.v1.UpsertByLegacyIDRequest
+	43, // 52: users.organization.v1.OrganizationService.SetCategories:input_type -> users.organization.v1.SetCategoriesRequest
+	45, // 53: users.organization.v1.OrganizationService.GetCategories:input_type -> users.organization.v1.GetCategoriesRequest
+	19, // 54: users.organization.v1.OrganizationService.AddMember:input_type -> users.organization.v1.AddMemberRequest
+	21, // 55: users.organization.v1.OrganizationService.FireMember:input_type -> users.organization.v1.FireMemberRequest
+	23, // 56: users.organization.v1.OrganizationService.UpdateMemberRole:input_type -> users.organization.v1.UpdateMemberRoleRequest
+	25, // 57: users.organization.v1.OrganizationService.GetMembers:input_type -> users.organization.v1.GetMembersRequest
+	27, // 58: users.organization.v1.OrganizationService.GetMember:input_type -> users.organization.v1.GetMemberRequest
+	29, // 59: users.organization.v1.OrganizationService.CreateInviteCode:input_type -> users.organization.v1.CreateInviteCodeRequest
+	31, // 60: users.organization.v1.OrganizationService.UseInviteCode:input_type -> users.organization.v1.UseInviteCodeRequest
+	33, // 61: users.organization.v1.OrganizationService.GetInviteCodes:input_type -> users.organization.v1.GetInviteCodesRequest
+	35, // 62: users.organization.v1.OrganizationService.DeactivateInviteCode:input_type -> users.organization.v1.DeactivateInviteCodeRequest
+	37, // 63: users.organization.v1.OrganizationService.CheckPermission:input_type -> users.organization.v1.CheckPermissionRequest
+	39, // 64: users.organization.v1.OrganizationService.GetRoles:input_type -> users.organization.v1.GetRolesRequest
+	50, // 65: users.organization.v1.OrganizationService.GetOrgProfile:input_type -> users.organization.v1.GetOrgProfileRequest
+	52, // 66: users.organization.v1.OrganizationService.UpdateOrgProfile:input_type -> users.organization.v1.UpdateOrgProfileRequest
+	54, // 67: users.organization.v1.OrganizationService.GetOrganizationSubscriptionInfo:input_type -> users.organization.v1.GetOrgSubscriptionInfoRequest
+	9,  // 68: users.organization.v1.OrganizationService.CreateOrganization:output_type -> users.organization.v1.CreateOrganizationResponse
+	11, // 69: users.organization.v1.OrganizationService.GetOrganization:output_type -> users.organization.v1.GetOrganizationResponse
+	13, // 70: users.organization.v1.OrganizationService.UpdateOrganization:output_type -> users.organization.v1.UpdateOrganizationResponse
+	15, // 71: users.organization.v1.OrganizationService.DeleteOrganization:output_type -> users.organization.v1.DeleteOrganizationResponse
+	17, // 72: users.organization.v1.OrganizationService.GetMyOrganizations:output_type -> users.organization.v1.GetMyOrganizationsResponse
+	42, // 73: users.organization.v1.OrganizationService.UpsertByLegacyID:output_type -> users.organization.v1.UpsertByLegacyIDResponse
+	44, // 74: users.organization.v1.OrganizationService.SetCategories:output_type -> users.organization.v1.SetCategoriesResponse
+	46, // 75: users.organization.v1.OrganizationService.GetCategories:output_type -> users.organization.v1.GetCategoriesResponse
+	20, // 76: users.organization.v1.OrganizationService.AddMember:output_type -> users.organization.v1.AddMemberResponse
+	22, // 77: users.organization.v1.OrganizationService.FireMember:output_type -> users.organization.v1.FireMemberResponse
+	24, // 78: users.organization.v1.OrganizationService.UpdateMemberRole:output_type -> users.organization.v1.UpdateMemberRoleResponse
+	26, // 79: users.organization.v1.OrganizationService.GetMembers:output_type -> users.organization.v1.GetMembersResponse
+	28, // 80: users.organization.v1.OrganizationService.GetMember:output_type -> users.organization.v1.GetMemberResponse
+	30, // 81: users.organization.v1.OrganizationService.CreateInviteCode:output_type -> users.organization.v1.CreateInviteCodeResponse
+	32, // 82: users.organization.v1.OrganizationService.UseInviteCode:output_type -> users.organization.v1.UseInviteCodeResponse
+	34, // 83: users.organization.v1.OrganizationService.GetInviteCodes:output_type -> users.organization.v1.GetInviteCodesResponse
+	36, // 84: users.organization.v1.OrganizationService.DeactivateInviteCode:output_type -> users.organization.v1.DeactivateInviteCodeResponse
+	38, // 85: users.organization.v1.OrganizationService.CheckPermission:output_type -> users.organization.v1.CheckPermissionResponse
+	40, // 86: users.organization.v1.OrganizationService.GetRoles:output_type -> users.organization.v1.GetRolesResponse
+	51, // 87: users.organization.v1.OrganizationService.GetOrgProfile:output_type -> users.organization.v1.GetOrgProfileResponse
+	53, // 88: users.organization.v1.OrganizationService.UpdateOrgProfile:output_type -> users.organization.v1.UpdateOrgProfileResponse
+	55, // 89: users.organization.v1.OrganizationService.GetOrganizationSubscriptionInfo:output_type -> users.organization.v1.GetOrgSubscriptionInfoResponse
+	68, // [68:90] is the sub-list for method output_type
+	46, // [46:68] is the sub-list for method input_type
+	46, // [46:46] is the sub-list for extension type_name
+	46, // [46:46] is the sub-list for extension extendee
+	0,  // [0:46] is the sub-list for field type_name
 }
 
 func init() { file_users_organization_organization_proto_init() }
@@ -4072,7 +4235,7 @@ func file_users_organization_organization_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_users_organization_organization_proto_rawDesc), len(file_users_organization_organization_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   52,
+			NumMessages:   54,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

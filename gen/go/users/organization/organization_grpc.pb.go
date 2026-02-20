@@ -19,27 +19,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrganizationService_CreateOrganization_FullMethodName   = "/users.organization.v1.OrganizationService/CreateOrganization"
-	OrganizationService_GetOrganization_FullMethodName      = "/users.organization.v1.OrganizationService/GetOrganization"
-	OrganizationService_UpdateOrganization_FullMethodName   = "/users.organization.v1.OrganizationService/UpdateOrganization"
-	OrganizationService_DeleteOrganization_FullMethodName   = "/users.organization.v1.OrganizationService/DeleteOrganization"
-	OrganizationService_GetMyOrganizations_FullMethodName   = "/users.organization.v1.OrganizationService/GetMyOrganizations"
-	OrganizationService_UpsertByLegacyID_FullMethodName     = "/users.organization.v1.OrganizationService/UpsertByLegacyID"
-	OrganizationService_SetCategories_FullMethodName        = "/users.organization.v1.OrganizationService/SetCategories"
-	OrganizationService_GetCategories_FullMethodName        = "/users.organization.v1.OrganizationService/GetCategories"
-	OrganizationService_AddMember_FullMethodName            = "/users.organization.v1.OrganizationService/AddMember"
-	OrganizationService_FireMember_FullMethodName           = "/users.organization.v1.OrganizationService/FireMember"
-	OrganizationService_UpdateMemberRole_FullMethodName     = "/users.organization.v1.OrganizationService/UpdateMemberRole"
-	OrganizationService_GetMembers_FullMethodName           = "/users.organization.v1.OrganizationService/GetMembers"
-	OrganizationService_GetMember_FullMethodName            = "/users.organization.v1.OrganizationService/GetMember"
-	OrganizationService_CreateInviteCode_FullMethodName     = "/users.organization.v1.OrganizationService/CreateInviteCode"
-	OrganizationService_UseInviteCode_FullMethodName        = "/users.organization.v1.OrganizationService/UseInviteCode"
-	OrganizationService_GetInviteCodes_FullMethodName       = "/users.organization.v1.OrganizationService/GetInviteCodes"
-	OrganizationService_DeactivateInviteCode_FullMethodName = "/users.organization.v1.OrganizationService/DeactivateInviteCode"
-	OrganizationService_CheckPermission_FullMethodName      = "/users.organization.v1.OrganizationService/CheckPermission"
-	OrganizationService_GetRoles_FullMethodName             = "/users.organization.v1.OrganizationService/GetRoles"
-	OrganizationService_GetOrgProfile_FullMethodName        = "/users.organization.v1.OrganizationService/GetOrgProfile"
-	OrganizationService_UpdateOrgProfile_FullMethodName     = "/users.organization.v1.OrganizationService/UpdateOrgProfile"
+	OrganizationService_CreateOrganization_FullMethodName              = "/users.organization.v1.OrganizationService/CreateOrganization"
+	OrganizationService_GetOrganization_FullMethodName                 = "/users.organization.v1.OrganizationService/GetOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName              = "/users.organization.v1.OrganizationService/UpdateOrganization"
+	OrganizationService_DeleteOrganization_FullMethodName              = "/users.organization.v1.OrganizationService/DeleteOrganization"
+	OrganizationService_GetMyOrganizations_FullMethodName              = "/users.organization.v1.OrganizationService/GetMyOrganizations"
+	OrganizationService_UpsertByLegacyID_FullMethodName                = "/users.organization.v1.OrganizationService/UpsertByLegacyID"
+	OrganizationService_SetCategories_FullMethodName                   = "/users.organization.v1.OrganizationService/SetCategories"
+	OrganizationService_GetCategories_FullMethodName                   = "/users.organization.v1.OrganizationService/GetCategories"
+	OrganizationService_AddMember_FullMethodName                       = "/users.organization.v1.OrganizationService/AddMember"
+	OrganizationService_FireMember_FullMethodName                      = "/users.organization.v1.OrganizationService/FireMember"
+	OrganizationService_UpdateMemberRole_FullMethodName                = "/users.organization.v1.OrganizationService/UpdateMemberRole"
+	OrganizationService_GetMembers_FullMethodName                      = "/users.organization.v1.OrganizationService/GetMembers"
+	OrganizationService_GetMember_FullMethodName                       = "/users.organization.v1.OrganizationService/GetMember"
+	OrganizationService_CreateInviteCode_FullMethodName                = "/users.organization.v1.OrganizationService/CreateInviteCode"
+	OrganizationService_UseInviteCode_FullMethodName                   = "/users.organization.v1.OrganizationService/UseInviteCode"
+	OrganizationService_GetInviteCodes_FullMethodName                  = "/users.organization.v1.OrganizationService/GetInviteCodes"
+	OrganizationService_DeactivateInviteCode_FullMethodName            = "/users.organization.v1.OrganizationService/DeactivateInviteCode"
+	OrganizationService_CheckPermission_FullMethodName                 = "/users.organization.v1.OrganizationService/CheckPermission"
+	OrganizationService_GetRoles_FullMethodName                        = "/users.organization.v1.OrganizationService/GetRoles"
+	OrganizationService_GetOrgProfile_FullMethodName                   = "/users.organization.v1.OrganizationService/GetOrgProfile"
+	OrganizationService_UpdateOrgProfile_FullMethodName                = "/users.organization.v1.OrganizationService/UpdateOrgProfile"
+	OrganizationService_GetOrganizationSubscriptionInfo_FullMethodName = "/users.organization.v1.OrganizationService/GetOrganizationSubscriptionInfo"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -78,6 +79,8 @@ type OrganizationServiceClient interface {
 	// Organization profiles (type-specific settings)
 	GetOrgProfile(ctx context.Context, in *GetOrgProfileRequest, opts ...grpc.CallOption) (*GetOrgProfileResponse, error)
 	UpdateOrgProfile(ctx context.Context, in *UpdateOrgProfileRequest, opts ...grpc.CallOption) (*UpdateOrgProfileResponse, error)
+	// Subscription info (for payment service)
+	GetOrganizationSubscriptionInfo(ctx context.Context, in *GetOrgSubscriptionInfoRequest, opts ...grpc.CallOption) (*GetOrgSubscriptionInfoResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -298,6 +301,16 @@ func (c *organizationServiceClient) UpdateOrgProfile(ctx context.Context, in *Up
 	return out, nil
 }
 
+func (c *organizationServiceClient) GetOrganizationSubscriptionInfo(ctx context.Context, in *GetOrgSubscriptionInfoRequest, opts ...grpc.CallOption) (*GetOrgSubscriptionInfoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetOrgSubscriptionInfoResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetOrganizationSubscriptionInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -334,6 +347,8 @@ type OrganizationServiceServer interface {
 	// Organization profiles (type-specific settings)
 	GetOrgProfile(context.Context, *GetOrgProfileRequest) (*GetOrgProfileResponse, error)
 	UpdateOrgProfile(context.Context, *UpdateOrgProfileRequest) (*UpdateOrgProfileResponse, error)
+	// Subscription info (for payment service)
+	GetOrganizationSubscriptionInfo(context.Context, *GetOrgSubscriptionInfoRequest) (*GetOrgSubscriptionInfoResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -406,6 +421,9 @@ func (UnimplementedOrganizationServiceServer) GetOrgProfile(context.Context, *Ge
 }
 func (UnimplementedOrganizationServiceServer) UpdateOrgProfile(context.Context, *UpdateOrgProfileRequest) (*UpdateOrgProfileResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateOrgProfile not implemented")
+}
+func (UnimplementedOrganizationServiceServer) GetOrganizationSubscriptionInfo(context.Context, *GetOrgSubscriptionInfoRequest) (*GetOrgSubscriptionInfoResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetOrganizationSubscriptionInfo not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -806,6 +824,24 @@ func _OrganizationService_UpdateOrgProfile_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_GetOrganizationSubscriptionInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrgSubscriptionInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).GetOrganizationSubscriptionInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_GetOrganizationSubscriptionInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).GetOrganizationSubscriptionInfo(ctx, req.(*GetOrgSubscriptionInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -896,6 +932,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrgProfile",
 			Handler:    _OrganizationService_UpdateOrgProfile_Handler,
+		},
+		{
+			MethodName: "GetOrganizationSubscriptionInfo",
+			Handler:    _OrganizationService_GetOrganizationSubscriptionInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

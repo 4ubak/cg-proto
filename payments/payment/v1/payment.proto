@@ -19,6 +19,7 @@ service PaymentService {
   rpc GetSubscriptionsByOrg(GetSubscriptionsByOrgRequest) returns (GetSubscriptionsByOrgResponse);
   rpc CancelSubscription(CancelSubscriptionRequest) returns (CancelSubscriptionResponse);
   rpc CheckBidAccess(CheckBidAccessRequest) returns (CheckBidAccessResponse);
+  rpc CalculateSubscriptionPrice(CalculateSubscriptionPriceRequest) returns (CalculateSubscriptionPriceResponse);
 
   // === Transactions (admin) ===
   rpc ListTransactions(ListTransactionsRequest) returns (ListTransactionsResponse);
@@ -177,6 +178,8 @@ message Plan {
   repeated PlanPrice prices = 10;
   google.protobuf.Timestamp created_at = 11;
   google.protobuf.Timestamp updated_at = 12;
+  int64 group_id = 13;
+  int64 city_id = 14;
 }
 
 message PlanPrice {
@@ -197,6 +200,8 @@ message PlanPriceTier {
   int32 max_value = 4;
   int64 price_amount = 5;
   string currency = 6;
+  bool is_per_unit = 7;
+  int32 rental_discount_percent = 8;
 }
 
 message Subscription {
@@ -372,6 +377,8 @@ message AuditLogEntry {
 message ListPlansRequest {
   string org_type = 1;
   bool active_only = 2;
+  int64 group_id = 3;
+  int64 city_id = 4;
 }
 
 message ListPlansResponse {
@@ -386,6 +393,8 @@ message CreatePlanRequest {
   PlanType plan_type = 5;
   map<string, string> features = 6;
   int32 sort_order = 7;
+  int64 group_id = 8;
+  int64 city_id = 9;
 }
 
 message CreatePlanResponse {
@@ -424,6 +433,8 @@ message PlanPriceTierInput {
   int32 max_value = 3;
   int64 price_amount = 4;
   string currency = 5;
+  bool is_per_unit = 6;
+  int32 rental_discount_percent = 7;
 }
 
 message SetPlanPricesResponse {
@@ -441,6 +452,10 @@ message CreateSubscriptionRequest {
   PaymentMethod payment_method = 4;
   map<string, string> tier_attributes = 5;
   string idempotency_key = 6;
+  int64 group_id = 7;
+  int64 city_id = 8;
+  int32 posts_count = 9;
+  bool is_rented = 10;
 }
 
 message CreateSubscriptionResponse {
@@ -478,11 +493,30 @@ message CancelSubscriptionResponse {
 message CheckBidAccessRequest {
   string organization_id = 1;
   string org_type = 2;
+  int64 city_id = 3;
 }
 
 message CheckBidAccessResponse {
   bool has_access = 1;
   string access_type = 2;  // "subscription" or "bid_purchase"
+}
+
+message CalculateSubscriptionPriceRequest {
+  int64 group_id = 1;
+  int64 city_id = 2;
+  int32 posts_count = 3;
+  bool is_rented = 4;
+  int32 period_months = 5;
+}
+
+message CalculateSubscriptionPriceResponse {
+  int64 base_price = 1;
+  int64 rental_discount = 2;
+  int64 period_discount = 3;
+  int64 final_price = 4;
+  string currency = 5;
+  bool is_free = 6;
+  string price_breakdown = 7;
 }
 
 // =============================================
